@@ -1,0 +1,23 @@
+url: ~
+template:
+  bootstrap: 5
+  bootswatch: yeti
+navbar:
+  title: "PopGenHelpR"
+  desc: >
+    PopGenHelpR allows researchers to estimate commonly used population genomic statistics and to generate publication quality figures. The current version of PopGenHelpR uses vcf and csv files to generate output, however, future implementations will expand the input file type options.
+  structure:
+    left: [Manual, Articles]
+    right: [github]
+  components:
+    Manual:
+      text: Manual
+      href: reference/index.html
+    Articles:
+      text: Articles
+      menu:
+      - text: Vignette
+        href: articles/PopGenHelpR_vignette.html
+    github:
+      icon: fa-github
+      href: https://github.com/kfarleigh/PopGenHelpR

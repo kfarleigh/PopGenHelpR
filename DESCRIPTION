@@ -1,0 +1,42 @@
+Package: PopGenHelpR
+Title: A package to streamline population genomic and genetic analyses
+Version: 1.0.0
+Authors@R: 
+    c(person("Keaka", "Farleigh", , "keakafarleigh@gmail.com", role = c("aut","cph", "cre"), comment = c(ORCID = "0000-0002-9195-121X")),
+    person("Dr. Mason", "Murphy", , "momurph@bgsu.edu", role = c("aut","cph", "ctb"), comment = c(ORCID = "0000-0002-5317-1386")),
+    person("Dr. Christopher", "Blair", , "cblair@citytech.cuny.edu", role = c("aut","cph", "ctb"), comment = c(ORCID = "0000-0002-4782-6788")),
+    person("Dr. Tereza", "Jezkova", , "jezkovt@miamioh.edu", role = c("aut","cph", "ctb"), comment = c(ORCID = "0000-0003-4114-4564")))
+Description: PopGenHelpR allows researchers to estimate commonly used population genomic statistics and to generate publication quality figures. The current version of PopGenHelpR uses vcf and csv files to generate output, however, future implementations will expand the input file type options.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Imports: 
+    adegenet,
+    dartR, 
+    dplyr, 
+    ggplot2,
+    graphics,
+    gstat,
+    hierfstat,
+    magrittr,
+    poppr,
+    raster,
+    reshape2,
+    rnaturalearth,
+    scatterpie,
+    StAMPP,
+    stats,
+    sp,
+    spdep,
+    utils,
+    vcfR
+Depends: 
+    R (>= 2.10)
+LazyData: true
+VignetteBuilder: knitr
