@@ -20,7 +20,8 @@ navbar:
     github:
       icon: fa-github
       href: https://github.com/kfarleigh/PopGenHelpR
- sidebar:
+home:
+  sidebar:
     structure: [links, license, citation, authors, dev]
     components:
       custom:
