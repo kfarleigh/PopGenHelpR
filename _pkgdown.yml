@@ -25,7 +25,8 @@ navbar:
       left: developed_by
       right: [Funding]
     components:
-      Funding:
-        text: PopGenHelpr is funded by a National Science Foundation (NSF) Gradauate Reserach Fellowship to KF (Award #2037786), NSF CB (Award #), and NSF Career Grant to TJ (Award #)
+      custom:
+        title: Funding
+        text: PopGenHelpR is funded by a National Science Foundation (NSF) Gradauate Reserach Fellowship to KF (Award #2037786), NSF CB (Award #), and NSF Career Grant to TJ (Award #)
     
     
