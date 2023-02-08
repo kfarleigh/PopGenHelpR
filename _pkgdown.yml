@@ -22,9 +22,9 @@ navbar:
       href: https://github.com/kfarleigh/PopGenHelpR
 home:
   sidebar:
-    structure: [links, license, citation, authors, dev]
+    structure: [links, license, citation, authors, dev, funding]
     components:
-      custom:
+      funding:
         title: Funding
         text: PopGenHelpR is funded by a National Science Foundation (NSF) Gradauate Reserach Fellowship to KF (Award #2037786), NSF CB (Award #), and NSF Career Grant to TJ (Award #)
     
