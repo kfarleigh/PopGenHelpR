@@ -20,10 +20,8 @@ navbar:
     github:
       icon: fa-github
       href: https://github.com/kfarleigh/PopGenHelpR
- footer:
-    structure: 
-      left: developed_by
-      right: [Funding]
+ sidebar:
+    structure: [links, license, citation, authors, dev]
     components:
       custom:
         title: Funding
