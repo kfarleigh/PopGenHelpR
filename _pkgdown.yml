@@ -25,7 +25,7 @@ home:
     structure: [links, license, citation, authors, dev, funding]
     components:
       funding:
-        title: Funding
-        text: PopGenHelpR is funded by a National Science Foundation (NSF) Gradauate Reserach Fellowship to KF (Award #2037786), NSF CB (Award #), and NSF Career Grant to TJ (Award #)
+        - title: Funding
+        - text: PopGenHelpR is funded by a National Science Foundation (NSF) Gradauate Reserach Fellowship to KF (Award #2037786), NSF CB (Award #), and NSF Career Grant to TJ (Award #)
     
     
