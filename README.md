@@ -23,5 +23,7 @@ You can install the development version of *PopGenHelpR* using devtools:
 devtools::install_github("kfarleigh/PopGenHelpR")
 ```
 
+## Funding
+*PopGenHelpR* is funded by an National Science Foundation (NSF) Graduate Research Fellowship to KF (Award #2037786), an NSF grant to CB (DEB-1929679, and an NSF career grant to TJ (DEB-2144047).
 
 
