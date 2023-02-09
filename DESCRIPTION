@@ -1,13 +1,14 @@
 Package: PopGenHelpR
-Title: A package to streamline population genomic and genetic analyses
+Title: A Package to Streamline Population Genomic and Genetic Analyses
 Version: 1.0.0
 Authors@R: 
     c(person("Keaka", "Farleigh", , "keakafarleigh@gmail.com", role = c("aut","cph", "cre"), comment = c(ORCID = "0000-0002-9195-121X")),
     person("Mason", "Murphy", , "momurph@bgsu.edu", role = c("aut","cph", "ctb"), comment = c(ORCID = "0000-0002-5317-1386")),
     person("Christopher", "Blair", , "cblair@citytech.cuny.edu", role = c("aut","cph", "ctb"), comment = c(ORCID = "0000-0002-4782-6788")),
     person("Tereza", "Jezkova", , "jezkovt@miamioh.edu", role = c("aut","cph", "ctb"), comment = c(ORCID = "0000-0003-4114-4564")))
-Description: PopGenHelpR allows researchers to estimate commonly used population genomic statistics and to generate publication quality figures. The current version of PopGenHelpR uses vcf and csv files to generate output, however, future implementations will expand the input file type options.
-URL: https://github.com/kfarleigh/PopGenHelpR
+Description: Estimate commonly used population genomic statistics and generate publication quality figures. The current version of PopGenHelpR uses vcf and csv files to generate output, however, future implementations will expand the input file type options.
+URL: https://kfarleigh.github.io/PopGenHelpR/
+BugReports: https://github.com/kfarleigh/PopGenHelpR/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -26,10 +26,12 @@ data(Het_dat)
 Data frame containing 5 columns and 3 rows
 }
 \examples{
+ \donttest{
 data(Het_dat)
 Test_het <- Div_Stats_Map(dat = Het_dat, plot.type = 'point',
 statistic = "Heterozygosity", countries = c('united states of america', 'mexico'),
 Lat_buffer = 1, Long_buffer = 1, prefix = 'Test_het')
+}
 
 }
 \keyword{datasets}
