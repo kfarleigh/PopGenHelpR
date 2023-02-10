@@ -39,7 +39,7 @@ A list containing the map and the matrix used to plot the map.
 A function to map differentiation statistics.
 }
 \examples{
-\dontrun{
+\donttest{
 data(Fst_dat)
 Fst <- Fst_dat[[1]]
 Loc <- Fst_dat[[2]]

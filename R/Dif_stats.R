@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' Test <- Dif_stats(VCF = 'my_vcf.vcf', pops = 'my_popmap.csv',
 #' ploidy = 2, statistic = "both", boots = 10, prefix = 'Test')}
 Dif_stats <- function(VCF, pops, ploidy, statistic, boots, prefix) {

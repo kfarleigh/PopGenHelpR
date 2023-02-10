@@ -14,7 +14,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data(Q_dat)
 #' Qmat <- Q_dat[[1]]
 #' Loc <- Q_dat[[2]]

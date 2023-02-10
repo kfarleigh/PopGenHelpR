@@ -39,7 +39,7 @@ A list containing your plots and the data frames used to generate the plots.
 Plot an ancestry matrix and map of ancestry pie charts.
 }
 \examples{
-\dontrun{
+\donttest{
 data(Q_dat)
 Qmat <- Q_dat[[1]]
 Loc <- Q_dat[[2]]

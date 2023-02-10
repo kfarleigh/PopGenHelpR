@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' Test <- Div_stats('my_vcf.vcf', 'my_popmap.csv',
 #' ploidy = 2, prefix = 'Test')}
 Div_stats <- function(VCF, pops, ploidy, prefix) {

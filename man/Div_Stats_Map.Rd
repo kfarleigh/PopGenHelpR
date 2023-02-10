@@ -42,7 +42,7 @@ A list containing maps and the data frames used to generate them.
 A function to map diversity statistics.
 }
 \examples{
-\dontrun{
+\donttest{
 data(Het_dat)
 Test_het <- Div_Stats_Map(dat = Het_dat, plot.type = 'all',
 statistic = "Heterozygosity", countries = c('united states of america', 'mexico'),

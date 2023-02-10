@@ -20,7 +20,7 @@ A heatmap plot
 A function to plot a heatmap from a symmetric matrix.
 }
 \examples{
-\dontrun{
+\donttest{
 #' data(Fst_dat)
 Fst <- Fst_dat[[1]]
 Fstat_plot <- Pairwise_heatmap(dat = Fst, statistic = 'FST')}

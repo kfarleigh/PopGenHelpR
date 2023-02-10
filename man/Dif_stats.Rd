@@ -26,7 +26,7 @@ A list contianing data frames for the requested statistic.
 A function to calculate differentiation statistics and perform significance testing with a vcf file.
 }
 \examples{
-\dontrun{
+\donttest{
 Test <- Dif_stats(VCF = 'my_vcf.vcf', pops = 'my_popmap.csv',
 ploidy = 2, statistic = "both", boots = 10, prefix = 'Test')}
 }

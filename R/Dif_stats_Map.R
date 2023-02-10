@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data(Fst_dat)
 #' Fst <- Fst_dat[[1]]
 #' Loc <- Fst_dat[[2]]

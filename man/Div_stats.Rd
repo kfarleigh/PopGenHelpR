@@ -22,7 +22,7 @@ A list containing the estimated diversity statistics, model output from linear r
 A function to estimate heterozygosity and the number of private alleles from a vcf file.
 }
 \examples{
-\dontrun{
+\donttest{
 Test <- Div_stats('my_vcf.vcf', 'my_popmap.csv',
 ploidy = 2, prefix = 'Test')}
 }
