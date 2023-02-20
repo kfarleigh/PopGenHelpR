@@ -85,7 +85,10 @@ you have any questions about the package.You can also visit our Github
 for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR/" class="external-link uri">https://kfarleigh.github.io/PopGenHelpR/</a>)</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the package</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kfarleigh.github.io/PopGenHelpR/" class="external-link">PopGenHelpR</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kfarleigh.github.io/PopGenHelpR/" class="external-link">PopGenHelpR</a></span><span class="op">)</span></span>
+<span><span class="co"># Install rnaturalearthhires if you need it</span></span>
+<span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="co"># devtools::install_github("ropensci/rnaturalearthhires")</span></span></code></pre></div>
 <p>First, we will load the data. These data objects are examples of
 input that can be used in the functions Dif_stats_Map, Div_Stats_Map,
 Pairwise_heatmap, and Plot_ancestry.</p>
@@ -97,7 +100,7 @@ Pairwise_heatmap, and Plot_ancestry.</p>
 <h3 id="ancestry-plots">Ancestry Plots<a class="anchor" aria-label="anchor" href="#ancestry-plots"></a>
 </h3>
 <p>Now we will use the data in the functions mentioned above. First, we
-will create structure like plots and map pie charts of individual
+will create structure-like plots and map pie charts of individual
 ancestry.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First, we seperate the list elements into two seperate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).</span></span>
@@ -106,7 +109,7 @@ ancestry.</p>
 <span></span>
 <span><span class="co"># Now we will generate both population and individual plots by seeting plot.type to 'all'. If you wanted, you could only generate individual or population plots by setting plot.type to "individual" and "population", respectively.</span></span>
 <span><span class="va">Test_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Plot_ancestry.html">Plot_ancestry</a></span><span class="op">(</span>anc.mat <span class="op">=</span> <span class="va">Qmat</span>, pops <span class="op">=</span> <span class="va">Loc</span>, K <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>plot.type <span class="op">=</span> <span class="st">'all'</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'red'</span>, <span class="st">'orange'</span>, <span class="st">'pink'</span>, <span class="st">'purple'</span>, <span class="st">'blue'</span><span class="op">)</span>, countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"united states of america"</span>, <span class="st">"mexico"</span><span class="op">)</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span>plot.type <span class="op">=</span> <span class="st">'all'</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#d73027'</span>, <span class="st">'#f46d43'</span>, <span class="st">'#e0f3f8'</span>, <span class="st">'#74add1'</span>, <span class="st">'#313695'</span><span class="op">)</span>, countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"united states of america"</span>, <span class="st">"mexico"</span><span class="op">)</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="PopGenHelpR_vignette_files/figure-html/Plot%20Ancestry-1.png" width="700"></p>
 <pre><code><span><span class="co">#&gt; Registered S3 method overwritten by 'ggforce':</span></span>
 <span><span class="co">#&gt;   method           from </span></span>
@@ -141,7 +144,7 @@ and then we will plot the realtionships on a map.</p>
 <span><span class="co"># Look at the plot</span></span>
 <span><span class="va">Fstat_hmap</span></span></code></pre></div>
 <p><img src="PopGenHelpR_vignette_files/figure-html/Differentiation-1.png" width="700"></p>
-<p>The heatmap is useful, but what about putting it on a map. First we
+<p>The heatmap is useful, but what about putting it on a map? First we
 will set a numeric neighbors argument to plot the Fst estimate between
 each population’s closest neighbor. Then we will specify relationships
 that we want to see using the population names.</p>
@@ -149,7 +152,7 @@ that we want to see using the population names.</p>
 <code class="sourceCode R"><span><span class="co"># Closest Neighbor</span></span>
 <span><span class="va">Fst_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Dif_Stats_Map.html">Dif_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>, neighbors <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                     countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'united states of america'</span>, <span class="st">'mexico'</span><span class="op">)</span>,</span>
-<span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#fd8d3c'</span>,<span class="st">'#fc4e2a'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#bd0026'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
+<span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#FFFF00'</span>,<span class="st">'#FFC000'</span>,<span class="st">'#FFA500'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
 <span>                     Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">Fst_map</span><span class="op">$</span><span class="va">`Differentiation Map`</span></span></code></pre></div>
 <p><img src="PopGenHelpR_vignette_files/figure-html/Differentiation%20map-1.png" width="700"></p>
@@ -157,7 +160,7 @@ that we want to see using the population names.</p>
 <code class="sourceCode R"><span></span>
 <span></span>
 <span><span class="va">Fst_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Dif_Stats_Map.html">Dif_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>, neighbors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'East_West'</span>, <span class="st">'East_South'</span>, <span class="st">'South_West'</span><span class="op">)</span>, countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'united states of america'</span>, <span class="st">'mexico'</span><span class="op">)</span>,</span>
-<span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#fd8d3c'</span>,<span class="st">'#fc4e2a'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#bd0026'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
+<span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#FFFF00'</span>,<span class="st">'#FFC000'</span>,<span class="st">'#FFA500'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
 <span>                     Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">Fst_map2</span><span class="op">$</span><span class="va">`Differentiation Map`</span></span></code></pre></div>
 <p><img src="PopGenHelpR_vignette_files/figure-html/Differentiation%20map-2.png" width="700"></p>
