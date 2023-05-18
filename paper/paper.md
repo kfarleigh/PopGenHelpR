@@ -18,14 +18,14 @@ authors:
     affiliation: "3,4"
   - name: Tereza Jezkova 
     orcid: 0000-0003-4114-4564
-    affiliation: 1
-affiliations:
- - name: Department of Biology, Miami University, Oxford, OH 45056, USA
-   index: 1
- - name: Department of Biological Sciences, Bowling Green State University, Bowling Green, OH 43403, USA
-   index: 2
- - name: Department of Biological Sciences, New York City College of Technology, The City University of New York, 285 Jay Street, Brooklyn, NY 11201, USA
-   index: 3
+    affiliation: 1 
+ affiliations:
+  - name: Department of Biology, Miami University, Oxford, OH 45056, USA
+    index: 1
+  - name: Department of Biological Sciences, Bowling Green State University, Bowling Green, OH 43403, USA
+    index: 2
+  - name: Department of Biological Sciences, New York City College of Technology, The City University of New York, 285 Jay Street, Brooklyn, NY 11201, USA
+    index: 3
   - name: Biology PhD Program, CUNY Graduate Center, 365 5th Ave, New York, NY 10016
     index: 4
   date: 18 May 2023
