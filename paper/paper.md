@@ -19,7 +19,7 @@ authors:
   - name: Tereza Jezkova 
     orcid: 0000-0003-4114-4564
     affiliation: 1 
- affiliations:
+affiliations:
   - name: Department of Biology, Miami University, Oxford, OH 45056, USA
     index: 1
   - name: Department of Biological Sciences, Bowling Green State University, Bowling Green, OH 43403, USA
