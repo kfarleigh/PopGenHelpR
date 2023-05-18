@@ -37,8 +37,6 @@ Analysis of genomic datasets is becoming increasingly complex due to the large a
 
 ![Figure 1. The traditional population genomic analysis workflow (a) and the streamlined workflow using PopGenHelpR (b).\label{Fig1}](PopGenHelpR_WRKFLW.png)]
 
-
-
 Herein, we present `PopGenHelpR` to streamline population genomic analyses (Fig. 1). `PopGenHelpR` uses variant calling format files (vcf), the default output of commonly used assembly pipelines (e.g., STACKS: [@Catchen:2013] Ipyrad: [@Eaton:2020]; dDocent: [@Puritz:2014]; Fig. 1) and currently employs wrapper functions to estimate commonly used population genomic statistics such as heterozygosity and FST. `PopGenHelpR` also contains unique plotting functions that generate commonly used visualizations (i.e., a piechart map of ancestry proportions, genetic differentiation heatmaps; Fig. 2). Another advantage of `PopGenHelpR` is that it produces output files near publication quality. Given that formatting, analysis, and visualization across many packages can be time-consuming, `PopGenHelpR` is a valuable tool for any population genomic researcher, especially those with limited coding experience.
 
 ![Figure 2. Example piechart map generated using the Plot_ancestry function in PopGenHelpR. \label{Fig2} ](./Fig2_Piemap.png)
