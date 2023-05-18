@@ -30,7 +30,6 @@ authors:
     index: 4
   date: 18 May 2023
   bibliography: paper.bib
-
 ---
 
 # Summary
