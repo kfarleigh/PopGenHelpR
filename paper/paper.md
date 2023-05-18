@@ -28,8 +28,8 @@ affiliations:
     index: 3
   - name: Biology PhD Program, CUNY Graduate Center, 365 5th Ave, New York, NY 10016
     index: 4
-  date: 18 May 2023
-  bibliography: paper.bib
+date: 18 May 2023
+bibliography: paper.bib
 ---
 
 # Summary
