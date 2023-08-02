@@ -9,17 +9,22 @@
 #' @param Lat_buffer Numeric. A buffer to customize visualization.
 #' @param Long_buffer Numeric. A buffer to customize visualization.
 #' @param prefix  Character string that will be appended to file output.
+#' @param write Boolean. Whether or not to write the output to a file in the current working directory.
 #'
 #' @return A list containing maps and the data frames used to generate them.
+#'
+#' @importFrom rlang .data
+#'
 #' @export
 #'
 #' @examples
 #' \donttest{
+#' if(requireNamespace("rnaturalearthhires", quietly = TRUE)){
 #' data(Het_dat)
 #' Test_het <- Div_Stats_Map(dat = Het_dat, plot.type = 'all',
 #' statistic = "Heterozygosity", countries = c('united states of america', 'mexico'),
-#' Lat_buffer = 1, Long_buffer = 1, prefix = 'Test_het')}
-Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks = NULL, col, Lat_buffer = 1, Long_buffer = 1, prefix = NULL){
+#' Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = 'Test_het')}}
+Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks = NULL, col, Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = NULL){
   Long <- Lat <- x <- y <- z <- NULL
   ################### Get the data for mapping
   # Get map data
@@ -53,10 +58,10 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
   Locs <- Div_mat[,4:5]
 
   ### Get coordinate ranges for our data
-  Lat_Min <- min(Div_mat$Lat) - Lat_buffer
-  Lat_Max <- max(Div_mat$Lat) + Lat_buffer
-  Long_Min <- min(Div_mat$Long) - Long_buffer
-  Long_Max <- max(Div_mat$Long) + Long_buffer
+  Lat_Min <- min(Div_mat$Latitude) - Lat_buffer
+  Lat_Max <- max(Div_mat$Latitude) + Lat_buffer
+  Long_Min <- min(Div_mat$Longitude) - Long_buffer
+  Long_Max <- max(Div_mat$Longitude) + Long_buffer
 
   # Set colors
   # Set breaks
@@ -72,17 +77,17 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
     Breaks <- as.numeric(Breaks)
   }
   Breaks <- round(Breaks,2)
-  if(plot.type == 'all') {
+  if(plot.type == 'all' && write == TRUE) {
     ### Heterozygosity Map
     # Map it with colored points
     Div_map <- base_map + ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
-      ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = Long, y = Lat, color = Div_mat[,1]), shape = 19, size = 3) +
+      ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = .data$Longitude, y = .data$Latitude, color = Div_mat[,1]), shape = 19, size = 3) +
       ggplot2::scale_color_gradient2(low = col[1], mid = col[2], high = col[3], midpoint = mean(Div_mat[,1]), breaks = Breaks, name = statistic) +
       ggplot2::theme(panel.grid=ggplot2::element_blank(), legend.position = "right") +
       ggplot2::xlab('Longitude') + ggplot2::ylab('Latitude')
 
     # Interpolate the values
-    sp::coordinates(Locs) <- c('Long', 'Lat')
+    sp::coordinates(Locs) <- c('Longitude', 'Latitude')
     grd <- as.data.frame(sp::spsample(Locs,'regular', n=100000))
     names(grd) <- c("X", "Y")
     sp::coordinates(grd) <- c("X", "Y")
@@ -104,7 +109,7 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
 
     Div_inter_map <- ras_map +
       ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
-      ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = Long, y = Lat), size = 3, shape = 21, fill = 'gray', color = "black") +
+      ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = .data$Longitude, y = .data$Latitude), size = 3, shape = 21, fill = 'gray', color = "black") +
       ggplot2::xlab("Longitude") + ggplot2::ylab ("Latitude") +
       ggplot2::theme(panel.background = ggplot2::element_rect(color = "lightgray"), panel.grid = ggplot2::element_blank(),
                      axis.line = ggplot2::element_blank())
@@ -115,13 +120,56 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
     Output <- list(Div_map, Div_inter_map, Div_mat)
     names(Output) <- c(paste(statistic," Map", sep = ""), paste("Interpolated ", statistic," Map", sep = ""), "Plotting Dataframe")
     return(Output)
-
   }
-  else if(plot.type == 'point'){
+
+    else if(plot.type == 'all' && write == FALSE) {
+      ### Heterozygosity Map
+      # Map it with colored points
+      Div_map <- base_map + ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
+        ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = .data$Longitude, y = .data$Latitude, color = Div_mat[,1]), shape = 19, size = 3) +
+        ggplot2::scale_color_gradient2(low = col[1], mid = col[2], high = col[3], midpoint = mean(Div_mat[,1]), breaks = Breaks, name = statistic) +
+        ggplot2::theme(panel.grid=ggplot2::element_blank(), legend.position = "right") +
+        ggplot2::xlab('Longitude') + ggplot2::ylab('Latitude')
+
+      # Interpolate the values
+      sp::coordinates(Locs) <- c('Longitude', 'Latitude')
+      grd <- as.data.frame(sp::spsample(Locs,'regular', n=100000))
+      names(grd) <- c("X", "Y")
+      sp::coordinates(grd) <- c("X", "Y")
+      sp::gridded(grd)     <- TRUE  # Create SpatialPixel object
+      sp::fullgrid(grd)    <- TRUE  # Create SpatialGrid object
+      P.idw <- gstat::idw(Div_mat[,1] ~ 1, Locs, newdata=grd, idp=2.0)
+
+      r   <- raster::raster(P.idw)
+      R_pts <- raster::rasterToPoints(r, spatial = TRUE)
+      R_df <- data.frame(R_pts)
+      colnames(R_df)[1] <- 'z'
+
+      ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = world, fill = 'grey99') +
+        ggplot2::geom_raster(data = R_df, ggplot2::aes(x = x, y= y, fill = z)) +
+        ggplot2::scale_fill_gradientn(colors = col, name = statistic)
+      for(i in 1:length(countries)) {
+        ras_map <- ras_map + ggplot2::geom_sf(data = Country_borders[[i]], fill = "NA")
+      }
+
+      Div_inter_map <- ras_map +
+        ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
+        ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = .data$Longitude, y = .data$Latitude), size = 3, shape = 21, fill = 'gray', color = "black") +
+        ggplot2::xlab("Longitude") + ggplot2::ylab ("Latitude") +
+        ggplot2::theme(panel.background = ggplot2::element_rect(color = "lightgray"), panel.grid = ggplot2::element_blank(),
+                       axis.line = ggplot2::element_blank())
+      # Write out the interpolated raster for use in GIS software
+      raster::crs(r) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+
+      Output <- list(Div_map, Div_inter_map, Div_mat)
+      names(Output) <- c(paste(statistic," Map", sep = ""), paste("Interpolated ", statistic," Map", sep = ""), "Plotting Dataframe")
+      return(Output)
+    }
+      else if(plot.type == 'point'){
     ### Heterozygosity Map
     # Map it with colored points
     Div_map <- base_map + ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
-      ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = Long, y = Lat, color = Div_mat[,1]), shape = 19, size = 3) +
+      ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = .data$Longitude, y = .data$Latitude, color = Div_mat[,1]), shape = 19, size = 3) +
       ggplot2::scale_color_gradient2(low = col[1], mid = col[2], high = col[3], midpoint = mean(Div_mat[,1]), breaks = Breaks, name = statistic) +
       ggplot2::theme(panel.grid=ggplot2::element_blank(), legend.position = "right") +
       ggplot2::xlab('Longitude') + ggplot2::ylab('Latitude')
@@ -129,10 +177,10 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
     Output <- list(Div_map, Div_mat)
     names(Output) <- c(paste(statistic," Map", sep = ""), "Plotting Dataframe")
     return(Output)
-  }
-  else if(plot.type == 'interpolated'){
+    }
+      else if(plot.type == 'interpolated' && write == TRUE){
 
-    sp::coordinates(Locs) <- c('Long', 'Lat')
+    sp::coordinates(Locs) <- c('Longitude', 'Latitude')
     grd <- as.data.frame(sp::spsample(Locs,'regular', n=100000))
     names(grd) <- c("X", "Y")
     sp::coordinates(grd) <- c("X", "Y")
@@ -154,7 +202,7 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
 
     Div_inter_map <- ras_map +
       ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
-      ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = Long, y = Lat), size = 3, shape = 21, fill = 'gray', color = "black") +
+      ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = .data$Longitude, y = .data$Latitude), size = 3, shape = 21, fill = 'gray', color = "black") +
       ggplot2::xlab("Longitude") + ggplot2::ylab ("Latitude") +
       ggplot2::theme(panel.background = ggplot2::element_rect(color = "lightgray"), panel.grid = ggplot2::element_blank(),
                      axis.line = ggplot2::element_blank())
@@ -165,6 +213,42 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
     Output <- list(Div_inter_map, Div_mat)
     names(Output) <- c(paste("Interpolated ", statistic," Map", sep = ""), "Plotting Dataframe")
     return(Output)
-  }
+    } else if(plot.type == 'interpolated' && write == FALSE){
+
+      sp::coordinates(Locs) <- c('Longitude', 'Latitude')
+      grd <- as.data.frame(sp::spsample(Locs,'regular', n=100000))
+      names(grd) <- c("X", "Y")
+      sp::coordinates(grd) <- c("X", "Y")
+      sp::gridded(grd)     <- TRUE  # Create SpatialPixel object
+      sp::fullgrid(grd)    <- TRUE  # Create SpatialGrid object
+      P.idw <- gstat::idw(Div_mat[,1] ~ 1, Locs, newdata=grd, idp=2.0)
+
+      r   <- raster::raster(P.idw)
+      R_pts <- raster::rasterToPoints(r, spatial = TRUE)
+      R_df <- data.frame(R_pts)
+      colnames(R_df)[1] <- 'z'
+
+      ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = world, fill = 'grey99') +
+        ggplot2::geom_raster(data = R_df, ggplot2::aes(x = x, y= y, fill = z)) +
+        ggplot2::scale_fill_gradientn(colors = col, name = statistic)
+      for(i in 1:length(countries)) {
+        ras_map <- ras_map + ggplot2::geom_sf(data = Country_borders[[i]], fill = "NA")
+      }
+
+      Div_inter_map <- ras_map +
+        ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
+        ggplot2::geom_point(data = Div_mat, ggplot2::aes(x = .data$Longitude, y = .data$Latitude), size = 3, shape = 21, fill = 'gray', color = "black") +
+        ggplot2::xlab("Longitude") + ggplot2::ylab ("Latitude") +
+        ggplot2::theme(panel.background = ggplot2::element_rect(color = "lightgray"), panel.grid = ggplot2::element_blank(),
+                       axis.line = ggplot2::element_blank())
+      # Write out the interpolated raster for use in GIS software
+      raster::crs(r) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+
+      Output <- list(Div_inter_map, Div_mat)
+      names(Output) <- c(paste("Interpolated ", statistic," Map", sep = ""), "Plotting Dataframe")
+      return(Output)
+    }
+
+
 
 }

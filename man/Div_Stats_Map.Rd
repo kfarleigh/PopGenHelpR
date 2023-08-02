@@ -13,6 +13,7 @@ Div_Stats_Map(
   col,
   Lat_buffer = 1,
   Long_buffer = 1,
+  write = FALSE,
   prefix = NULL
 )
 }
@@ -33,6 +34,8 @@ Div_Stats_Map(
 
 \item{Long_buffer}{Numeric. A buffer to customize visualization.}
 
+\item{write}{Boolean. Whether or not to write the output to a file in the current working directory.}
+
 \item{prefix}{Character string that will be appended to file output.}
 }
 \value{
@@ -43,8 +46,9 @@ A function to map diversity statistics.
 }
 \examples{
 \donttest{
+if(requireNamespace("rnaturalearthhires", quietly = TRUE)){
 data(Het_dat)
 Test_het <- Div_Stats_Map(dat = Het_dat, plot.type = 'all',
 statistic = "Heterozygosity", countries = c('united states of america', 'mexico'),
-Lat_buffer = 1, Long_buffer = 1, prefix = 'Test_het')}
+Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = 'Test_het')}}
 }

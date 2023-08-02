@@ -40,10 +40,11 @@ A function to map differentiation statistics.
 }
 \examples{
 \donttest{
+if(requireNamespace("rnaturalearthhires", quietly = TRUE)){
 data(Fst_dat)
 Fst <- Fst_dat[[1]]
 Loc <- Fst_dat[[2]]
 Test <- Dif_Stats_Map(dat = Fst, pops = Loc,
 neighbors = 2, countries = c('united states of america', 'mexico'),
-col = c('#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'),Lat_buffer = 1, Long_buffer = 1)}
+col = c('#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'),Lat_buffer = 1, Long_buffer = 1)}}
 }

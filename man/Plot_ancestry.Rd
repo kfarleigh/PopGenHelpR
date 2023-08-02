@@ -40,10 +40,11 @@ Plot an ancestry matrix and map of ancestry pie charts.
 }
 \examples{
 \donttest{
-data(Q_dat)
+if(requireNamespace("rnaturalearthhires", quietly = TRUE)){data(Q_dat)
 Qmat <- Q_dat[[1]]
+rownames(Qmat) <- Qmat[,1]
 Loc <- Q_dat[[2]]
 Test_all <- Plot_ancestry(anc.mat = Qmat, pops = Loc, K = 5,
-plot.type = 'all', col = c('red', 'orange', 'pink', 'purple', 'blue'),
-countries = c("united states of america", "mexico"), Lat_buffer = 1, Long_buffer = 1)}
+plot.type = 'all', col <- c('red', 'maroon', 'navy', 'cyan', 'blue'),
+countries = c("united states of america", "mexico"), Lat_buffer = 1, Long_buffer = 1)}}
 }

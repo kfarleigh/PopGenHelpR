@@ -4,14 +4,16 @@
 \alias{Div_stats}
 \title{A function to estimate heterozygosity and the number of private alleles from a vcf file.}
 \usage{
-Div_stats(VCF, pops, ploidy, prefix)
+Div_stats(VCF, pops, ploidy, write = FALSE, prefix)
 }
 \arguments{
 \item{VCF}{Character string indicating the name of the vcf file to be used in analysis.}
 
-\item{pops}{Character string indicating the name of the population assignment file. This file should have four columns and be in the same order as your vcf file. The first column named Sample indicates the sample name. The second column named Population indicates the population assignment of each individual. The third column named Long indicates the longitude of the sample.  The fourth column named Lat indicates the latitude of the sample.}
+\item{pops}{Character string indicating the name of the population assignment file. This file should have four columns and be in the same order as your vcf file. The first column named Sample indicates the sample name. The second column named Population indicates the population assignment of each individual. The third column named Longitude indicates the longitude of the sample.  The fourth column named Latitude indicates the latitude of the sample.}
 
 \item{ploidy}{Numeric. The ploidy of the data.}
+
+\item{write}{Boolean. Whether or not to write the output to a file in the current working directory.}
 
 \item{prefix}{Character string that will be appended to file output.}
 }
@@ -23,6 +25,8 @@ A function to estimate heterozygosity and the number of private alleles from a v
 }
 \examples{
 \donttest{
-Test <- Div_stats('my_vcf.vcf', 'my_popmap.csv',
-ploidy = 2, prefix = 'Test')}
+data("HornedLizard_Pop")
+data("HornedLizard_VCF")
+Test <- Div_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
+ploidy = 2, write = FALSE)}
 }

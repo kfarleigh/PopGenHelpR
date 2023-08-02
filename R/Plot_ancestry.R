@@ -15,14 +15,15 @@
 #'
 #' @examples
 #' \donttest{
-#' data(Q_dat)
+#' if(requireNamespace("rnaturalearthhires", quietly = TRUE)){data(Q_dat)
 #' Qmat <- Q_dat[[1]]
+#' rownames(Qmat) <- Qmat[,1]
 #' Loc <- Q_dat[[2]]
 #' Test_all <- Plot_ancestry(anc.mat = Qmat, pops = Loc, K = 5,
-#' plot.type = 'all', col = c('red', 'orange', 'pink', 'purple', 'blue'),
-#' countries = c("united states of america", "mexico"), Lat_buffer = 1, Long_buffer = 1)}
+#' plot.type = 'all', col <- c('red', 'maroon', 'navy', 'cyan', 'blue'),
+#' countries = c("united states of america", "mexico"), Lat_buffer = 1, Long_buffer = 1)}}
 Plot_ancestry <- function(anc.mat, pops, K, plot.type = 'all', col, countries, Lat_buffer, Long_buffer){
-  Pop <- aes <- Long <- Lat <- NULL
+  Pop <- coeff <- Sample <- value <- variable <- aes <- Long <- Lat <- NULL
   # Read in ancestry matrix and pop file
   if(missing(anc.mat)){
     stop("Please supply an ancestry matrix file for plotting, if you have questions
@@ -39,6 +40,15 @@ Plot_ancestry <- function(anc.mat, pops, K, plot.type = 'all', col, countries, L
   }
   else if(is.character(pops) == TRUE){
     Pops <- utils::read.csv(pops)
+  }
+  if(missing(col)){
+    stop("Please supply a vector of colors for plotting")
+  }
+  else if(length(col) < K){
+    stop("Please supply at least as many colors as your K value")
+  }
+  else{
+    col <- col
   }
 
   # Pull coordinates
@@ -70,20 +80,38 @@ Plot_ancestry <- function(anc.mat, pops, K, plot.type = 'all', col, countries, L
 
   if(plot.type == 'all') {
     # Individual plots
-    graphics::barplot(t(as.matrix(Ind_anc[,2:ncol(Ind_anc)])), col=col,
-            space = 0, xlab="Individual", ylab = "Ancestry proportions",
-            border=NA, axisnames = FALSE)
-    graphics::axis(1, at = 1:nrow(Ind_anc),labels = Pops$Sample, las=2 ,cex.axis = .4)
+    colnames(Ind_anc) <- c("Sample", paste0(rep("cluster", K), 1:K))
+    qmatrix_melt <- reshape2::melt(Ind_anc, id = 'Sample', value = coeff)
+
+    Indplot <- qmatrix_melt %>% ggplot2::ggplot(ggplot2::aes(x= Sample)) +
+      ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
+      ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
+      ggplot2::scale_color_manual(values = col[c(1:K)], guide = "none") +
+      ggplot2::theme_minimal() +
+      ggplot2::labs(y = "Ancestry Proportion", x = "") +
+      ggplot2::theme(panel.grid.major.x = ggplot2::element_blank(),
+                     panel.grid = ggplot2::element_blank()) +
+      ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+      ggplot2::scale_x_continuous(breaks = 1:nrow(Ind_anc),labels = unique(qmatrix_melt$Sample))
+
     # Population plots
     Pop_anc <- Ind_anc[,-1]
     Pop_anc$Pop <- Pops$Population
     Pop_anc[,c(ncol(Pop_anc) +1,ncol(Pop_anc) +2)] <- Pops[,3:4]
-    Pop_anc <- Pop_anc %>% dplyr::group_by(Pop) %>% dplyr::summarise(dplyr::across(,mean, na.rm = TRUE))
+    Pop_anc <- Pop_anc %>% dplyr::group_by(Pop) %>% dplyr::summarise(dplyr::across(dplyr::everything(), mean, na.rm = TRUE))
+    Pop_anc_coeff <- Pop_anc[,c(1:(K+1))]
+    qmatrix_melt_pop <- reshape2::melt(Pop_anc_coeff, id = 'Pop', value = coeff)
 
-    graphics::barplot(t(as.matrix(Pop_anc[,2:(K+1)])), col=col,
-            space = 0, xlab="Population", ylab = "Ancestry proportions",
-            border=NA, axisnames = FALSE)
-    graphics::axis(1, at = 1:nrow(Pop_anc),labels = Pop_anc$Pop, las=2 ,cex.axis = .4)
+    Popplot <- qmatrix_melt_pop %>% ggplot2::ggplot(ggplot2::aes(x= Pop)) +
+      ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
+      ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
+      ggplot2::scale_color_manual(values = col[c(1:K)], guide = "none") +
+      ggplot2::theme_minimal() +
+      ggplot2::labs(y = "Ancestry Proportion", x = "") +
+      ggplot2::theme(panel.grid.major.x = ggplot2::element_blank(),
+                     panel.grid = ggplot2::element_blank()) +
+      ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+      ggplot2::scale_x_continuous(breaks = 1:nrow(Pop_anc),labels = unique(qmatrix_melt_pop$Pop))
 
     # Map individuals
 
@@ -105,15 +133,24 @@ Plot_ancestry <- function(anc.mat, pops, K, plot.type = 'all', col, countries, L
                                  labels = c(paste('Cluster', 1:K, sep = ' ')),
                                  values = c(col[1], col[2], col[3], col[4], col[5], col[6], col[7], col[8], col[9], col[10])) +
       ggplot2::theme(panel.grid=ggplot2::element_blank(), legend.position = "none") + ggplot2::xlab('Longitude') + ggplot2::ylab('Latitude')
-    Output_all <- list(Ind_anc, Pop_anc, Ind_map, Pop_map)
-    names(Output_all) <- c("Individual Ancestry Matrix", "Population Ancestry Matrix", "Individual Map", "Population Map")
+    Output_all <- list(Ind_anc, Pop_anc, Indplot, Popplot, Ind_map, Pop_map)
+    names(Output_all) <- c("Individual Ancestry Matrix", "Population Ancestry Matrix", "Individual Ancestry Plot", "Population Ancestry Plot", "Individual Map", "Population Map")
     return(Output_all)
   }
   else if(plot.type == 'individual'){
-    graphics::barplot(t(as.matrix(Ind_anc[,2:ncol(Ind_anc)])), col=col,
-            space = 0, xlab="Individual", ylab = "Ancestry proportions",
-            border=NA, axisnames = FALSE)
-    graphics::axis(1, at = 1:nrow(Ind_anc),labels = Pops$Sample, las=2 ,cex.axis = .4)
+    colnames(Ind_anc) <- c("Sample", paste0(rep("cluster", K), 1:K))
+    qmatrix_melt <- reshape2::melt(Ind_anc, id = 'Sample', value = coeff)
+
+    Indplot <- qmatrix_melt %>% ggplot2::ggplot(ggplot2::aes(x= Sample)) +
+      ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
+      ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
+      ggplot2::scale_color_manual(values = col[c(1:K)], guide = "none") +
+      ggplot2::theme_minimal() +
+      ggplot2::labs(y = "Ancestry Proportion", x = "") +
+      ggplot2::theme(panel.grid.major.x = ggplot2::element_blank(),
+                     panel.grid = ggplot2::element_blank()) +
+      ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+      ggplot2::scale_x_continuous(breaks = 1:nrow(Ind_anc),labels = unique(qmatrix_melt$Sample))
 
     # Add coordinates to the individual ancestry data frame
     Ind_anc[,c(ncol(Ind_anc) +1,ncol(Ind_anc) +2)] <- Pops[,3:4]
@@ -130,15 +167,24 @@ Plot_ancestry <- function(anc.mat, pops, K, plot.type = 'all', col, countries, L
   }
 
   else if(plot.type == 'population'){
+    # Population plots
     Pop_anc <- Ind_anc[,-1]
     Pop_anc$Pop <- Pops$Population
     Pop_anc[,c(ncol(Pop_anc) +1,ncol(Pop_anc) +2)] <- Pops[,3:4]
-    Pop_anc <- Pop_anc %>% dplyr::group_by(Pop) %>% dplyr::summarise(dplyr::across(,mean, na.rm = TRUE))
+    Pop_anc <- Pop_anc %>% dplyr::group_by(Pop) %>% dplyr::summarise(dplyr::across(dplyr::everything(), mean, na.rm = TRUE))
+    Pop_anc_coeff <- Pop_anc[,c(1:(K+1))]
+    qmatrix_melt_pop <- reshape2::melt(Pop_anc_coeff, id = 'Pop', value = coeff)
 
-    graphics::barplot(t(as.matrix(Pop_anc[,2:(K+1)])), col=col,
-            space = 0, xlab="Population", ylab = "Ancestry proportions",
-            border=NA, axisnames = FALSE)
-    graphics::axis(1, at = 1:nrow(Pop_anc),labels = Pop_anc$Pop, las=2 ,cex.axis = .4)
+    Popplot <- qmatrix_melt_pop %>% ggplot2::ggplot(ggplot2::aes(x= Pop)) +
+      ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
+      ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
+      ggplot2::scale_color_manual(values = col[c(1:K)], guide = "none") +
+      ggplot2::theme_minimal() +
+      ggplot2::labs(y = "Ancestry Proportion", x = "") +
+      ggplot2::theme(panel.grid.major.x = ggplot2::element_blank(),
+                     panel.grid = ggplot2::element_blank()) +
+      ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+      ggplot2::scale_x_continuous(breaks = 1:nrow(Pop_anc),labels = unique(qmatrix_melt_pop$Pop))
 
     Pop_map <- base_map + ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
       scatterpie::geom_scatterpie(data = Pop_anc, ggplot2::aes(Long, Lat, r = 0.35), cols = c(colnames(Pop_anc[2:(K+1)]))) +

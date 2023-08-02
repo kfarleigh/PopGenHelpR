@@ -4,7 +4,7 @@
 \alias{Dif_stats}
 \title{A function to calculate differentiation statistics and perform significance testing with a vcf file.}
 \usage{
-Dif_stats(VCF, pops, ploidy, statistic, boots, prefix)
+Dif_stats(VCF, pops, ploidy, statistic = "both", boots, write = FALSE, prefix)
 }
 \arguments{
 \item{VCF}{Character string indicating the name of the vcf file to be used in analysis.}
@@ -17,6 +17,8 @@ Dif_stats(VCF, pops, ploidy, statistic, boots, prefix)
 
 \item{boots}{Numeric. The number of boostraps to use to evaluate statistical significance. Only relevant for FST estimation.}
 
+\item{write}{Boolean. Whether or not to write the output to a file in the current working directory.}
+
 \item{prefix}{Character string that will be appended to file output.}
 }
 \value{
@@ -27,6 +29,8 @@ A function to calculate differentiation statistics and perform significance test
 }
 \examples{
 \donttest{
-Test <- Dif_stats(VCF = 'my_vcf.vcf', pops = 'my_popmap.csv',
-ploidy = 2, statistic = "both", boots = 10, prefix = 'Test')}
+data("HornedLizard_Pop")
+data("HornedLizard_VCF")
+Test <- Dif_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
+ploidy = 2, statistic = "both", boots = 10, write = FALSE)}
 }

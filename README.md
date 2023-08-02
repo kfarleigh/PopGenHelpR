@@ -1,5 +1,5 @@
 
-# PopGenHelpR version 1
+# PopGenHelpR version 1.2.1
 
 <!-- badges: start -->
 <!-- badges: end -->

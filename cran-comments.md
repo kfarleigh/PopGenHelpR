@@ -1,3 +1,11 @@
+## July 7th, 2023; This is a resubmission , I have included the comments from the CRAN maintainer and my changes below. 
+```
+rnaturalearthhires is not even mentioned in the DESCRIPTION file. It
+needs to be in Suggests, and used conditionally.
+```
+I have updated the DESCRIPTION file to include rnaturalearthhires in Suggests and now use it conditonally. 
+
+
 ## This is a resubmission, I have included the comments from the CRAN maintainer and my changes below. 
 ```
 Please remove the redundant "A Package to" from your title.

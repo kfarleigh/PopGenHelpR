@@ -28,6 +28,8 @@ First, we will load the data. These data objects are examples of input that can 
 data("Fst_dat")
 data("Het_dat")
 data("Q_dat")
+data("HornedLizard_Pop")
+data("HornedLizard_VCF")
 ```
 ### Ancestry Plots
 Now we will use the data in the functions mentioned above. First, we will create structure-like plots and map pie charts of individual ancestry.
@@ -39,13 +41,18 @@ Loc <- Q_dat[[2]]
 # Now we will generate both population and individual plots by seeting plot.type to 'all'. If you wanted, you could only generate individual or population plots by setting plot.type to "individual" and "population", respectively.
 Test_all <- Plot_ancestry(anc.mat = Qmat, pops = Loc, K = 5,
 plot.type = 'all', col = c('#d73027', '#f46d43', '#e0f3f8', '#74add1', '#313695'), countries = c("united states of america", "mexico"), Lat_buffer = 1, Long_buffer = 1)
+
+Test_all$`Individual Ancestry Plot`
+Test_all$`Population Ancestry Plot`
 ```
 
 
 We see that the structure like plots are output automatically, but the maps are stored as elements of a list. Let's look at the maps. You'll notice that the individual map looks weird, the pie charts have a bunch of weird partitions. That's because we have multiple individuals at the same location so the population map is probably a better choice. Instead of layering individuals on top of each other, the population map averages the ancestry of individuals in a population before mapping.
 ```{r Plot Ancestry Maps}
 Test_all$`Individual Map`
+
 Test_all$`Population Map`
+
 ```
 
 
@@ -70,7 +77,6 @@ Fst_map <- Dif_Stats_Map(dat = Fst, pops = Loc, neighbors = 1,
                      col = c('#FFFF00','#FFC000','#FFA500','#e31a1c','#800026'),
                      Lat_buffer = 1, Long_buffer = 1)
 Fst_map$`Differentiation Map`
-
 
 Fst_map2 <- Dif_Stats_Map(dat = Fst, pops = Loc, neighbors = c('East_West', 'East_South', 'South_West'), countries = c('united states of america', 'mexico'),
                      col = c('#FFFF00','#FFC000','#FFA500','#e31a1c','#800026'),

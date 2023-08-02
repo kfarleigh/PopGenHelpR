@@ -6,27 +6,45 @@
 #' @param statistic Character string. Options are both, FST, and NeisD.
 #' @param boots Numeric. The number of boostraps to use to evaluate statistical significance. Only relevant for FST estimation.
 #' @param prefix Character string that will be appended to file output.
+#' @param write Boolean. Whether or not to write the output to a file in the current working directory.
 #'
 #' @return A list contianing data frames for the requested statistic.
 #' @export
 #'
 #' @examples
 #' \donttest{
-#' Test <- Dif_stats(VCF = 'my_vcf.vcf', pops = 'my_popmap.csv',
-#' ploidy = 2, statistic = "both", boots = 10, prefix = 'Test')}
-Dif_stats <- function(VCF, pops, ploidy, statistic, boots, prefix) {
+#' data("HornedLizard_Pop")
+#' data("HornedLizard_VCF")
+#' Test <- Dif_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
+#' ploidy = 2, statistic = "both", boots = 10, write = FALSE)}
+Dif_stats <- function(VCF, pops, ploidy, statistic = "both", boots, write = FALSE, prefix) {
   # Read in files and convert to necessary formats
   if(missing(VCF)){
     stop("Please supply a vcf file for analysis")
   }
-  Dat <- vcfR::read.vcfR(VCF, verbose = FALSE)
-  Glight <- vcfR::vcfR2genlight(Dat)
-
+  if(methods::is(VCF, "vcfR")){
+    Dat <- VCF
+    Glight <- vcfR::vcfR2genlight(Dat)
+  }
+  else if(is.character(VCF)) {
+    Dat <- vcfR::read.vcfR(VCF, verbose = FALSE)
+    Glight <- vcfR::vcfR2genlight(Dat)
+  }
+  else{
+    stop("Please supply a vcf file or object of class vcfR for analysis")
+  }
   # Set the ploidy of the genlight
   adegenet::ploidy(Glight) <- ploidy
-
   # Make sure that the individuals in the vcf/genlight are in the same order as your popmap
-  Pops <- utils::read.csv(pops)
+  if(is.data.frame(pops)){
+    Pops <- pops
+  }
+  else if(is.character(pops)){
+    Pops <- utils::read.csv(pops)
+  }
+  else{
+    stop("Please supply a csv file or data frame for population assignment")
+  }
   P <- Pops
   if(any(Glight@ind.names %in% P[,1] == FALSE)){
     stop("Sample names in the VCF and Population file are not in the same order or samples are missing,
@@ -37,7 +55,17 @@ Dif_stats <- function(VCF, pops, ploidy, statistic, boots, prefix) {
   Glight@pop <- Pops
 
   message('Formatting has finished, moving onto calculations')
-  if(statistic == "FST") {
+  if(statistic == "FST" && write == FALSE) {
+    Fst <- StAMPP::stamppFst(Glight, nboots = boots)
+    Fst_raw <- Fst$Fsts
+    Fst_pval <- Fst$Pvalues
+
+    # Set anything to 0 to < 1/# of bootstraps
+    Fst_pval[Fst_pval == 0] <- paste('P-value < ', (round((1/boots),3)), collapse = '')
+    Fst_est <- list(Fst_raw, Fst_pval)
+    names(Fst_est) <- c("Fst estimates", "Fst p-values")
+    return(Fst_est)}
+  if(statistic == "FST" && write == TRUE) {
     Fst <- StAMPP::stamppFst(Glight, nboots = boots)
     Fst_raw <- Fst$Fsts
     Fst_pval <- Fst$Pvalues
@@ -50,7 +78,13 @@ Dif_stats <- function(VCF, pops, ploidy, statistic, boots, prefix) {
     Fst_est <- list(Fst_raw, Fst_pval)
     names(Fst_est) <- c("Fst estimates", "Fst p-values")
     return(Fst_est)}
-  else if(statistic == "NeisD") {
+  else if(statistic == "NeisD" && write == FALSE) {
+    # Neis D
+    NeisD <- StAMPP::stamppNeisD(Glight)
+    colnames(NeisD) <- rownames(NeisD)
+    names(Nei_est) <- c("Neis D")
+    return(Nei_est)}
+  else if(statistic == "NeisD" && write == TRUE) {
     # Neis D
     NeisD <- StAMPP::stamppNeisD(Glight)
     colnames(NeisD) <- rownames(NeisD)
@@ -60,7 +94,22 @@ Dif_stats <- function(VCF, pops, ploidy, statistic, boots, prefix) {
     Nei_est <- list(NeisD)
     names(Nei_est) <- c("Neis D")
     return(Nei_est)}
-  else if(statistic == "both") {
+  else if(statistic == "both" && write == FALSE) {
+    Fst <- StAMPP::stamppFst(Glight, nboots = boots)
+    Fst_raw <- Fst$Fsts
+    Fst_pval <- Fst$Pvalues
+
+    # Set anything to 0 to < 1/# of bootstraps
+    Fst_pval[Fst_pval == 0] <- paste('P-value < ', (round((1/boots),3)), collapse = '')
+
+    NeisD <- StAMPP::stamppNeisD(Glight)
+    colnames(NeisD) <- rownames(NeisD)
+
+    Stat_est <- list(Fst_raw, Fst_pval, NeisD)
+    names(Stat_est) <- c("Fst estimates", "Fst p-values", "Neis D")
+    return(Stat_est)
+  }
+  else if(statistic == "both" && write == TRUE) {
     Fst <- StAMPP::stamppFst(Glight, nboots = boots)
     Fst_raw <- Fst$Fsts
     Fst_pval <- Fst$Pvalues
