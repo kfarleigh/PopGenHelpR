@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,17 +48,23 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.2.1" id="popgenhelpr-121">PopGenHelpR 1.2.1<a class="anchor" aria-label="anchor" href="#popgenhelpr-121"></a></h2>
-<ul><li>August 1st, 2023</li>
+<h2 class="pkg-version" data-toc-text="1.2.2" id="popgenhelpr-122">PopGenHelpR 1.2.2<a class="anchor" aria-label="anchor" href="#popgenhelpr-122"></a></h2>
+<ul><li>October 2nd, 2023</li>
+<li>
+<code>Dif_stats_Map</code>, <code>Div_Stats_Map</code>, and <code>Plot_ancestry</code> have been updated to use a base color of #f4f4f4 instead of grey99 which was throwing an error for some users.</li>
+<li>The piesize argument has been added to <code>Plot_ancestry</code>, the original value of 0.35 was found to be too high, especially in cases where users were mapping a smaller geographic area.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.1" id="popgenhelpr-121">PopGenHelpR 1.2.1<a class="anchor" aria-label="anchor" href="#popgenhelpr-121"></a></h2><p class="text-muted">CRAN release: 2023-08-16</p>
+<ul><li>August 14th, 2023</li>
 <li>
 <code>Div_Stats</code> and <code>Dif_stats</code> have been updated to accept a vcf file or vcfR object as input.</li>
 <li>
 <code>Div_Stats</code> and <code>Dif_stats</code> have been updated to accept a csv file or data frame for population assignment.</li>
 <li>
-<code>Plot_ancestry</code> has been updated to generate structure-like plots using ggplot2.</li>
+<code>Plot_ancestry</code> has been updated to generate structure-like plots using ggplot2 instead of base R and to handle character and numeric values for individual and population names. Note that individual and populations must be of the same type (i.e., both numeric or both characters).</li>
+<li>The dependency <code>rnaturalearth</code> is no longer used. We now use <code>spData</code> for mapping data.</li>
 <li>The vignette has been updated to accommodate the changes noted above.</li>
-<li>ToDo</li>
-<li>To use spData instead of rnaturalearth</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.1" id="popgenhelpr-111">PopGenHelpR 1.1.1<a class="anchor" aria-label="anchor" href="#popgenhelpr-111"></a></h2>

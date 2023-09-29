@@ -26,11 +26,11 @@ List with two elements
 \donttest{
 data(Q_dat)
 Qmat <- Q_dat[[1]]
+rownames(Qmat) <- Qmat[,1]
 Loc <- Q_dat[[2]]
 Test_all <- Plot_ancestry(anc.mat = Qmat, pops = Loc, K = 5,
-plot.type = 'all', col = c('red', 'orange', 'pink', 'purple', 'blue'),
-countries = c("united states of america", "mexico"), Lat_buffer = 1, Long_buffer = 1)
-}
+plot.type = 'all', col <- c('red', 'maroon', 'navy', 'cyan', 'blue'), piesize = 0.35,
+Lat_buffer = 1, Long_buffer = 1)}
 
 }
 \keyword{datasets}

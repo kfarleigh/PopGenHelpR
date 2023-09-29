@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,10 +85,7 @@ you have any questions about the package.You can also visit our Github
 for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR/" class="external-link uri">https://kfarleigh.github.io/PopGenHelpR/</a>)</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the package</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kfarleigh.github.io/PopGenHelpR/" class="external-link">PopGenHelpR</a></span><span class="op">)</span></span>
-<span><span class="co"># Install rnaturalearthhires if you need it</span></span>
-<span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="co"># devtools::install_github("ropensci/rnaturalearthhires")</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kfarleigh.github.io/PopGenHelpR/" class="external-link">PopGenHelpR</a></span><span class="op">)</span></span></code></pre></div>
 <p>First, we will load the data. These data objects are examples of
 input that can be used in the functions Dif_stats_Map, Div_Stats_Map,
 Pairwise_heatmap, and Plot_ancestry.</p>
@@ -103,51 +100,32 @@ Pairwise_heatmap, and Plot_ancestry.</p>
 </h3>
 <p>Now we will use the data in the functions mentioned above. First, we
 will create structure-like plots and map pie charts of individual
-ancestry.</p>
+ancestry. You’ll notice that the individual map looks weird, the pie
+charts have a bunch of weird partitions. That’s because we have multiple
+individuals at the same location so the population map is probably a
+better choice. Instead of layering individuals on top of each other, the
+population map averages the ancestry of individuals in a population
+before mapping. See our Github for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR/" class="external-link uri">https://kfarleigh.github.io/PopGenHelpR/</a>), including
+ancestry pie charts on maps.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First, we seperate the list elements into two seperate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).</span></span>
 <span><span class="va">Qmat</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
-<span><span class="co"># Now we will generate both population and individual plots by seeting plot.type to 'all'. If you wanted, you could only generate individual or population plots by setting plot.type to "individual" and "population", respectively.</span></span>
+<span><span class="co"># Now we will generate both population and individual plots by setting plot.type to 'all'. If you wanted, you could only generate individual or population plots by setting plot.type to "individual" and "population", respectively.</span></span>
 <span><span class="va">Test_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Plot_ancestry.html">Plot_ancestry</a></span><span class="op">(</span>anc.mat <span class="op">=</span> <span class="va">Qmat</span>, pops <span class="op">=</span> <span class="va">Loc</span>, K <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>plot.type <span class="op">=</span> <span class="st">'all'</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#d73027'</span>, <span class="st">'#f46d43'</span>, <span class="st">'#e0f3f8'</span>, <span class="st">'#74add1'</span>, <span class="st">'#313695'</span><span class="op">)</span>, countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"united states of america"</span>, <span class="st">"mexico"</span><span class="op">)</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span></span>
-<span><span class="co">#&gt; which was just loaded, will retire in October 2023.</span></span>
-<span><span class="co">#&gt; Please refer to R-spatial evolution reports for details, especially</span></span>
-<span><span class="co">#&gt; https://r-spatial.org/r/2023/05/15/evolution4.html.</span></span>
-<span><span class="co">#&gt; It may be desirable to make the sf package available;</span></span>
-<span><span class="co">#&gt; package maintainers should consider adding sf to Suggests:.</span></span>
-<span><span class="co">#&gt; The sp package is now running under evolution status 2</span></span>
-<span><span class="co">#&gt;      (status 2 uses the sf package in place of rgdal)</span></span>
+<span>plot.type <span class="op">=</span> <span class="st">'all'</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#d73027'</span>, <span class="st">'#f46d43'</span>, <span class="st">'#e0f3f8'</span>, <span class="st">'#74add1'</span>, <span class="st">'#313695'</span><span class="op">)</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">Test_all</span><span class="op">$</span><span class="va">`Individual Ancestry Plot`</span></span></code></pre></div>
-<p><img src="PopGenHelpR_vignette_files/figure-html/Plot%20Ancestry-1.png" width="700"></p>
+<p><img src="img/PlotAncestry-1.png" width="600px" height="350px"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Test_all</span><span class="op">$</span><span class="va">`Population Ancestry Plot`</span></span></code></pre></div>
-<p><img src="PopGenHelpR_vignette_files/figure-html/Plot%20Ancestry-2.png" width="700"></p>
-<p>We see that the structure like plots are output automatically, but
-the maps are stored as elements of a list. Let’s look at the maps.
-You’ll notice that the individual map looks weird, the pie charts have a
-bunch of weird partitions. That’s because we have multiple individuals
-at the same location so the population map is probably a better choice.
-Instead of layering individuals on top of each other, the population map
-averages the ancestry of individuals in a population before mapping.</p>
+<p><img src="img/PlotAncestry-2.png" width="600px" height="350px">
+### Differentiation visualizations We will use the <code>Fst_dat</code>
+object to visualize patterns of differentiation between populations.
+First, we will generate a heat map and then we will plot the
+realtionships on a map.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Test_all</span><span class="op">$</span><span class="va">`Individual Map`</span></span></code></pre></div>
-<p><img src="PopGenHelpR_vignette_files/figure-html/Plot%20Ancestry%20Maps-1.png" width="700"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">Test_all</span><span class="op">$</span><span class="va">`Population Map`</span></span></code></pre></div>
-<p><img src="PopGenHelpR_vignette_files/figure-html/Plot%20Ancestry%20Maps-2.png" width="700"></p>
-</div>
-<div class="section level3">
-<h3 id="differentiation-visualizations">Differentiation visualizations<a class="anchor" aria-label="anchor" href="#differentiation-visualizations"></a>
-</h3>
-<p>We will use the <code>Fst_dat</code> object to visualize patterns of
-differentiation between populations. First, we will generate a heat map
-and then we will plot the realtionships on a map.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Isolate our fst matrix and locality information</span></span>
 <span><span class="va">Fst</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -155,26 +133,26 @@ and then we will plot the realtionships on a map.</p>
 <span><span class="va">Fstat_hmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pairwise_heatmap.html">Pairwise_heatmap</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, statistic <span class="op">=</span> <span class="st">'FST'</span><span class="op">)</span></span>
 <span><span class="co"># Look at the plot</span></span>
 <span><span class="va">Fstat_hmap</span></span></code></pre></div>
-<p><img src="PopGenHelpR_vignette_files/figure-html/Differentiation-1.png" width="700"></p>
+<p><img src="img/Differentiation-1.png" width="600px" height="350px"></p>
 <p>The heatmap is useful, but what about putting it on a map? First we
 will set a numeric neighbors argument to plot the Fst estimate between
 each population’s closest neighbor. Then we will specify relationships
 that we want to see using the population names.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Closest Neighbor</span></span>
 <span><span class="va">Fst_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Dif_Stats_Map.html">Dif_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>, neighbors <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                     countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'united states of america'</span>, <span class="st">'mexico'</span><span class="op">)</span>,</span>
 <span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#FFFF00'</span>,<span class="st">'#FFC000'</span>,<span class="st">'#FFA500'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
 <span>                     Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Fst_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Dif_Stats_Map.html">Dif_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>, neighbors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'East_West'</span>, <span class="st">'East_South'</span>, <span class="st">'South_West'</span><span class="op">)</span>,</span>
+<span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#FFFF00'</span>,<span class="st">'#FFC000'</span>,<span class="st">'#FFA500'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
+<span>                     Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">Fst_map</span><span class="op">$</span><span class="va">`Differentiation Map`</span></span></code></pre></div>
-<p><img src="PopGenHelpR_vignette_files/figure-html/Differentiation%20map-1.png" width="700"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">Fst_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Dif_Stats_Map.html">Dif_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>, neighbors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'East_West'</span>, <span class="st">'East_South'</span>, <span class="st">'South_West'</span><span class="op">)</span>, countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'united states of america'</span>, <span class="st">'mexico'</span><span class="op">)</span>,</span>
-<span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#FFFF00'</span>,<span class="st">'#FFC000'</span>,<span class="st">'#FFA500'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
-<span>                     Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">Fst_map2</span><span class="op">$</span><span class="va">`Differentiation Map`</span></span></code></pre></div>
-<p><img src="PopGenHelpR_vignette_files/figure-html/Differentiation%20map-2.png" width="700"></p>
+<p><img src="img/Differentiationmap-1.png" width="600px" height="350px"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Fst_map2</span><span class="op">$</span><span class="va">`Differentiation Map`</span></span></code></pre></div>
+<p><img src="img/Differentiationmap-2.png" width="600px" height="350px"></p>
 </div>
 <div class="section level3">
 <h3 id="diversity-visualizations">Diversity Visualizations<a class="anchor" aria-label="anchor" href="#diversity-visualizations"></a>
@@ -184,13 +162,13 @@ diversity estimates and interpolated values to generate a raster to see
 how diversity changes across space. Here we only show the point method,
 but feel free to reach out if you have questions about the
 interpolation.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Similar to our heat map, we use the statistic argument to label our figures and any output raster you create.</span></span>
 <span><span class="va">Div_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Div_Stats_Map.html">Div_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Het_dat</span>, plot.type <span class="op">=</span> <span class="st">'point'</span>,</span>
-<span>statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'blue'</span>, <span class="st">'orange'</span>, <span class="st">'red'</span><span class="op">)</span>, countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'united states of america'</span>, <span class="st">'mexico'</span><span class="op">)</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="st">'Test_het'</span><span class="op">)</span></span>
+<span>statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'blue'</span>, <span class="st">'orange'</span>, <span class="st">'red'</span><span class="op">)</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="st">'Test_het'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">Div_map</span><span class="op">$</span><span class="va">`Heterozygosity Map`</span></span></code></pre></div>
-<p><img src="PopGenHelpR_vignette_files/figure-html/Diversity-1.png" width="700"></p>
+<p><img src="img/Diversity-1.png" width="600px" height="350px"></p>
 <p>Thank you for your interest in our package, please reach out with any
 questions or things that should be included in future versions of the
 package.</p>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,6 @@
 <span>  <span class="va">dat</span>,</span>
 <span>  plot.type <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  <span class="va">statistic</span>,</span>
-<span>  <span class="va">countries</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">col</span>,</span>
 <span>  Lat_buffer <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -80,10 +79,6 @@
 
 <dt>statistic</dt>
 <dd><p>Character string. The statistic to be plotted.</p></dd>
-
-
-<dt>countries</dt>
-<dd><p>Character vector indicating the country borders that you wish to plot on a map. Can be any country that is valid in the ne_states function in the rnaturalearth package.</p></dd>
 
 
 <dt>breaks</dt>
@@ -120,11 +115,10 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rnaturalearthhires"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Het_dat</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Test_het</span> <span class="op">&lt;-</span> <span class="fu">Div_Stats_Map</span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Het_dat</span>, plot.type <span class="op">=</span> <span class="st">'all'</span>,</span></span>
-<span class="r-in"><span>statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'united states of america'</span>, <span class="st">'mexico'</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span>, write <span class="op">=</span> <span class="cn">FALSE</span>, prefix <span class="op">=</span> <span class="st">'Test_het'</span><span class="op">)</span><span class="op">}</span><span class="co"># }</span></span></span>
+<span class="r-in"><span>statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>,</span></span>
+<span class="r-in"><span>Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span>, write <span class="op">=</span> <span class="cn">FALSE</span>, prefix <span class="op">=</span> <span class="st">'Test_het'</span><span class="op">)</span><span class="co"># }</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [inverse distance weighted interpolation]</span>
 </code></pre></div>
     </div>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,6 @@
 <span>  <span class="va">dat</span>,</span>
 <span>  <span class="va">pops</span>,</span>
 <span>  <span class="va">neighbors</span>,</span>
-<span>  <span class="va">countries</span>,</span>
 <span>  <span class="va">col</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">Lat_buffer</span>,</span>
@@ -78,10 +77,6 @@
 
 <dt>neighbors</dt>
 <dd><p>Numeric. The number of neighbors to plot connections with.</p></dd>
-
-
-<dt>countries</dt>
-<dd><p>Character vector indicating the country borders that you wish to plot on a map. Can be any country that is valid in the ne_statest function in the rnaturalearth package.</p></dd>
 
 
 <dt>col</dt>
@@ -110,13 +105,12 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rnaturalearthhires"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Fst</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">Test</span> <span class="op">&lt;-</span> <span class="fu">Dif_Stats_Map</span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>,</span></span>
-<span class="r-in"><span>neighbors <span class="op">=</span> <span class="fl">2</span>, countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'united states of america'</span>, <span class="st">'mexico'</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#fd8d3c'</span>,<span class="st">'#fc4e2a'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#bd0026'</span>,<span class="st">'#800026'</span><span class="op">)</span>,Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">}</span><span class="co"># }</span></span></span>
+<span class="r-in"><span>neighbors <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#fd8d3c'</span>,<span class="st">'#fc4e2a'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#bd0026'</span>,<span class="st">'#800026'</span><span class="op">)</span>,Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="co"># }</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> which was just loaded, will retire in October 2023.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Please refer to R-spatial evolution reports for details, especially</span>

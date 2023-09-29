@@ -4,7 +4,15 @@
 \alias{Dif_stats}
 \title{A function to calculate differentiation statistics and perform significance testing with a vcf file.}
 \usage{
-Dif_stats(VCF, pops, ploidy, statistic = "both", boots, write = FALSE, prefix)
+Dif_stats(
+  VCF,
+  pops,
+  ploidy,
+  statistic = "both",
+  boots,
+  write = FALSE,
+  prefix = NULL
+)
 }
 \arguments{
 \item{VCF}{Character string indicating the name of the vcf file to be used in analysis.}

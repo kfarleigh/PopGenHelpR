@@ -8,7 +8,6 @@ Dif_Stats_Map(
   dat,
   pops,
   neighbors,
-  countries,
   col,
   breaks = NULL,
   Lat_buffer,
@@ -21,8 +20,6 @@ Dif_Stats_Map(
 \item{pops}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.}
 
 \item{neighbors}{Numeric. The number of neighbors to plot connections with.}
-
-\item{countries}{Character vector indicating the country borders that you wish to plot on a map. Can be any country that is valid in the ne_statest function in the rnaturalearth package.}
 
 \item{col}{Character vector indicating the colors you wish to use for plotting.}
 
@@ -40,11 +37,10 @@ A function to map differentiation statistics.
 }
 \examples{
 \donttest{
-if(requireNamespace("rnaturalearthhires", quietly = TRUE)){
 data(Fst_dat)
 Fst <- Fst_dat[[1]]
 Loc <- Fst_dat[[2]]
 Test <- Dif_Stats_Map(dat = Fst, pops = Loc,
-neighbors = 2, countries = c('united states of america', 'mexico'),
-col = c('#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'),Lat_buffer = 1, Long_buffer = 1)}}
+neighbors = 2,
+col = c('#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'),Lat_buffer = 1, Long_buffer = 1)}
 }

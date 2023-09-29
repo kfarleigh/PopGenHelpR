@@ -8,7 +8,6 @@ Div_Stats_Map(
   dat,
   plot.type = "all",
   statistic,
-  countries,
   breaks = NULL,
   col,
   Lat_buffer = 1,
@@ -23,8 +22,6 @@ Div_Stats_Map(
 \item{plot.type}{Character string. Options are all, point, or interpolated. All is recommended and will generate a map with points colored according to heterozygosity as well as a rater of interpolated heterozygosity values.}
 
 \item{statistic}{Character string. The statistic to be plotted.}
-
-\item{countries}{Character vector indicating the country borders that you wish to plot on a map. Can be any country that is valid in the ne_states function in the rnaturalearth package.}
 
 \item{breaks}{Numeric. The breaks used to generate the color ramp when plotting. Users should supply 3 values if custom breaks are desired.}
 
@@ -46,9 +43,8 @@ A function to map diversity statistics.
 }
 \examples{
 \donttest{
-if(requireNamespace("rnaturalearthhires", quietly = TRUE)){
 data(Het_dat)
 Test_het <- Div_Stats_Map(dat = Het_dat, plot.type = 'all',
-statistic = "Heterozygosity", countries = c('united states of america', 'mexico'),
-Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = 'Test_het')}}
+statistic = "Heterozygosity",
+Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = 'Test_het')}
 }

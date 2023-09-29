@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@
 <span>  <span class="va">K</span>,</span>
 <span>  plot.type <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  <span class="va">col</span>,</span>
-<span>  <span class="va">countries</span>,</span>
+<span>  piesize <span class="op">=</span> <span class="fl">0.35</span>,</span>
 <span>  <span class="va">Lat_buffer</span>,</span>
 <span>  <span class="va">Long_buffer</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -73,7 +73,7 @@
 
 
 <dt>pops</dt>
-<dd><p>Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.</p></dd>
+<dd><p>Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual, population and sample names must be the same type (i.e., both numeric or both characters); Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.</p></dd>
 
 
 <dt>K</dt>
@@ -88,8 +88,8 @@
 <dd><p>Character vector indicating the colors you wish to use for plotting.</p></dd>
 
 
-<dt>countries</dt>
-<dd><p>Character vector indicating the country borders that you wish to plot on a map. Can be any country that is valid in the ne_statest function in the rnaturalearth package.</p></dd>
+<dt>piesize</dt>
+<dd><p>Numeric. The radius of the pie chart for ancestry mapping.</p></dd>
 
 
 <dt>Lat_buffer</dt>
@@ -110,13 +110,14 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rnaturalearthhires"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Q_dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Q_dat</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Qmat</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">Qmat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">Qmat</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">Test_all</span> <span class="op">&lt;-</span> <span class="fu">Plot_ancestry</span><span class="op">(</span>anc.mat <span class="op">=</span> <span class="va">Qmat</span>, pops <span class="op">=</span> <span class="va">Loc</span>, K <span class="op">=</span> <span class="fl">5</span>,</span></span>
-<span class="r-in"><span>plot.type <span class="op">=</span> <span class="st">'all'</span>, <span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'red'</span>, <span class="st">'maroon'</span>, <span class="st">'navy'</span>, <span class="st">'cyan'</span>, <span class="st">'blue'</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"united states of america"</span>, <span class="st">"mexico"</span><span class="op">)</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">}</span><span class="co"># }</span></span></span>
+<span class="r-in"><span>plot.type <span class="op">=</span> <span class="st">'all'</span>, <span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'red'</span>, <span class="st">'maroon'</span>, <span class="st">'navy'</span>, <span class="st">'cyan'</span>, <span class="st">'blue'</span><span class="op">)</span>, piesize <span class="op">=</span> <span class="fl">0.35</span>,</span></span>
+<span class="r-in"><span>Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="co"># }</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in Plot_ancestry(anc.mat = Qmat, pops = Loc, K = 5, plot.type = "all",     col &lt;- c("red", "maroon", "navy", "cyan", "blue"), piesize = 0.35,     Lat_buffer = 1, Long_buffer = 1):</span> unused argument (piesize = 0.35)</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
