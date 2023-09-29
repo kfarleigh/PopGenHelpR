@@ -3,7 +3,6 @@
 #' @param dat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted and named the same as the statistic argument. The second column is Population indicating which population each row belongs to. The third column is the standard deviation, the fourth column is Long indicating the longitude, and the fifth column is Lat, indicating the latitude.
 #' @param plot.type Character string. Options are all, point, or interpolated. All is recommended and will generate a map with points colored according to heterozygosity as well as a rater of interpolated heterozygosity values.
 #' @param statistic Character string. The statistic to be plotted.
-#' @param countries Character vector indicating the country borders that you wish to plot on a map. Can be any country that is valid in the ne_states function in the rnaturalearth package.
 #' @param breaks Numeric. The breaks used to generate the color ramp when plotting. Users should supply 3 values if custom breaks are desired.
 #' @param col Character vector indicating the colors you wish to use for plotting, three colors are allowed (low, mid, high). The first color will be the low color, the second the middle, the third the high.
 #' @param Lat_buffer Numeric. A buffer to customize visualization.
@@ -19,32 +18,23 @@
 #'
 #' @examples
 #' \donttest{
-#' if(requireNamespace("rnaturalearthhires", quietly = TRUE)){
 #' data(Het_dat)
 #' Test_het <- Div_Stats_Map(dat = Het_dat, plot.type = 'all',
-#' statistic = "Heterozygosity", countries = c('united states of america', 'mexico'),
-#' Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = 'Test_het')}}
-Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks = NULL, col, Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = NULL){
-  Long <- Lat <- x <- y <- z <- NULL
+#' statistic = "Heterozygosity",
+#' Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = 'Test_het')}
+Div_Stats_Map <- function(dat, plot.type = 'all', statistic, breaks = NULL, col, Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = NULL){
+  Long <- Lat <- x <- y <- z <- alpha <- world <- NULL
   ################### Get the data for mapping
   # Get map data
-  if(is.null(prefix) == TRUE){
+  if(is.null(prefix) && write == TRUE){
     stop("Please supply a prefix for output files")
   }
-  countries <- countries
-  Country_borders <- list()
-  for(i in 1:length(countries)) {
-    ncon <- 1:length(countries)
-    Country_borders[[i]] <- rnaturalearth::ne_states(country = countries[i], returnclass = 'sf')
-    names(Country_borders)[[i]] <- paste("Country", ncon[i], sep = "_")
-  }
-  world <- rnaturalearth::ne_countries(scale = "large", returnclass = "sf")
+  # Get map data
+  map <- spData::world["continent"]
+  states <- spData::us_states["REGION"]
   ### Make a base map for the countries of interest
-  base_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = world, fill = 'grey99')
-  for(i in 1:length(countries)) {
-    base_map <- base_map + ggplot2::geom_sf(data = Country_borders[[i]], fill = "grey99")
-  }
-
+  base_map <- ggplot2::ggplot() + ggplot2::geom_sf(data = map, fill = "#f4f4f4") +
+    ggplot2::geom_sf(data = states, fill = ggplot2::alpha("#f4f4f4", 0))
   # Read in files
   if(is.data.frame(dat) == TRUE){
     Div_mat <- dat
@@ -100,12 +90,10 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
     R_df <- data.frame(R_pts)
     colnames(R_df)[1] <- 'z'
 
-    ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = world, fill = 'grey99') +
+    ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = map, fill = "#f4f4f4") +
       ggplot2::geom_raster(data = R_df, ggplot2::aes(x = x, y= y, fill = z)) +
-      ggplot2::scale_fill_gradientn(colors = col, name = statistic)
-    for(i in 1:length(countries)) {
-      ras_map <- ras_map + ggplot2::geom_sf(data = Country_borders[[i]], fill = "NA")
-    }
+      ggplot2::scale_fill_gradientn(colors = col, name = statistic) +
+      ggplot2::geom_sf(data = states, fill = ggplot2::alpha("#f4f4f4", 0))
 
     Div_inter_map <- ras_map +
       ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
@@ -145,12 +133,10 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
       R_df <- data.frame(R_pts)
       colnames(R_df)[1] <- 'z'
 
-      ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = world, fill = 'grey99') +
+      ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = map, fill = "#f4f4f4") +
         ggplot2::geom_raster(data = R_df, ggplot2::aes(x = x, y= y, fill = z)) +
-        ggplot2::scale_fill_gradientn(colors = col, name = statistic)
-      for(i in 1:length(countries)) {
-        ras_map <- ras_map + ggplot2::geom_sf(data = Country_borders[[i]], fill = "NA")
-      }
+        ggplot2::scale_fill_gradientn(colors = col, name = statistic) +
+        ggplot2::geom_sf(data = states, fill = ggplot2::alpha("#f4f4f4", 0))
 
       Div_inter_map <- ras_map +
         ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
@@ -193,12 +179,10 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
     R_df <- data.frame(R_pts)
     colnames(R_df)[1] <- 'z'
 
-    ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = world, fill = 'grey99') +
+    ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = map, fill = "#f4f4f4") +
       ggplot2::geom_raster(data = R_df, ggplot2::aes(x = x, y= y, fill = z)) +
-      ggplot2::scale_fill_gradientn(colors = col, name = statistic)
-    for(i in 1:length(countries)) {
-      ras_map <- ras_map + ggplot2::geom_sf(data = Country_borders[[i]], fill = "NA")
-    }
+      ggplot2::scale_fill_gradientn(colors = col, name = statistic) +
+      ggplot2::geom_sf(data = states, fill = ggplot2::alpha("#f4f4f4", 0))
 
     Div_inter_map <- ras_map +
       ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
@@ -228,12 +212,11 @@ Div_Stats_Map <- function(dat, plot.type = 'all', statistic, countries, breaks =
       R_df <- data.frame(R_pts)
       colnames(R_df)[1] <- 'z'
 
-      ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = world, fill = 'grey99') +
+      ras_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = map, fill = "#f4f4f4") +
         ggplot2::geom_raster(data = R_df, ggplot2::aes(x = x, y= y, fill = z)) +
-        ggplot2::scale_fill_gradientn(colors = col, name = statistic)
-      for(i in 1:length(countries)) {
-        ras_map <- ras_map + ggplot2::geom_sf(data = Country_borders[[i]], fill = "NA")
-      }
+        ggplot2::scale_fill_gradientn(colors = col, name = statistic) +
+        ggplot2::geom_sf(data = states, fill = ggplot2::alpha("#f4f4f4", 0))
+
 
       Div_inter_map <- ras_map +
         ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +

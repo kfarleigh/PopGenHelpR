@@ -1,11 +1,15 @@
+# PopGenHelpR 1.2.2
+- October 2nd, 2023
+* `Dif_stats_Map`, `Div_Stats_Map`, and `Plot_ancestry` have been updated to use a base color of #f4f4f4 instead of grey99 which was throwing an error for some users. 
+* The piesize argument has been added to `Plot_ancestry`, the original value of 0.35 was found to be too high, especially in cases where users were mapping a smaller geographic area. 
+
 # PopGenHelpR 1.2.1
-- August 1st, 2023
+- August 14th, 2023
 * `Div_Stats` and `Dif_stats` have been updated to accept a vcf file or vcfR object as input. 
 * `Div_Stats` and `Dif_stats` have been updated to accept a csv file or data frame for population assignment. 
-* `Plot_ancestry` has been updated to generate structure-like plots using ggplot2. 
+* `Plot_ancestry` has been updated to generate structure-like plots using ggplot2 instead of base R and to handle character and numeric values for individual and population names. Note that individual and populations must be of the same type (i.e., both numeric or both characters). 
+* The dependency `rnaturalearth` is no longer used. We now use `spData` for mapping data. 
 * The vignette has been updated to accommodate the changes noted above. 
-* ToDo 
-- To use spData instead of rnaturalearth
 
 # PopGenHelpR 1.1.1 
 - July 17th, 2023

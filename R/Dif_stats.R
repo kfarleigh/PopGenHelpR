@@ -17,7 +17,7 @@
 #' data("HornedLizard_VCF")
 #' Test <- Dif_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
 #' ploidy = 2, statistic = "both", boots = 10, write = FALSE)}
-Dif_stats <- function(VCF, pops, ploidy, statistic = "both", boots, write = FALSE, prefix) {
+Dif_stats <- function(VCF, pops, ploidy, statistic = "both", boots, write = FALSE, prefix = NULL) {
   # Read in files and convert to necessary formats
   if(missing(VCF)){
     stop("Please supply a vcf file for analysis")

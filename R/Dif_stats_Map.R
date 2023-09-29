@@ -3,7 +3,6 @@
 #' @param dat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. If it is a csv, the 1st row should contain the individual/population names. The columns should also be named in this fashion.
 #' @param pops Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.
 #' @param neighbors Numeric. The number of neighbors to plot connections with.
-#' @param countries Character vector indicating the country borders that you wish to plot on a map. Can be any country that is valid in the ne_statest function in the rnaturalearth package.
 #' @param col Character vector indicating the colors you wish to use for plotting.
 #' @param breaks Numeric. The breaks used to generate the color ramp when plotting. Users should supply 3 values if custom breaks are desired.
 #' @param Lat_buffer Numeric. A buffer to customize visualization.
@@ -14,30 +13,22 @@
 #'
 #' @examples
 #' \donttest{
-#' if(requireNamespace("rnaturalearthhires", quietly = TRUE)){
 #' data(Fst_dat)
 #' Fst <- Fst_dat[[1]]
 #' Loc <- Fst_dat[[2]]
 #' Test <- Dif_Stats_Map(dat = Fst, pops = Loc,
-#' neighbors = 2, countries = c('united states of america', 'mexico'),
-#' col = c('#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'),Lat_buffer = 1, Long_buffer = 1)}}
-Dif_Stats_Map <- function(dat, pops, neighbors, countries, col, breaks = NULL, Lat_buffer, Long_buffer){
-  X1 <- X2 <- X3 <- X4 <- Dif <- Long <- Lat <- NULL
+#' neighbors = 2,
+#' col = c('#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'),Lat_buffer = 1, Long_buffer = 1)}
+Dif_Stats_Map <- function(dat, pops, neighbors, col, breaks = NULL, Lat_buffer, Long_buffer){
+  X1 <- X2 <- X3 <- X4 <- Dif <- Long <- Lat <- alpha <- NULL
   ################### Get the data for mapping
   # Get map data
-  countries <- countries
-  Country_borders <- list()
-  for(i in 1:length(countries)) {
-    ncon <- 1:length(countries)
-    Country_borders[[i]] <- rnaturalearth::ne_states(country = countries[i], returnclass = 'sf')
-    names(Country_borders)[[i]] <- paste("Country", ncon[i], sep = "_")
-  }
-  world <- rnaturalearth::ne_countries(scale = "large", returnclass = "sf")
+  map <- spData::world["continent"]
+  states <- spData::us_states["REGION"]
   ### Make a base map for the countries of interest
-  base_map <-  ggplot2::ggplot() + ggplot2::geom_sf(data = world, fill = 'grey99')
-  for(i in 1:length(countries)) {
-    base_map <- base_map + ggplot2::geom_sf(data = Country_borders[[i]], fill = "grey99")
-  }
+  base_map <- ggplot2::ggplot() + ggplot2::geom_sf(data = map, fill = "#f4f4f4") +
+    ggplot2::geom_sf(data = states, fill = ggplot2::alpha("#f4f4f4", 0))
+
 
   # Read in files
   if(is.data.frame(dat) == TRUE){

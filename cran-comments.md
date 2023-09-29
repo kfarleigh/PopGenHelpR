@@ -1,3 +1,50 @@
+## August 15th, 2023; This is a resubmission of a package that was archived, I have included the comments from the CRAN maintainer, my changes, and check results below. 
+
+### From maintainer
+```
+rnaturalearthhires is not even mentioned in the DESCRIPTION file. It
+needs to be in Suggests, and used conditionally.
+```
+The package has been updated to use `spData` instead of `rnaturalearth`. The DESCRIPTION file has been updated accordingly. 
+
+### check_win_devel results
+There was 1 NOTE
+```
+Maintainer: 'Keaka Farleigh <keakafarleigh@gmail.com>'
+
+New submission
+
+Package was archived on CRAN
+
+Possibly misspelled words in DESCRIPTION:
+  Genomic (2:30)
+  csv (9:159)
+  genomic (9:48)
+  vcf (9:151)
+```
+The words are not mispelled. I have addressed the issues that led to the package being archived. See above regarding the rnaturalearthhires issue. 
+
+### check_win_release results
+There was 1 NOTE
+```
+Maintainer: 'Keaka Farleigh <keakafarleigh@gmail.com>'
+
+New submission
+
+Package was archived on CRAN
+
+Possibly misspelled words in DESCRIPTION:
+  Genomic (2:30)
+  csv (9:159)
+  genomic (9:48)
+  vcf (9:151)
+```
+The words are not mispelled. I have addressed the issues that led to the package being archived. See above regarding the rnaturalearthhires issue. 
+
+### check_mac_release results
+There were no errors, notes, or warnings. 
+
+
 ## July 7th, 2023; This is a resubmission , I have included the comments from the CRAN maintainer and my changes below. 
 ```
 rnaturalearthhires is not even mentioned in the DESCRIPTION file. It
