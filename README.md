@@ -27,3 +27,4 @@ You can install the development version of *PopGenHelpR* using devtools:
 ``` r
 devtools::install_github("kfarleigh/PopGenHelpR")
 ```
+
