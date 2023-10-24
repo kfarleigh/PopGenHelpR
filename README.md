@@ -1,7 +1,12 @@
 
-# PopGenHelpR version 1.2.2
+# PopGenHelpR version 1.2.2 <img src="man/figures/PGH_Logo_Outlined.png" align="right" height="150" style="float:right; height:150px;">
 
 <!-- badges: start -->
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/PopGenHelpR)](https://cran.r-project.org/package=PopGenHelpR)
+[![Downloads from the RStudio CRAN
+mirror](https://cranlogs.r-pkg.org/badges/PopGenHelpR)](https://cran.r-project.org/package=PopGenHelpR)
+[![CRAN/METACRAN](https://img.shields.io/cran/l/PopGenHelpR)](https://opensource.org/licenses/GPL-3.0)
+[![R-CMD-check](https://github.com/kfarleigh/PopGenHelpR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kfarleigh/PopGenHelpR/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## What is *PopGenHelpR*?
