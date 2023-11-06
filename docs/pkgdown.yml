@@ -3,8 +3,8 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   PopGenHelpR_vignette: PopGenHelpR_vignette.html
-last_built: 2023-11-06T16:53Z
+last_built: 2023-11-06T17:00Z
 urls:
-  reference: https://kfarleigh.github/PopGenHelpR/reference
-  article: https://kfarleigh.github/PopGenHelpR/articles
+  reference: https://kfarleigh.github.io/PopGenHelpR/reference
+  article: https://kfarleigh.github.io/PopGenHelpR/articles
 
