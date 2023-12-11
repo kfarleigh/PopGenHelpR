@@ -63,11 +63,12 @@ Heterozygosity <- function(data, pops, ploidy, statistic, write = FALSE, prefix,
     Inds <- rownames(Dat)
     Dat <- sapply(Dat, as.numeric)
   }
-  else if(tools::file_ext(data) == 'geno')
+  else if(tools::file_ext(data) == 'geno'){
     Dat <- utils::read.table(Data)
     print("Geno file detected, proceeding to formatting. Note, PopGenHelpR assumes that your individuals in the geno file and
           popmap are in the same order, please check to avoid erroneous inferences.")
-  } else {
+  }
+  else {
       stop("Please supply a geno file, vcf file, or vcfR object for analysis")
   }
 

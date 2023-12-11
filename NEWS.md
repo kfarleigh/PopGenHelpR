@@ -18,6 +18,8 @@
 - Update documentation
 - Update vignette 
 
+* `Private.alleles` has been added to calculate the number of private alleles in each populaion. 
+
 # PopGenHelpR 1.2.2
 - October 2nd, 2023
 * `Dif_stats_Map`, `Div_Stats_Map`, and `Plot_ancestry` have been updated to use a base color of #f4f4f4 instead of grey99 which was throwing an error for some users. 

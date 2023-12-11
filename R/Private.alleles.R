@@ -1,22 +1,21 @@
-#' A function to estimate heterozygosity.
+#' A function to estimate the number of private alleles in each population.
 #'
-#' @param VCF Character string indicating the name of the vcf file to be used in analysis.
-#' @param pops Character string indicating the name of the population assignment file. This file should have four columns and be in the same order as your vcf file. The first column named Sample indicates the sample name. The second column named Population indicates the population assignment of each individual. The third column named Longitude indicates the longitude of the sample.  The fourth column named Latitude indicates the latitude of the sample.
-#' @param ploidy Numeric. The ploidy of the data.
-#' @param prefix Character string that will be appended to file output.
-#' @param write Boolean. Whether or not to write the output to a file in the current working directory.
-#'
-#' @return A list containing the estimated diversity statistics, model output from linear regression of these statistics against latitude, and model plots.
+#' @param data Character. string indicating the name of the vcf file or vcfR object to be used in the analysis.
+#' @param pops Characte. string indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.
+#' @param write Boolean. Optional argument indicating Whether or not to write the output to a file in the current working directory. This will output to files; 1) the table of private allele counts per population (named prefix_PrivateAlleles_countperpop) and 2) metadata associated with the private alleles (named prefix_PrivateAlleles_metadata). Please supply a prefix it you write files to your working directory as a best practice.
+#' @param prefix Character. Optional argument indicating a string that will be appended to file output. Please set a prefix if write is TRUE.
+#' @param population_col Numeric. Optional argument (a number) indicating the column that contains the population assignment information.
+#' @param individual_col Numeric. Optional argument (a number) indicating the column that contains the individuals (i.e., sample name) in the data.
+#' @return A list containing the count of private alleles in each population and the metadata for those alleles. The metadata is a list that contains the private allele and locus name for each population.
 #' @export
 #'
 #' @examples
 #' \donttest{
 #' data("HornedLizard_Pop")
 #' data("HornedLizard_VCF")
-#' Test <- Div_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
-#' ploidy = 2, write = FALSE)}
-Private.alleles <- function(data, pops, ploidy, statistic, write = FALSE, prefix, population_col = NULL, individual_col = NULL) {
-  Latitude <- Heterozygosity <- Pop <- Standard.Deviation <- NULL
+#' Test <- Private.alleles(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
+Private.alleles <- function(data, pops, write = FALSE, prefix = NULL, population_col = NULL, individual_col = NULL) {
+  Pop <- Standard.Deviation <- NULL
 
   # Read in population assignment data
   if(is.data.frame(pops)){
@@ -54,8 +53,7 @@ Private.alleles <- function(data, pops, ploidy, statistic, write = FALSE, prefix
     Dat <- as.data.frame(t(as.matrix(gt)))
     # Preserve individual names
     Inds <- rownames(Dat)
-  }
- } else {
+  } else {
   stop("Please supply a vcf file or vcfR object for analysis")
  }
 
@@ -63,10 +61,10 @@ P <- Pops
 ### Check to see if the individuals are in the same order in the vcf data and the population assignment file
 # Make sure that the individuals in the vcf/genlight are in the same order as your popmap
 if(methods::is(data,"vcfR") || tools::file_ext(data) == 'vcf') {
-  if(any(Dat[,1] != P[,1])){
+  if(any(Inds != P[,1])){
     warning("Sample names in the VCF and Population file may not be in the same order or samples are missing,
        The sample(s) in question are: ",
-            print(paste(Dat[,1][(Dat[,1] != P[,1])], collapse = ' ')))  }
+            print(paste(Inds[(Inds != P[,1])], collapse = ' ')))  }
   if(is.null(population_col)){
     Pops <- as.factor(Pops[,2])
   }
@@ -105,11 +103,12 @@ Uniq_alleles <- function(x) {
 PA_perpop <- lapply(Dat_perpop, Uniq_alleles)
 PA_perpop <- mapply(cbind, PA_perpop, "Pop"=names(PA_perpop), SIMPLIFY=F)
 
-# Get locus names
-locnames <- rownames(PA_perpop[[1]])
 
 PA_test_df <- do.call("rbind", PA_perpop)
 PA_test_df$loc <- gsub('^.*\\.', "", rownames(PA_test_df))
+
+# Get locus names
+locnames <- unique(PA_test_df$loc)
 
 P_uniq <- unique(P)
 
@@ -122,23 +121,47 @@ P_test <- PA_test_df[which(PA_test_df$Pop == P_uniq[i]),]
 # Isolate remaining populations
 Rem_pop <- PA_test_df[-c(which(PA_test_df$Pop == P_uniq[i])),]
 # For each allele, find any alleles that are in the population P_test but not the remaining populations (Rem_pop)
-Al_1 <- suppressMessages(anti_join(P_test[which(P_test$loc == locnames[j]),c(1,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(1,4)]))
-Al_2 <- suppressMessages(anti_join(P_test[which(P_test$loc == locnames[j]),c(2,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(2,4)]))
+Al_11 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(1,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(1,4)]))
+Al_22 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(2,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(2,4)]))
+Al_21 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(2,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(1,4)], by = join_by(V2 == V1, loc)))
+Al_12 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(1,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(2,4)], by = join_by(V1 == V2, loc)))
 
-colnames(Al_1) <- colnames(Al_2) <- c('Allele', "Locus")
-PA_df <- rbind(Al_1, Al_2)
+# Check for cross comparisons, set to be empty if either allele was erroneously identified as private
+# For example if we have A/G in P_test and G/A in Rem_pop; Al_11 and Al_22 would identify them as private because A != G and G !=A
+# But they are indeed not private
+if(nrow(Al_12) == 0 | nrow(Al_11) == 0){
+  Al_11 <- Al_12 <- data.frame(Allele = character(), Locus = character())
+}
+if(nrow(Al_21) == 0 | nrow(Al_22) == 0){
+  Al_22 <- Al_21 <- data.frame(Allele = character(), Locus = character())
+}
+
+colnames(Al_11) <- colnames(Al_22) <- colnames(Al_21) <- colnames(Al_12) <-c('Allele', "Locus")
+PA_df <- rbind(Al_11, Al_22, Al_21, Al_12)
+
+# Only keep unique private alleles
+PA_df <- PA_df %>% distinct()
 
 if(nrow(PA_df) != 0){
   PA[[j]] <- PA_df
     }
   }
+  if(rlang::is_empty(PA)){
+    PA_test[[i]] <- list()
+  } else{
   PA_test[[i]] <- PA
+  }
+  print(paste("Finished private allele calculations for ", P_uniq[i], sep = ""))
 }
 
 names(PA_test) <- P_uniq
 
 for(i in 1:length(PA_test)) {
+  if(length(PA_test[[i]]) > 0){
   PA_test[[i]] <- do.call('rbind', PA_test[[i]])
+  } else{
+    PA_test[[i]] <- data.frame(Allele = character(), Locus = character())
+  }
 }
 
 # Count the number of private alleles in each population
@@ -150,73 +173,26 @@ names(PA_count) <- names(PA_test)
 
 PA_count <- do.call("rbind", PA_count)
 
-colnames(PA_count) <- "Number.Private.Alleles"
+PA_count <- as.data.frame(PA_count)
+PA_count$Standard.deviation <- sd(PA_count[,1])
+colnames(PA_count) <- c("Number.Private.Alleles", "Standard.deviation")
 
-##########################
-##### Heterozygosity #####
-##########################
-# Calculate heterozygosity and standard deviation for each population
-Het <- hierfstat::basic.stats(Hstat)
-
-# Get per populations heterozygosity
-H_all <- data.frame(colMeans(Het$Ho, na.rm = TRUE))
-H_all$Pop <- rownames(H_all)
-colnames(H_all) <- c('Heterozygosity', 'Pop')
-
-# Standard deviation
-H_all$StandardDeviation <- stats::sd(H_all$Heterozygosity)
-
-# Attach coordinates
-# First we check to make sure that the populations are in the right order
-if(any(H_all$Pop != unique(P[,2]))){
-  stop("Populations are not in the correct order, if you see this please email the package authors")
+if(write == TRUE && !is.null(prefix)){
+ PA_test2 <- mapply(cbind, PA_test, "Pop"=names(PA_perpop), SIMPLIFY=F)
+ PA_mdata <- do.call("rbind", PA_test2)
+ utils::write.csv(PA_mdata, paste(prefix, "PrivateAlleles_metadata.csv", sep = '_'), row.names = F)
+ utils::write.csv(PA_count, paste(prefix, "PrivateAlleles_countperpop.csv", sep = '_'), row.names = F)
+} else if(write == TRUE && is.null(prefix)) {
+  PA_test2 <- mapply(cbind, PA_test, "Pop"=names(PA_perpop), SIMPLIFY=F)
+  PA_mdata <- do.call("rbind", PA_test2)
+  utils::write.csv(PA_mdata, "PrivateAlleles_metadata.csv", row.names = F)
+  utils::write.csv(PA_count, "PrivateAlleles_countperpop.csv", row.names = F)
 }
 
-# Pull populations coordinates
-Pop_coords <- P[!duplicated(P$Population),]
+Final_res <- list(PA_count, PA_test)
+names(Final_res) <- c("Private.Allele.Count", "Private.Allele.Metadata")
 
-# Append to heterozygosity estimates
-H_all[,4:5] <- Pop_coords[,3:4]
-colnames(H_all) <- c('Heterozygosity', 'Pop', 'Standard.Deviation','Longitude', 'Latitude')
+return(Final_res)
 
-# Is there a statistical relationship between heterozygosity and latitude
-Het_model <- stats::lm(H_all$Heterozygosity ~ H_all$Latitude)
-
-message('Heterozygosity calculated, moving to private alleles')
-
-
-##########################
-##### Visualizations #####
-##########################
-##### Heterozygosity #####
-# We will make a plot of heterozygostiy estimates and an interpolated map of heterozygosity values for each population
-
-# Plot of heterozygosity values (y-axis) and latitude (x-axis)
-Het_plot <- ggplot2::ggplot(data = H_all, ggplot2::aes(x = Latitude, y = Heterozygosity)) + ggplot2::geom_point(ggplot2::aes(color = Pop),size = 3) +
-  ggplot2::geom_errorbar(data = H_all, ggplot2::aes(x = Latitude, ymin = Heterozygosity-Standard.Deviation, ymax = Heterozygosity+Standard.Deviation,
-                                                    color = Pop)) +
-  ggplot2::stat_smooth(method = 'lm', formula = y ~ x, size =1, colour = 'black') +
-  ggplot2::labs(x = 'Latitude', y = 'Heterozygosity') +
-  ggplot2::ggtitle(expression(atop("Obersved Heterozygosity of Localities"))) +
-  ggplot2::theme_classic() + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
-                                            legend.title = ggplot2::element_blank())
-
-
-Output <- list(H_all, Het_model, Het_plot)
-names(Output) <- c('Heterozygosity_calculations', "Heterozygosity_vs_Latitude_Model",
-                   "Heterozygosity_vs_Latitude_plot")
-if(write == TRUE){
-  # Write out heterozygosity results
-  utils::write.csv(H_all, file = paste(as.character(prefix), '_Heterozygosity.csv', sep = ''), row.names = FALSE)
-  summary(Het_model)
-  # Write out linear regression results heterozygosity ~ latitude
-  sink(paste(as.character(prefix), '_Heterozygosity_lm.txt', sep = ''))
-  summary(Het_model)
-  sink()
 }
 
-message("Calculations have finished, the packages used to perform file formatting and calculations were
-  vcfR, adegenet, and dartR for formatting, hierfstat to calculate heterozygosity, and poppr to calculate private alleles")
-
-return(Output)
-}
