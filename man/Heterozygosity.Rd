@@ -7,7 +7,6 @@
 Heterozygosity(
   data,
   pops,
-  ploidy,
   statistic,
   write = FALSE,
   prefix,
@@ -16,15 +15,19 @@ Heterozygosity(
 )
 }
 \arguments{
-\item{pops}{Character string indicating the name of the population assignment file. This file should have four columns and be in the same order as your vcf file. The first column named Sample indicates the sample name. The second column named Population indicates the population assignment of each individual. The third column named Longitude indicates the longitude of the sample.  The fourth column named Latitude indicates the latitude of the sample.}
+\item{data}{Character. String indicating the name of the vcf file or vcfR object to be used in the analysis.}
 
-\item{ploidy}{Numeric. The ploidy of the data.}
+\item{pops}{Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.}
+
+\item{statistic}{Character. String indicating the statistic to calculate. Options are ...}
 
 \item{write}{Boolean. Whether or not to write the output to a file in the current working directory.}
 
-\item{prefix}{Character string that will be appended to file output.}
+\item{prefix}{Character. String that will be appended to file output.}
 
-\item{VCF}{Character string indicating the name of the vcf file to be used in analysis.}
+\item{population_col}{Numeric. Optional argument (a number) indicating the column that contains the population assignment information.}
+
+\item{individual_col}{Numeric. Optional argument (a number) indicating the column that contains the individuals (i.e., sample name) in the data.}
 }
 \value{
 A list containing the estimated diversity statistics, model output from linear regression of these statistics against latitude, and model plots.

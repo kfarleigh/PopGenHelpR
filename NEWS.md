@@ -1,11 +1,9 @@
 # PopGenHelpR 1.3.0
 - December 6th, 2023
 ** To Do for KF
-- Split `Div_Stats` into `Heterozygosity` and `Private_alleles`
 - Split `Dif_Stats` into `Fst` and `NeisD`
 - Rewrite all functions to allow 012/geno files
 - Rewrite all functions to auto detect vcf vs 012/geno
-- Rewrite error to warning for vcf/popmap sorting 
 - Rename mapping functions
 - Split `Plot_Ancestry` into `Piechart_Map` and `Ancestry_barchart`
 - Add `Nucleotide_diversity`
@@ -18,7 +16,8 @@
 - Update documentation
 - Update vignette 
 
-* `Private.alleles` has been added to calculate the number of private alleles in each populaion. 
+* `Private.alleles` has been added to calculate the number of private alleles in each population. 
+* The `Div_Stats` function has been deprecated, please use the `Heterozygosity` function if you wish to estimate heterozygosity or the `Private.alleles` function if you wish to calculate the number of private alleles per population. Please use the `Point_Map` function if you wish to visualize the results on a map or plot.
 
 # PopGenHelpR 1.2.2
 - October 2nd, 2023

@@ -1,7 +1,7 @@
 #' A function to estimate the number of private alleles in each population.
 #'
-#' @param data Character. string indicating the name of the vcf file or vcfR object to be used in the analysis.
-#' @param pops Characte. string indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.
+#' @param data Character. String indicating the name of the vcf file or vcfR object to be used in the analysis.
+#' @param pops Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.
 #' @param write Boolean. Optional argument indicating Whether or not to write the output to a file in the current working directory. This will output to files; 1) the table of private allele counts per population (named prefix_PrivateAlleles_countperpop) and 2) metadata associated with the private alleles (named prefix_PrivateAlleles_metadata). Please supply a prefix it you write files to your working directory as a best practice.
 #' @param prefix Character. Optional argument indicating a string that will be appended to file output. Please set a prefix if write is TRUE.
 #' @param population_col Numeric. Optional argument (a number) indicating the column that contains the population assignment information.
@@ -15,7 +15,7 @@
 #' data("HornedLizard_VCF")
 #' Test <- Private.alleles(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
 Private.alleles <- function(data, pops, write = FALSE, prefix = NULL, population_col = NULL, individual_col = NULL) {
-  Pop <- Standard.Deviation <- NULL
+  Pop <- Standard.Deviation <- Data <- V1 <- V2 <- loc <- NULL
 
   # Read in population assignment data
   if(is.data.frame(pops)){
@@ -123,8 +123,8 @@ Rem_pop <- PA_test_df[-c(which(PA_test_df$Pop == P_uniq[i])),]
 # For each allele, find any alleles that are in the population P_test but not the remaining populations (Rem_pop)
 Al_11 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(1,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(1,4)]))
 Al_22 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(2,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(2,4)]))
-Al_21 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(2,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(1,4)], by = join_by(V2 == V1, loc)))
-Al_12 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(1,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(2,4)], by = join_by(V1 == V2, loc)))
+Al_21 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(2,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(1,4)], by = dplyr::join_by(V2 == V1, loc)))
+Al_12 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(1,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(2,4)], by = dplyr::join_by(V1 == V2, loc)))
 
 # Check for cross comparisons, set to be empty if either allele was erroneously identified as private
 # For example if we have A/G in P_test and G/A in Rem_pop; Al_11 and Al_22 would identify them as private because A != G and G !=A
@@ -140,7 +140,7 @@ colnames(Al_11) <- colnames(Al_22) <- colnames(Al_21) <- colnames(Al_12) <-c('Al
 PA_df <- rbind(Al_11, Al_22, Al_21, Al_12)
 
 # Only keep unique private alleles
-PA_df <- PA_df %>% distinct()
+PA_df <- PA_df %>% dplyr::distinct()
 
 if(nrow(PA_df) != 0){
   PA[[j]] <- PA_df
@@ -174,7 +174,7 @@ names(PA_count) <- names(PA_test)
 PA_count <- do.call("rbind", PA_count)
 
 PA_count <- as.data.frame(PA_count)
-PA_count$Standard.deviation <- sd(PA_count[,1])
+PA_count$Standard.deviation <- stats::sd(PA_count[,1])
 colnames(PA_count) <- c("Number.Private.Alleles", "Standard.deviation")
 
 if(write == TRUE && !is.null(prefix)){

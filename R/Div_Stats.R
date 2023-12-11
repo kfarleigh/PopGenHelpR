@@ -16,6 +16,9 @@
 #' Test <- Div_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
 #' ploidy = 2, write = FALSE)}
 Div_stats <- function(VCF, pops, ploidy, write = FALSE, prefix) {
+
+  .Deprecated("Heterozygosity", msg = "The Div_Stats function has been deprecated as of PopGenHelpR v1.3.0 and will dissappear in v2.0.0. Please use the Heterozygosity function if you wish to estimate heterozygosity or the Private.alleles function if you wish to calculate the number of private alleles per population. Please use the Point_Map function if you wish to visualize the results on a map or plot.")
+
   Latitude <- Heterozygosity <- Pop <- Standard.Deviation <- Private.Alleles <- NULL
   # Read in files and convert to necessary formats
   if(missing(VCF)){
