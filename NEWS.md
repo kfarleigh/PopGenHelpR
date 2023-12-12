@@ -7,15 +7,12 @@
 - Rename mapping functions
 - Split `Plot_Ancestry` into `Piechart_Map` and `Ancestry_barchart`
 - Add `Nucleotide_diversity`
-- Add expected Heterozygosity (He) to `Heterozygosity`
-- Add proportion of heterozygous loci (PHt) to `Heterozygosity`
-- Add heterozygosity standardized by expected heterozygosity (StHe) to `Heterozygosity`
-- Add heterozygosity standardized by observed heterozygosity (StHo) to `Heterozygosity`
 - Add internal relatedness (IR) to `Heterozygosity`
 - Add homozygosity by locus (HL) to `Heterozygosity`
 - Update documentation
 - Update vignette 
 
+* `Heterozygosity` has been added to estimate 7 different measures of heterozygosity. Please see the documentation for more details. 
 * `Private.alleles` has been added to calculate the number of private alleles in each population. 
 * The `Div_Stats` function has been deprecated, please use the `Heterozygosity` function if you wish to estimate heterozygosity or the `Private.alleles` function if you wish to calculate the number of private alleles per population. Please use the `Point_Map` function if you wish to visualize the results on a map or plot.
 

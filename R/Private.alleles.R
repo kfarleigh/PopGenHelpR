@@ -27,9 +27,9 @@ Private.alleles <- function(data, pops, write = FALSE, prefix = NULL, population
   }
   # Get the list of individuals from population assignment file
   if(is.null(individual_col)) {
-    Inds <- Pops[,1]
+    Inds_popmap <- Pops[,1]
   } else if(!is.null(individual_col)){
-    Inds <- Pops[,individual_col]
+    Inds_popmap <- Pops[,individual_col]
   }
 
   # Read in files and convert to necessary formats
@@ -61,10 +61,10 @@ P <- Pops
 ### Check to see if the individuals are in the same order in the vcf data and the population assignment file
 # Make sure that the individuals in the vcf/genlight are in the same order as your popmap
 if(methods::is(data,"vcfR") || tools::file_ext(data) == 'vcf') {
-  if(any(Inds != P[,1])){
+  if(any(Inds != Inds_popmap)){
     warning("Sample names in the VCF and Population file may not be in the same order or samples are missing,
        The sample(s) in question are: ",
-            print(paste(Inds[(Inds != P[,1])], collapse = ' ')))  }
+            print(paste(Inds[(Inds != Inds_popmap)], collapse = ' ')))  }
   if(is.null(population_col)){
     Pops <- as.factor(Pops[,2])
   }

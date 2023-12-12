@@ -7,9 +7,10 @@
 Heterozygosity(
   data,
   pops,
-  statistic,
+  statistic = "all",
+  missing_value = NA,
   write = FALSE,
-  prefix,
+  prefix = NULL,
   population_col = NULL,
   individual_col = NULL
 )
@@ -19,18 +20,20 @@ Heterozygosity(
 
 \item{pops}{Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.}
 
-\item{statistic}{Character. String indicating the statistic to calculate. Options are ...}
+\item{statistic}{Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Ho, observed heterozygosity; He, expected heterozygosity; PHt, proportion of heterozygous loci; StHe, heterozygosity standardized by the average expected heterozygosity; StHo, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus)}
 
-\item{write}{Boolean. Whether or not to write the output to a file in the current working directory.}
+\item{missing_value}{Character. String indicating missing data in the input data. It is assumed to be NA, but that may not be true (is likely not) in the case of geno files.}
 
-\item{prefix}{Character. String that will be appended to file output.}
+\item{write}{Boolean. Whether or not to write the output to files in the current working directory. There will be one or two files for each statistic. Files will be named based on their statistic such as Ho_perpop.csv or Ho_perloc.csv.}
+
+\item{prefix}{Character. Optional argument. String that will be appended to file output. Please provide a prefix if write is set to TRUE.}
 
 \item{population_col}{Numeric. Optional argument (a number) indicating the column that contains the population assignment information.}
 
 \item{individual_col}{Numeric. Optional argument (a number) indicating the column that contains the individuals (i.e., sample name) in the data.}
 }
 \value{
-A list containing the estimated diversity statistics, model output from linear regression of these statistics against latitude, and model plots.
+A list containing the estimated heterozygosity statistics. The per pop values are calculated by taking the average of the per locus estimates.
 }
 \description{
 A function to estimate heterozygosity.
@@ -39,6 +42,5 @@ A function to estimate heterozygosity.
 \donttest{
 data("HornedLizard_Pop")
 data("HornedLizard_VCF")
-Test <- Div_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
-ploidy = 2, write = FALSE)}
+Test <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
 }

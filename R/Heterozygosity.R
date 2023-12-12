@@ -2,23 +2,23 @@
 #'
 #' @param data Character. String indicating the name of the vcf file or vcfR object to be used in the analysis.
 #' @param pops Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.
-#' @param statistic Character. String indicating the statistic to calculate. Options are ...
-#' @param write Boolean. Whether or not to write the output to a file in the current working directory.
-#' @param prefix Character. String that will be appended to file output.
+#' @param statistic Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Ho, observed heterozygosity; He, expected heterozygosity; PHt, proportion of heterozygous loci; StHe, heterozygosity standardized by the average expected heterozygosity; StHo, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus)
+#' @param missing_value Character. String indicating missing data in the input data. It is assumed to be NA, but that may not be true (is likely not) in the case of geno files.
+#' @param write Boolean. Whether or not to write the output to files in the current working directory. There will be one or two files for each statistic. Files will be named based on their statistic such as Ho_perpop.csv or Ho_perloc.csv.
+#' @param prefix Character. Optional argument. String that will be appended to file output. Please provide a prefix if write is set to TRUE.
 #' @param population_col Numeric. Optional argument (a number) indicating the column that contains the population assignment information.
 #' @param individual_col Numeric. Optional argument (a number) indicating the column that contains the individuals (i.e., sample name) in the data.
 
-#' @return A list containing the estimated diversity statistics, model output from linear regression of these statistics against latitude, and model plots.
+#' @return A list containing the estimated heterozygosity statistics. The per pop values are calculated by taking the average of the per locus estimates.
 #' @export
 #'
 #' @examples
 #' \donttest{
 #' data("HornedLizard_Pop")
 #' data("HornedLizard_VCF")
-#' Test <- Div_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
-#' ploidy = 2, write = FALSE)}
-Heterozygosity <- function(data, pops, statistic, write = FALSE, prefix, population_col = NULL, individual_col = NULL) {
-  Latitude <- Heterozygosity <- Pop <- Standard.Deviation <- NULL
+#' Test <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
+Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, write = FALSE, prefix = NULL, population_col = NULL, individual_col = NULL) {
+  Statistic <- NULL
 
   # Read in population assignment data
   if(is.data.frame(pops)){
@@ -30,9 +30,9 @@ Heterozygosity <- function(data, pops, statistic, write = FALSE, prefix, populat
   }
   # Get the list of individuals from population assignment file
   if(is.null(individual_col)) {
-    Inds <- Pops[,1]
+    Inds_popmap <- Pops[,1]
   } else if(!is.null(individual_col)){
-    Inds <- Pops[,individual_col]
+    Inds_popmap <- Pops[,individual_col]
   }
 
   # Read in files and convert to necessary formats
@@ -78,10 +78,10 @@ Heterozygosity <- function(data, pops, statistic, write = FALSE, prefix, populat
   ### Check to see if the individuals are in the same order in the vcf data and the population assignment file
   # Make sure that the individuals in the vcf/genlight are in the same order as your popmap
   if(methods::is(data,"vcfR") || tools::file_ext(data) == 'vcf') {
-    if(any(Dat[,1] != P[,1])){
+    if(any(Inds != Inds_popmap)){
       warning("Sample names in the VCF and Population file may not be in the same order or samples are missing,
        The sample(s) in question are: ",
-              print(paste(Dat[,1][(Dat[,1] != P[,1])], collapse = ' ')))  }
+              print(paste(Inds[(Inds != Inds_popmap)], collapse = ' ')))  }
     if(is.null(population_col)){
       Pops <- as.factor(Pops[,2])
     }
@@ -91,13 +91,22 @@ Heterozygosity <- function(data, pops, statistic, write = FALSE, prefix, populat
   } else if(tools::file_ext(data) == 'geno'){
       if(is.null(population_col)){
       Pops <- as.factor(Pops[,2])
-    }   else if(!is.null(population_col)){
+    } else if(!is.null(population_col)){
         Pops <- as.factor(Pops[,population_col])
     }
   }
 
+  # Replace missing data value with NA
+  if(is.na(missing_value) == FALSE){
+    Dat[Dat == missing_value] <- NA
+  }
+
   P <- Pops
   Dat <- cbind.data.frame(Inds, P, Dat)
+
+  if(is.na(missing_value) == FALSE){
+    Dat[Dat == missing_value] <- NA
+  }
 
   # Break into list with populations for each element
   Dat_perpop <- list()
@@ -109,32 +118,125 @@ Heterozygosity <- function(data, pops, statistic, write = FALSE, prefix, populat
   #######################################
   ##### Heterozygosity calculations #####
   #######################################
-  # Find observed heterozygosity (1-homozygosity)
+ # Estimate observed heterozygosity (1-homozygosity), accounts for NA
  ObsHet <- function(Dat){
-    ObsHet_perloc <- 1-(colSums(Dat[3:ncol(Dat)] != 1)/nrow(Dat))
+    ObsHet_perloc <- 1-(colSums(Dat[3:ncol(Dat)] != 1, na.rm = T)/(nrow(Dat)- colSums(is.na(Dat[3:ncol(Dat)]))))
     return(ObsHet_perloc)
   }
 
   ObsHet_res_perloc  <- lapply(Dat_perpop, ObsHet)
   Obs_Het_res_avg <- lapply(ObsHet_res_perloc, mean)
 
+  # Make it into a dataframe so that it is easier for users to view
+  ObsHet_res_perloc <- mapply(cbind, ObsHet_res_perloc, "Pop"=names(ObsHet_res_perloc), SIMPLIFY=F)
+  ObsHet_res_perloc <- as.data.frame(do.call("rbind", ObsHet_res_perloc))
+  colnames(ObsHet_res_perloc)[1] <- "Observed.Heterozygosity"
+  ObsHet_res_perloc[,1] <- as.numeric(ObsHet_res_perloc[,1])
+
+  Obs_Het_res_avg <- as.data.frame(do.call("rbind", Obs_Het_res_avg))
+  Obs_Het_res_avg$Pop <- rownames(Obs_Het_res_avg)
+  colnames(Obs_Het_res_avg)[1] <- "Observed.Heterozygosity"
+  Obs_Het_res_avg[,1] <- as.numeric(Obs_Het_res_avg[,1])
+
+  # Estimate expected heterozygosity
  ExpHe <- function(Dat){
-   p <- ((colSums(Dat[3:ncol(Dat)]== 0)*2) + colSums(Dat[3:ncol(Dat)]== 1))/(nrow(Dat)*2)
-   q <- ((colSums(Dat[3:ncol(Dat)]== 2)*2) + colSums(Dat[3:ncol(Dat)]== 1))/(nrow(Dat)*2)
+  p <- ((colSums(Dat[3:ncol(Dat)]== 0, na.rm = T)*2) + colSums(Dat[3:ncol(Dat)]== 1, na.rm = T))/((nrow(Dat)- colSums(is.na(Dat[3:ncol(Dat)])))*2)
+  q <- ((colSums(Dat[3:ncol(Dat)]== 2, na.rm = T)*2) + colSums(Dat[3:ncol(Dat)]== 1, na.rm = T))/((nrow(Dat)- colSums(is.na(Dat[3:ncol(Dat)])))*2)
    He_perloc <- 1-(p^2)-(q^2)
    return(He_perloc)
   }
 
- ExpHet_res_perloc  <- lapply(Dat_perpop, ExpHe)
- ExpHet_res_avg  <- lapply(ExpHet_res_perloc, mean)
+  ExpHet_res_perloc  <- lapply(Dat_perpop, ExpHe)
+  ExpHet_res_avg  <- lapply(ExpHet_res_perloc, mean)
 
- PropHt <- NULL
- StHe <- NULL
- StHo <- NULL
+  # Make it into a dataframe so that it is easier for users to view
+  ExpHet_res_perloc <- mapply(cbind, ExpHet_res_perloc, "Pop"=names(ExpHet_res_perloc), SIMPLIFY=F)
+  ExpHet_res_perloc <- as.data.frame(do.call("rbind", ExpHet_res_perloc))
+  colnames(ExpHet_res_perloc)[1] <- "Expected.Heterozygosity"
+  ExpHet_res_perloc[,1] <- as.numeric(ExpHet_res_perloc[,1])
+
+  ExpHet_res_avg <- as.data.frame(do.call("rbind", ExpHet_res_avg))
+  ExpHet_res_avg$Pop <- rownames(ExpHet_res_avg)
+  colnames(ExpHet_res_avg)[1] <- "Expected.Heterozygosity"
+  ExpHet_res_avg[,1] <- as.numeric(ExpHet_res_avg[,1])
+
+  # Estimate the proportion of heterozygous loci per individual
+ PropHt <- function(Dat){
+   PHt <- t(as.data.frame(rowSums(Dat[3:ncol(Dat)] == 1, na.rm = T)/((ncol(Dat)-2) - rowSums(is.na(Dat[3:ncol(Dat)])))))
+   rownames(PHt) <- 'PHt'
+   colnames(PHt) <- Dat[,1]
+
+   return(PHt)
+ }
+
+ PropHt_res_perind <- lapply(Dat_perpop, PropHt)
+ PropHt_res_perind <- mapply(rbind, PropHt_res_perind, "Pop"=names(PropHt_res_perind), SIMPLIFY=F)
+
+ # Make it into a dataframe so that it is easier for users to view
+ PropHt_res_perind <- t(as.data.frame(do.call("cbind", PropHt_res_perind)))
+ PropHt_res_perind <- as.data.frame(PropHt_res_perind)
+ PropHt_res_perind[,1] <- as.numeric(PropHt_res_perind[,1])
+
+ # Estimate standardized heterozygosity based on the expected heterozygosity
+ StHe <- function(Dat){
+   St_He <- PropHt(Dat)/mean(ExpHe(Dat))
+   rownames(St_He) <- 'StHe'
+   return(St_He)
+ }
+
+ StHe_res_perind <- lapply(Dat_perpop, StHe)
+ StHe_res_perind <- mapply(rbind, StHe_res_perind, "Pop"=names(StHe_res_perind), SIMPLIFY=F)
+
+ # Make it into a dataframe so that it is easier for users to view
+ StHe_res_perind <- t(as.data.frame(do.call("cbind", StHe_res_perind)))
+ StHe_res_perind <- as.data.frame(StHe_res_perind)
+ StHe_res_perind[,1] <- as.numeric(StHe_res_perind[,1])
+
+ # Estimate standardized heterozygosity based on the observed heterozyosity
+ StHo <- function(Dat){
+   St_Ho <- PropHt(Dat)/mean(ObsHet(Dat))
+   rownames(St_Ho) <- 'StHo'
+   return(St_Ho)
+ }
+
+ StHo_res_perind <- lapply(Dat_perpop, StHo)
+ StHo_res_perind <- mapply(rbind, StHo_res_perind, "Pop"=names(StHo_res_perind), SIMPLIFY=F)
+
+ # Make it into a dataframe so that it is easier for users to view
+ StHo_res_perind <- t(as.data.frame(do.call("cbind", StHo_res_perind)))
+ StHo_res_perind <- as.data.frame(StHo_res_perind)
+ StHo_res_perind[,1] <- as.numeric(StHo_res_perind[,1])
+
+ # Estimate internal relatedness
  IR <- NULL
+
+ # Estimate homozygosity by locus
  HL <- NULL
 
- Output <- list(Obs_Het_res_avg, ObsHet_res_perloc)
+ Output <- list(Obs_Het_res_avg, ObsHet_res_perloc, ExpHet_res_avg, ExpHet_res_perloc,
+                PropHt_res_perind, StHe_res_perind, StHo_res_perind)
 
-return(Output)
+ names(Output) <- c("Ho_perpop", "Ho_perloc", "He_perpop", "He_perloc", "PHt", "StHe", "StHo")
+
+ # Set list of possible statistics
+ Stat <- c("Ho", "He", "PHt", "StHe", "StHo", "IR", "HL")
+ Stat_idx <- c(1,1,2,2,3,4,5,6,7)
+
+ if(length(statistic) == 1 && statistic ==  "all"){
+   return(Output)
+ } else {
+   res <- which(Stat %in% statistic)
+   Output_final<- Output[which(Stat_idx %in% res)]
+   return(Output_final)
+ }
+
+ if(write == TRUE && !is.null(prefix)){
+    res_write <- which(Stat %in% statistic)
+    Output2write <- Output[which(Stat_idx %in% res_write)]
+    for (i in 1:length(Output2write)){
+      utils::write.csv(Output2write, file = paste(names(Output2write[i]), ".csv", sep = ""))
+    }
+  } else if(write == TRUE && is.null(prefix)){
+      utils::write.csv(Output2write, file = paste(prefix, '_', names(Output2write[i]), ".csv", sep = ""))
+    }
 }
