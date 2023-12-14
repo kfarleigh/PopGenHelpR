@@ -4,7 +4,7 @@ template:
   bootstrap: 5
 navbar:
   title: "PopGenHelpR"
-  type: default
+  bg: dark
   structure:
     left: [Manual, Articles]
     right: [github]
