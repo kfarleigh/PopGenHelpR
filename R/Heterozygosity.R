@@ -208,7 +208,55 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
  StHo_res_perind[,1] <- as.numeric(StHo_res_perind[,1])
 
  # Estimate internal relatedness
- IR <- NULL
+ IR <- function(Dat){
+
+   # Get the number of individuals
+   Individuals <- nrow(Dat)
+
+   # Get the number of loci
+   Nloc <- length(3:ncol(Dat))
+
+   # Set up a results table
+   res_tab <- data.frame(IR = matrix(NA, nrow = Individuals, ncol = 1), row.names = Dat[,1])
+
+   # Get the counts of alleles for each locus
+   Counts <- list()
+
+   # Isolate the genetic data
+   tmp <- Dat[,3:ncol(Dat)]
+
+   # Count the occurrences of 0,1,2 at each locus
+   for(i in 1:Nloc) {
+     tmp_loc <- tmp[,i]
+     Counts[[i]] <- table(tmp_loc)
+   }
+
+   ### Calculate IR for each individual
+   for(i in 1:Individuals){
+
+     # Need to work on H, N, f
+
+     H <- 0
+     N <- Nloc
+     f <- 0
+     for(j in 1:Nloc){
+
+     if(tmp[i,j] == 0 | tmp[i,j] == 2){
+       H <- H + 1
+       # Which allele is the individual homozygous for
+       Hom_Allele <- as.character(tmp[i,j])
+       f <- f + (2 * Counts[[j]][[Hom_Allele]] - 2)/(sum(Counts[[j]]) - 2)
+     } else if(tmp[i,j] == 1){
+       Het_Allele <- "1"
+       f <- f + Counts[[j]][[Het_Allele]] - 1)/(sum(Counts[[j]]) - 2)
+     }
+
+     }
+     # Calcualte internal relatedness
+     res_tab[i,1] <- (2 * H - f) / (2 * N - f)
+   }
+   return(res_tab)
+ }
 
  # Estimate homozygosity by locus
  HL <- NULL
