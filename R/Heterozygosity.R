@@ -339,7 +339,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
    Individuals <- nrow(Loc_HL_mat)
 
    # Get the number of loci
-   Nloc <- ncol(Loc_IR_mat)/2
+   Nloc <- ncol(Loc_HL_mat)/2
 
    # Set up a results table
    res_tab <- data.frame(HL = matrix(NA, nrow = Individuals, ncol = 1), row.names = Inds)
@@ -376,7 +376,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
        }
      }
 
-     res_tab[i] <- sum.Eh / (sum.Eh + sum.Ej)
+     res_tab[i,1] <- sum.Eh / (sum.Eh + sum.Ej)
 
    }
 
@@ -384,13 +384,13 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
 
  }
 
+ HL_perind <- HL(Dat)
 
- }
 
  Output <- list(Obs_Het_res_avg, ObsHet_res_perloc, ExpHet_res_avg, ExpHet_res_perloc,
-                PropHt_res_perind, StHe_res_perind, StHo_res_perind, IR_perind)
+                PropHt_res_perind, StHe_res_perind, StHo_res_perind, IR_perind, HL_perind)
 
- names(Output) <- c("Ho_perpop", "Ho_perloc", "He_perpop", "He_perloc", "PHt", "StHe", "StHo")
+ names(Output) <- c("Ho_perpop", "Ho_perloc", "He_perpop", "He_perloc", "PHt", "StHe", "StHo", "IR", "HL")
 
  # Set list of possible statistics
  Stat <- c("Ho", "He", "PHt", "StHe", "StHo", "IR", "HL")
