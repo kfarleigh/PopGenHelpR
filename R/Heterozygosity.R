@@ -48,31 +48,6 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     gt[gt == "0/1" | gt == "1/0"] <- 1
     gt[gt == "1/1"] <- 2
 
-    # Extract the alleles for internal relatedness calculations
-    IR_dat <- t(vcfR::extract.gt(Dat, return.alleles = T))
-
-    Loc_IR_formatted <- data.frame(matrix(NA, nrow = nrow(IR_dat), ncol = ncol(IR_dat)*2), row.names = rownames(IR_dat))
-
-    for(i in 1:ncol(IR_dat)){
-      # Get the locus name
-      Loc_nam <- colnames(IR_dat)[i]
-
-      # Split the genotype
-      Loc_split <- strsplit(IR_dat[,i], "/", fixed = T)
-      # Set the name of individuals
-      names(Loc_split) <- rownames(IR_dat)
-
-      # Bind into a data frame
-      Loc_split_df <- do.call(rbind, Loc_split)
-
-      # Set an index to position the genotypes correctly
-      idx <- i*2-1
-
-      Loc_IR_formatted[,idx:(idx+1)] <- Loc_split_df
-      colnames(Loc_IR_formatted)[idx:(idx+1)] <- c(paste(Loc_nam, "a", sep = ""), paste(Loc_nam, "b", sep = ""))
-
-    }
-
     # Transpose the numeric gt matrix
     Dat <- as.data.frame(t(as.matrix(gt)))
 
@@ -89,31 +64,6 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     gt[gt == "0/1" | gt == "1/0"] <- 1
     gt[gt == "1/1"] <- 2
 
-    # Extract the alleles for internal relatedness calculations
-    IR_dat <- t(vcfR::extract.gt(Dat, return.alleles = T))
-
-    Loc_IR_formatted <- data.frame(matrix(NA, nrow = nrow(IR_dat), ncol = ncol(IR_dat)*2), row.names = rownames(IR_dat))
-
-    for(i in 1:ncol(IR_dat)){
-      # Get the locus name
-      Loc_nam <- colnames(IR_dat)[i]
-
-      # Split the genotype
-      Loc_split <- strsplit(IR_dat[,i], "/", fixed = T)
-      # Set the name of individuals
-      names(Loc_split) <- rownames(IR_dat)
-
-      # Bind into a data frame
-      Loc_split_df <- do.call(rbind, Loc_split)
-
-      # Set an index to position the genotypes correctly
-      idx <- i*2-1
-
-      Loc_IR_formatted[,idx:(idx+1)] <- Loc_split_df
-      colnames(Loc_IR_formatted)[idx:(idx+1)] <- c(paste(Loc_nam, "a", sep = ""), paste(Loc_nam, "b", sep = ""))
-
-    }
-
     # Transpose the numeric gt matrix
     Dat <- as.data.frame(t(as.matrix(gt)))
 
@@ -125,11 +75,6 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     Dat <- utils::read.table(data)
     print("Geno file detected, proceeding to formatting. Note, PopGenHelpR assumes that your individuals in the geno file and
           popmap are in the same order, please check to avoid erroneous inferences.")
-  }
-  else if(tools::file_ext(data) == 'geno' && statistic == "all" | statistic == "IR" | statistic == "HL"){
-    stop("Internal relatedness and homozygosity by locus cannot be calculted from a geno file. Please
-         supply a vcf file for analysis if you wish to use the options statistic = 'all', statistic = 'IR',
-         or statistic = 'HL'. Please email the package maintainer if you have questions.")
   }
   else {
       stop("Please supply a geno file, vcf file, or vcfR object for analysis")
@@ -265,74 +210,185 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
  StHo_res_perind <- as.data.frame(StHo_res_perind)
  StHo_res_perind[,1] <- as.numeric(StHo_res_perind[,1])
 
- # Estimate internal relatedness; could be REWRITTEN TO have heterozygotes coded as 0/2 instead of 1/1 to accomodate geno files
- IR <- function(Dat){
 
-   # Convert to a matrix for calculations
-   Loc_IR_mat <- as.matrix(Loc_IR_formatted)
+ IR <- function(Dat){
+     # Extract genetic data and convert to count the frequency of allele s
+     tmp <- Dat[,3:ncol(Dat)]
+     tmp[tmp == "0"] <- "0/0"
+     tmp[tmp == "1"] <- "0/2"
+     tmp[tmp == "2"] <- "2/2"
+
+     rownames(tmp) <- Inds
+
+     Loc_IR_formatted <- data.frame(matrix(NA, nrow = nrow(tmp), ncol = ncol(tmp)*2), row.names = rownames(tmp))
+
+     for(i in 1:ncol(tmp)){
+       # Get the locus name
+       Loc_nam <- colnames(tmp)[i]
+
+       # Split the genotype
+       Loc_split <- strsplit(tmp[,i], "/", fixed = T)
+       # Set the name of individuals
+       names(Loc_split) <- Dat[,1]
+
+       # Bind into a data frame
+       Loc_split_df <- do.call(rbind, Loc_split)
+
+       # Set an index to position the genotypes correctly
+       idx <- i*2-1
+
+       Loc_IR_formatted[,idx:(idx+1)] <- Loc_split_df
+       colnames(Loc_IR_formatted)[idx:(idx+1)] <- c(paste(Loc_nam, "a", sep = ""), paste(Loc_nam, "b", sep = ""))
+
+     }
+     # Convert to a matrix for calculations
+     Loc_IR_mat <- as.matrix(Loc_IR_formatted)
+
+     # Get the number of individuals
+     Individuals <- nrow(Loc_IR_mat)
+
+     # Get the number of loci
+     Nloc <- ncol(Loc_IR_mat)/2
+
+     # Set up a results table
+     res_tab <- data.frame(IR = matrix(NA, nrow = Individuals, ncol = 1), row.names = Inds)
+
+     # Get the counts of alleles for each locus
+     Counts <- list()
+
+     # Count the occurrences of each allele (0 and 2) at each locus
+     for(i in 1:Nloc) {
+       # Set the same index as above
+       idx <- i*2-1
+       Counts[[i]] <- table(Loc_IR_mat[,idx:(idx+1)])
+     }
+
+     ### Calculate IR for each individual
+     for(i in 1:Individuals){
+
+       H <- 0
+       N <- 0
+       f <- 0
+
+       for(j in 1:Nloc){
+         # Set our index again
+         idx1 <- 2*j-1
+         idx2 <- 2*j
+
+         if((!is.na(Loc_IR_mat[i,idx1])) && (!is.na(Loc_IR_mat[i,idx2]))){
+           N <- N + 1
+         }
+
+         if(Loc_IR_mat[i,idx1] == Loc_IR_mat[i,idx2]){
+           H <- H + 1
+           # Which allele is the individual homozygous for
+           Hom_Allele <- as.character(Loc_IR_mat[i,idx1])
+           f <- f + (2 * Counts[[j]][[Hom_Allele]] - 2)/(sum(Counts[[j]]) - 2)
+
+         } else if(Loc_IR_mat[i,idx1] != Loc_IR_mat[i,idx2]){
+           # If they are heterozygous that means that they are contributing two alleles, using just a sum of 1 leads to NaN
+           Het_Allele1 <- as.character(Loc_IR_mat[i,idx1])
+           f <- f + (Counts[[j]][[Het_Allele1]] - 1)/(sum(Counts[[j]]) - 2)
+           Het_Allele2 <- as.character(Loc_IR_mat[i,idx2])
+           f <- f + (Counts[[j]][[Het_Allele2]] - 1)/(sum(Counts[[j]]) - 2)
+         }
+       }
+       # Calculate internal relatedness
+       res_tab[i,1] <- (2 * H - f) / (2 * N - f)
+     }
+     return(res_tab)
+ }
+
+ IR_perind <- IR(Dat)
+
+ # Estimate homozygosity by locus
+ HL <- function(Dat){
+   # Extract genetic data and convert to count the frequency of allele s
+   tmp <- Dat[,3:ncol(Dat)]
+   tmp[tmp == "0"] <- "0/0"
+   tmp[tmp == "1"] <- "0/2"
+   tmp[tmp == "2"] <- "2/2"
+
+   rownames(tmp) <- Inds
+
+   Loc_HL_formatted <- data.frame(matrix(NA, nrow = nrow(tmp), ncol = ncol(tmp)*2), row.names = rownames(tmp))
+
+   for(i in 1:ncol(tmp)){
+     # Get the locus name
+     Loc_nam <- colnames(tmp)[i]
+
+     # Split the genotype
+     Loc_split <- strsplit(tmp[,i], "/", fixed = T)
+     # Set the name of individuals
+     names(Loc_split) <- Dat[,1]
+
+     # Bind into a data frame
+     Loc_split_df <- do.call(rbind, Loc_split)
+
+     # Set an index to position the genotypes correctly
+     idx <- i*2-1
+
+     Loc_HL_formatted[,idx:(idx+1)] <- Loc_split_df
+     colnames(Loc_HL_formatted)[idx:(idx+1)] <- c(paste(Loc_nam, "a", sep = ""), paste(Loc_nam, "b", sep = ""))
+
+   }
+
+   Loc_HL_mat <- as.matrix(Loc_HL_formatted)
 
    # Get the number of individuals
-   Individuals <- nrow(Loc_IR_mat)
+   Individuals <- nrow(Loc_HL_mat)
 
    # Get the number of loci
    Nloc <- ncol(Loc_IR_mat)/2
 
    # Set up a results table
-   res_tab <- data.frame(IR = matrix(NA, nrow = Individuals, ncol = 1), row.names = Inds)
+   res_tab <- data.frame(HL = matrix(NA, nrow = Individuals, ncol = 1), row.names = Inds)
 
-   # Get the counts of alleles for each locus
-   Counts <- list()
+   E <- array(Nloc)
+   Counts <- array(Nloc)
 
-   # Count the occurrences of 0,1,2 at each locus
+   # Count the occurrences of each allele (0 and 2) at each locus
    for(i in 1:Nloc) {
-     # Set the same index as above
-     idx <- i*2-1
-     Counts[[i]] <- table(Loc_IR_mat[,idx:(idx+1)])
+      E[i] <- 1
+      # Set the same index as above
+      idx <- i*2-1
+      Counts[i] <- list(table(Loc_HL_mat[,idx:(idx+1)]))
+      E[i] <- 1 - sum((Counts[[i]] / sum(Counts[[i]]))^2)
    }
 
-   ### Calculate IR for each individual
-   for(i in 1:Individuals){
+   for (i in 1:Individuals) {
 
-     H <- 0
-     N <- 0
-     f <- 0
+     sum.Eh <- 0
+     sum.Ej <- 0
 
-     for(j in 1:Nloc){
-       # Set our index again
+     for (j in 1:Nloc) {
+
        idx1 <- 2*j-1
        idx2 <- 2*j
 
-     if((!is.na(Loc_IR_mat[i,idx1])) && (!is.na(Loc_IR_mat[i,idx2]))){
-       N <- N +1
+       if ((!is.na(Loc_HL_mat[i, idx1])) && (!is.na(Loc_HL_mat[i, idx2]))) {
+         if (Loc_HL_mat[i, idx1] == Loc_HL_mat[i, idx2]) {
+           sum.Eh <- sum.Eh + E[j]
+         }
+         else {
+           sum.Ej <- sum.Ej + E[j]
+         }
+       }
      }
 
-     if(Loc_IR_mat[i,idx1] == Loc_IR_mat[i,idx2]){
-       H <- H + 1
-       # Which allele is the individual homozygous for
-       Hom_Allele <- as.character(Loc_IR_mat[i,idx1])
-       f <- f + (2 * Counts[[j]][[Hom_Allele]] - 2)/(sum(Counts[[j]]) - 2)
+     res_tab[i] <- sum.Eh / (sum.Eh + sum.Ej)
 
-     } else if(Loc_IR_mat[i,idx1] != Loc_IR_mat[i,idx2]){
-       # If they are heterozygous that means that they are contributing two alleles, using just a sum of 1 leads to NaN
-       Het_Allele1 <- as.character(Loc_IR_mat[i,idx1])
-       f <- f + (Counts[[j]][[Het_Allele1]] - 1)/(sum(Counts[[j]]) - 2)
-       Het_Allele2 <- as.character(Loc_IR_mat[i,idx2])
-       f <- f + (Counts[[j]][[Het_Allele2]] - 1)/(sum(Counts[[j]]) - 2)
-     }
-     }
-     # Calculate internal relatedness
-     res_tab[i,1] <- (2 * H - f) / (2 * N - f)
    }
+
    return(res_tab)
+
  }
 
- # Estimate homozygosity by locus
- HL <- function(Dat){
 
  }
 
  Output <- list(Obs_Het_res_avg, ObsHet_res_perloc, ExpHet_res_avg, ExpHet_res_perloc,
-                PropHt_res_perind, StHe_res_perind, StHo_res_perind)
+                PropHt_res_perind, StHe_res_perind, StHo_res_perind, IR_perind)
 
  names(Output) <- c("Ho_perpop", "Ho_perloc", "He_perpop", "He_perloc", "PHt", "StHe", "StHo")
 
