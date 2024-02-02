@@ -2,9 +2,9 @@
 #'
 #' @param data Character. String indicating the name of the vcf file, geno file or vcfR object to be used in the analysis.
 #' @param pops Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.
-#' @param statistic Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Fst, Weir and Cockerham (1984) Fst; NeisD, Nei's D statistic; JostD, Jost's D; StHe, heterozygosity standardized by the average expected heterozygosity; StHo, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus.
+#' @param statistic Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Fst, Weir and Cockerham (1984) Fst; NeisD, Nei's D statistic; JostsD, Jost's D.
 #' @param missing_value Character. String indicating missing data in the input data. It is assumed to be NA, but that may not be true (is likely not) in the case of geno files.
-#' @param write Boolean. Whether or not to write the output to files in the current working directory. There will be one or two files for each statistic. Files will be named based on their statistic such as Ho_perpop.csv or Ho_perloc.csv.
+#' @param write Boolean. Whether or not to write the output to files in the current working directory. There will be one or two files for each statistic. Files will be named based on their statistic such as Fst_perpop.csv.
 #' @param prefix Character. Optional argument. String that will be appended to file output. Please provide a prefix if write is set to TRUE.
 #' @param population_col Numeric. Optional argument (a number) indicating the column that contains the population assignment information.
 #' @param individual_col Numeric. Optional argument (a number) indicating the column that contains the individuals (i.e., sample name) in the data.
@@ -12,20 +12,23 @@
 #' @return A list containing the estimated heterozygosity statistics. The per pop values are calculated by taking the average of the per locus estimates.
 #'
 #' @references
-#' \bold{For Fst:}
+#' \bold{Fst:}
+#'
+#' \href{https://doi.org/10.1111/1755-0998.12129}{Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013)}. StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
 #'
 #' \href{https://www.jstor.org/stable/2408641}{Weir, B. S., & Cockerham, C. C. (1984)}. Estimating F-statistics for the analysis of population structure. evolution, 1358-1370.
 #'
-#' \bold{For Nei's D:}
+#' \bold{Nei's D:}
 #'
 #' \href{https://www.journals.uchicago.edu/doi/abs/10.1086/282771}{Nei, M. (1972)}. Genetic distance between populations. The American Naturalist, 106(949), 283-292.
 #'
+#' \href{https://doi.org/10.1111/1755-0998.12129}{Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013)}. StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
 #'
-#' \bold{For Jost's D:}
+#' \bold{Jost's D:}
 #'
-#' \href{https://doi.org/10.1111/j.1365-294X.2008.03887.x}{Jost L (2008)}. GST and its relatives do not measure differentiation. Molecular Ecology, 17, 4015–4026..
+#' \href{https://doi.org/10.1111/j.1365-294X.2008.03887.x}{Jost L (2008)}. GST and its relatives do not measure differentiation. Molecular Ecology, 17, 4015–4026.
 #'
-#' @author \email{Keaka Farleigh (farleik@@miamioh.edu)}
+#' @author Keaka Farleigh
 #' @export
 #'
 #' @examples
@@ -70,8 +73,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     # Preserve individual names
     Inds <- rownames(Dat)
     Dat <- sapply(Dat, as.numeric)
-  }
-  else if(tools::file_ext(data) == 'vcf') {
+  } else if(tools::file_ext(data) == 'vcf') {
     Dat <- vcfR::read.vcfR(data, verbose = FALSE)
     print("VCF file detected, proceeding to formatting.")
     # Convert the vcf gt slot to a geno style table for calculations
@@ -86,13 +88,11 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     # Preserve individual names
     Inds <- rownames(Dat)
     Dat <- sapply(Dat, as.numeric)
-  }
-  else if(tools::file_ext(data) == 'geno'){
+  } else if(tools::file_ext(data) == 'geno'){
     Dat <- utils::read.table(data)
     print("Geno file detected, proceeding to formatting. Note, PopGenHelpR assumes that your individuals in the geno file and
           popmap are in the same order, please check to avoid erroneous inferences.")
-  }
-  else {
+  } else {
       stop("Please supply a geno file, vcf file, or vcfR object for analysis")
   }
 
@@ -134,17 +134,134 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
   }
 
   message('Formatting has finished, moving onto calculations')
-  #######################################
+  ########################################
   ##### Differentiation calculations #####
-  #######################################
+  ########################################
 
- if(write == TRUE && !is.null(prefix)){
-    res_write <- which(Stat %in% statistic)
-    Output2write <- Output[which(Stat_idx %in% res_write)]
-    for (i in 1:length(Output2write)){
-      utils::write.csv(Output2write, file = paste(names(Output2write[i]), ".csv", sep = "_"))
+  ### Fst
+  # We will use the Dat_perpop object
+
+
+  Fst <- function(Dat){
+    # Dat is the Dat_perpop object
+    # Create a couple of matrices to store data
+    ind.nomissing <- matrix(nrow = length(Dat), ncol = length(Dat[3:ncol(Dat[[1]])]))
+    q.freq <- matrix(nrow = length(Dat), ncol = length(Dat[3:ncol(Dat[[1]])]))
+    het.freq <- matrix(nrow = length(Dat), ncol = length(Dat[3:ncol(Dat[[1]])]))
+
+    # Calculate the alternate allele frequency and the frequency of heterozygotes per population per locus
+    for(i in 1:length(Dat)){
+    tmp <- Dat[[i]]
+    # Get frequency of alternate alleles
+    q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(tmp[3:ncol(tmp)] != "NA"))
+    # Get number of heterozygotes in each population
+    het.freq[i,] <- colSums(tmp[3:ncol(tmp)] == 1)/colSums(tmp[3:ncol(tmp)] != "NA")
+    # Get the number of individuals with data
+    ind.nomissing[i,] <- colSums(tmp[3:ncol(tmp)] != "NA")
     }
-  } else if(write == TRUE && is.null(prefix)){
-      utils::write.csv(Output2write, file = paste(prefix, '_', names(Output2write[i]), ".csv", sep = "_"))
+    # Set the names of the matrices
+    row.names(q.freq) <- row.names(het.freq) <- row.names(ind.nomissing) <- names(Dat)
+
+
+    # Use StamPP's indexing
+    index2_a <- index1_a <- NULL
+    step <- 2
+    step2 <- 1
+    for(i in step:length(unique(Pops))){
+      index1_a <- c(index1_a, i:length(unique(Pops)))
+      index2_a <- c(index2_a, rep(step2, length(step:length(unique(Pops)))))
+      step=step+1
+      step2=step2+1
     }
+
+    # Set r (number of pops)
+    r <- 2
+
+
+    nPop1 <- ind.nomissing[index1_a,]
+    nPop2 <- ind.nomissing[index2_a,]
+
+    q1 <- q.freq[index1_a,]
+    q2 <- q.freq[index2_a,]
+
+    h1 <- het.freq[index1_a,]
+    h2 <- het.freq[index2_a,]
+
+    ### WC Fst
+
+    # Calculate nbar
+    n.bar <- (nPop1+nPop2)/r
+
+    nc <- (r*n.bar)-(((nPop1^2)+(nPop2^2)) / (r*n.bar))
+    p.bar <- ((nPop1*q1)/(r*n.bar)) + ((nPop2*q2)/(r*n.bar))
+    s.square <- ((nPop1*((q1-p.bar)^2))/n.bar) + ((nPop2*((q2-p.bar)^2))/n.bar)
+    h.bar <- ((nPop1*h1)/(r*n.bar)) + ((nPop2*h2)/(r*n.bar))
+
+    a <- (n.bar/nc) * (s.square - (1/(n.bar-1)) * ( (p.bar*(1-p.bar)) - (((r-1)/r)*s.square) - ((1/4)*h.bar) ))
+    b <- (n.bar/(n.bar-1)) * ( (p.bar*(1-p.bar)) - (((r-1)/r)*s.square) - (((2*n.bar-1)/(4*n.bar))*h.bar))
+    c <- (1/2)*h.bar
+
+    # a, b, and c can be infinite, we will set these values to NA
+    if(any(is.finite(a) == FALSE) | any(is.finite(b) == FALSE) | any(is.finite(c) == FALSE)){
+      a[which(is.infinite(a))] <- NA
+      b[which(is.infinite(b))] <- NA
+      c[which(is.infinite(c))] <- NA
+    }
+
+    if(ncol(q.freq)>1){ #if there is more than 1 locus in the genotype dataset
+
+      if(length(unique(Pops))>2){ #if there are greater than 2 populations, ie. greater than 1 pairwise comparision
+
+        fst <- rowSums(a, na.rm=TRUE) / (rowSums(a, na.rm=TRUE) + rowSums(b, na.rm=TRUE) + rowSums(c, na.rm=TRUE)) #Fst results
+
+      } else{ #if there is only 2 populations, ie. 1 pairwise comparision
+
+        fst <- sum(a, na.rm=TRUE) / (sum(a, na.rm=TRUE) + sum(b, na.rm=TRUE) + sum(c, na.rm=TRUE)) #Fst results
+
+      }
+
+    } else{ # if there is only 1 locus in the genotype dataset
+
+      fst <- a/(a+b+c) #Fst results
+
+    }
+
+    fstmat <- matrix(NA, nrow=length(unique(Pops)), ncol=length(unique(Pops)), dimnames=list(names(Dat), names(Dat)))
+    fstmat[lower.tri(fstmat)]=fst
+    return(fstmat)
+  }
+
+  Fst_wc <- Fst(Dat_perpop)
+
+
+  ### Nei's D
+
+  ### Jost's D
+
+
+
+  Output <- list(Fst_wc, ND, JD)
+
+  names(Output) <- c("Fst", "NeisD", "JostsD")
+  ### Write output
+  Stat <- c("Fst", "NeisD", "JostsD")
+  Stat_idx <- c(1,2,3)
+
+  if(length(statistic) == 1 && statistic ==  "all"){
+    return(Output)
+  } else {
+    res <- which(Stat %in% statistic)
+    Output_final<- Output[which(Stat_idx %in% res)]
+    return(Output_final)
+  }
+
+   if(write == TRUE && !is.null(prefix)){
+      res_write <- which(Stat %in% statistic)
+      Output2write <- Output[which(Stat_idx %in% res_write)]
+      for (i in 1:length(Output2write)){
+        utils::write.csv(Output2write, file = paste(names(Output2write[i]), ".csv", sep = "_"))
+      }
+    } else if(write == TRUE && is.null(prefix)){
+        utils::write.csv(Output2write, file = paste(prefix, '_', names(Output2write[i]), ".csv", sep = "_"))
+      }
 }

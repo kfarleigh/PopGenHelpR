@@ -1,4 +1,4 @@
-#' A function to estimate heterozygosity and the number of private alleles from a vcf file.
+#' \bold{WARNING! This function has been deprecated and is no longer supported. Please use the Heterozygosity and Private.alleles functions.} A function to estimate heterozygosity and the number of private alleles from a vcf file.
 #'
 #' @param VCF Character string indicating the name of the vcf file to be used in analysis.
 #' @param pops Character string indicating the name of the population assignment file. This file should have four columns and be in the same order as your vcf file. The first column named Sample indicates the sample name. The second column named Population indicates the population assignment of each individual. The third column named Longitude indicates the longitude of the sample.  The fourth column named Latitude indicates the latitude of the sample.

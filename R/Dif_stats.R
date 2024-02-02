@@ -1,4 +1,4 @@
-#' A function to calculate differentiation statistics and perform significance testing with a vcf file.
+#'  \bold{WARNING! This function has been deprecated and is no longer supported. Please use the Differentiation function.} A function to calculate differentiation statistics and perform significance testing with a vcf file.
 #'
 #' @param VCF Character string indicating the name of the vcf file to be used in analysis.
 #' @param pops Character string indicating the name of the population assignment file. This file should have four columns and be in the same order as your vcf file. The first column named Sample indicates the sample name. The second column named Population indicates the population assignment of each individual. The third column named Long indicates the longitude of the sample.  The fourth column named Lat indicates the latitude of the sample.
@@ -18,6 +18,8 @@
 #' Test <- Dif_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
 #' ploidy = 2, statistic = "both", boots = 10, write = FALSE)}
 Dif_stats <- function(VCF, pops, ploidy, statistic = "both", boots, write = FALSE, prefix = NULL) {
+
+  .Deprecated("Heterozygosity", msg = "The Div_Stats function has been deprecated as of PopGenHelpR v1.3.0 and will dissappear in v2.0.0. Please use the Differentiation function if you wish to estimate Fst, Nei's D, or Jost's D.")
   # Read in files and convert to necessary formats
   if(missing(VCF)){
     stop("Please supply a vcf file for analysis")

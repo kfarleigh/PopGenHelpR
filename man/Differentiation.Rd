@@ -20,11 +20,11 @@ Differentiation(
 
 \item{pops}{Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.}
 
-\item{statistic}{Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Fst, Weir and Cockerham (1984) Fst; NeisD, Nei's D statistic; JostD, Jost's D; StHe, heterozygosity standardized by the average expected heterozygosity; StHo, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus.}
+\item{statistic}{Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Fst, Weir and Cockerham (1984) Fst; NeisD, Nei's D statistic; JostsD, Jost's D.}
 
 \item{missing_value}{Character. String indicating missing data in the input data. It is assumed to be NA, but that may not be true (is likely not) in the case of geno files.}
 
-\item{write}{Boolean. Whether or not to write the output to files in the current working directory. There will be one or two files for each statistic. Files will be named based on their statistic such as Ho_perpop.csv or Ho_perloc.csv.}
+\item{write}{Boolean. Whether or not to write the output to files in the current working directory. There will be one or two files for each statistic. Files will be named based on their statistic such as Fst_perpop.csv.}
 
 \item{prefix}{Character. Optional argument. String that will be appended to file output. Please provide a prefix if write is set to TRUE.}
 
@@ -45,18 +45,22 @@ data("HornedLizard_VCF")
 Test <- Differentiation(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
 }
 \references{
-\bold{For Fst:}
+\bold{Fst:}
+
+\href{https://doi.org/10.1111/1755-0998.12129}{Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013)}. StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
 
 \href{https://www.jstor.org/stable/2408641}{Weir, B. S., & Cockerham, C. C. (1984)}. Estimating F-statistics for the analysis of population structure. evolution, 1358-1370.
 
-\bold{For Nei's D:}
+\bold{Nei's D:}
 
 \href{https://www.journals.uchicago.edu/doi/abs/10.1086/282771}{Nei, M. (1972)}. Genetic distance between populations. The American Naturalist, 106(949), 283-292.
 
-\bold{For Jost's D:}
+\href{https://doi.org/10.1111/1755-0998.12129}{Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013)}. StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
 
-\href{https://doi.org/10.1111/j.1365-294X.2008.03887.x}{Jost L (2008)}. GST and its relatives do not measure differentiation. Molecular Ecology, 17, 4015–4026..
+\bold{Jost's D:}
+
+\href{https://doi.org/10.1111/j.1365-294X.2008.03887.x}{Jost L (2008)}. GST and its relatives do not measure differentiation. Molecular Ecology, 17, 4015–4026.
 }
 \author{
-\email{Keaka Farleigh (farleik@miamioh.edu)}
+Keaka Farleigh
 }

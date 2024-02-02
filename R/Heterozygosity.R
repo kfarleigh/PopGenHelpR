@@ -12,11 +12,11 @@
 #' @return A list containing the estimated heterozygosity statistics. The per pop values are calculated by taking the average of the per locus estimates.
 #'
 #' @references
-#' \bold{For expected (He) and observed heterozygosity (Ho):}
+#' \bold{Expected (He) and observed heterozygosity (Ho):}
 #'
 #' Nei, M. (1987) Molecular Evolutionary Genetics. Columbia University Press
 #'
-#' \bold{For homozygosity by locus (HL) and internal relatedness (IR):}
+#' \bold{Homozygosity by locus (HL) and internal relatedness (IR):}
 #'
 #' \href{https://onlinelibrary.wiley.com/doi/full/10.1111/j.1755-0998.2010.02830.x?casa_token=QiNcMSJyunkAAAAA%3Agv-CK7GrUn1bHSgz4qZSOcB2nyHDeR8B1Wtm9bM7q7vZCAcJhNkhTWnpM0EfkSCb2EvkRrr2ArMzC7v7}{Alho, J. S., Välimäki, K., & Merilä, J. (2010)}. Rhh: an R extension for estimating multilocus heterozygosity and heterozygosity–heterozygosity correlation. Molecular ecology resources, 10(4), 720-722.
 #'
@@ -24,11 +24,11 @@
 #'
 #' \href{https://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2006.03111.x}{Aparicio, J. M., Ortego, J., & Cordero, P. J. (2006)}. What should we weigh to estimate heterozygosity, alleles or loci?. Molecular Ecology, 15(14), 4659-4665.
 #'
-#' \bold{For heterozygosity standardized by expected (StHe) and observed heterozygosity (StHo):}
+#' \bold{Heterozygosity standardized by expected (StHe) and observed heterozygosity (StHo):}
 #'
 #' \href{https://academic.oup.com/evolut/article/53/4/1259/6757148}{Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M. (1999)}. Parasite‐mediated selection against Inbred Soay sheep in a free‐living island populaton. Evolution, 53(4), 1259-1267.
 #'
-#' @author \email{Keaka Farleigh (farleik@@miamioh.edu)}
+#' @author Keaka Farleigh
 #' @export
 #'
 #' @examples
