@@ -38,3 +38,6 @@ data("HornedLizard_Pop")
 data("HornedLizard_VCF")
 Test <- Private.alleles(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
 }
+\author{
+\email{Keaka Farleigh (farleik@miamioh.edu)}
+}

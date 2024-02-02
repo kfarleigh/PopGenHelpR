@@ -2,6 +2,7 @@
 
 export(Dif_Stats_Map)
 export(Dif_stats)
+export(Differentiation)
 export(Div_Stats_Map)
 export(Div_stats)
 export(Heterozygosity)

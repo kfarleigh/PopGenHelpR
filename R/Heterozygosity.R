@@ -1,8 +1,8 @@
-#' A function to estimate heterozygosity.
+#' A function to estimate seven measures of heterozygosity using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.
 #'
-#' @param data Character. String indicating the name of the vcf file or vcfR object to be used in the analysis.
+#' @param data Character. String indicating the name of the vcf file, geno file or vcfR object to be used in the analysis.
 #' @param pops Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.
-#' @param statistic Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Ho, observed heterozygosity; He, expected heterozygosity; PHt, proportion of heterozygous loci; StHe, heterozygosity standardized by the average expected heterozygosity; StHo, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus)
+#' @param statistic Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Ho, observed heterozygosity; He, expected heterozygosity; PHt, proportion of heterozygous loci; StHe, heterozygosity standardized by the average expected heterozygosity; StHo, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus.
 #' @param missing_value Character. String indicating missing data in the input data. It is assumed to be NA, but that may not be true (is likely not) in the case of geno files.
 #' @param write Boolean. Whether or not to write the output to files in the current working directory. There will be one or two files for each statistic. Files will be named based on their statistic such as Ho_perpop.csv or Ho_perloc.csv.
 #' @param prefix Character. Optional argument. String that will be appended to file output. Please provide a prefix if write is set to TRUE.
@@ -10,6 +10,25 @@
 #' @param individual_col Numeric. Optional argument (a number) indicating the column that contains the individuals (i.e., sample name) in the data.
 
 #' @return A list containing the estimated heterozygosity statistics. The per pop values are calculated by taking the average of the per locus estimates.
+#'
+#' @references
+#' \bold{For expected (He) and observed heterozygosity (Ho):}
+#'
+#' Nei, M. (1987) Molecular Evolutionary Genetics. Columbia University Press
+#'
+#' \bold{For homozygosity by locus (HL) and internal relatedness (IR):}
+#'
+#' \href{https://onlinelibrary.wiley.com/doi/full/10.1111/j.1755-0998.2010.02830.x?casa_token=QiNcMSJyunkAAAAA%3Agv-CK7GrUn1bHSgz4qZSOcB2nyHDeR8B1Wtm9bM7q7vZCAcJhNkhTWnpM0EfkSCb2EvkRrr2ArMzC7v7}{Alho, J. S., Välimäki, K., & Merilä, J. (2010)}. Rhh: an R extension for estimating multilocus heterozygosity and heterozygosity–heterozygosity correlation. Molecular ecology resources, 10(4), 720-722.
+#'
+#' \href{https://royalsocietypublishing.org/doi/abs/10.1098/rspb.2001.1751?casa_token=aXK15yYNjpEAAAAA%3ATR6IXyuIl03yygS_CWET4ymKFthc0dxwkpgCRGGZL250Am_Ssbxi9bnTDIQmpNnshM7H6vTZ1v83PD0}{Amos, W., Worthington Wilmer, J., Fullard, K., Burg, T. M., Croxall, J. P., Bloch, D., & Coulson, T. (2001)}. The influence of parental relatedness on reproductive success. Proceedings of the Royal Society of London. Series B: Biological Sciences, 268(1480), 2021-2027.
+#'
+#' \href{https://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2006.03111.x}{Aparicio, J. M., Ortego, J., & Cordero, P. J. (2006)}. What should we weigh to estimate heterozygosity, alleles or loci?. Molecular Ecology, 15(14), 4659-4665.
+#'
+#' \bold{For heterozygosity standardized by expected (StHe) and observed heterozygosity (StHo):}
+#'
+#' \href{https://academic.oup.com/evolut/article/53/4/1259/6757148}{Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M. (1999)}. Parasite‐mediated selection against Inbred Soay sheep in a free‐living island populaton. Evolution, 53(4), 1259-1267.
+#'
+#' @author \email{Keaka Farleigh (farleik@@miamioh.edu)}
 #' @export
 #'
 #' @examples
@@ -264,6 +283,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
      }
 
      ### Calculate IR for each individual
+     # Formula from the archived Rhh package https://cran.r-project.org/web/packages/Rhh/index.html
      for(i in 1:Individuals){
 
        H <- 0
@@ -355,7 +375,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
       Counts[i] <- list(table(Loc_HL_mat[,idx:(idx+1)]))
       E[i] <- 1 - sum((Counts[[i]] / sum(Counts[[i]]))^2)
    }
-
+  # Formula from the archived Rhh package https://cran.r-project.org/web/packages/Rhh/index.html
    for (i in 1:Individuals) {
 
      sum.Eh <- 0
@@ -408,9 +428,9 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     res_write <- which(Stat %in% statistic)
     Output2write <- Output[which(Stat_idx %in% res_write)]
     for (i in 1:length(Output2write)){
-      utils::write.csv(Output2write, file = paste(names(Output2write[i]), ".csv", sep = ""))
+      utils::write.csv(Output2write, file = paste(names(Output2write[i]), ".csv", sep = "_"))
     }
   } else if(write == TRUE && is.null(prefix)){
-      utils::write.csv(Output2write, file = paste(prefix, '_', names(Output2write[i]), ".csv", sep = ""))
+      utils::write.csv(Output2write, file = paste(prefix, '_', names(Output2write[i]), ".csv", sep = "_"))
     }
 }

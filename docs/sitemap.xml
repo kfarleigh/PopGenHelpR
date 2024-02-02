@@ -22,6 +22,9 @@
     <loc>https://kfarleigh.github.io/PopGenHelpR/news/index.html</loc>
   </url>
   <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Differentiation.html</loc>
+  </url>
+  <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Dif_stats.html</loc>
   </url>
   <url>
@@ -35,6 +38,9 @@
   </url>
   <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Fst_dat.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Heterozygosity.html</loc>
   </url>
   <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Het_dat.html</loc>
@@ -53,6 +59,9 @@
   </url>
   <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Plot_ancestry.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Private.alleles.html</loc>
   </url>
   <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Q_dat.html</loc>

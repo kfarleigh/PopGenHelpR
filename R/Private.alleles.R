@@ -9,6 +9,8 @@
 #' @return A list containing the count of private alleles in each population and the metadata for those alleles. The metadata is a list that contains the private allele and locus name for each population.
 #' @export
 #'
+#' @author \email{Keaka Farleigh (farleik@@miamioh.edu)}
+#'
 #' @examples
 #' \donttest{
 #' data("HornedLizard_Pop")

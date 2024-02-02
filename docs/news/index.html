@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-default navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +47,21 @@
       <small>Source: <a href="https://github.com/kfarleigh/PopGenHelpR/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.3.0" id="popgenhelpr-130">PopGenHelpR 1.3.0<a class="anchor" aria-label="anchor" href="#popgenhelpr-130"></a></h2>
+<ul><li><p>December 6th, 2023 ** To Do for KF</p></li>
+<li><p>Split <code>Dif_Stats</code> into <code>Fst</code> and <code>NeisD</code></p></li>
+<li><p>Rewrite all functions to allow 012/geno files</p></li>
+<li><p>Rewrite all functions to auto detect vcf vs 012/geno</p></li>
+<li><p>Rename mapping functions</p></li>
+<li><p>Split <code>Plot_Ancestry</code> into <code>Piechart_Map</code> and <code>Ancestry_barchart</code></p></li>
+<li><p>Add <code>Nucleotide_diversity</code></p></li>
+<li><p>Update documentation</p></li>
+<li><p>Update vignette</p></li>
+<li><p><code>Heterozygosity</code> has been added to estimate 7 different measures of heterozygosity. Please see the documentation for more details.</p></li>
+<li><p><code>Private.alleles</code> has been added to calculate the number of private alleles in each population.</p></li>
+<li><p>The <code>Div_Stats</code> function has been deprecated, please use the <code>Heterozygosity</code> function if you wish to estimate heterozygosity or the <code>Private.alleles</code> function if you wish to calculate the number of private alleles per population. Please use the <code>Point_Map</code> function if you wish to visualize the results on a map or plot.</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.2" id="popgenhelpr-122">PopGenHelpR 1.2.2<a class="anchor" aria-label="anchor" href="#popgenhelpr-122"></a></h2>
 <ul><li>October 2nd, 2023</li>
