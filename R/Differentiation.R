@@ -187,15 +187,23 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     h1 <- het.freq[index1_a,]
     h2 <- het.freq[index2_a,]
 
-    ### WC Fst
+    ### WC Fst, following Weir and Cockerham 1984
 
-    # Calculate nbar
+    # Calculate nbar, average sample size
     n.bar <- (nPop1+nPop2)/r
 
+    # Squared coefficient of variation of sample sizes
     nc <- (r*n.bar)-(((nPop1^2)+(nPop2^2)) / (r*n.bar))
+
+    # Average sample frequency of allele A (q in this case)
     p.bar <- ((nPop1*q1)/(r*n.bar)) + ((nPop2*q2)/(r*n.bar))
+
+    # Sample variance of allele A frequency over populations
     s.square <- ((nPop1*((q1-p.bar)^2))/n.bar) + ((nPop2*((q2-p.bar)^2))/n.bar)
+
+    # Average heterozygote frequency of Allele A
     h.bar <- ((nPop1*h1)/(r*n.bar)) + ((nPop2*h2)/(r*n.bar))
+
 
     a <- (n.bar/nc) * (s.square - (1/(n.bar-1)) * ( (p.bar*(1-p.bar)) - (((r-1)/r)*s.square) - ((1/4)*h.bar) ))
     b <- (n.bar/(n.bar-1)) * ( (p.bar*(1-p.bar)) - (((r-1)/r)*s.square) - (((2*n.bar-1)/(4*n.bar))*h.bar))
@@ -207,6 +215,8 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
       b[which(is.infinite(b))] <- NA
       c[which(is.infinite(c))] <- NA
     }
+
+    ### StAMPP's code to consolidate Fst estimates
 
     if(ncol(q.freq)>1){ #if there is more than 1 locus in the genotype dataset
 
@@ -235,9 +245,60 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
 
 
   ### Nei's D
+  ## Calculates individual and population Nei's D
+
+  NeiD <- function(Dat){
+    nind <- nrow(Dat)
+    npop <- length(Dat)
+
+    # Calculate population Nei's D
+
+    # Create a matrix to store the alternate allele frequency for each population
+    q.freq <- matrix(nrow = length(Dat), ncol = length(Dat[3:ncol(Dat[[1]])]))
+
+    # First we calculate allele frequencies of the alternate allele in each population
+    for(i in 1:length(Dat)){
+      tmp <- Dat[[i]]
+      # Get frequency of alternate alleles
+      q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(tmp[3:ncol(tmp)] != "NA"))
+    }
+    # Set the names of the matrices
+    row.names(q.freq)  <- names(Dat)
+
+    # Make the allele frequencies a numeric matrix
+    q.freq <- as.matrix(q.freq)
+
+    p.freq <- as.matrix(1-q.freq)
+
+    freq_comb <- cbind(q.freq, p.freq)
+
+    freq_comb2 <- freq_comb^2/r
+
+    Jx <- sum(freq_comb2[1,])
+    Jy <- sum(freq_comb2[2,])
+
+    Jxy <- freq_comb[1,]*freq_comb[2,]/r
+    Jxy <- sum(Jxy)
+
+    ND <- Jxy/(sqrt(Jx*Jy))
+    -log(D)
+
+    # POPPR method, ours works above
+    IDMAT2 <- freq_comb %*% t(freq_comb)
+    vec2 <- sqrt(diag(IDMAT2))
+    IDMAT2 <- IDMAT2/vec2[col(IDMAT2)]
+    IDMAT2 <- IDMAT2/vec2[row(IDMAT2)]
+
+    ND <- -log(IDMAT2)
+
+    return(ND)
+  }
 
   ### Jost's D
+  JostD <- function(Dat){
 
+    return(JD)
+  }
 
 
   Output <- list(Fst_wc, ND, JD)
