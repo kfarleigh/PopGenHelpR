@@ -319,13 +319,83 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
   ND_ind <- NeisD(Dat_perind2)
 
   ### Jost's D
+  # Equation 11 from Jost, 2008
+  # Dat is Dat_perpop
+
   JostD <- function(Dat){
 
-    return(JD)
+    # Get the number of individuals per population and the number of populations
+    n.perpop <- as.data.frame(lappy(Dat, nrow))
+    n.pop <- as.numeric(length(Dat))
+
+    # Get the harmonic mean of the number of individuals per population
+    N.harm <- 1/mean(1/n.perpop)
+
+    ### Get allele frequency at each locus
+
+    # Create a matrix to store the alternate allele frequency for each population
+    q.freq <- matrix(nrow = length(Dat), ncol = length(Dat[3:ncol(Dat[[1]])]))
+
+    # First we calculate allele frequencies of the alternate allele in each population
+    for(i in 1:length(Dat)){
+      tmp <- Dat[[i]]
+      # Get frequency of alternate alleles
+      q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(tmp[3:ncol(tmp)] != "NA"))
+    }
+    # Set the names of the matrices
+    row.names(q.freq)  <- names(Dat)
+
+    # Make the allele frequencies a numeric matrix
+    q.freq <- as.matrix(q.freq)
+
+    p.freq <- as.matrix(1-q.freq)
+
+    # Combine allele frequency matrices
+    freq_comb <- cbind(q.freq, p.freq)
+
+    # Squared allele frequencies
+    freq_comb2 <- freq_comb^2
+
+    # Get the comparisons
+    Comps <- combn(rownames(q.freq), m = 2)
+
+    # Set the results matrix
+    JD_res <- matrix(ncol = nrow(q.freq), nrow = nrow(q.freq))
+    rownames(JD_res) <- colnames(JD_res) <- row.names(q.freq)
+
+    # Within population measures
+    deltaS <- mean(1 - rowSums(freq_comb^2))
+    Hs <- (2*N.harm/(2*N.harm-1))*deltaS
+
+    # Overall measures
+    deltaT <- 1 - sum(colMeans(freq_comb)^2)
+    Ht <- deltaT + Hs/(2*N.harm*n.pop)
+
+    D <- (Ht-Hs)/(1-Hs) * (n.pop/(n.pop-1))
+    D <- 1/(1/D)
+
+    for(i in 1:ncol(Comps)){
+      Comp <- Comps[,i]
+      Pops2comp <- which(rownames(q.freq) %in% Comp)
+      Jx <- sum(freq_comb2[Pops2comp[1],])
+      Jy <- sum(freq_comb2[Pops2comp[2],])
+      Jxy <- freq_comb[Pops2comp[1],]*freq_comb[Pops2comp[2],]/r
+      Jxy <- sum(Jxy)
+      ND <- -log(Jxy/(sqrt(Jx*Jy)))
+
+      row.idx <- which(rownames(ND_res) == Comp[2])
+      col.idx <- which(rownames(ND_res) == Comp[1])
+
+      ND_res[row.idx, col.idx] <- ND
+      diag(ND_res) <- 0
+    }
+
+
+    return(JD_res)
   }
 
 
-  Output <- list(Fst_wc, ND_pop, ND_ind, JD)
+  Output <- list(Fst_wc, ND_pop, ND_ind, JD_pop)
 
   names(Output) <- c("Fst", "NeisD_pop", "NeisD_ind", "JostsD")
   ### Write output
