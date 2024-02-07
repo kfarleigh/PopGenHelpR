@@ -126,7 +126,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
 
   P <- Pops
   Dat <- cbind.data.frame(Inds, P, Dat)
-
+  nind <- nrow(Dat)
   # Break into list with populations for each element
   Dat_perpop <- list()
   for(i in unique(P)){
@@ -246,9 +246,10 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
 
   ### Nei's D
   ## Calculates individual and population Nei's D
+  # Assumes that Dat is a list, such as Dat_perpop
 
-  NeiD <- function(Dat){
-    nind <- nrow(Dat)
+  NeisD <- function(Dat){
+    nind <- nind
     npop <- length(Dat)
 
     # Calculate population Nei's D
@@ -265,34 +266,57 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     # Set the names of the matrices
     row.names(q.freq)  <- names(Dat)
 
+    # Get the comparisons
+    Comps <- combn(rownames(q.freq), m = 2)
+
+    # Set the results matrix
+    ND_res <- matrix(ncol = nrow(q.freq), nrow = nrow(q.freq))
+    rownames(ND_res) <- colnames(ND_res) <- row.names(q.freq)
+
     # Make the allele frequencies a numeric matrix
     q.freq <- as.matrix(q.freq)
 
     p.freq <- as.matrix(1-q.freq)
 
+    # Get the number of loci
+    r <- ncol(q.freq)
+
+
     freq_comb <- cbind(q.freq, p.freq)
 
     freq_comb2 <- freq_comb^2/r
 
-    Jx <- sum(freq_comb2[1,])
-    Jy <- sum(freq_comb2[2,])
+    for(i in 1:ncol(Comps)){
+      Comp <- Comps[,i]
+      Pops2comp <- which(rownames(q.freq) %in% Comp)
+      Jx <- sum(freq_comb2[Pops2comp[1],])
+      Jy <- sum(freq_comb2[Pops2comp[2],])
+      Jxy <- freq_comb[Pops2comp[1],]*freq_comb[Pops2comp[2],]/r
+      Jxy <- sum(Jxy)
+      ND <- -log(Jxy/(sqrt(Jx*Jy)))
 
-    Jxy <- freq_comb[1,]*freq_comb[2,]/r
-    Jxy <- sum(Jxy)
+      row.idx <- which(rownames(ND_res) == Comp[2])
+      col.idx <- which(rownames(ND_res) == Comp[1])
 
-    ND <- Jxy/(sqrt(Jx*Jy))
-    -log(D)
+      ND_res[row.idx, col.idx] <- ND
+      diag(ND_res) <- 0
+    }
 
-    # POPPR method, ours works above
-    IDMAT2 <- freq_comb %*% t(freq_comb)
-    vec2 <- sqrt(diag(IDMAT2))
-    IDMAT2 <- IDMAT2/vec2[col(IDMAT2)]
-    IDMAT2 <- IDMAT2/vec2[row(IDMAT2)]
-
-    ND <- -log(IDMAT2)
-
-    return(ND)
+    return(ND_res)
   }
+
+  ND_pop <- NeisD(Dat_perpop)
+
+  ## Run Nei's D per individual, we will treat each individual as a population
+  Dat_perind <- Dat
+  Dat_perind$P <- Dat_perind$Inds
+
+  Dat_perind2 <- list()
+  for(i in unique(Dat_perind$P)){
+    Dat_perind2[[i]] <- Dat_perind[which(Dat_perind[,2] == i),]
+  }
+
+  ND_ind <- NeisD(Dat_perind2)
 
   ### Jost's D
   JostD <- function(Dat){
@@ -301,12 +325,12 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
   }
 
 
-  Output <- list(Fst_wc, ND, JD)
+  Output <- list(Fst_wc, ND_pop, ND_ind, JD)
 
-  names(Output) <- c("Fst", "NeisD", "JostsD")
+  names(Output) <- c("Fst", "NeisD_pop", "NeisD_ind", "JostsD")
   ### Write output
   Stat <- c("Fst", "NeisD", "JostsD")
-  Stat_idx <- c(1,2,3)
+  Stat_idx <- c(1,2,2,3)
 
   if(length(statistic) == 1 && statistic ==  "all"){
     return(Output)
