@@ -1,7 +1,6 @@
 # PopGenHelpR 1.3.0
 - December 6th, 2023
 ** To Do for KF
-- Split `Dif_Stats` into `Fst` and `NeisD`
 - Rename mapping functions
 - Split `Plot_Ancestry` into `Piechart_Map` and `Ancestry_barchart`
 - Add `Nucleotide_diversity`
@@ -11,6 +10,7 @@
 * `Differentiation` has been added to estimate Fst, Nei's D, and Jost's D. Please see the documentation for more details. 
 * `Heterozygosity` has been added to estimate 7 different measures of heterozygosity. Please see the documentation for more details. 
 * `Private.alleles` has been added to calculate the number of private alleles in each population. 
+* The `Dif_Stats` function has been deprecated, please used the `Differentiation` function to calculate pairwise differentiation between populations (Fst, Nei's D, Jost's D) or individuals (Nei's D). 
 * The `Div_Stats` function has been deprecated, please use the `Heterozygosity` function if you wish to estimate heterozygosity or the `Private.alleles` function if you wish to calculate the number of private alleles per population. Please use the `Point_Map` function if you wish to visualize the results on a map or plot.
 
 # PopGenHelpR 1.2.2

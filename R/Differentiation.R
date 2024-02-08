@@ -325,11 +325,8 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
   JostD <- function(Dat){
 
     # Get the number of individuals per population and the number of populations
-    n.perpop <- as.data.frame(lappy(Dat, nrow))
+    n.perpop <- as.data.frame(lapply(Dat, nrow))
     n.pop <- as.numeric(length(Dat))
-
-    # Get the harmonic mean of the number of individuals per population
-    N.harm <- 1/mean(1/n.perpop)
 
     ### Get allele frequency at each locus
 
@@ -356,6 +353,48 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     # Squared allele frequencies
     freq_comb2 <- freq_comb^2
 
+
+    ### Calculate Hs and Ht per locus for D calculations
+    # freqs is the freq_comb object
+    # freqs2 is the freq_comb2 object
+    # pop.sizes is the n.perpop object
+    D_calc <- function(freqs, freqs2, pop.sizes){
+      Loc_Hets <- list('Hs' = c(), 'Ht' = c(), 'D' = c())
+      nloc <- ncol(freqs)/2
+      n <- nrow(freqs)
+      Nharm <- pop.sizes[,which(rownames(freqs) %in% colnames(pop.sizes))]
+      Nharm <- 1/mean(as.numeric(1/Nharm))
+      for(i in 1:nloc){
+
+      ## Within population measures
+      Hs_exp <- mean(1 - rowSums(freqs2[,c(i,(i+nloc))]))
+
+      Hs <- (2*Nharm/(2*Nharm-1))*Hs_exp
+
+      Loc_Hets[["Hs"]] <- c(Loc_Hets[["Hs"]], Hs)
+
+      ## Overall measures
+      Jt <- 1 - sum(colMeans(freqs[,c(i,(i+nloc))])^2)
+      Ht <- Jt + Hs/(2*Nharm*n)
+
+      Loc_Hets[["Ht"]] <- c(Loc_Hets[["Ht"]], Ht)
+
+
+      # D per locus
+      D <- (Ht-Hs)/(1-Hs) * (n/(n-1))
+
+      Loc_Hets[["D"]] <- c(Loc_Hets[["D"]], D)
+      }
+
+      ## Calculate global D
+      Hs.bar <-  mean(Loc_Hets$Hs)
+      Ht.bar <- mean(Loc_Hets$Ht)
+      D.bar <- (Ht.bar-Hs.bar)/(1-Hs.bar)*(n/(n-1))
+
+      Final <- list(D.bar, Loc_Hets)
+      return(Final)
+    }
+
     # Get the comparisons
     Comps <- combn(rownames(q.freq), m = 2)
 
@@ -363,37 +402,37 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     JD_res <- matrix(ncol = nrow(q.freq), nrow = nrow(q.freq))
     rownames(JD_res) <- colnames(JD_res) <- row.names(q.freq)
 
-    # Within population measures
-    deltaS <- mean(1 - rowSums(freq_comb^2))
-    Hs <- (2*N.harm/(2*N.harm-1))*deltaS
-
-    # Overall measures
-    deltaT <- 1 - sum(colMeans(freq_comb)^2)
-    Ht <- deltaT + Hs/(2*N.harm*n.pop)
-
-    D <- (Ht-Hs)/(1-Hs) * (n.pop/(n.pop-1))
-    D <- 1/(1/D)
+    ## Apply the function we wrote above to calculate pairwise D
 
     for(i in 1:ncol(Comps)){
+      # Get the comparison
       Comp <- Comps[,i]
-      Pops2comp <- which(rownames(q.freq) %in% Comp)
-      Jx <- sum(freq_comb2[Pops2comp[1],])
-      Jy <- sum(freq_comb2[Pops2comp[2],])
-      Jxy <- freq_comb[Pops2comp[1],]*freq_comb[Pops2comp[2],]/r
-      Jxy <- sum(Jxy)
-      ND <- -log(Jxy/(sqrt(Jx*Jy)))
 
-      row.idx <- which(rownames(ND_res) == Comp[2])
-      col.idx <- which(rownames(ND_res) == Comp[1])
+      # Isolate population names
+      Pops2comp <- which(rownames(freq_comb) %in% Comp)
 
-      ND_res[row.idx, col.idx] <- ND
-      diag(ND_res) <- 0
+      # Get allele frequencies and squared allele frequencies for each population
+      comp_freq <- freq_comb[Pops2comp,]
+      comp_freq2 <- freq_comb2[Pops2comp,]
+
+      # Calculate Jost's D
+      D <- D_calc(freqs = comp_freq, freqs2 = comp_freq2, pop.sizes = n.perpop)
+      D <- D[[1]]
+
+      # Get indices to store the results
+      row.idx <- which(rownames(JD_res) == Comp[2])
+      col.idx <- which(rownames(JD_res) == Comp[1])
+
+      # Store the results
+      JD_res[row.idx, col.idx] <- D
+
     }
-
+    diag(JD_res) <- 0
 
     return(JD_res)
   }
 
+  JD_pop <- JostD(Dat_perpop)
 
   Output <- list(Fst_wc, ND_pop, ND_ind, JD_pop)
 
