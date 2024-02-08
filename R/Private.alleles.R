@@ -46,8 +46,7 @@ Private.alleles <- function(data, pops, write = FALSE, prefix = NULL, population
     Dat <- as.data.frame(t(as.matrix(gt)))
     # Preserve individual names
     Inds <- rownames(Dat)
-  }
-  else if(tools::file_ext(data) == 'vcf') {
+  } else if(tools::file_ext(data) == 'vcf') {
     Dat <- vcfR::read.vcfR(data, verbose = FALSE)
     print("VCF file detected, proceeding to formatting.")
     # Convert the vcf gt slot to a geno style table for calculations
