@@ -1,12 +1,11 @@
 # PopGenHelpR 1.3.0
 - December 6th, 2023
 ** To Do for KF
-- Rename mapping functions
-- Split `Plot_Ancestry` into `Piechart_Map` and `Ancestry_barchart`
-- Add `Nucleotide_diversity`
 - Update documentation
 - Update vignette 
 
+* `Dif_stats_map` has been changed to `Network_map` and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.
+* `Plot_ancestry` has been split into `Piechart_Map` and `Ancestry_barchart` so that it is easier for users to determine which function is most appropriate for their analysis. 
 * `Differentiation` has been added to estimate Fst, Nei's D, and Jost's D. Please see the documentation for more details. 
 * `Heterozygosity` has been added to estimate 7 different measures of heterozygosity. Please see the documentation for more details. 
 * `Private.alleles` has been added to calculate the number of private alleles in each population. 

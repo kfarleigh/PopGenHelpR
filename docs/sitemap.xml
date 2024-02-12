@@ -22,6 +22,9 @@
     <loc>https://kfarleigh.github.io/PopGenHelpR/news/index.html</loc>
   </url>
   <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Ancestry_barchart.html</loc>
+  </url>
+  <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Differentiation.html</loc>
   </url>
   <url>
@@ -55,7 +58,13 @@
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Network_map.html</loc>
+  </url>
+  <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Pairwise_heatmap.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Piechart_map.html</loc>
   </url>
   <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Plot_ancestry.html</loc>

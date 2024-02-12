@@ -267,7 +267,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     row.names(q.freq)  <- names(Dat)
 
     # Get the comparisons
-    Comps <- combn(rownames(q.freq), m = 2)
+    Comps <- utils::combn(rownames(q.freq), m = 2)
 
     # Set the results matrix
     ND_res <- matrix(ncol = nrow(q.freq), nrow = nrow(q.freq))
@@ -396,7 +396,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     }
 
     # Get the comparisons
-    Comps <- combn(rownames(q.freq), m = 2)
+    Comps <- utils::combn(rownames(q.freq), m = 2)
 
     # Set the results matrix
     JD_res <- matrix(ncol = nrow(q.freq), nrow = nrow(q.freq))

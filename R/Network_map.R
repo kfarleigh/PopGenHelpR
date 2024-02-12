@@ -1,9 +1,10 @@
-#' A function to map differentiation statistics.
+#' A function to map statistics (i.e., genetic differentiation) between points as a network on a map.
 #'
 #' @param dat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. If it is a csv, the 1st row should contain the individual/population names. The columns should also be named in this fashion.
 #' @param pops Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.
 #' @param neighbors Numeric. The number of neighbors to plot connections with.
 #' @param col Character vector indicating the colors you wish to use for plotting.
+#' @param statistic Character indicating the statistic being plotted. This will be used to title the legend. The legend title will be blank if left as NULL.
 #' @param breaks Numeric. The breaks used to generate the color ramp when plotting. Users should supply 3 values if custom breaks are desired.
 #' @param Lat_buffer Numeric. A buffer to customize visualization.
 #' @param Long_buffer Numeric. A buffer to customize visualization.
@@ -19,10 +20,10 @@
 #' data(Fst_dat)
 #' Fst <- Fst_dat[[1]]
 #' Loc <- Fst_dat[[2]]
-#' Test <- Dif_Stats_Map(dat = Fst, pops = Loc,
-#' neighbors = 2,
-#' col = c('#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'),Lat_buffer = 1, Long_buffer = 1)}
-Dif_Stats_Map <- function(dat, pops, neighbors, col, breaks = NULL, Lat_buffer, Long_buffer){
+#' Test <- Network_map(dat = Fst, pops = Loc,
+#' neighbors = 2,col = c('#4575b4', '#91bfdb', '#e0f3f8','#fd8d3c','#fc4e2a'),
+#' statistic = "Fst", Lat_buffer = 1, Long_buffer = 1)}
+Network_map <- function(dat, pops, neighbors, col, statistic = NULL, breaks = NULL, Lat_buffer, Long_buffer){
   X1 <- X2 <- X3 <- X4 <- Dif <- Long <- Lat <- alpha <- NULL
   ################### Get the data for mapping
   # Get map data
@@ -87,7 +88,7 @@ Dif_Stats_Map <- function(dat, pops, neighbors, col, breaks = NULL, Lat_buffer, 
   All_pts$Dif <- Dif_Mapping$value
   # Set breaks
   if(missing(col)){
-    col <- c('#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026')
+    col <- c('#4575b4', '#91bfdb', '#e0f3f8','#fd8d3c','#fc4e2a')
   }
   if(is.null(breaks) == TRUE){
     Breaks <- summary(All_pts$Dif)
@@ -146,14 +147,23 @@ Dif_Stats_Map <- function(dat, pops, neighbors, col, breaks = NULL, Lat_buffer, 
   Long_Max <- max(All_pts_toplot[,1:2]) + Long_buffer
 
   # Map it
+  if(is.null(statistic)){
   Dif_map <- base_map + ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
-    ggplot2::geom_segment(data = All_pts_toplot, ggplot2::aes(x = X1, xend = X2, y = X3, yend = X4), color = 'black', size = 1.05) +
-    ggplot2::geom_segment(data = All_pts_toplot, ggplot2::aes(x = X1, xend = X2, y = X3, yend = X4, color = Dif), size = 1) +
-    ggplot2::scale_color_gradientn(colors = col, breaks = Breaks, name = "Differentiation") +
+    ggplot2::geom_segment(data = All_pts_toplot, ggplot2::aes(x = X1, xend = X2, y = X3, yend = X4), color = 'black', linewidth= 1.05) +
+    ggplot2::geom_segment(data = All_pts_toplot, ggplot2::aes(x = X1, xend = X2, y = X3, yend = X4, color = Dif), linewidth = 1) +
+    ggplot2::scale_color_gradientn(colors = col, breaks = Breaks, name = ggplot2::element_blank()) +
     ggplot2::geom_point(data = Mapping, ggplot2::aes(x = Long, y = Lat), size = 3, shape = 21, fill = 'gray', color = "black") +
     ggplot2::theme(panel.grid=ggplot2::element_blank(), legend.position = "right") + ggplot2::xlab('Longitude') + ggplot2::ylab('Latitude')
+  } else{
+    Dif_map <- base_map + ggplot2::coord_sf(xlim = c(Long_Min, Long_Max),  ylim = c(Lat_Min, Lat_Max)) +
+      ggplot2::geom_segment(data = All_pts_toplot, ggplot2::aes(x = X1, xend = X2, y = X3, yend = X4), color = 'black', linewidth= 1.05) +
+      ggplot2::geom_segment(data = All_pts_toplot, ggplot2::aes(x = X1, xend = X2, y = X3, yend = X4, color = Dif), linewidth = 1) +
+      ggplot2::scale_color_gradientn(colors = col, breaks = Breaks, name = statistic) +
+      ggplot2::geom_point(data = Mapping, ggplot2::aes(x = Long, y = Lat), size = 3, shape = 21, fill = 'gray', color = "black") +
+      ggplot2::theme(panel.grid=ggplot2::element_blank(), legend.position = "right") + ggplot2::xlab('Longitude') + ggplot2::ylab('Latitude')
+  }
 
   Output_difmap <- list(All_pts_toplot[,c("Dif","Comp")], Dif_map)
-  names(Output_difmap) <- c("Differentiation Matrix", "Differentiation Map")
+  names(Output_difmap) <- c("Statistic Matrix", "Map")
   return(Output_difmap)
 }
