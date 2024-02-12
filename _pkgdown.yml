@@ -3,11 +3,9 @@ url: https://kfarleigh.github.io/PopGenHelpR/
 
 template:
   bootstrap: 5
-  bslib:
-    PGH_blue: "#0d6efd"
+  bootswatch: cosmo
 
 navbar:
-  bg: PGH_blue
   title: "PopGenHelpR"
   structure:
     left: [Manual, Articles]
