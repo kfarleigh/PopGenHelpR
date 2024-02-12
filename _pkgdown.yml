@@ -7,6 +7,8 @@ template:
 
 navbar:
   title: "PopGenHelpR"
+  bg: primary
+  type: light
   structure:
     left: [Manual, Articles]
     right: [github]

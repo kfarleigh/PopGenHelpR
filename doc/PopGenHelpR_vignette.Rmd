@@ -1,5 +1,5 @@
 ---
-title: "PopGenHelpR_vignette"
+title: "PopGenHelpR Vignette"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{PopGenHelpR_vignette}
@@ -15,12 +15,21 @@ knitr::opts_chunk$set(
 )
 ```
 ## Welcome
-Welcome to the PopGenHelpR vignette, please contact the authors if you have any questions about the package.You can also visit our Github for additional examples (https://kfarleigh.github.io/PopGenHelpR/)
+Welcome to the PopGenHelpR vignette, please contact the authors if you have any questions about the package.You can also visit our Github for additional examples (https://kfarleigh.github.io/PopGenHelpR/). 
+
 ```{r setup}
 # Load the package
 library(PopGenHelpR)
 ```
-First, we will load the data. These data objects are examples of input that can be used in the functions Dif_stats_Map, Div_Stats_Map, Pairwise_heatmap, and Plot_ancestry.
+
+## Overview of PopGenHelpR
+`PopGenHelpR` is a one-stop package for data analysis and visualization. `PopGenHelpR` can calculate commonly used population genomic statistics such as heterozygosity and genetic differentiation, with the functions `Heterozygosity`, `Differentiation` and `Private.alleles`. While also producing publication-quality figures using the functions `Ancestry_barchart`, `Network_map`, `Pairwise_heatmap`, and `Piechart_map`. Check out the vignette below to see all of these functions in action!
+
+
+#### Load the data 
+
+First, we will load the data. These data objects are examples of data types that can be used in the functions in `PopGenHelpR`.
+
 ```{r load data}
 data("Fst_dat")
 data("Het_dat")
@@ -28,27 +37,78 @@ data("Q_dat")
 data("HornedLizard_Pop")
 data("HornedLizard_VCF")
 ```
+
 ### Ancestry Plots
-Now we will use the data in the functions mentioned above. First, we will create structure-like plots and map pie charts of individual ancestry. You'll notice that the individual map looks weird, the pie charts have a bunch of weird partitions. That's because we have multiple individuals at the same location so the population map is probably a better choice. Instead of layering individuals on top of each other, the population map averages the ancestry of individuals in a population before mapping. See our Github for additional examples (https://kfarleigh.github.io/PopGenHelpR/), including ancestry pie charts on maps. 
-```{r Plot Ancestry}
+`PopGenHelpR` can generate commonly used ancestry visualizations such as structure-like plots and ancestry piechart maps. First, we will create structure-like plots for individuals and populations. We need a q-matrix, population assignments for each individual, and the number of genetic clusters (K). The q-matrix represents the contribution of each cluster (K) to an individual or population and can be obtained from programs like STRUCTURE, ADMIXTURE, or sNMF. Please see our article on how to extract the q-matrix from these programs or email Keaka Farleigh. 
+
+```{r Ancestry barchart, echo=TRUE, eval=FALSE}
 # First, we seperate the list elements into two seperate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).
 Qmat <- Q_dat[[1]]
 Loc <- Q_dat[[2]]
 
 # Now we will generate both population and individual plots by setting plot.type to 'all'. If you wanted, you could only generate individual or population plots by setting plot.type to "individual" and "population", respectively.
-Test_all <- Plot_ancestry(anc.mat = Qmat, pops = Loc, K = 5,
-plot.type = 'all', col = c('#d73027', '#f46d43', '#e0f3f8', '#74add1', '#313695'), Lat_buffer = 1, Long_buffer = 1)
-
+Test_all <- Ancestry_barchart(anc.mat = Qmat, pops = Loc, K = 5,
+plot.type = 'all', col = c('#d73027', '#f46d43', '#e0f3f8', '#74add1', '#313695'))
 
 Test_all$`Individual Ancestry Plot`
+```
 
+```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/Anc_barchart1.png")
+```
 
+We can also generate an ancestry matrix by populations. The ancestry of each population is calculate by averaging the ancestry of the individuals in a particular population. 
+
+```{r, eval=FALSE}
 Test_all$`Population Ancestry Plot`
 ```
 
+```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/Anc_barchart2.png")
+```
+
+
+Now we will generate piechart maps of ancestry using the `Piechart_map` function. `Piechart_map` requires the same input as `Ancestry_barchart` with the additional requirement of coordinates for each individual/population. You'll notice that the individual map looks weird; the pie charts have a bunch of partitions. That's because we have multiple individuals at the same location, so the population map is probably a better choice. Instead of layering individuals on top of each other, the population map averages the ancestry of individuals in a population before mapping. See our GitHub for additional examples (https://kfarleigh.github.io/PopGenHelpR/), including ancestry pie charts on maps. 
+
+
+
+```{r Piechart map, echo=TRUE, eval=FALSE, fig.align='center'}
+# First, we seperate the list elements into two seperate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).
+Qmat <- Q_dat[[1]]
+Loc <- Q_dat[[2]]
+
+# Now we will generate both population and individual plots by setting plot.type to 'all'. If you wanted, you could only generate individual or population plots by setting plot.type to "individual" and "population", respectively.
+Test_all_piemap <- Piechart_map(anc.mat = Qmat, pops = Loc, K = 5,plot.type = 'all', col = c('#d73027', '#f46d43', '#e0f3f8', '#74add1', '#313695'), 
+                                Lat_buffer = 1, Long_buffer = 1)
+
+Test_all_piemap$`Individual Map`
+```
+
+```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/Ind_PieMap.png")
+```
+
+
+Notice the weird partitions? We can take care of those using the population piechart map. 
+
+```{r Piechart map2, echo=TRUE, eval=FALSE, fig.align='center'}
+Test_all_piemap$`Population Map`
+```
+
+```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/Pop_PieMap.png")
+```
+
+That's better. Let's move onto calculating measures of diversity. 
+
+### Heterozygosity
+### Differentiaton
+### Private alleles
+
+
 ### Differentiation visualizations
 We will use the `Fst_dat` object to visualize patterns of differentiation between populations. First, we will generate a heat map and then we will plot the realtionships on a map.
-```{r Differentiation}
+```{r Differentiation, echo = TRUE, eval=FALSE}
 # Isolate our fst matrix and locality information
 Fst <- Fst_dat[[1]]
 Loc <- Fst_dat[[2]]
@@ -58,25 +118,40 @@ Fstat_hmap <- Pairwise_heatmap(dat = Fst, statistic = 'FST')
 Fstat_hmap
 ```
 
+```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE}
+knitr::include_graphics("./img/Differentiation-1.png")
+```
 
 The heatmap is useful, but what about putting it on a map? First we will set a numeric neighbors argument to plot the Fst estimate between each population's closest neighbor. Then we will specify relationships that we want to see using the population names.
-```{r Differentiation map}
+```{r Differentiation map, echo = TRUE, eval=FALSE}
 # Closest Neighbor
 Fst_map <- Dif_Stats_Map(dat = Fst, pops = Loc, neighbors = 1,
                      col = c('#FFFF00','#FFC000','#FFA500','#e31a1c','#800026'),
                      Lat_buffer = 1, Long_buffer = 1)
-Fst_map$`Differentiation Map`
 
 Fst_map2 <- Dif_Stats_Map(dat = Fst, pops = Loc, neighbors = c('East_West', 'East_South', 'South_West'),
                      col = c('#FFFF00','#FFC000','#FFA500','#e31a1c','#800026'),
                      Lat_buffer = 1, Long_buffer = 1)
-Fst_map2$`Differentiation Map`
+
+Fst_map$`Differentiation Map`
 ```
 
 
+```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE}
+knitr::include_graphics("./img/Differentiationmap-1.png")
+```
+
+```{r, echo = TRUE, eval = FALSE}
+Fst_map2$`Differentiation Map`
+```
+
+```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE}
+knitr::include_graphics("./img/Differentiationmap-2.png")
+```
+
 ### Diversity Visualizations
 Finally, we will map diversity values. We can color points based on diversity estimates and interpolated values to generate a raster to see how diversity changes across space. Here we only show the point method, but feel free to reach out if you have questions about the interpolation.
-```{r Diversity}
+```{r Diversity, echo = TRUE, eval=FALSE}
 # Similar to our heat map, we use the statistic argument to label our figures and any output raster you create.
 Div_map <- Div_Stats_Map(dat = Het_dat, plot.type = 'point',
 statistic = "Heterozygosity", col = c('blue', 'orange', 'red'), Lat_buffer = 1, Long_buffer = 1, prefix = 'Test_het')
@@ -84,5 +159,8 @@ statistic = "Heterozygosity", col = c('blue', 'orange', 'red'), Lat_buffer = 1, 
 Div_map$`Heterozygosity Map`
 ```
 
+```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE}
+knitr::include_graphics("./img/Diversity-1.png")
+```
 
 Thank you for your interest in our package, please reach out with any questions or things that should be included in future versions of the package.
