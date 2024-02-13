@@ -4,14 +4,13 @@
 #' @param statistic Character string. The statistic to be plotted.
 #' @param breaks Numeric. The breaks used to generate the color ramp when plotting. Users should supply 3 values if custom breaks are desired.
 #' @param col Character vector indicating the colors you wish to use for plotting, three colors are allowed (low, mid, high). The first color will be the low color, the second the middle, the third the high.
-#' @param prefix  Character string that will be appended to file output.
-#' @param Long_col Numeric. A number indicating which column contains the longitude information.
-#' @param Lat_col Numeric. A number indicating which column contains the latitude information.
-#' @param write Boolean. Whether or not to write the output to a file in the current working directory.
 #'
 #' @return A list containing maps and the data frames used to generate them.
 #'
+#'
 #' @importFrom rlang .data
+#'
+#' @author Keaka Farleigh
 #'
 #' @export
 #'
