@@ -15,6 +15,15 @@ data("Q_dat")
 data("HornedLizard_Pop")
 data("HornedLizard_VCF")
 
+## ----Heterozygosity, echo=TRUE, eval=FALSE------------------------------------
+#  Obs_Het <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Ho")
+
+## ----Differentiation, echo=TRUE, eval=FALSE-----------------------------------
+#  Fst <- Differentiation(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Fst")
+
+## ----Private.alleles, echo=TRUE, eval=FALSE-----------------------------------
+#  PA <- Private.alleles(data = HornedLizard_VCF, pops = HornedLizard_Pop)
+
 ## ----Ancestry barchart, echo=TRUE, eval=FALSE---------------------------------
 #  # First, we seperate the list elements into two seperate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).
 #  Qmat <- Q_dat[[1]]
@@ -55,7 +64,7 @@ knitr::include_graphics("./img/Ind_PieMap.png")
 ## ----out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'----
 knitr::include_graphics("./img/Pop_PieMap.png")
 
-## ----Differentiation, echo = TRUE, eval=FALSE---------------------------------
+## ----Differentiation_old, echo = TRUE, eval=FALSE-----------------------------
 #  # Isolate our fst matrix and locality information
 #  Fst <- Fst_dat[[1]]
 #  Loc <- Fst_dat[[2]]

@@ -3,6 +3,7 @@
 ** To Do for KF
 - Update documentation
 - Update vignette 
+- Add Point_Map function
 
 * `Dif_stats_map` has been changed to `Network_map` and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.
 * `Plot_ancestry` has been split into `Piechart_Map` and `Ancestry_barchart` so that it is easier for users to determine which function is most appropriate for their analysis. 

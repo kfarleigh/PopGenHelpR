@@ -1,3 +1,4 @@
+#' \bold{WARNING! This function has been deprecated and is no longer supported. Please use the Ancestry_barchart and Piechart_map functions.}
 #' Plot an ancestry matrix and map of ancestry pie charts.
 #'
 #' @param anc.mat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the names of each sample/population, followed by the estimated contribution of each cluster to that individual/pop.

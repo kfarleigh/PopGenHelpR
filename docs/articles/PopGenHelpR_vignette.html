@@ -77,11 +77,11 @@
 
     
     
-<div class="section level2">
-<h2 id="welcome">Welcome<a class="anchor" aria-label="anchor" href="#welcome"></a>
-</h2>
+<div class="section level3">
+<h3 id="welcome">Welcome<a class="anchor" aria-label="anchor" href="#welcome"></a>
+</h3>
 <p>Welcome to the PopGenHelpR vignette, please contact the authors if
-you have any questions about the package.You can also visit our Github
+you have any questions about the package. You can also visit our Github
 for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR/" class="uri">https://kfarleigh.github.io/PopGenHelpR/</a>).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the package</span></span>
@@ -94,14 +94,17 @@ for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR/" clas
 visualization. <code>PopGenHelpR</code> can calculate commonly used
 population genomic statistics such as heterozygosity and genetic
 differentiation, with the functions <code>Heterozygosity</code>,
-<code>Differentiation</code> and <code>Private.alleles</code>. While
+<code>Differentiation</code>, and <code>Private.alleles</code>. While
 also producing publication-quality figures using the functions
 <code>Ancestry_barchart</code>, <code>Network_map</code>,
 <code>Pairwise_heatmap</code>, and <code>Piechart_map</code>. Check out
 the vignette below to see all of these functions in action!</p>
 <div class="section level4">
-<h4 id="load-the-data">Load the data<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
+<h4 id="assumptions-of-popgenhelpr">Assumptions of <code>PopGenHelpR</code><a class="anchor" aria-label="anchor" href="#assumptions-of-popgenhelpr"></a>
 </h4>
+<div class="section level5">
+<h5 id="load-the-data">Load the data<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
+</h5>
 <p>First, we will load the data. These data objects are examples of data
 types that can be used in the functions in <code>PopGenHelpR</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -111,9 +114,76 @@ types that can be used in the functions in <code>PopGenHelpR</code>.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"HornedLizard_Pop"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"HornedLizard_VCF"</span><span class="op">)</span></span></code></pre></div>
 </div>
+</div>
 <div class="section level3">
-<h3 id="ancestry-plots">Ancestry Plots<a class="anchor" aria-label="anchor" href="#ancestry-plots"></a>
+<h3 id="genomic-analysis">Genomic Analysis<a class="anchor" aria-label="anchor" href="#genomic-analysis"></a>
 </h3>
+<p>Statistical analysis is the foundation of any population genomics
+study, but many R packages only calculate a subset of commonly used
+population genomic statistics. <code>PopGenHelpR</code> seeks to remedy
+this by allowing researchers to calculate widely used diversity and
+differentiation measures in a single package.</p>
+<div class="section level4">
+<h4 id="heterozygosity">Heterozygosity<a class="anchor" aria-label="anchor" href="#heterozygosity"></a>
+</h4>
+<p>Heterozygosity is a fundamental statistic in population genomics that
+allows researchers to evaluate the genetic diversity of individuals and
+populations. <code>PopGenHelpR</code> can estimate 7 measures of
+heterozygosity (individual and population). Here we will calculate
+observed heterozygosity, but please see the documentation for
+<code>Heterozygosity</code> to see all of the options. Better yet, check
+out our <a href="https://kfarleigh.github.io/co" class="external-link">article</a> on
+heterozygosity and when to use each measure!</p>
+<p>All we need is a vcf or geno file, population assignment file, and
+the statistic you wish to estimate (<code>PopGenHelpR</code> does them
+all by default). Note that <code>PopGenHelpR</code> assumes that the
+first column indicates sample names and the second column indicates the
+population to which each individual is assigned. You can use the
+arguments <code>individual_col</code> and <code>population_col</code> to
+specify which column indicates the sample and population names,
+respectively. You can also write the results to a csv if you set
+<code>write = TRUE</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Obs_Het</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Heterozygosity.html">Heterozygosity</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"Ho"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="differentiaton">Differentiaton<a class="anchor" aria-label="anchor" href="#differentiaton"></a>
+</h4>
+<p>Differentiation is another basic analysis in population genomic
+studies. <code>PopGenHelpR</code> allows you to estimate
+<sub><em>Fst</em></sub>, Nei’s D (individual and population), and Jost’s
+D. Like <code>Heterozygosity</code>, all we need is a vcf or geno file,
+population assignment file, and the statistic you want to calculate
+(<code>PopGenHelpR</code> does them all by default). Again, individual
+and population columns are assumed to be the first and second columns
+but can be indicated by users with <code>individual_col</code> and
+<code>population_col</code>, respectively.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Fst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Differentiation.html">Differentiation</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="private-alleles">Private alleles<a class="anchor" aria-label="anchor" href="#private-alleles"></a>
+</h4>
+<p>Finally, we will calculate the number of private alleles in each
+population. This analysis is often used to evaluate signals of range
+expansion and helps researchers identify populations that harbor unique
+alleles. Note that <code>Private.alleles</code> can only use a vcf (no
+geno files) and does not require you to specify a statistic (all you
+absolutely need is a vcf and population file). Otherwise, it operates
+just like <code>Heterozygosity</code> or
+<code>Differentiation</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">PA</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Private.alleles.html">Private.alleles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span><span class="op">)</span></span></code></pre></div>
+<p>Let’s move onto visualizations (the fun part), so you can get your
+work submitted!</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="visualizations">Visualizations<a class="anchor" aria-label="anchor" href="#visualizations"></a>
+</h3>
+<div class="section level4">
+<h4 id="ancestry-plots">Ancestry Plots<a class="anchor" aria-label="anchor" href="#ancestry-plots"></a>
+</h4>
 <p><code>PopGenHelpR</code> can generate commonly used ancestry
 visualizations such as structure-like plots and ancestry piechart maps.
 First, we will create structure-like plots for individuals and
@@ -123,7 +193,7 @@ represents the contribution of each cluster (K) to an individual or
 population and can be obtained from programs like STRUCTURE, ADMIXTURE,
 or sNMF. Please see our article on how to extract the q-matrix from
 these programs or email Keaka Farleigh.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First, we seperate the list elements into two seperate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).</span></span>
 <span><span class="va">Qmat</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -137,10 +207,10 @@ these programs or email Keaka Farleigh.</p>
 <p>We can also generate an ancestry matrix by populations. The ancestry
 of each population is calculate by averaging the ancestry of the
 individuals in a particular population.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Test_all</span><span class="op">$</span><span class="va">`Population Ancestry Plot`</span></span></code></pre></div>
 <p><img src="img/Anc_barchart2.png" width="600px" height="350px" style="display: block; margin: auto;"></p>
-<p>Now we will generate piechart maps of ancestry using the
+<p>Now, we will generate piechart maps of ancestry using the
 <code>Piechart_map</code> function. <code>Piechart_map</code> requires
 the same input as <code>Ancestry_barchart</code> with the additional
 requirement of coordinates for each individual/population. You’ll notice
@@ -149,9 +219,8 @@ partitions. That’s because we have multiple individuals at the same
 location, so the population map is probably a better choice. Instead of
 layering individuals on top of each other, the population map averages
 the ancestry of individuals in a population before mapping. See our
-GitHub for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR/" class="uri">https://kfarleigh.github.io/PopGenHelpR/</a>), including
-ancestry pie charts on maps.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+GitHub for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR/" class="uri">https://kfarleigh.github.io/PopGenHelpR/</a>).</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First, we seperate the list elements into two seperate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).</span></span>
 <span><span class="va">Qmat</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -164,30 +233,21 @@ ancestry pie charts on maps.</p>
 <p><img src="img/Ind_PieMap.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p>Notice the weird partitions? We can take care of those using the
 population piechart map.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Test_all_piemap</span><span class="op">$</span><span class="va">`Population Map`</span></span></code></pre></div>
 <p><img src="img/Pop_PieMap.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
-<p>That’s better. Let’s move onto calculating measures of diversity.</p>
+</div>
 </div>
 <div class="section level3">
-<h3 id="heterozygosity">Heterozygosity<a class="anchor" aria-label="anchor" href="#heterozygosity"></a>
+<h3 id="old-stuff-below">OLD STUFF BELOW<a class="anchor" aria-label="anchor" href="#old-stuff-below"></a>
 </h3>
-</div>
-<div class="section level3">
-<h3 id="differentiaton">Differentiaton<a class="anchor" aria-label="anchor" href="#differentiaton"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="private-alleles">Private alleles<a class="anchor" aria-label="anchor" href="#private-alleles"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="differentiation-visualizations">Differentiation visualizations<a class="anchor" aria-label="anchor" href="#differentiation-visualizations"></a>
-</h3>
+<div class="section level4">
+<h4 id="differentiation-visualizations">Differentiation visualizations<a class="anchor" aria-label="anchor" href="#differentiation-visualizations"></a>
+</h4>
 <p>We will use the <code>Fst_dat</code> object to visualize patterns of
 differentiation between populations. First, we will generate a heat map
 and then we will plot the realtionships on a map.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Isolate our fst matrix and locality information</span></span>
 <span><span class="va">Fst</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -200,7 +260,7 @@ and then we will plot the realtionships on a map.</p>
 will set a numeric neighbors argument to plot the Fst estimate between
 each population’s closest neighbor. Then we will specify relationships
 that we want to see using the population names.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Closest Neighbor</span></span>
 <span><span class="va">Fst_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Dif_Stats_Map.html">Dif_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>, neighbors <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#FFFF00'</span>,<span class="st">'#FFC000'</span>,<span class="st">'#FFA500'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
@@ -212,19 +272,19 @@ that we want to see using the population names.</p>
 <span></span>
 <span><span class="va">Fst_map</span><span class="op">$</span><span class="va">`Differentiation Map`</span></span></code></pre></div>
 <p><img src="img/Differentiationmap-1.png" width="600px" height="350px"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Fst_map2</span><span class="op">$</span><span class="va">`Differentiation Map`</span></span></code></pre></div>
 <p><img src="img/Differentiationmap-2.png" width="600px" height="350px"></p>
 </div>
-<div class="section level3">
-<h3 id="diversity-visualizations">Diversity Visualizations<a class="anchor" aria-label="anchor" href="#diversity-visualizations"></a>
-</h3>
+<div class="section level4">
+<h4 id="diversity-visualizations">Diversity Visualizations<a class="anchor" aria-label="anchor" href="#diversity-visualizations"></a>
+</h4>
 <p>Finally, we will map diversity values. We can color points based on
 diversity estimates and interpolated values to generate a raster to see
 how diversity changes across space. Here we only show the point method,
 but feel free to reach out if you have questions about the
 interpolation.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Similar to our heat map, we use the statistic argument to label our figures and any output raster you create.</span></span>
 <span><span class="va">Div_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Div_Stats_Map.html">Div_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Het_dat</span>, plot.type <span class="op">=</span> <span class="st">'point'</span>,</span>
 <span>statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'blue'</span>, <span class="st">'orange'</span>, <span class="st">'red'</span><span class="op">)</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="st">'Test_het'</span><span class="op">)</span></span>
@@ -234,6 +294,7 @@ interpolation.</p>
 <p>Thank you for your interest in our package, please reach out with any
 questions or things that should be included in future versions of the
 package.</p>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
