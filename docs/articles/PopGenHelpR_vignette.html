@@ -8,8 +8,8 @@
 <meta name="description" content="PopGenHelpR">
 <title>PopGenHelpR Vignette • PopGenHelpR</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="PopGenHelpR Vignette">
 <meta property="og:description" content="PopGenHelpR">
@@ -99,9 +99,20 @@ also producing publication-quality figures using the functions
 <code>Ancestry_barchart</code>, <code>Network_map</code>,
 <code>Pairwise_heatmap</code>, and <code>Piechart_map</code>. Check out
 the vignette below to see all of these functions in action!</p>
+<p><img src="img/PGH_workflow.png" width="750px" height="750px" style="display: block; margin: auto;">
+Fig 1. A visualization of the <code>PopGenHelpR</code> workflow.</p>
 <div class="section level4">
 <h4 id="assumptions-of-popgenhelpr">Assumptions of <code>PopGenHelpR</code><a class="anchor" aria-label="anchor" href="#assumptions-of-popgenhelpr"></a>
 </h4>
+<p><code>PopGenHelpR</code> is designed to be easy to use, but this also
+means that you need to make sure that your data is in order before
+analysis and that you pay attention to any warnings output by the
+functions.</p>
+<ul>
+<li>
+<strong>Data are assumed to be bi-allelic</strong>. Please reach out
+if you have any questions or need help filtering data.</li>
+</ul>
 <div class="section level5">
 <h5 id="load-the-data">Load the data<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
 </h5>
@@ -118,7 +129,7 @@ types that can be used in the functions in <code>PopGenHelpR</code>.</p>
 <div class="section level3">
 <h3 id="genomic-analysis">Genomic Analysis<a class="anchor" aria-label="anchor" href="#genomic-analysis"></a>
 </h3>
-<p>Statistical analysis is the foundation of any population genomics
+<p>Statistical analysis is a critical component population genomics
 study, but many R packages only calculate a subset of commonly used
 population genomic statistics. <code>PopGenHelpR</code> seeks to remedy
 this by allowing researchers to calculate widely used diversity and
@@ -181,6 +192,11 @@ work submitted!</p>
 <div class="section level3">
 <h3 id="visualizations">Visualizations<a class="anchor" aria-label="anchor" href="#visualizations"></a>
 </h3>
+<p>A strength of <code>PopGenHelpR</code> is its ability to generate
+publication-quality figures. You can generate commonly used figures such
+as ancestry plots (bar charts and piechart maps), sample maps, and other
+figures such as the <code>Network_map</code> that visualizes
+relationships between points on a map.</p>
 <div class="section level4">
 <h4 id="ancestry-plots">Ancestry Plots<a class="anchor" aria-label="anchor" href="#ancestry-plots"></a>
 </h4>
@@ -237,60 +253,73 @@ population piechart map.</p>
 <code class="sourceCode R"><span><span class="va">Test_all_piemap</span><span class="op">$</span><span class="va">`Population Map`</span></span></code></pre></div>
 <p><img src="img/Pop_PieMap.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 </div>
-</div>
-<div class="section level3">
-<h3 id="old-stuff-below">OLD STUFF BELOW<a class="anchor" aria-label="anchor" href="#old-stuff-below"></a>
-</h3>
 <div class="section level4">
 <h4 id="differentiation-visualizations">Differentiation visualizations<a class="anchor" aria-label="anchor" href="#differentiation-visualizations"></a>
 </h4>
-<p>We will use the <code>Fst_dat</code> object to visualize patterns of
-differentiation between populations. First, we will generate a heat map
-and then we will plot the realtionships on a map.</p>
+<p><code>PopGenHelpR</code> can use symmetric matrices such as those
+output by the <code>Differentiation</code> function to plot heatmaps and
+network maps. These plots can be great for understanding the
+relationships between populations or individuals.</p>
+<p>First, we will use the <code>Pairwise_heatmap</code> function, which
+allows us to see relationships between populations or individuals and
+only requires a symmetric matrix and legend label (statistic argument).
+You can also supply a color vector like we do below, but it is not
+required.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Isolate our fst matrix and locality information</span></span>
-<span><span class="va">Fst</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co"># Plot the heatmap, the statistic argument is used to label the plot.</span></span>
-<span><span class="va">Fstat_hmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pairwise_heatmap.html">Pairwise_heatmap</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, statistic <span class="op">=</span> <span class="st">'FST'</span><span class="op">)</span></span>
-<span><span class="co"># Look at the plot</span></span>
-<span><span class="va">Fstat_hmap</span></span></code></pre></div>
-<p><img src="img/Differentiation-1.png" width="600px" height="350px"></p>
-<p>The heatmap is useful, but what about putting it on a map? First we
-will set a numeric neighbors argument to plot the Fst estimate between
-each population’s closest neighbor. Then we will specify relationships
-that we want to see using the population names.</p>
+<code class="sourceCode R"><span><span class="va">PW_hmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pairwise_heatmap.html">Pairwise_heatmap</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#0000FF"</span>, <span class="st">"#FF0000"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="img/PWhmap.png" width="600px" height="600px" style="display: block; margin: auto;"></p>
+<p>We can also visualize these relationships on a map using the
+<code>Network_map</code> function. This function allows us to visualize
+pairwise relationships as the color of links between the points. You
+must supply a symmetric matrix (dat argument) and population assignment
+file (pops argument). The remaining arguments are optional, but they
+allow for greater customization. The neighbors argument, for example,
+tells the function how many relationships to visualize, and you can also
+use it to specify relationships that you want to see. Please see the
+documentation for details.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Closest Neighbor</span></span>
-<span><span class="va">Fst_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Dif_Stats_Map.html">Dif_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>, neighbors <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#FFFF00'</span>,<span class="st">'#FFC000'</span>,<span class="st">'#FFA500'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
-<span>                     Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">Fst_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Dif_Stats_Map.html">Dif_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>, neighbors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'East_West'</span>, <span class="st">'East_South'</span>, <span class="st">'South_West'</span><span class="op">)</span>,</span>
-<span>                     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#FFFF00'</span>,<span class="st">'#FFC000'</span>,<span class="st">'#FFA500'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#800026'</span><span class="op">)</span>,</span>
-<span>                     Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">Fst_map</span><span class="op">$</span><span class="va">`Differentiation Map`</span></span></code></pre></div>
-<p><img src="img/Differentiationmap-1.png" width="600px" height="350px"></p>
+<code class="sourceCode R"><span><span class="va">NW_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Network_map.html">Network_map</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, pops <span class="op">=</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, neighbors <span class="op">=</span> <span class="fl">2</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span><span class="op">)</span></span>
+<span><span class="va">NW_map</span><span class="op">$</span><span class="va">Map</span></span></code></pre></div>
+<p><img src="img/NW_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
+<p><code>Network_map</code> can also be used to plot specific
+relationships. Let’s isolate the populations with the highest and lowest
+Fst by supplying a character vector to the neighbors argument.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Fst_map2</span><span class="op">$</span><span class="va">`Differentiation Map`</span></span></code></pre></div>
-<p><img src="img/Differentiationmap-2.png" width="600px" height="350px"></p>
+<code class="sourceCode R"><span><span class="va">NW_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Network_map.html">Network_map</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, pops <span class="op">=</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, neighbors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"East_West"</span>, <span class="st">"East_South"</span><span class="op">)</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span><span class="op">)</span></span>
+<span><span class="va">NW_map2</span><span class="op">$</span><span class="va">Map</span></span></code></pre></div>
+<p><img src="img/NW_map2.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
-<h4 id="diversity-visualizations">Diversity Visualizations<a class="anchor" aria-label="anchor" href="#diversity-visualizations"></a>
+<h4 id="heterozygosity-and-other-visualizations">Heterozygosity and Other Visualizations<a class="anchor" aria-label="anchor" href="#heterozygosity-and-other-visualizations"></a>
 </h4>
-<p>Finally, we will map diversity values. We can color points based on
-diversity estimates and interpolated values to generate a raster to see
-how diversity changes across space. Here we only show the point method,
-but feel free to reach out if you have questions about the
-interpolation.</p>
+<p><code>PopGenHelpR</code> can create maps using output from
+<code>Heterozygosity</code> or csv files from external programs to
+understand how diversity (or other statistics) is distributed across
+geographic space.</p>
+<p>We will plot some observed heterozygosity data with the function
+<code>Point_map</code>. All you need is a data frame (or csv), and the
+name of whatever statistic you are plotting (statistic argument).
+<code>Point_map</code> also assumes that the coordinate column names are
+Latitude and Longitude.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Similar to our heat map, we use the statistic argument to label our figures and any output raster you create.</span></span>
-<span><span class="va">Div_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Div_Stats_Map.html">Div_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Het_dat</span>, plot.type <span class="op">=</span> <span class="st">'point'</span>,</span>
-<span>statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'blue'</span>, <span class="st">'orange'</span>, <span class="st">'red'</span><span class="op">)</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="st">'Test_het'</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">Div_map</span><span class="op">$</span><span class="va">`Heterozygosity Map`</span></span></code></pre></div>
-<p><img src="img/Diversity-1.png" width="600px" height="350px"></p>
+<code class="sourceCode R"><span><span class="va">Het_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Point_map.html">Point_map</a></span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span><span class="op">)</span></span>
+<span><span class="va">Het_map</span><span class="op">$</span><span class="va">`Heterozygosity Map`</span></span></code></pre></div>
+<p><img src="img/Het_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
+<p>We can also outline the points by setting the <code>out.col</code>
+argument.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Het_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Point_map.html">Point_map</a></span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, out.col <span class="op">=</span> <span class="st">"#000000"</span><span class="op">)</span></span>
+<span><span class="va">Het_map2</span><span class="op">$</span><span class="va">`Heterozygosity Map`</span></span></code></pre></div>
+<p><img src="img/Het_map2.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
+<p>Finally, we can just plot coordinates using
+<code>Plot_coordinates</code>. All we need is a data frame or csv file
+with the coordinates for each row indicated by columns names Latitude
+and Longitude. You can change the size of the points with the
+<code>size</code> argument.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Sample_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Plot_coordinates.html">Plot_coordinates</a></span><span class="op">(</span><span class="va">HornedLizard_Pop</span><span class="op">)</span></span>
+<span><span class="va">Sample_map</span></span></code></pre></div>
+<p><img src="img/Samp_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p>Thank you for your interest in our package, please reach out with any
 questions or things that should be included in future versions of the
 package.</p>

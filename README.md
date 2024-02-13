@@ -1,5 +1,5 @@
 
-# PopGenHelpR version 1.2.2 <img src="man/figures/PGH_Logo_Outlined.png" align="right" width="145" height = "145"/>
+# PopGenHelpR version 1.3.0 <img src="man/figures/PGH_Logo_Outlined.png" align="right" width="145" height = "145"/>
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/PopGenHelpR)](https://cran.r-project.org/package=PopGenHelpR)
@@ -10,9 +10,13 @@ mirror](https://cranlogs.r-pkg.org/badges/PopGenHelpR)](https://cran.r-project.o
 <!-- badges: end -->
 
 ## What is *PopGenHelpR*?
-*PopGenHelpR* is an R package designed to estimate commonly used population genomic statistics and to generate publication quality figures. The current version of PopGenHelpR uses vcf and csv files to generate output, however, future implementations will expand the input file type options. Please see the [vignette](https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_vignette.html) and other articles for examples. 
+*PopGenHelpR* is an R package designed to estimate commonly used population genomic statistics and to generate publication quality figures. The current version of PopGenHelpR uses vcf, geno (012), and csv files to generate output, however, future implementations will expand the input file type options. Please see the [vignette](https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_vignette.html) and other articles for examples. 
 
-We plan to continue developing the package to include more functions and to reduce our dependency on other R packages, feel free to reach out to Keaka Farleigh if you have any suggestions or would like to collaborate. 
+We plan to continue developing the package to include more functions, feel free to reach out to Keaka Farleigh if you have any suggestions or would like to collaborate. 
+
+### Do you use *PopGenHelpR* in your research or class and want to be kept up to date?
+Please email Keaka Farleigh (farleik@miamioh.edu) to be informed about any updates or pending changes to *PopGenHelpR*. 
+
 
 ## Installation
 

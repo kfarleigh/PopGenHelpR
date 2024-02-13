@@ -2,37 +2,47 @@
 % Please edit documentation in R/Point_map.R
 \name{Point_map}
 \alias{Point_map}
-\title{\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Point_map function instead.}
-A function to map diversity statistics.}
+\title{A function to map statistics as colored points on a map.}
 \usage{
-Point_map(dat, statistic, breaks = NULL, col, Lat_buffer = 1, Long_buffer = 1)
+Point_map(
+  dat,
+  statistic,
+  size = 3,
+  breaks = NULL,
+  col,
+  out.col = NULL,
+  Lat_buffer = 1,
+  Long_buffer = 1
+)
 }
 \arguments{
 \item{dat}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted. The coordinates of each row should be indicated by columns named Longitude and Latitude.}
 
 \item{statistic}{Character string. The statistic to be plotted.}
 
+\item{size}{Numeric. The size of the points to plot.}
+
 \item{breaks}{Numeric. The breaks used to generate the color ramp when plotting. Users should supply 3 values if custom breaks are desired.}
 
 \item{col}{Character vector indicating the colors you wish to use for plotting, three colors are allowed (low, mid, high). The first color will be the low color, the second the middle, the third the high.}
 
-\item{prefix}{Character string that will be appended to file output.}
+\item{out.col}{Character. A color for outlining points on the map. There will be no visible outline if left as NULL.}
 
-\item{Long_col}{Numeric. A number indicating which column contains the longitude information.}
+\item{Lat_buffer}{Numeric. A buffer to customize visualization.}
 
-\item{Lat_col}{Numeric. A number indicating which column contains the latitude information.}
-
-\item{write}{Boolean. Whether or not to write the output to a file in the current working directory.}
+\item{Long_buffer}{Numeric. A buffer to customize visualization.}
 }
 \value{
 A list containing maps and the data frames used to generate them.
 }
 \description{
-\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Point_map function instead.}
-A function to map diversity statistics.
+A function to map statistics as colored points on a map.
 }
 \examples{
 \donttest{
 data(Het_dat)
 Test <- Point_map(Het_dat, statistic = "Heterozygosity")}
+}
+\author{
+Keaka Farleigh
 }

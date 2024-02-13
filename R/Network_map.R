@@ -2,7 +2,7 @@
 #'
 #' @param dat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. If it is a csv, the 1st row should contain the individual/population names. The columns should also be named in this fashion.
 #' @param pops Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.
-#' @param neighbors Numeric. The number of neighbors to plot connections with.
+#' @param neighbors Numeric or character. The number of neighbors to plot connections with, or the specific relationship that you want to visualize. Names should match those in the population assignment file and be seperated by an underscore. If I want to visualize the relationship between East and West, for example, I would set neighbors = "East_West".
 #' @param col Character vector indicating the colors you wish to use for plotting.
 #' @param statistic Character indicating the statistic being plotted. This will be used to title the legend. The legend title will be blank if left as NULL.
 #' @param breaks Numeric. The breaks used to generate the color ramp when plotting. Users should supply 3 values if custom breaks are desired.
@@ -23,7 +23,7 @@
 #' Test <- Network_map(dat = Fst, pops = Loc,
 #' neighbors = 2,col = c('#4575b4', '#91bfdb', '#e0f3f8','#fd8d3c','#fc4e2a'),
 #' statistic = "Fst", Lat_buffer = 1, Long_buffer = 1)}
-Network_map <- function(dat, pops, neighbors, col, statistic = NULL, breaks = NULL, Lat_buffer, Long_buffer){
+Network_map <- function(dat, pops, neighbors, col, statistic = NULL, breaks = NULL, Lat_buffer = 1, Long_buffer = 1){
   X1 <- X2 <- X3 <- X4 <- Dif <- Long <- Lat <- alpha <- NULL
   ################### Get the data for mapping
   # Get map data
@@ -51,7 +51,7 @@ Network_map <- function(dat, pops, neighbors, col, statistic = NULL, breaks = NU
     Pops <- utils::read.csv(pops)
   }
   else{
-    stop("Plesae supply a population assignment file as a dataframe or .csv file name")
+    stop("Please supply a population assignment file as a dataframe or .csv file name")
   }
 
   # Make sure that the diagonal of the diferentiation matrix is 0

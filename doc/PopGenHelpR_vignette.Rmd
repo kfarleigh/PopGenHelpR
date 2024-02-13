@@ -25,8 +25,15 @@ library(PopGenHelpR)
 # Overview of PopGenHelpR
 `PopGenHelpR` is a one-stop package for data analysis and visualization. `PopGenHelpR` can calculate commonly used population genomic statistics such as heterozygosity and genetic differentiation, with the functions `Heterozygosity`, `Differentiation`, and `Private.alleles`. While also producing publication-quality figures using the functions `Ancestry_barchart`, `Network_map`, `Pairwise_heatmap`, and `Piechart_map`. Check out the vignette below to see all of these functions in action!
 
-### Assumptions of `PopGenHelpR`
+```{r, out.width= "750px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/PGH_workflow.png")
+```
+Fig 1. A visualization of the `PopGenHelpR` workflow. 
 
+### Assumptions of `PopGenHelpR`
+`PopGenHelpR` is designed to be easy to use, but this also means that you need to make sure that your data is in order before analysis and that you pay attention to any warnings output by the functions. 
+
+- **Data are assumed to be bi-allelic**. Please reach out if you have any questions or need help filtering data. 
 
 #### Load the data 
 
@@ -42,7 +49,7 @@ data("HornedLizard_VCF")
 
 ## Genomic Analysis  
 
-Statistical analysis is the foundation of any population genomics study, but many R packages only calculate a subset of commonly used population genomic statistics. `PopGenHelpR` seeks to remedy this by allowing researchers to calculate widely used diversity and differentiation measures in a single package. 
+Statistical analysis is a critical component population genomics study, but many R packages only calculate a subset of commonly used population genomic statistics. `PopGenHelpR` seeks to remedy this by allowing researchers to calculate widely used diversity and differentiation measures in a single package. 
 
 ### Heterozygosity
 Heterozygosity is a fundamental statistic in population genomics that allows researchers to evaluate the genetic diversity of individuals and populations. `PopGenHelpR` can estimate 7 measures of heterozygosity (individual and population). Here we will calculate observed heterozygosity, but please see the documentation for `Heterozygosity` to see all of the options. Better yet, check out our [article](https://kfarleigh.github.io/co) on heterozygosity and when to use each measure!
@@ -73,6 +80,8 @@ Let's move onto visualizations (the fun part), so you can get your work submitte
 
 
 ## Visualizations 
+
+A strength of `PopGenHelpR` is its ability to generate publication-quality figures. You can generate commonly used figures such as ancestry plots (bar charts and piechart maps), sample maps, and other figures such as the `Network_map` that visualizes relationships between points on a map. 
 
 ### Ancestry Plots
 `PopGenHelpR` can generate commonly used ancestry visualizations such as structure-like plots and ancestry piechart maps. First, we will create structure-like plots for individuals and populations. We need a q-matrix, population assignments for each individual, and the number of genetic clusters (K). The q-matrix represents the contribution of each cluster (K) to an individual or population and can be obtained from programs like STRUCTURE, ADMIXTURE, or sNMF. Please see our article on how to extract the q-matrix from these programs or email Keaka Farleigh. 
@@ -136,64 +145,72 @@ knitr::include_graphics("./img/Pop_PieMap.png")
 ```
 
 
-
-## OLD STUFF BELOW
-
 ### Differentiation visualizations
-We will use the `Fst_dat` object to visualize patterns of differentiation between populations. First, we will generate a heat map and then we will plot the realtionships on a map.
-```{r Differentiation_old, echo = TRUE, eval=FALSE}
-# Isolate our fst matrix and locality information
-Fst <- Fst_dat[[1]]
-Loc <- Fst_dat[[2]]
-# Plot the heatmap, the statistic argument is used to label the plot.
-Fstat_hmap <- Pairwise_heatmap(dat = Fst, statistic = 'FST')
-# Look at the plot
-Fstat_hmap
+`PopGenHelpR` can use symmetric matrices such as those output by the `Differentiation` function to plot heatmaps and network maps. These plots can be great for understanding the relationships between populations or individuals. 
+
+First, we will use the `Pairwise_heatmap` function, which allows us to see relationships between populations or individuals and only requires a symmetric matrix and legend label (statistic argument). You can also supply a color vector like we do below, but it is not required. 
+```{r Pairwise Heatmap, echo=TRUE, eval=FALSE}
+PW_hmap <- Pairwise_heatmap(Fst_dat[[1]], statistic = "Fst", col = c("#0000FF", "#FF0000"))
 ```
 
-```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE}
-knitr::include_graphics("./img/Differentiation-1.png")
-```
-
-The heatmap is useful, but what about putting it on a map? First we will set a numeric neighbors argument to plot the Fst estimate between each population's closest neighbor. Then we will specify relationships that we want to see using the population names.
-```{r Differentiation map, echo = TRUE, eval=FALSE}
-# Closest Neighbor
-Fst_map <- Dif_Stats_Map(dat = Fst, pops = Loc, neighbors = 1,
-                     col = c('#FFFF00','#FFC000','#FFA500','#e31a1c','#800026'),
-                     Lat_buffer = 1, Long_buffer = 1)
-
-Fst_map2 <- Dif_Stats_Map(dat = Fst, pops = Loc, neighbors = c('East_West', 'East_South', 'South_West'),
-                     col = c('#FFFF00','#FFC000','#FFA500','#e31a1c','#800026'),
-                     Lat_buffer = 1, Long_buffer = 1)
-
-Fst_map$`Differentiation Map`
+```{r, out.width= "600px", out.height= "600px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/PWhmap.png")
 ```
 
 
-```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE}
-knitr::include_graphics("./img/Differentiationmap-1.png")
+We can also visualize these relationships on a map using the `Network_map` function. This function allows us to visualize pairwise relationships as the color of links between the points. You must supply a symmetric matrix (dat argument) and population assignment file (pops argument). The remaining arguments are optional, but they allow for greater customization. The neighbors argument, for example, tells the function how many relationships to visualize, and you can also use it to specify relationships that you want to see. Please see the documentation for details. 
+
+```{r Network Map, echo=TRUE, eval=FALSE}
+NW_map <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic = "Fst")
+NW_map$Map
+```
+```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/NW_map1.png")
 ```
 
-```{r, echo = TRUE, eval = FALSE}
-Fst_map2$`Differentiation Map`
+`Network_map` can also be used to plot specific relationships. Let's isolate the populations with the highest and lowest Fst by supplying a character vector to the neighbors argument.
+
+```{r Network Map2, echo=TRUE, eval=FALSE}
+NW_map2 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = c("East_West", "East_South"), statistic = "Fst")
+NW_map2$Map
+```
+```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/NW_map2.png")
 ```
 
-```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE}
-knitr::include_graphics("./img/Differentiationmap-2.png")
+
+### Heterozygosity and Other Visualizations
+`PopGenHelpR` can create maps using output from `Heterozygosity` or csv files from external programs to understand how diversity (or other statistics) is distributed across geographic space. 
+
+
+We will plot some observed heterozygosity data with the function `Point_map`. All you need is a data frame (or csv), and the name of whatever statistic you are plotting (statistic argument). `Point_map` also assumes that the coordinate column names are Latitude and Longitude. 
+
+```{r Heterozygosity2, echo=TRUE, eval=FALSE}
+Het_map <- Point_map(Het_dat, statistic = "Heterozygosity")
+Het_map$`Heterozygosity Map`
+```
+```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/Het_map1.png")
 ```
 
-### Diversity Visualizations
-Finally, we will map diversity values. We can color points based on diversity estimates and interpolated values to generate a raster to see how diversity changes across space. Here we only show the point method, but feel free to reach out if you have questions about the interpolation.
-```{r Diversity, echo = TRUE, eval=FALSE}
-# Similar to our heat map, we use the statistic argument to label our figures and any output raster you create.
-Div_map <- Div_Stats_Map(dat = Het_dat, plot.type = 'point',
-statistic = "Heterozygosity", col = c('blue', 'orange', 'red'), Lat_buffer = 1, Long_buffer = 1, prefix = 'Test_het')
+We can also outline the points by setting the `out.col` argument. 
 
-Div_map$`Heterozygosity Map`
+```{r Heterozygosity3, echo=TRUE, eval=FALSE}
+Het_map2 <- Point_map(Het_dat, statistic = "Heterozygosity", out.col = "#000000")
+Het_map2$`Heterozygosity Map`
+```
+```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/Het_map2.png")
 ```
 
-```{r, out.width= "600px", out.height= "350px", echo=FALSE, eval=TRUE}
-knitr::include_graphics("./img/Diversity-1.png")
+Finally, we can just plot coordinates using `Plot_coordinates`. All we need is a data frame or csv file with the coordinates for each row indicated by columns names Latitude and Longitude. You can change the size of the points with the `size` argument. 
+```{r Coordinates, echo=TRUE, eval=FALSE}
+Sample_map <- Plot_coordinates(HornedLizard_Pop)
+Sample_map
 ```
+```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
+knitr::include_graphics("./img/Samp_map1.png")
+```
+
 
 Thank you for your interest in our package, please reach out with any questions or things that should be included in future versions of the package.

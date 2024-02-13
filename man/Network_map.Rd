@@ -11,8 +11,8 @@ Network_map(
   col,
   statistic = NULL,
   breaks = NULL,
-  Lat_buffer,
-  Long_buffer
+  Lat_buffer = 1,
+  Long_buffer = 1
 )
 }
 \arguments{
@@ -20,7 +20,7 @@ Network_map(
 
 \item{pops}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.}
 
-\item{neighbors}{Numeric. The number of neighbors to plot connections with.}
+\item{neighbors}{Numeric or character. The number of neighbors to plot connections with, or the specific relationship that you want to visualize. Names should match those in the population assignment file and be seperated by an underscore. If I want to visualize the relationship between East and West, for example, I would set neighbors = "East_West".}
 
 \item{col}{Character vector indicating the colors you wish to use for plotting.}
 
