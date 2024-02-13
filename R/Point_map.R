@@ -1,5 +1,4 @@
-#'\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Point_map function instead.}
-#'A function to map diversity statistics.
+#' A function to map diversity statistics as colored points on a map.
 #'
 #' @param dat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted. The coordinates of each row should be indicated by columns named Longitude and Latitude.
 #' @param statistic Character string. The statistic to be plotted.
