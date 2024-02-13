@@ -1,10 +1,10 @@
 # PopGenHelpR 1.3.0
 - December 6th, 2023
 ** To Do for KF
-- Update documentation
-- Update vignette 
-- Add Point_Map function
+- Add tests
 
+* The `Plot_coordinates` function has been added to make sample maps from coordinates. 
+* The `Point_map` function has replaced `Div_stats_map` and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.
 * `Dif_stats_map` has been changed to `Network_map` and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.
 * `Plot_ancestry` has been split into `Piechart_Map` and `Ancestry_barchart` so that it is easier for users to determine which function is most appropriate for their analysis. 
 * `Differentiation` has been added to estimate Fst, Nei's D, and Jost's D. Please see the documentation for more details. 
