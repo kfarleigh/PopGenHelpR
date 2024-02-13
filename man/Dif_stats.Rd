@@ -2,7 +2,8 @@
 % Please edit documentation in R/Dif_stats.R
 \name{Dif_stats}
 \alias{Dif_stats}
-\title{\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Differentiation function.} A function to calculate differentiation statistics and perform significance testing with a vcf file.}
+\title{\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Differentiation function.}
+A function to calculate differentiation statistics and perform significance testing with a vcf file.}
 \usage{
 Dif_stats(
   VCF,
@@ -33,7 +34,8 @@ Dif_stats(
 A list contianing data frames for the requested statistic.
 }
 \description{
-\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Differentiation function.} A function to calculate differentiation statistics and perform significance testing with a vcf file.
+\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Differentiation function.}
+A function to calculate differentiation statistics and perform significance testing with a vcf file.
 }
 \examples{
 \donttest{

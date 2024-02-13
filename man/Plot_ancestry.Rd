@@ -2,7 +2,8 @@
 % Please edit documentation in R/Plot_ancestry.R
 \name{Plot_ancestry}
 \alias{Plot_ancestry}
-\title{Plot an ancestry matrix and map of ancestry pie charts.}
+\title{\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Ancestry_barchart and Piechart_map functions.}
+Plot an ancestry matrix and map of ancestry pie charts.}
 \usage{
 Plot_ancestry(
   anc.mat,
@@ -36,6 +37,7 @@ Plot_ancestry(
 A list containing your plots and the data frames used to generate the plots.
 }
 \description{
+\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Ancestry_barchart and Piechart_map functions.}
 Plot an ancestry matrix and map of ancestry pie charts.
 }
 \examples{

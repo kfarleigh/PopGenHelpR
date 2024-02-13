@@ -2,7 +2,8 @@
 % Please edit documentation in R/Dif_stats_Map.R
 \name{Dif_Stats_Map}
 \alias{Dif_Stats_Map}
-\title{A function to map differentiation statistics.}
+\title{\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Network_map function.}
+A function to map differentiation statistics.}
 \usage{
 Dif_Stats_Map(
   dat,
@@ -33,6 +34,7 @@ Dif_Stats_Map(
 A list containing the map and the matrix used to plot the map.
 }
 \description{
+\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Network_map function.}
 A function to map differentiation statistics.
 }
 \examples{

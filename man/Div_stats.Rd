@@ -2,7 +2,8 @@
 % Please edit documentation in R/Div_Stats.R
 \name{Div_stats}
 \alias{Div_stats}
-\title{\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Heterozygosity and Private.alleles functions.} A function to estimate heterozygosity and the number of private alleles from a vcf file.}
+\title{\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Heterozygosity and Private.alleles functions.}
+A function to estimate heterozygosity and the number of private alleles from a vcf file.}
 \usage{
 Div_stats(VCF, pops, ploidy, write = FALSE, prefix)
 }
@@ -21,7 +22,8 @@ Div_stats(VCF, pops, ploidy, write = FALSE, prefix)
 A list containing the estimated diversity statistics, model output from linear regression of these statistics against latitude, and model plots.
 }
 \description{
-\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Heterozygosity and Private.alleles functions.} A function to estimate heterozygosity and the number of private alleles from a vcf file.
+\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Heterozygosity and Private.alleles functions.}
+A function to estimate heterozygosity and the number of private alleles from a vcf file.
 }
 \examples{
 \donttest{
