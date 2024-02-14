@@ -2,8 +2,10 @@ pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
+  PopGenHelpR_benchmarking: PopGenHelpR_benchmarking.html
+  PopGenHelpR_casestudy: PopGenHelpR_casestudy.html
   PopGenHelpR_vignette: PopGenHelpR_vignette.html
-last_built: 2024-02-13T21:32Z
+last_built: 2024-02-14T17:07Z
 urls:
   reference: https://kfarleigh.github.io/PopGenHelpR/reference
   article: https://kfarleigh.github.io/PopGenHelpR/articles

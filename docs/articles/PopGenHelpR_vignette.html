@@ -42,6 +42,8 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/PopGenHelpR_vignette.html">Vignette</a>
+    <a class="dropdown-item" href="../articles/PopGenHelpR_casestudy.html">Case Study</a>
+    <a class="dropdown-item" href="../articles/PopGenHelpR_benchmarking.html">Benchmarking</a>
   </div>
 </li>
       </ul>
@@ -110,7 +112,7 @@ analysis and that you pay attention to any warnings output by the
 functions.</p>
 <ul>
 <li>
-<strong>Data are assumed to be bi-allelic</strong>. Please reach out
+<strong>Data is assumed to be bi-allelic</strong>. Please reach out
 if you have any questions or need help filtering data.</li>
 </ul>
 <div class="section level5">
@@ -162,13 +164,14 @@ respectively. You can also write the results to a csv if you set
 </h4>
 <p>Differentiation is another basic analysis in population genomic
 studies. <code>PopGenHelpR</code> allows you to estimate
-<sub><em>Fst</em></sub>, Nei’s D (individual and population), and Jost’s
-D. Like <code>Heterozygosity</code>, all we need is a vcf or geno file,
-population assignment file, and the statistic you want to calculate
-(<code>PopGenHelpR</code> does them all by default). Again, individual
-and population columns are assumed to be the first and second columns
-but can be indicated by users with <code>individual_col</code> and
-<code>population_col</code>, respectively.</p>
+<em>F<sub>st</sub></em>, <em>Nei’s D</em> (individual and population),
+and <em>Jost’s D</em>. Like <code>Heterozygosity</code>, all we need is
+a vcf or geno file, population assignment file, and the statistic you
+want to calculate (<code>PopGenHelpR</code> does them all by default).
+Again, individual and population columns are assumed to be the first and
+second columns but can be indicated by users with
+<code>individual_col</code> and <code>population_col</code>,
+respectively.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Fst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Differentiation.html">Differentiation</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -320,9 +323,10 @@ and Longitude. You can change the size of the points with the
 <code class="sourceCode R"><span><span class="va">Sample_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Plot_coordinates.html">Plot_coordinates</a></span><span class="op">(</span><span class="va">HornedLizard_Pop</span><span class="op">)</span></span>
 <span><span class="va">Sample_map</span></span></code></pre></div>
 <p><img src="img/Samp_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
-<p>Thank you for your interest in our package, please reach out with any
-questions or things that should be included in future versions of the
-package.</p>
+<p>Thank you for your interest in our package, please reach out to Keaka
+Farleigh (<a href="mailto:farleik@miamioh.edu" class="email">farleik@miamioh.edu</a>) with any questions, things that
+should be included in future versions of the package, or if you would
+like to be kept up to date with <code>PopGenHelpR</code>.</p>
 </div>
 </div>
 </div>

@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 ## Welcome
+
 Welcome to the PopGenHelpR vignette, please contact the authors if you have any questions about the package. You can also visit our Github for additional examples (https://kfarleigh.github.io/PopGenHelpR/). 
 
 ```{r setup}
@@ -23,6 +24,7 @@ library(PopGenHelpR)
 ```
 
 # Overview of PopGenHelpR
+
 `PopGenHelpR` is a one-stop package for data analysis and visualization. `PopGenHelpR` can calculate commonly used population genomic statistics such as heterozygosity and genetic differentiation, with the functions `Heterozygosity`, `Differentiation`, and `Private.alleles`. While also producing publication-quality figures using the functions `Ancestry_barchart`, `Network_map`, `Pairwise_heatmap`, and `Piechart_map`. Check out the vignette below to see all of these functions in action!
 
 ```{r, out.width= "750px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
@@ -31,9 +33,10 @@ knitr::include_graphics("./img/PGH_workflow.png")
 Fig 1. A visualization of the `PopGenHelpR` workflow. 
 
 ### Assumptions of `PopGenHelpR`
+
 `PopGenHelpR` is designed to be easy to use, but this also means that you need to make sure that your data is in order before analysis and that you pay attention to any warnings output by the functions. 
 
-- **Data are assumed to be bi-allelic**. Please reach out if you have any questions or need help filtering data. 
+- **Data is assumed to be bi-allelic**. Please reach out if you have any questions or need help filtering data. 
 
 #### Load the data 
 
@@ -52,6 +55,7 @@ data("HornedLizard_VCF")
 Statistical analysis is a critical component population genomics study, but many R packages only calculate a subset of commonly used population genomic statistics. `PopGenHelpR` seeks to remedy this by allowing researchers to calculate widely used diversity and differentiation measures in a single package. 
 
 ### Heterozygosity
+
 Heterozygosity is a fundamental statistic in population genomics that allows researchers to evaluate the genetic diversity of individuals and populations. `PopGenHelpR` can estimate 7 measures of heterozygosity (individual and population). Here we will calculate observed heterozygosity, but please see the documentation for `Heterozygosity` to see all of the options. Better yet, check out our [article](https://kfarleigh.github.io/co) on heterozygosity and when to use each measure!
 
 
@@ -62,13 +66,15 @@ Obs_Het <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, stat
 ```
 
 ### Differentiaton
-Differentiation is another basic analysis in population genomic studies. `PopGenHelpR` allows you to estimate ~*Fst*~, Nei's D (individual and population), and Jost's D. Like `Heterozygosity`, all we need is a vcf or geno file, population assignment file, and the statistic you want to calculate (`PopGenHelpR` does them all by default). Again, individual and population columns are assumed to be the first and second columns but can be indicated by users with `individual_col` and `population_col`, respectively.  
+
+Differentiation is another basic analysis in population genomic studies. `PopGenHelpR` allows you to estimate *F~st~*, *Nei's D* (individual and population), and *Jost's D*. Like `Heterozygosity`, all we need is a vcf or geno file, population assignment file, and the statistic you want to calculate (`PopGenHelpR` does them all by default). Again, individual and population columns are assumed to be the first and second columns but can be indicated by users with `individual_col` and `population_col`, respectively.  
 
 ```{r Differentiation, echo=TRUE, eval=FALSE}
 Fst <- Differentiation(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Fst")
 ```
 
 ### Private alleles
+
 Finally, we will calculate the number of private alleles in each population. This analysis is often used to evaluate signals of range expansion and helps researchers identify populations that harbor unique alleles. Note that `Private.alleles` can only use a vcf (no geno files) and does not require you to specify a statistic (all you absolutely need is a vcf and population file). Otherwise, it operates just like `Heterozygosity` or `Differentiation`. 
 
 ```{r Private.alleles, echo=TRUE, eval=FALSE}
@@ -84,6 +90,7 @@ Let's move onto visualizations (the fun part), so you can get your work submitte
 A strength of `PopGenHelpR` is its ability to generate publication-quality figures. You can generate commonly used figures such as ancestry plots (bar charts and piechart maps), sample maps, and other figures such as the `Network_map` that visualizes relationships between points on a map. 
 
 ### Ancestry Plots
+
 `PopGenHelpR` can generate commonly used ancestry visualizations such as structure-like plots and ancestry piechart maps. First, we will create structure-like plots for individuals and populations. We need a q-matrix, population assignments for each individual, and the number of genetic clusters (K). The q-matrix represents the contribution of each cluster (K) to an individual or population and can be obtained from programs like STRUCTURE, ADMIXTURE, or sNMF. Please see our article on how to extract the q-matrix from these programs or email Keaka Farleigh. 
 
 ```{r Ancestry barchart, echo=TRUE, eval=FALSE}
@@ -146,9 +153,11 @@ knitr::include_graphics("./img/Pop_PieMap.png")
 
 
 ### Differentiation visualizations
+
 `PopGenHelpR` can use symmetric matrices such as those output by the `Differentiation` function to plot heatmaps and network maps. These plots can be great for understanding the relationships between populations or individuals. 
 
 First, we will use the `Pairwise_heatmap` function, which allows us to see relationships between populations or individuals and only requires a symmetric matrix and legend label (statistic argument). You can also supply a color vector like we do below, but it is not required. 
+
 ```{r Pairwise Heatmap, echo=TRUE, eval=FALSE}
 PW_hmap <- Pairwise_heatmap(Fst_dat[[1]], statistic = "Fst", col = c("#0000FF", "#FF0000"))
 ```
@@ -180,6 +189,7 @@ knitr::include_graphics("./img/NW_map2.png")
 
 
 ### Heterozygosity and Other Visualizations
+
 `PopGenHelpR` can create maps using output from `Heterozygosity` or csv files from external programs to understand how diversity (or other statistics) is distributed across geographic space. 
 
 
@@ -204,6 +214,7 @@ knitr::include_graphics("./img/Het_map2.png")
 ```
 
 Finally, we can just plot coordinates using `Plot_coordinates`. All we need is a data frame or csv file with the coordinates for each row indicated by columns names Latitude and Longitude. You can change the size of the points with the `size` argument. 
+
 ```{r Coordinates, echo=TRUE, eval=FALSE}
 Sample_map <- Plot_coordinates(HornedLizard_Pop)
 Sample_map

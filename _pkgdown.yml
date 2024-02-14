@@ -21,6 +21,10 @@ navbar:
       menu:
         - text: Vignette
           href: articles/PopGenHelpR_vignette.html
+        - text: Benchmarking
+          href: articles/PopGenHelpR_benchmarking.html
+        - text: Case Study
+          href: articles/PopGenHelpR_casestudy.html
     github:
       icon: fa-github
       href: https://github.com/kfarleigh/PopGenHelpR
