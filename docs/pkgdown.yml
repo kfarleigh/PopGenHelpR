@@ -3,9 +3,9 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   PopGenHelpR_benchmarking: PopGenHelpR_benchmarking.html
-  PopGenHelpR_casestudy: PopGenHelpR_casestudy.html
+  PopGenHelpR_heterozygosity: PopGenHelpR_heterozygosity.html
   PopGenHelpR_vignette: PopGenHelpR_vignette.html
-last_built: 2024-02-14T17:07Z
+last_built: 2024-02-14T18:06Z
 urls:
   reference: https://kfarleigh.github.io/PopGenHelpR/reference
   article: https://kfarleigh.github.io/PopGenHelpR/articles
