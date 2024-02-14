@@ -213,4 +213,5 @@ knitr::include_graphics("./img/Samp_map1.png")
 ```
 
 
-Thank you for your interest in our package, please reach out with any questions or things that should be included in future versions of the package.
+
+Thank you for your interest in our package, please reach out to Keaka Farleigh (farleik@miamioh.edu) with any questions, things that should be included in future versions of the package, or if you would like to be kept up to date with `PopGenHelpR`.
