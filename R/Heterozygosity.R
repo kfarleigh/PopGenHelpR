@@ -143,7 +143,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   # Estimate observed heterozygosity (1-homozygosity), accounts for NA
   ObsHet <- function(Dat){
     ObsHet_perloc <- 1-(colSums(Dat[3:ncol(Dat)] != 1, na.rm = T)/(nrow(Dat)- colSums(is.na(Dat[3:ncol(Dat)]))))
-    ObsHet_res_perloc <- na.omit(ObsHet_res_perloc)
+    ObsHet_res_perloc <- na.omit(ObsHet_perloc)
     return(ObsHet_perloc)
   }
   
