@@ -1,7 +1,5 @@
 # PopGenHelpR 1.3.0
-- December 6th, 2023
-** To Do for KF
-- Add tests
+- February 15th, 2024
 
 * The `Plot_coordinates` function has been added to make sample maps from coordinates. 
 * The `Point_map` function has replaced `Div_stats_map` and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.
