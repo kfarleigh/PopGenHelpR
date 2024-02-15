@@ -2,7 +2,7 @@
 % Please edit documentation in R/Differentiation.R
 \name{Differentiation}
 \alias{Differentiation}
-\title{A function to estimate seven measures of heterozygosity using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.}
+\title{A function to estimate three measures of genetic differentiation using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.}
 \usage{
 Differentiation(
   data,
@@ -36,7 +36,7 @@ Differentiation(
 A list containing the estimated heterozygosity statistics. The per pop values are calculated by taking the average of the per locus estimates.
 }
 \description{
-A function to estimate seven measures of heterozygosity using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.
+A function to estimate three measures of genetic differentiation using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.
 }
 \examples{
 \donttest{

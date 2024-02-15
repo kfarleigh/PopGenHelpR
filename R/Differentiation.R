@@ -1,4 +1,4 @@
-#' A function to estimate seven measures of heterozygosity using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.
+#' A function to estimate three measures of genetic differentiation using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.
 #'
 #' @param data Character. String indicating the name of the vcf file, geno file or vcfR object to be used in the analysis.
 #' @param pops Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.
@@ -241,7 +241,11 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     return(fstmat)
   }
 
+  if("Fst" %in% statistic | statistic == "all"){
   Fst_wc <- Fst(Dat_perpop)
+  } else{
+    Fst_wc <- NULL
+  }
 
 
   ### Nei's D
@@ -305,6 +309,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     return(ND_res)
   }
 
+  if("NeisD" %in% statistic | statistic == "all"){
   ND_pop <- NeisD(Dat_perpop)
 
   ## Run Nei's D per individual, we will treat each individual as a population
@@ -317,6 +322,9 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
   }
 
   ND_ind <- NeisD(Dat_perind2)
+  } else{
+    ND_pop <- ND_ind <- NULL
+  }
 
   ### Jost's D
   # Equation 11 from Jost, 2008
@@ -432,7 +440,11 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     return(JD_res)
   }
 
+  if("JostsD" %in% statistic | statistic == "all"){
   JD_pop <- JostD(Dat_perpop)
+  } else{
+    JD_pop <- NULL
+  }
 
   Output <- list(Fst_wc, ND_pop, ND_ind, JD_pop)
 
