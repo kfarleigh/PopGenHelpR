@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-default navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,6 +25,8 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/PopGenHelpR_vignette.html">Vignette</a>
+    <a class="dropdown-item" href="../articles/PopGenHelpR_benchmarking.html">Benchmarking</a>
+    <a class="dropdown-item" href="../articles/PopGenHelpR_heterozygosity.html">Choosing heterozygosity</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -78,6 +80,7 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"HornedLizard_VCF"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Test</span> <span class="op">&lt;-</span> <span class="fu"><a href="Div_stats.html">Div_stats</a></span><span class="op">(</span>VCF <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>,</span></span>
 <span class="r-in"><span>ploidy <span class="op">=</span> <span class="fl">2</span>, write <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="co"># }</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Div_Stats function has been deprecated as of PopGenHelpR v1.3.0 and will dissappear in v2.0.0. Please use the Heterozygosity function if you wish to estimate heterozygosity or the Private.alleles function if you wish to calculate the number of private alleles per population. Please use the Point_Map function if you wish to visualize the results on a map or plot.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formatting has finished, moving onto calculations</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Heterozygosity calculated, moving to private alleles</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Private Alleles have been calculated, moving onto plotting</span>

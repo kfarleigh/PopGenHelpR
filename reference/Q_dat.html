@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-default navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,6 +25,8 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/PopGenHelpR_vignette.html">Vignette</a>
+    <a class="dropdown-item" href="../articles/PopGenHelpR_benchmarking.html">Benchmarking</a>
+    <a class="dropdown-item" href="../articles/PopGenHelpR_heterozygosity.html">Choosing heterozygosity</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -84,6 +86,7 @@
 <span class="r-in"><span><span class="va">Test_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="Plot_ancestry.html">Plot_ancestry</a></span><span class="op">(</span>anc.mat <span class="op">=</span> <span class="va">Qmat</span>, pops <span class="op">=</span> <span class="va">Loc</span>, K <span class="op">=</span> <span class="fl">5</span>,</span></span>
 <span class="r-in"><span>plot.type <span class="op">=</span> <span class="st">'all'</span>, <span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'red'</span>, <span class="st">'maroon'</span>, <span class="st">'navy'</span>, <span class="st">'cyan'</span>, <span class="st">'blue'</span><span class="op">)</span>, piesize <span class="op">=</span> <span class="fl">0.35</span>,</span></span>
 <span class="r-in"><span>Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="co"># }</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Plot_ancestry function has been deprecated as of PopGenHelpR v1.3.0 and will dissappear in v2.0.0. Please use the Piechart_map and Ancestry_barchart function(s) if you wish to plot ancestry maps or barcharts.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

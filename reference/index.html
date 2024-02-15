@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-default navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,6 +25,8 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/PopGenHelpR_vignette.html">Vignette</a>
+    <a class="dropdown-item" href="../articles/PopGenHelpR_benchmarking.html">Benchmarking</a>
+    <a class="dropdown-item" href="../articles/PopGenHelpR_heterozygosity.html">Choosing heterozygosity</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -59,24 +61,38 @@
 
       <dl><dt>
           
+          <code><a href="Ancestry_barchart.html">Ancestry_barchart()</a></code> 
+        </dt>
+        <dd>Plot an ancestry matrix for individuals and(or) populations.</dd>
+      </dl><dl><dt>
+          
           <code><a href="Dif_Stats_Map.html">Dif_Stats_Map()</a></code> 
         </dt>
-        <dd>A function to map differentiation statistics.</dd>
+        <dd><b>WARNING! This function has been deprecated and is no longer supported. Please use the Network_map function.</b>
+A function to map differentiation statistics.</dd>
       </dl><dl><dt>
           
           <code><a href="Dif_stats.html">Dif_stats()</a></code> 
         </dt>
-        <dd>A function to calculate differentiation statistics and perform significance testing with a vcf file.</dd>
+        <dd><b>WARNING! This function has been deprecated and is no longer supported. Please use the Differentiation function.</b>
+A function to calculate differentiation statistics and perform significance testing with a vcf file.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Differentiation.html">Differentiation()</a></code> 
+        </dt>
+        <dd>A function to estimate seven measures of heterozygosity using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.</dd>
       </dl><dl><dt>
           
           <code><a href="Div_Stats_Map.html">Div_Stats_Map()</a></code> 
         </dt>
-        <dd>A function to map diversity statistics.</dd>
+        <dd><b>WARNING! This function has been deprecated and is no longer supported. Please use the Point_map function instead.</b>
+A function to map diversity statistics.</dd>
       </dl><dl><dt>
           
           <code><a href="Div_stats.html">Div_stats()</a></code> 
         </dt>
-        <dd>A function to estimate heterozygosity and the number of private alleles from a vcf file.</dd>
+        <dd><b>WARNING! This function has been deprecated and is no longer supported. Please use the Heterozygosity and Private.alleles functions.</b>
+A function to estimate heterozygosity and the number of private alleles from a vcf file.</dd>
       </dl><dl><dt>
           
           <code><a href="Fst_dat.html">Fst_dat</a></code> 
@@ -90,6 +106,11 @@ by subsetting data of Farleigh et al., 2021.</dd>
         <dd>A data frame of hypothetical heterozygosity data produced by Div_Stats.</dd>
       </dl><dl><dt>
           
+          <code><a href="Heterozygosity.html">Heterozygosity()</a></code> 
+        </dt>
+        <dd>A function to estimate seven measures of heterozygosity using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.</dd>
+      </dl><dl><dt>
+          
           <code><a href="HornedLizard_Pop.html">HornedLizard_Pop</a></code> 
         </dt>
         <dd>A population assignment data frame to be used in <code>Div_stats</code> and <code>Dif_stats</code>.</dd>
@@ -100,14 +121,40 @@ by subsetting data of Farleigh et al., 2021.</dd>
         <dd>A vcfR object to be used in <code>Div_stats</code> and <code>Dif_stats</code>.</dd>
       </dl><dl><dt>
           
+          <code><a href="Network_map.html">Network_map()</a></code> 
+        </dt>
+        <dd>A function to map statistics (i.e., genetic differentiation) between points as a network on a map.</dd>
+      </dl><dl><dt>
+          
           <code><a href="Pairwise_heatmap.html">Pairwise_heatmap()</a></code> 
         </dt>
         <dd>A function to plot a heatmap from a symmetric matrix.</dd>
       </dl><dl><dt>
           
+          <code><a href="Piechart_map.html">Piechart_map()</a></code> 
+        </dt>
+        <dd>Plot a map of ancestry pie charts.</dd>
+      </dl><dl><dt>
+          
           <code><a href="Plot_ancestry.html">Plot_ancestry()</a></code> 
         </dt>
-        <dd>Plot an ancestry matrix and map of ancestry pie charts.</dd>
+        <dd><b>WARNING! This function has been deprecated and is no longer supported. Please use the Ancestry_barchart and Piechart_map functions.</b>
+Plot an ancestry matrix and map of ancestry pie charts.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Plot_coordinates.html">Plot_coordinates()</a></code> 
+        </dt>
+        <dd>A function to plot coordinates on a map.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Point_map.html">Point_map()</a></code> 
+        </dt>
+        <dd>A function to map statistics as colored points on a map.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Private.alleles.html">Private.alleles()</a></code> 
+        </dt>
+        <dd>A function to estimate the number of private alleles in each population.</dd>
       </dl><dl><dt>
           
           <code><a href="Q_dat.html">Q_dat</a></code> 
