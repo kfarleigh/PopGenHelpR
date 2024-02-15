@@ -4,7 +4,25 @@
     <loc>https://kfarleigh.github.io/PopGenHelpR/404.html</loc>
   </url>
   <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/articles/articles/PopGenHelpR_benchmarking.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/articles/articles/PopGenHelpR_casestudy.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/articles/articles/PopGenHelpR_heterozygosity.html</loc>
+  </url>
+  <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_benchmarking.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_casestudy.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_heterozygosity.html</loc>
   </url>
   <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_vignette.html</loc>
@@ -22,6 +40,12 @@
     <loc>https://kfarleigh.github.io/PopGenHelpR/news/index.html</loc>
   </url>
   <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Ancestry_barchart.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Differentiation.html</loc>
+  </url>
+  <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Dif_stats.html</loc>
   </url>
   <url>
@@ -37,6 +61,9 @@
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Fst_dat.html</loc>
   </url>
   <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Heterozygosity.html</loc>
+  </url>
+  <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Het_dat.html</loc>
   </url>
   <url>
@@ -49,10 +76,25 @@
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Network_map.html</loc>
+  </url>
+  <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Pairwise_heatmap.html</loc>
   </url>
   <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Piechart_map.html</loc>
+  </url>
+  <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Plot_ancestry.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Plot_coordinates.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Point_map.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Private.alleles.html</loc>
   </url>
   <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Q_dat.html</loc>

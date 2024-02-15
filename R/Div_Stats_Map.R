@@ -1,4 +1,5 @@
-#' A function to map diversity statistics.
+#'\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Point_map function instead.}
+#'A function to map diversity statistics.
 #'
 #' @param dat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted and named the same as the statistic argument. The second column is Population indicating which population each row belongs to. The third column is the standard deviation, the fourth column is Long indicating the longitude, and the fifth column is Lat, indicating the latitude.
 #' @param plot.type Character string. Options are all, point, or interpolated. All is recommended and will generate a map with points colored according to heterozygosity as well as a rater of interpolated heterozygosity values.

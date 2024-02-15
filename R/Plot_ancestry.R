@@ -1,3 +1,4 @@
+#' \bold{WARNING! This function has been deprecated and is no longer supported. Please use the Ancestry_barchart and Piechart_map functions.}
 #' Plot an ancestry matrix and map of ancestry pie charts.
 #'
 #' @param anc.mat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the names of each sample/population, followed by the estimated contribution of each cluster to that individual/pop.
@@ -23,6 +24,10 @@
 #' plot.type = 'all', col <- c('red', 'maroon', 'navy', 'cyan', 'blue'), piesize = 0.35,
 #' Lat_buffer = 1, Long_buffer = 1)}
 Plot_ancestry <- function(anc.mat, pops, K, plot.type = 'all', col, piesize = 0.35, Lat_buffer, Long_buffer){
+
+
+  .Deprecated("Plot_ancestry or Ancestry_barchart", msg = "The Plot_ancestry function has been deprecated as of PopGenHelpR v1.3.0 and will dissappear in v2.0.0. Please use the Piechart_map and Ancestry_barchart function(s) if you wish to plot ancestry maps or barcharts.")
+
   Pop <- coeff <- Sample <- value <- variable <- aes <- Long <- Lat <- alpha <- ID<- NULL
   # Read in ancestry matrix and pop file
   if(missing(anc.mat)){

@@ -1,10 +1,14 @@
 title: PopGenHelpR
 url: https://kfarleigh.github.io/PopGenHelpR/
+
 template:
   bootstrap: 5
+  bootswatch: cosmo
+
 navbar:
   title: "PopGenHelpR"
-  type: default
+  bg: primary
+  type: light
   structure:
     left: [Manual, Articles]
     right: [github]
@@ -17,6 +21,10 @@ navbar:
       menu:
         - text: Vignette
           href: articles/PopGenHelpR_vignette.html
+        - text: Benchmarking
+          href: articles/PopGenHelpR_benchmarking.html
+        - text: Choosing heterozygosity
+          href: articles/PopGenHelpR_heterozygosity.html
     github:
       icon: fa-github
       href: https://github.com/kfarleigh/PopGenHelpR

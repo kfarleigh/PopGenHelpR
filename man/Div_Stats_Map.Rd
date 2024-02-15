@@ -2,7 +2,8 @@
 % Please edit documentation in R/Div_Stats_Map.R
 \name{Div_Stats_Map}
 \alias{Div_Stats_Map}
-\title{A function to map diversity statistics.}
+\title{\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Point_map function instead.}
+A function to map diversity statistics.}
 \usage{
 Div_Stats_Map(
   dat,
@@ -39,6 +40,7 @@ Div_Stats_Map(
 A list containing maps and the data frames used to generate them.
 }
 \description{
+\bold{WARNING! This function has been deprecated and is no longer supported. Please use the Point_map function instead.}
 A function to map diversity statistics.
 }
 \examples{
