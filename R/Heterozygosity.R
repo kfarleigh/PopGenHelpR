@@ -36,7 +36,7 @@
 #' data("HornedLizard_Pop")
 #' data("HornedLizard_VCF")
 #' Test <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
-Heterozygosity3 <- function(data, pops, statistic = 'all', missing_value = NA, write = FALSE, prefix = NULL, population_col = NULL, individual_col = NULL) {
+Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, write = FALSE, prefix = NULL, population_col = NULL, individual_col = NULL) {
   Statistic <- NULL
   
   # Read in population assignment data
