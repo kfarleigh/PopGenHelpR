@@ -43,9 +43,9 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
   if(is.data.frame(pops)){
     Pops <- pops
   } else if(is.character(pops)){
-      Pops <- utils::read.csv(pops)
+    Pops <- utils::read.csv(pops)
   } else{
-      stop("Please supply a csv file or data frame for population assignment")
+    stop("Please supply a csv file or data frame for population assignment")
   }
   # Get the list of individuals from population assignment file
   if(is.null(individual_col)) {
@@ -93,7 +93,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     print("Geno file detected, proceeding to formatting. Note, PopGenHelpR assumes that your individuals in the geno file and
           popmap are in the same order, please check to avoid erroneous inferences.")
   } else {
-      stop("Please supply a geno file, vcf file, or vcfR object for analysis")
+    stop("Please supply a geno file, vcf file, or vcfR object for analysis")
   }
 
   P <- Pops
@@ -112,10 +112,10 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
       Pops <- as.factor(Pops[,population_col])
     }
   } else if(tools::file_ext(data) == 'geno'){
-      if(is.null(population_col)){
+    if(is.null(population_col)){
       Pops <- as.factor(Pops[,2])
     } else if(!is.null(population_col)){
-        Pops <- as.factor(Pops[,population_col])
+      Pops <- as.factor(Pops[,population_col])
     }
   }
 
@@ -151,13 +151,13 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
 
     # Calculate the alternate allele frequency and the frequency of heterozygotes per population per locus
     for(i in 1:length(Dat)){
-    tmp <- Dat[[i]]
-    # Get frequency of alternate alleles
-    q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(tmp[3:ncol(tmp)] != "NA"))
-    # Get number of heterozygotes in each population
-    het.freq[i,] <- colSums(tmp[3:ncol(tmp)] == 1)/colSums(tmp[3:ncol(tmp)] != "NA")
-    # Get the number of individuals with data
-    ind.nomissing[i,] <- colSums(tmp[3:ncol(tmp)] != "NA")
+      tmp <- Dat[[i]]
+      # Get frequency of alternate alleles
+      q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(tmp[3:ncol(tmp)] != "NA"))
+      # Get number of heterozygotes in each population
+      het.freq[i,] <- colSums(tmp[3:ncol(tmp)] == 1)/colSums(tmp[3:ncol(tmp)] != "NA")
+      # Get the number of individuals with data
+      ind.nomissing[i,] <- colSums(tmp[3:ncol(tmp)] != "NA")
     }
     # Set the names of the matrices
     row.names(q.freq) <- row.names(het.freq) <- row.names(ind.nomissing) <- names(Dat)
@@ -242,7 +242,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
   }
 
   if("Fst" %in% statistic | statistic == "all"){
-  Fst_wc <- Fst(Dat_perpop)
+    Fst_wc <- Fst(Dat_perpop)
   } else{
     Fst_wc <- NULL
   }
@@ -265,7 +265,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     for(i in 1:length(Dat)){
       tmp <- Dat[[i]]
       # Get frequency of alternate alleles
-      q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(tmp[3:ncol(tmp)] != "NA"))
+      q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(colSums(!is.na(tmp[3:ncol(tmp)]))*2)
     }
     # Set the names of the matrices
     row.names(q.freq)  <- names(Dat)
@@ -282,20 +282,24 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
 
     p.freq <- as.matrix(1-q.freq)
 
-    # Get the number of loci
-    r <- ncol(q.freq)
-
-
     freq_comb <- cbind(q.freq, p.freq)
 
-    freq_comb2 <- freq_comb^2/r
 
     for(i in 1:ncol(Comps)){
       Comp <- Comps[,i]
       Pops2comp <- which(rownames(q.freq) %in% Comp)
-      Jx <- sum(freq_comb2[Pops2comp[1],])
-      Jy <- sum(freq_comb2[Pops2comp[2],])
-      Jxy <- freq_comb[Pops2comp[1],]*freq_comb[Pops2comp[2],]/r
+
+      # Remove any NaNs, calcualte r
+      freq_comb_comp <- freq_comb[Pops2comp,]
+      freq_comb_comp <- t(stats::na.omit(t(freq_comb_comp)))
+
+      r <- ncol(freq_comb_comp)/2
+      freq_comb_comp2 <- freq_comb_comp^2/r
+
+
+      Jx <- sum(freq_comb_comp2[1,])
+      Jy <- sum(freq_comb_comp2[2,])
+      Jxy <- freq_comb_comp[1,]*freq_comb_comp[2,]/r
       Jxy <- sum(Jxy)
       ND <- -log(Jxy/(sqrt(Jx*Jy)))
 
@@ -310,18 +314,18 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
   }
 
   if("NeisD" %in% statistic | statistic == "all"){
-  ND_pop <- NeisD(Dat_perpop)
+    ND_pop <- NeisD(Dat_perpop)
 
-  ## Run Nei's D per individual, we will treat each individual as a population
-  Dat_perind <- Dat
-  Dat_perind$P <- Dat_perind$Inds
+    ## Run Nei's D per individual, we will treat each individual as a population
+    Dat_perind <- Dat
+    Dat_perind$P <- Dat_perind$Inds
 
-  Dat_perind2 <- list()
-  for(i in unique(Dat_perind$P)){
-    Dat_perind2[[i]] <- Dat_perind[which(Dat_perind[,2] == i),]
-  }
+    Dat_perind2 <- list()
+    for(i in unique(Dat_perind$P)){
+      Dat_perind2[[i]] <- Dat_perind[which(Dat_perind[,2] == i),]
+    }
 
-  ND_ind <- NeisD(Dat_perind2)
+    ND_ind <- NeisD(Dat_perind2)
   } else{
     ND_pop <- ND_ind <- NULL
   }
@@ -345,7 +349,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     for(i in 1:length(Dat)){
       tmp <- Dat[[i]]
       # Get frequency of alternate alleles
-      q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(tmp[3:ncol(tmp)] != "NA"))
+      q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(colSums(!is.na(tmp[3:ncol(tmp)]))*2)
     }
     # Set the names of the matrices
     row.names(q.freq)  <- names(Dat)
@@ -369,35 +373,47 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     D_calc <- function(freqs, freqs2, pop.sizes){
       Loc_Hets <- list('Hs' = c(), 'Ht' = c(), 'D' = c())
       nloc <- ncol(freqs)/2
-      n <- nrow(freqs)
+      ntot <- nrow(freqs)
       Nharm <- pop.sizes[,which(rownames(freqs) %in% colnames(pop.sizes))]
       Nharm <- 1/mean(as.numeric(1/Nharm))
       for(i in 1:nloc){
 
-      ## Within population measures
-      Hs_exp <- mean(1 - rowSums(freqs2[,c(i,(i+nloc))]))
+        ## Within population measures
+        # Remove any NAs from freqs2, recalculate the harmonic mean, recount the number of populations
+        freqs2_noNA <- stats::na.omit(freqs2[,c(i,(i+nloc))])
 
-      Hs <- (2*Nharm/(2*Nharm-1))*Hs_exp
+        Nharm <- pop.sizes[,which(rownames(freqs2_noNA) %in% colnames(pop.sizes))]
+        Nharm <- 1/mean(as.numeric(1/Nharm))
 
-      Loc_Hets[["Hs"]] <- c(Loc_Hets[["Hs"]], Hs)
+        n <- nrow(freqs2_noNA)
 
-      ## Overall measures
-      Jt <- 1 - sum(colMeans(freqs[,c(i,(i+nloc))])^2)
-      Ht <- Jt + Hs/(2*Nharm*n)
+        Hs_exp <- mean(1 - rowSums(freqs2_noNA))
 
-      Loc_Hets[["Ht"]] <- c(Loc_Hets[["Ht"]], Ht)
+        Hs <- (2*Nharm/(2*Nharm-1))*Hs_exp
+
+        Loc_Hets[["Hs"]] <- c(Loc_Hets[["Hs"]], Hs)
 
 
-      # D per locus
-      D <- (Ht-Hs)/(1-Hs) * (n/(n-1))
+        # Remove NA from freqs
+        freqs_noNA <- stats::na.omit(freqs[,c(i,(i+nloc))])
 
-      Loc_Hets[["D"]] <- c(Loc_Hets[["D"]], D)
+        ## Overall measures
+        Jt <- 1 - sum(colMeans(freqs_noNA)^2)
+        Ht <- Jt + Hs/(2*Nharm*n)
+
+        Loc_Hets[["Ht"]] <- c(Loc_Hets[["Ht"]], Ht)
+
+
+        # D per locus
+        D <- (Ht-Hs)/(1-Hs) * (n/(n-1))
+
+        Loc_Hets[["D"]] <- c(Loc_Hets[["D"]], D)
       }
 
-      ## Calculate global D
-      Hs.bar <-  mean(Loc_Hets$Hs)
-      Ht.bar <- mean(Loc_Hets$Ht)
-      D.bar <- (Ht.bar-Hs.bar)/(1-Hs.bar)*(n/(n-1))
+      ## Calculate global D, do not consider and NA's
+      Hs.bar <-  mean(Loc_Hets$Hs, na.rm = T)
+      Ht.bar <- mean(Loc_Hets$Ht, na.rm = T)
+      D.bar <- (Ht.bar-Hs.bar)/(1-Hs.bar)*(ntot/(ntot-1))
 
       Final <- list(D.bar, Loc_Hets)
       return(Final)
@@ -441,7 +457,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
   }
 
   if("JostsD" %in% statistic | statistic == "all"){
-  JD_pop <- JostD(Dat_perpop)
+    JD_pop <- JostD(Dat_perpop)
   } else{
     JD_pop <- NULL
   }
@@ -461,13 +477,13 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     return(Output_final)
   }
 
-   if(write == TRUE && !is.null(prefix)){
-      res_write <- which(Stat %in% statistic)
-      Output2write <- Output[which(Stat_idx %in% res_write)]
-      for (i in 1:length(Output2write)){
-        utils::write.csv(Output2write, file = paste(names(Output2write[i]), ".csv", sep = "_"))
-      }
-    } else if(write == TRUE && is.null(prefix)){
-        utils::write.csv(Output2write, file = paste(prefix, '_', names(Output2write[i]), ".csv", sep = "_"))
-      }
+  if(write == TRUE && !is.null(prefix)){
+    res_write <- which(Stat %in% statistic)
+    Output2write <- Output[which(Stat_idx %in% res_write)]
+    for (i in 1:length(Output2write)){
+      utils::write.csv(Output2write, file = paste(names(Output2write[i]), ".csv", sep = "_"))
+    }
+  } else if(write == TRUE && is.null(prefix)){
+    utils::write.csv(Output2write, file = paste(prefix, '_', names(Output2write[i]), ".csv", sep = "_"))
+  }
 }
