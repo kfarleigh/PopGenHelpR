@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 ## Purpose
 
-To genereate a q-matrix of ancestry coefficients for use in the `PopGenHelpR` functions `Ancestry_barchart` and `Piechart_map`.
+To generate a q-matrix of ancestry coefficients for use in the `PopGenHelpR` functions `Ancestry_barchart` and `Piechart_map`.
 
 ## What is a Q-matrix?
 
