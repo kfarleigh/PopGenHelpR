@@ -80,19 +80,79 @@
 
     
     
-<div class="section level3">
-<h3 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
-</h3>
+<div class="section level2">
+<h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
+</h2>
 <p>To genereate a q-matrix of ancestry coefficients for use in the
 <code>PopGenHelpR</code> functions <code>Ancestry_barchart</code> and
 <code>Piechart_map</code>.</p>
 </div>
 <div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+<h2 id="what-is-a-q-matrix">What is a Q-matrix?<a class="anchor" aria-label="anchor" href="#what-is-a-q-matrix"></a>
 </h2>
-<p><strong>This article is under development</strong>. Please email
-Keaka Farleigh (<a href="mailto:farleik@miamioh.edu" class="email">farleik@miamioh.edu</a>) if you have any questions or need
-help in the meantime.</p>
+<p>A q-matrix is a matrix containing as many rows as individuals and
+columns as genetic clusters. Each cell represents an ancestry
+coefficient (also known as cluster assignments), which is the
+contribution of a genetic cluster to a particular individual. Q-matrices
+are commonly used in population genomics to evaluate gene flow between
+populations (e.g., admixture) or species (e.g., introgression).
+ADMIXTURE (Alexander et al., 2009) and sNMF (Frichot et al., 2014) are
+commonly used software to estimate the number of genetic clusters in
+data and generate ancestry bar charts with q-matrices.</p>
+<p>Let’s generate some q-matrices now that you know what they are! We
+will create q-matrices using each of the programs mentioned above.</p>
+<div class="section level3">
+<h3 id="snmf">sNMF<a class="anchor" aria-label="anchor" href="#snmf"></a>
+</h3>
+<p>We will start with sNMF because it is impletmented in the R package
+<a href="https://bioconductor.org/packages/release/bioc/html/LEA.html" class="external-link">LEA</a>
+(Frichot &amp; Francois, 2015). After running sNMF (see <a href="https://bioconductor.org/packages/release/bioc/vignettes/LEA/inst/doc/LEA.pdf" class="external-link">this
+tutorial</a> if you need help) you just need to use the <code>Q</code>
+function.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># If I have a sNMF project named sNMFobject with K number of ancestral populations (genetic clusters), and my best run is run 1 (determined as the run with the lowets cross-entropy)</span></span>
+<span><span class="va">Qmat</span> <span class="op">&lt;-</span> <span class="fu">Q</span><span class="op">(</span><span class="va">sNMFobject</span>, K <span class="op">=</span> <span class="va">K</span>, run <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p>All you need to do now is append the sample names to the q-matrix as
+the first column (you can do this with <code>cbind</code> or in any text
+editor). Then you can use it in <code>PopGenHelpR</code>. Note that you
+must be careful that your order in the q-matrix is the same as the order
+of the samples you are appending.</p>
+</div>
+<div class="section level3">
+<h3 id="admixture">ADMIXTURE<a class="anchor" aria-label="anchor" href="#admixture"></a>
+</h3>
+<p>ADMIXTURE is a little more complex because it is not associated with
+an R package, but it is nice because it gives us the q-matrix
+automatically. See <a href="https://speciationgenomics.github.io/ADMIXTURE/" class="external-link">this tutorial</a>
+for more details.</p>
+<p>In the example below, we tell ADMIXTURE to use a bed file as input
+and run the analysis with a K value of 5.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Run ADMIXTURE</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>admixture <span class="sc">--</span>cv my_genetic_data.bed <span class="dv">5</span> <span class="sc">&gt;</span> K5.out</span></code></pre></div>
+<p>This will output a file with the .Q extension, which contains
+ancestry coefficients for each individual (our q-matrix).</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="questions">Questions???<a class="anchor" aria-label="anchor" href="#questions"></a>
+</h2>
+<p>Please email Keaka Farleigh (<a href="mailto:farleik@miamioh.edu" class="email">farleik@miamioh.edu</a>) if you need help generating a
+q-matrix or with anything else.</p>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<ul>
+<li>Alexander, D. H., Novembre, J., &amp; Lange, K. (2009). Fast
+model-based estimation of ancestry in unrelated individuals. Genome
+research, 19(9), 1655-1664.</li>
+<li>Frichot, E., &amp; François, O. (2015). LEA: An R package for
+landscape and ecological association studies. Methods in Ecology and
+Evolution, 6(8), 925-929.</li>
+<li>Frichot, E., Mathieu, F., Trouillon, T., Bouchard, G., &amp;
+François, O. (2014). Fast and efficient estimation of individual
+ancestry coefficients. Genetics, 196(4), 973-983.</li>
+</ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
