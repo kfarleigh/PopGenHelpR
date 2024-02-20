@@ -1,0 +1,23 @@
+---
+title: "Creating a Q-matrix to use in PopGenHelpR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PopGenHelpR_createQmatrix}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  options(rmarkdown.html_vignette.check_title = FALSE)
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Purpose
+To genereate a q-matrix of ancestry coefficients for use in the `PopGenHelpR` functions `Ancestry_barchart` and `Piechart_map`.
+
+# Overview
+
+**This article is under development**. Please email Keaka Farleigh (farleik@miamioh.edu) if you have any questions or need help in the meantime.
+
