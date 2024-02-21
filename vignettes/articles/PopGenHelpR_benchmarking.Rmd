@@ -1,5 +1,5 @@
 ---
-title: "Benchmarking PopGenHelpR with hierfstat, mmod, and StAMPP"
+title: "Benchmarking PopGenHelpR with adegenet, hierfstat, mmod, and StAMPP"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{PopGenHelpR_benchmarking}
@@ -42,6 +42,7 @@ First we will load the packages and the data in `PopGenHelpR`. The data comes fr
 ```{r setup}
 # Load the packages
 library(PopGenHelpR)
+library(adegenet)
 library(hierfstat)
 library(StAMPP)
 library(mmod)
@@ -52,9 +53,9 @@ data("HornedLizard_VCF")
 data("HornedLizard_Pop")
 ```
 
-## *F~st~* and *Nei's D* Comparison 
+## *F~ST~* and *Nei's D* Comparison 
 
-We will compare `PopGenHelpR` and `StAMPP`. Both packages use the formulas from Weir and Cockerham (1984) ane Nei (1972) to calculate *F~st~* and *Nei's D*, respectively but we want to make sure that our estimates are consistent across packages. 
+We will compare `PopGenHelpR` and `StAMPP`. Both packages use the formulas from Weir and Cockerham (1984) ane Nei (1972) to calculate *F~ST~* and *Nei's D*, respectively but we want to make sure that our estimates are consistent across packages. 
 
 First, we need to format the data for `StAMPP`
 
@@ -68,7 +69,7 @@ Glight@pop <- as.factor(HornedLizard_Pop$Population)
 ploidy(Glight) <- 2
 ```
 
-Now we can calculate our statistics. Let's start with *F~st~*. 
+Now we can calculate our statistics. Let's start with *F~ST~*. 
 
 ```{r Fst, echo=TRUE, eval=TRUE}
 PGH_fst <- Differentiation(dat = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Fst")
@@ -88,7 +89,7 @@ Fst_comparison <- PGH_fst$Fst-Stmp_fst
 summary(Fst_comparison)
 ```
 
-Now we move onto *Nei's D*. We can use the same genlight that we created for the *F~st~* calculations. We will calculate *Nei's D* for both population's and individual's.
+Now we move onto *Nei's D*. We can use the same genlight that we created for the *F~ST~* calculations. We will calculate *Nei's D* for both population's and individual's.
 
 ```{r ND, echo=TRUE, eval=TRUE}
 PGH_ND <- Differentiation(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "NeisD")
@@ -100,7 +101,7 @@ Stmp_popND <- stamppNeisD(Glight)
 Stmp_indND <- stamppNeisD(Glight, pop = FALSE)
 ```
 
-Compare the results like we did with *F~st~*. Note that `PopGenHelpR` only reports result on the lower triangular element so we will set the upper triangular element of the `Stmp_popND` and `Stmp_indND` objects to NA. 
+Compare the results like we did with *F~ST~*. Note that `PopGenHelpR` only reports result on the lower triangular element so we will set the upper triangular element of the `Stmp_popND` and `Stmp_indND` objects to NA. 
 
 ```{r ND comparison, echo = TRUE, eval=TRUE}
 # Population comparison
