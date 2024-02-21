@@ -102,10 +102,12 @@ comparison.</p>
 </ul>
 <p><strong>Expected and Observed Heterozygosity</strong></p>
 <ul>
-<li>
-<a href="https://cran.r-project.org/web/packages/hierfstat/index.html" class="external-link">hierfstat</a>
+<li><p><a href="https://cran.r-project.org/web/packages/hierfstat/index.html" class="external-link">hierfstat</a>
 (<a href="https://doi.org/10.1111/j.1471-8286.2004.00828.x" class="external-link">Goudet,
-2005</a>)</li>
+2005</a>)</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/adegenet/index.html" class="external-link">adegenet</a>
+(<a href="https://doi.org/10.1093/bioinformatics/btn129" class="external-link">Jombart,
+2008</a>)</p></li>
 </ul>
 <div class="section level3">
 <h3 id="lets-begin">Let’s Begin<a class="anchor" aria-label="anchor" href="#lets-begin"></a>
@@ -315,11 +317,12 @@ genind objects so we have to do some format conversion first.</p>
 <em>Expected</em> and <em>Observed Heterozygosity</em>
 Comparison<a class="anchor" aria-label="anchor" href="#expected-and-observed-heterozygosity-comparison"></a>
 </h2>
-<p>We will compare <code>PopGenHelpR</code> and <code>hierfstat</code>.
-Again, both use the same formula’s from Nei (1987), so we expect similar
-if not identical results. <code>hierfstat</code> uses it’s own format,
-so we will convert the data before calculations. Luckily we can convert
-the genind object from <em>Jost’s D</em> comparisons.</p>
+<p>We will compare <code>PopGenHelpR</code>, <code>hierfstat</code>, and
+<code>adegenet</code>. Again, the packages use the same formula’s, so we
+expect similar if not identical results. <code>hierfstat</code> uses
+it’s own format, so we will convert the data before calculations.
+Luckily we can convert the genind object from <em>Jost’s D</em>
+comparisons.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Hstat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hierfstat/man/genind2hierfstat.html" class="external-link">genind2hierfstat</a></span><span class="op">(</span><span class="va">Genind</span><span class="op">)</span></span>
 <span></span>
@@ -334,13 +337,13 @@ the genind object from <em>Jost’s D</em> comparisons.</p>
 <span><span class="co">#&gt; Formatting has finished, moving onto calculations</span></span>
 <span></span>
 <span><span class="va">Hstat_hets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hierfstat/man/basic.stats.html" class="external-link">basic.stats</a></span><span class="op">(</span><span class="va">Hstat</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">Hstat_He</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">Hstat_hets</span><span class="op">$</span><span class="va">Hs</span><span class="op">)</span></span>
 <span><span class="va">Hstat_Ho</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">Hstat_hets</span><span class="op">$</span><span class="va">Ho</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">PGH_He</span><span class="op">$</span><span class="va">He_perpop</span><span class="op">$</span><span class="va">Expected.Heterozygosity</span><span class="op">-</span><span class="va">Hstat_He</span></span>
-<span><span class="co">#&gt;         East        South         West </span></span>
-<span><span class="co">#&gt; -0.006854206 -0.003143262 -0.006625364</span></span>
+<span><span class="va">He_adnet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hierfstat/man/basic.stats.html" class="external-link">Hs</a></span><span class="op">(</span><span class="va">Genind</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">PGH_He</span><span class="op">$</span><span class="va">He_perpop</span><span class="op">$</span><span class="va">Expected.Heterozygosity</span><span class="op">-</span><span class="va">He_adnet</span></span>
+<span><span class="co">#&gt;          East         South          West </span></span>
+<span><span class="co">#&gt; -1.110223e-16 -8.326673e-17 -8.326673e-17</span></span>
 <span><span class="va">PGH_Ho</span><span class="op">$</span><span class="va">Ho_perpop</span><span class="op">$</span><span class="va">Observed.Heterozygosity</span><span class="op">-</span><span class="va">Hstat_Ho</span></span>
 <span><span class="co">#&gt;          East         South          West </span></span>
 <span><span class="co">#&gt;  7.511576e-06 -1.790920e-06  0.000000e+00</span></span></code></pre></div>
@@ -364,8 +367,6 @@ differentiation. Molecular ecology, 17(18), 4015-4026.</p>
 <p>Knaus, B. J., &amp; Grünwald, N. J. (2017). vcfr: a package to
 manipulate and visualize variant call format data in R. Molecular
 ecology resources, 17(1), 44-53.</p>
-<p>Nei, M. (1987). Molecular evolutionary genetics. Columbia university
-press.</p>
 <p>Nei, M. (1972). Genetic distance between populations. The American
 Naturalist, 106(949), 283-292.</p>
 <p>Pembleton, L. W., Cogan, N. O., &amp; Forster, J. W. (2013). St AMPP:
