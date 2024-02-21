@@ -15,9 +15,147 @@ knitr::opts_chunk$set(
 )
 ```
 ## Purpose
+
 To help you understand the different measures of heterozygosity in `PopGenHelpR` and determine which measure is appropriate for your question/objective.
 
-# Overview
+## What is heterozygosity and why is it important?
 
-**This article is under development**. Please email Keaka Farleigh (farleik@miamioh.edu) if you have any questions or need help in the meantime.
+Heterozygosity refers to the presence of two alleles at a locus. We often use heterozygosity to measure genetic diversity, which is essential for a species' ability to adapt and persist. 
+
+## What measures of heterozygosity can `PopGenHelpR` estimate?
+
+`PopGenHelpR` can estimate seven measures of heterozygosity with the function `Heterozygosity`. We list each measure below before providing brief descriptions of each one. 
+
+  - ***Population Measures***
+    - Observed heterozygosity (*H~o~*)
+    - Expected heterozygosity (*H~e~*)
+  
+  - ***Individual Measures***
+    - Proportion of heterozygous loci (*PHt*)
+    - Proportion of heterozygous loci standardized by the average expected heterozygosity (*Hs~exp~*)
+    - Proportion of heterozygous loci standardized by the average observed heterozygosity (*Hs~obs~*)
+    - Internal relatedness (*IR*)
+    - Homozygosity by locus (*HL*)
+    
+`PopGenHelpR` can calculate all of these measures using the `Heterozygosity` function. See the code below.
+
+```{r All Het, echo=TRUE, eval=FALSE}
+# Load package and toy data for all of the statistics
+library(PopGenHelpR)
+data("HornedLizard_Pop")
+data("HornedLizard_VCF")
+
+All_Het <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "all")
+```
+    
+## Population measures of heterozygosity
+
+`PopGenHelpR` users can estimate the expected and observed heterozygosity (*H~e~* and *H~o~*, respectively) of each population in their data set. 
+
+### Expected heterozygosity (*H~e~*)
+
+`PopGenHelpR` estimates *H~e~* per locus and population following the equations provided by the Hardy-Weinberg equation. Briefly, the equation estimates *H~e~* as one minus the squared frequency of each allele (p^2 and q^2, respectively), thus giving us the expected frequency of heterozygous genotypes (2pq) at a locus. The overall measure of *H~e~* is calculated as the average of the per locus estimates.
+
+We use *H~e~* as a null model to test against and determine if Hardy-Weinberg equilibrium is being violated. 
+
+You can calculate *H~e~* in `PopGenHelpR` using the command below. 
+
+```{r Exp Het, echo=TRUE, eval=FALSE}
+He <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "He")
+```
+
+### Observed heterozygosity (*H~o~*)
+
+`PopGenHelpR` estimates *H~o~* per locus and population following the equations of Nei (1987). Briefly, the equations estimate *H~o~* as one minus the proportion of homozygotes in the population at each locus, thus giving us the proportion of heterozygotes at a locus. The overall measure of *H~o~* is calculated as the average of the per locus estimates.
+
+We use *H~o~* as a measure of genetic diversity and also to compare to *H~e~* to determine if our data is exhibiting different patterns, such as inbreeding (*H~o~* < *H~e~*) or heterozygote advantage (*H~o~* > *H~e~*).
+
+You can calculate *H~o~* in `PopGenHelpR` using the command below. 
+
+```{r Obs Het, echo=TRUE, eval=FALSE}
+Ho <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Ho")
+```
+
+## Individual measures of heterozygosity
+
+`PopGenHelpR` users can estimate the proportion of heterozygous loci (*PHt*), the proportion of heterozygous loci standardized by the average expected heterozygosity (*Hs~exp~*), the proportion of heterozygous loci standardized by the average observed heterozygosity (*Hs~obs~*), the internal relatedness (*IR*), and the homozygosity by locus (*HL*) of individuals in their data set.
+
+### Proportion of heterozygous loci (*PHt*)
+
+The proportion of heterozygous loci (*PHt*) is calculated as the number of heterozygous loci divided by the number of genotyped loci in each individual. 
+
+*PHt* is useful to evaluate the diversity within each individual. 
+
+You can calculate *PHt*  in `PopGenHelpR` using the command below. 
+
+```{r PHt, echo=TRUE, eval=FALSE}
+PHt <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "PHt")
+```
+
+### Proportion of heterozygous loci standardized by the average expected heterozygosity (*Hs~exp~*)
+
+The proportion of heterozygous loci standardized by the average expected heterozygosity (*Hs~exp~*) is calculated as *PHt* divided by the mean expected heterozygosity (*H~e~*) for each individual. 
+
+*Hs~exp~* was introduced by Coltman et al. (1999) to evaluate individual heterozygosity across individuals who were genotyped with different markers; this allows us to compare individual heterozygosity on the same scale.  
+
+You can calculate *Hs~exp~*  in `PopGenHelpR` using the command below. 
+
+```{r Hsexp, echo=TRUE, eval=FALSE}
+Hs_exp <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Hs_exp")
+```
+
+### Proportion of heterozygous loci standardized by the average observed heterozygosity (*Hs~obs~*)
+
+The proportion of heterozygous loci standardized by the average observed heterozygosity (*Hs~obs~*) is calculated as *PHt* divided by the mean observed heterozygosity (*H~o~*) for each individual. 
+
+*Hs~obs~* was introduced by Coltman et al. (1999) to evaluate individual heterozygosity across individuals who were genotyped with different markers; this allows us to compare individual heterozygosity on the same scale. 
+
+You can calculate *Hs~obs~*  in `PopGenHelpR` using the command below. 
+
+```{r Hsobs, echo=TRUE, eval=FALSE}
+Hs_obs <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Hs_obs")
+```
+
+
+### Internal relatedness (*IR*)
+
+Internal relatedness (*IR*) is calculated as two times the number of homozygous loci minus the sum of the frequency of the ith allele, divided by two times the number of loci minus the sum of the frequency of the ith allele (see equation 2.1 in Amos et al., 2001)
+
+*IR* was developed by Amos et al. (2001) to measure the diversity within individuals (Amos et al., 2001). Negative *IR* values suggest that individuals are outbred (tend to be more heterozygous), while positive values indicate that individuals are inbred (tend to be more homozygous). 
+
+You can calculate *IR*  in `PopGenHelpR` using the command below. 
+
+```{r IR, echo=TRUE, eval=FALSE}
+IR <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "IR")
+```
+
+### Homozygosity by locus (*HL*)
+
+Homozygosity by locus (*HL*) is calculated as the expected heterozygosity of loci in homozygosis divided by the sum of the expected heterozygosity of loci in homozygosis and the expected heterozygosity of loci in heterozygosis (see Aparicio et al., 2006).
+
+*HL* was proposed by Aparicio et al. (2006) to improve on *IR* by weighing the contribution of each locus to the index depending on their allelic variability (Aparicio et al., 2006). *HL*, like *IR*, is useful for evaluating the diversity within an individual. *HL* ranges from 0 when all loci are heterozygous and 1 when all loci are homozygous (Aparicio et al., 2006).
+
+You can calculate *HL*  in `PopGenHelpR` using the command below. 
+
+```{r HL, echo=TRUE, eval=FALSE}
+HL <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "HL")
+```
+
+Please reach out to Keaka Farleigh (farleik@miamioh.edu) if you have questions or need any help.
+
+## References
+  
+Amos W., Worthington Wilmer J., Fullard K., Burg T. M., Croxall J. P., Bloch D., Coulson T. 2001. The influence of parental relatedness       on reproductive success. Proceedings of the Royal Society B: Biological Sciences. 268: 2021-2027.
+  
+Aparicio J. M., Ortego J., Cordero P. J. 2006. What should we weigh to estimate heterozygosity, alleles or loci? Molecular Ecology. 15:       4659-4665
+
+Coltman D. W., Pilkington J. G., Smith J. A., Pemberton J. M. 1999. Parasite-mediated selection against inbred Soay sheep in a                free-living, island population. Evolution. 53: 1259-1267.
+  
+Nei, M. (1987). Molecular evolutionary genetics. Columbia university press.
+
+
+    
+
+
+
 

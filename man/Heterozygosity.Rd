@@ -20,7 +20,7 @@ Heterozygosity(
 
 \item{pops}{Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.}
 
-\item{statistic}{Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Ho, observed heterozygosity; He, expected heterozygosity; PHt, proportion of heterozygous loci; StHe, heterozygosity standardized by the average expected heterozygosity; StHo, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus.}
+\item{statistic}{Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Ho, observed heterozygosity; He, expected heterozygosity; PHt, proportion of heterozygous loci; Hs_exp, heterozygosity standardized by the average expected heterozygosity; Hs_obs, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus.}
 
 \item{missing_value}{Character. String indicating missing data in the input data. It is assumed to be NA, but that may not be true (is likely not) in the case of geno files.}
 
@@ -57,7 +57,7 @@ Nei, M. (1987) Molecular Evolutionary Genetics. Columbia University Press
 
 \href{https://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2006.03111.x}{Aparicio, J. M., Ortego, J., & Cordero, P. J. (2006)}. What should we weigh to estimate heterozygosity, alleles or loci?. Molecular Ecology, 15(14), 4659-4665.
 
-\bold{Heterozygosity standardized by expected (StHe) and observed heterozygosity (StHo):}
+\bold{Heterozygosity standardized by expected (Hs_exp) and observed heterozygosity (Hs_obs):}
 
 \href{https://academic.oup.com/evolut/article/53/4/1259/6757148}{Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M. (1999)}. Parasite‐mediated selection against Inbred Soay sheep in a free‐living island populaton. Evolution, 53(4), 1259-1267.
 }

@@ -26,7 +26,7 @@ Let's generate some q-matrices now that you know what they are! We will create q
 
 ### sNMF
 
-We will start with sNMF because it is impletmented in the R package [LEA](https://bioconductor.org/packages/release/bioc/html/LEA.html) (Frichot & Francois, 2015). After running sNMF (see [this tutorial](https://bioconductor.org/packages/release/bioc/vignettes/LEA/inst/doc/LEA.pdf) if you need help) you just need to use the `Q` function. 
+We will start with sNMF because it is implemented in the R package [LEA](https://bioconductor.org/packages/release/bioc/html/LEA.html) (Frichot & Francois, 2015). After running sNMF (see [this tutorial](https://bioconductor.org/packages/release/bioc/vignettes/LEA/inst/doc/LEA.pdf) if you need help) you just need to use the `Q` function. 
 
 ```{r sNMF, echo=TRUE, eval=FALSE}
 # If I have a sNMF project named sNMFobject with K number of ancestral populations (genetic clusters), and my best run is run 1 (determined as the run with the lowets cross-entropy)
@@ -53,8 +53,11 @@ This will output a file with the .Q extension, which contains ancestry coefficie
 Please email Keaka Farleigh (farleik@miamioh.edu) if you need help generating a q-matrix or with anything else. 
 
 ## References 
-- Alexander, D. H., Novembre, J., & Lange, K. (2009). Fast model-based estimation of ancestry in unrelated individuals. Genome research, 19(9), 1655-1664. 
-- Frichot, E., & François, O. (2015). LEA: An R package for landscape and ecological association studies. Methods in Ecology and Evolution, 6(8), 925-929.
-- Frichot, E., Mathieu, F., Trouillon, T., Bouchard, G., & François, O. (2014). Fast and efficient estimation of individual ancestry coefficients. Genetics, 196(4), 973-983.
+
+Alexander, D. H., Novembre, J., & Lange, K. (2009). Fast model-based estimation of ancestry in unrelated individuals. Genome research, 19(9),     1655-1664. 
+
+Frichot, E., & François, O. (2015). LEA: An R package for landscape and ecological association studies. Methods in Ecology and Evolution,        6(8), 925-929.
+
+Frichot, E., Mathieu, F., Trouillon, T., Bouchard, G., & François, O. (2014). Fast and efficient estimation of individual ancestry               coefficients. Genetics, 196(4), 973-983.
 
 

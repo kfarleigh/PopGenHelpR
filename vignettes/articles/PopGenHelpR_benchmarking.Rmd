@@ -31,6 +31,8 @@ We will compare the performance of `PopGenHelpR` with other R packages available
 
 - [hierfstat](https://cran.r-project.org/web/packages/hierfstat/index.html) ([Goudet, 2005](https://doi.org/10.1111/j.1471-8286.2004.00828.x))
 
+- [adegenet](https://cran.r-project.org/web/packages/adegenet/index.html) ([Jombart, 2008](https://doi.org/10.1093/bioinformatics/btn129))
+
 
 
 ### Let's Begin
@@ -151,7 +153,7 @@ Estimate's are very similar between `PopGenHelpR` and `mmod`, we will move onto 
 
 ## *Expected* and *Observed Heterozygosity* Comparison
 
-We will compare `PopGenHelpR` and `hierfstat`. Again, both use the same formula's from Nei (1987), so we expect similar if not identical results. `hierfstat` uses it's own format, so we will convert the data before calculations. Luckily we can convert the genind object from *Jost's D* comparisons. 
+We will compare `PopGenHelpR`, `hierfstat`, and `adegenet`. Again, the packages use the same formula's, so we expect similar if not identical results. `hierfstat` uses it's own format, so we will convert the data before calculations. Luckily we can convert the genind object from *Jost's D* comparisons. 
 
 ```{r Heterozygosity, echo=TRUE, eval=TRUE}
 Hstat <- genind2hierfstat(Genind)
@@ -163,11 +165,11 @@ PGH_He <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, stati
 PGH_Ho <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Ho")
 
 Hstat_hets <- basic.stats(Hstat)
-
-Hstat_He <- colMeans(Hstat_hets$Hs)
 Hstat_Ho <- colMeans(Hstat_hets$Ho)
 
-PGH_He$He_perpop$Expected.Heterozygosity-Hstat_He
+He_adnet <- Hs(Genind)
+
+PGH_He$He_perpop$Expected.Heterozygosity-He_adnet
 PGH_Ho$Ho_perpop$Observed.Heterozygosity-Hstat_Ho
 ```
 
@@ -180,19 +182,17 @@ Please reach out to Keaka Farleigh (farleik@miamioh.edu) if you have any questio
 
 ## References
 
-Farleigh, K., Vladimirova, S. A., Blair, C., Bracken, J. T., Koochekian, N., Schield, D. R., ... & Jezkova, T. (2021). The effects of climate and demographic history in shaping genomic variation across populations of the Desert Horned Lizard (Phrynosoma platyrhinos). Molecular Ecology, 30(18), 4481-4496.
+Farleigh, K., Vladimirova, S. A., Blair, C., Bracken, J. T., Koochekian, N., Schield, D. R., ... & Jezkova, T. (2021). The effects of         climate and demographic history in shaping genomic variation across populations of the Desert Horned Lizard (Phrynosoma platyrhinos).       Molecular Ecology, 30(18), 4481-4496.
 
 Goudet, J. (2005). hierfstat, a package for R to compute and test hierarchical F‐statistics. Molecular ecology notes, 5(1), 184-186.
 
 Jost, L. (2008). GST and its relatives do not measure differentiation. Molecular ecology, 17(18), 4015-4026.
 
-Knaus, B. J., & Grünwald, N. J. (2017). vcfr: a package to manipulate and visualize variant call format data in R. Molecular ecology resources, 17(1), 44-53.
-
-Nei, M. (1987). Molecular evolutionary genetics. Columbia university press.
+Knaus, B. J., & Grünwald, N. J. (2017). vcfr: a package to manipulate and visualize variant call format data in R. Molecular ecology          resources, 17(1), 44-53.
 
 Nei, M. (1972). Genetic distance between populations. The American Naturalist, 106(949), 283-292.
 
-Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013). St AMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
+Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013). St AMPP: An R package for calculation of genetic differentiation and structure of    mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
 
 Weir, B. S., & Cockerham, C. C. (1984). Estimating F-statistics for the analysis of population structure. evolution, 1358-1370.
 

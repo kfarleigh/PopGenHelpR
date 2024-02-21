@@ -2,7 +2,7 @@
 #'
 #' @param data Character. String indicating the name of the vcf file, geno file or vcfR object to be used in the analysis.
 #' @param pops Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.
-#' @param statistic Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Ho, observed heterozygosity; He, expected heterozygosity; PHt, proportion of heterozygous loci; StHe, heterozygosity standardized by the average expected heterozygosity; StHo, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus.
+#' @param statistic Character. String or vector indicating the statistic to calculate. Options are any of: all; all of the statistics; Ho, observed heterozygosity; He, expected heterozygosity; PHt, proportion of heterozygous loci; Hs_exp, heterozygosity standardized by the average expected heterozygosity; Hs_obs, heterozygosity standardized by the average observed heterozygosity; IR, internal relatedness; HL, homozygosity by locus.
 #' @param missing_value Character. String indicating missing data in the input data. It is assumed to be NA, but that may not be true (is likely not) in the case of geno files.
 #' @param write Boolean. Whether or not to write the output to files in the current working directory. There will be one or two files for each statistic. Files will be named based on their statistic such as Ho_perpop.csv or Ho_perloc.csv.
 #' @param prefix Character. Optional argument. String that will be appended to file output. Please provide a prefix if write is set to TRUE.
@@ -23,7 +23,7 @@
 #'
 #' \href{https://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2006.03111.x}{Aparicio, J. M., Ortego, J., & Cordero, P. J. (2006)}. What should we weigh to estimate heterozygosity, alleles or loci?. Molecular Ecology, 15(14), 4659-4665.
 #'
-#' \bold{Heterozygosity standardized by expected (StHe) and observed heterozygosity (StHo):}
+#' \bold{Heterozygosity standardized by expected (Hs_exp) and observed heterozygosity (Hs_obs):}
 #'
 #' \href{https://academic.oup.com/evolut/article/53/4/1259/6757148}{Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M. (1999)}. Parasite‐mediated selection against Inbred Soay sheep in a free‐living island populaton. Evolution, 53(4), 1259-1267.
 #'
@@ -220,10 +220,10 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     ExpHet_res_avg  <- mean(ExpHet_res_avg)
 
     St_He <- PropHt(Dat)/ExpHet_res_avg
-    rownames(St_He) <- 'StHe'
+    rownames(St_He) <- 'Hs_exp'
     return(St_He)
   }
-  if("StHe" %in% statistic | statistic == "all"){
+  if("Hs_exp" %in% statistic | statistic == "all"){
     StHe_res_perind <- lapply(Dat_perpop, StHe)
     StHe_res_perind <- mapply(rbind, StHe_res_perind, "Pop"=names(StHe_res_perind), SIMPLIFY=F)
 
@@ -241,10 +241,10 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     ObsHet_res_avg  <- stats::na.omit(ObsHet_res_perloc)
     ObsHet_res_avg  <- mean(ObsHet_res_avg )
     St_Ho <- PropHt(Dat)/ObsHet_res_avg
-    rownames(St_Ho) <- 'StHo'
+    rownames(St_Ho) <- 'Hs_obs'
     return(St_Ho)
   }
-  if("StHo" %in% statistic | statistic == "all"){
+  if("Hs_obs" %in% statistic | statistic == "all"){
     StHo_res_perind <- lapply(Dat_perpop, StHo)
     StHo_res_perind <- mapply(rbind, StHo_res_perind, "Pop"=names(StHo_res_perind), SIMPLIFY=F)
 
@@ -450,10 +450,10 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   Output <- list(Obs_Het_res_avg, ObsHet_res_perloc, ExpHet_res_avg, ExpHet_res_perloc,
                  PropHt_res_perind, StHe_res_perind, StHo_res_perind, IR_perind, HL_perind)
 
-  names(Output) <- c("Ho_perpop", "Ho_perloc", "He_perpop", "He_perloc", "PHt", "StHe", "StHo", "IR", "HL")
+  names(Output) <- c("Ho_perpop", "Ho_perloc", "He_perpop", "He_perloc", "PHt", "Hs_exp", "Hs_obs", "IR", "HL")
 
   # Set list of possible statistics
-  Stat <- c("Ho", "He", "PHt", "StHe", "StHo", "IR", "HL")
+  Stat <- c("Ho", "He", "PHt", "Hs_exp", "Hs_obs", "IR", "HL")
   Stat_idx <- c(1,1,2,2,3,4,5,6,7)
 
   if(length(statistic) == 1 && statistic ==  "all"){
