@@ -41,7 +41,6 @@ Point_map <- function(dat, statistic, size = 3, breaks = NULL, col, out.col = NU
   else{
     stop("Please supply a dataframe or .csv file name for analysis")
   }
-  Locs <- Div_mat[,4:5]
 
   ### Get coordinate ranges for our data
   Lat_Min <- min(Div_mat$Latitude) - Lat_buffer

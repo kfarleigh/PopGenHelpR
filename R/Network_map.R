@@ -35,7 +35,7 @@ Network_map <- function(dat, pops, neighbors, col, statistic = NULL, breaks = NU
 
 
   # Read in files
-  if(is.data.frame(dat) == TRUE){
+  if(is.data.frame(dat) | is.matrix(dat)){
     Dif_mat <- dat
   }
   else if(is.character(dat) == TRUE){
