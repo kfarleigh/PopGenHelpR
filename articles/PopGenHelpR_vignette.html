@@ -116,11 +116,11 @@ and pay attention to any warnings output by the functions.</p>
 examples on filtering your vcf files to contain biallelic SNPs using
 vcftools and bcftools, respectively.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vcftools</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>vcftools <span class="sc">--</span>vcf myfile.vcf <span class="sc">--</span>max<span class="sc">-</span>alleles <span class="dv">2</span> <span class="sc">--</span>recode <span class="sc">--</span>recode<span class="sc">-</span>INFO<span class="sc">-</span>all <span class="sc">--</span>out my_biallelic_file.vcf</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># bcftools</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>bcftools view <span class="sc">-</span>m2 <span class="sc">-</span>M2 <span class="sc">-</span>v snps myfile.vcf <span class="sc">&gt;</span> my_biallelic_file.vcf</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># vcftools</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>vcftools <span class="sc">--</span>vcf myfile.vcf <span class="sc">--</span>max<span class="sc">-</span>alleles <span class="dv">2</span> <span class="sc">--</span>recode <span class="sc">--</span>recode<span class="sc">-</span>INFO<span class="sc">-</span>all <span class="sc">--</span>out my_biallelic_file.vcf</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># bcftools</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>bcftools view <span class="sc">-</span>m2 <span class="sc">-</span>M2 <span class="sc">-</span>v snps myfile.vcf <span class="sc">&gt;</span> my_biallelic_file.vcf</span></code></pre></div>
 <div class="section level5">
 <h5 id="load-the-data">Load the data<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
 </h5>

@@ -116,6 +116,60 @@ the first column (you can do this with <code>cbind</code> or in any text
 editor). Then you can use it in <code>PopGenHelpR</code>. Note that you
 must be careful that your order in the q-matrix is the same as the order
 of the samples you are appending.</p>
+<div class="section level4">
+<h4 id="example-of-formatting-the-q-matrix-for-popgenhelpr">Example of formatting the q-matrix for <code>PopGenHelpR</code><a class="anchor" aria-label="anchor" href="#example-of-formatting-the-q-matrix-for-popgenhelpr"></a>
+</h4>
+<p>Here we show you how to format a q-matrix generated with the
+<code>Q</code> function from LEA for use in
+<code>PopGenHelpR</code>.</p>
+<p>First, we will create a matrix that we may expect from LEA. We also
+need to create fake sample names <strong>Please note that this is only a
+toy example and is not real data.</strong></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create fake matrix</span></span>
+<span><span class="va">Qmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.4</span>, <span class="fl">0.35</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Fake_inds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FS_1"</span>, <span class="st">"FS_2"</span>, <span class="st">"FS_3"</span><span class="op">)</span></span></code></pre></div>
+<p>Cool! We have data, so can we use it in <code>PopGenHelpR</code>? No,
+because <code>Ancestry_barchart</code> and <code>Piechart_map</code>
+need a data.frame or CSV; these functions also need the first column to
+be the individual names. <code>PopGenHelpR</code> uses the individual
+names as a key to link the q-matrix data with populations and
+coordinates.</p>
+<p>Let’s add the individual names!</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Add the names</span></span>
+<span><span class="va">Qmat_wnames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">Fake_inds</span>, <span class="va">Qmat</span><span class="op">)</span></span></code></pre></div>
+<p>So can we use this <code>Qmat_wnames</code> now? No, because
+<code>Qmat_wnames</code> is still a matrix and let’s see what
+<code>cbind</code> did to our numeric data. Notice that
+<code>cbind</code> make everything a character, we need the cluster
+contributions (columns 2 through 4 here) to be numeric. We will fix this
+using the <code>sapply</code> function.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Check the structure of the Qmat_wnames</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">Qmat_wnames</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  chr [1:3, 1:4] "FS_1" "FS_2" "FS_3" "0.25" "0.25" "0.25" "0.4" "0.4" "0.4" ...</span></span>
+<span><span class="co">#&gt;  - attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   ..$ : NULL</span></span>
+<span><span class="co">#&gt;   ..$ : chr [1:4] "Fake_inds" "" "" ""</span></span>
+<span></span>
+<span><span class="va">Qmat_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">Qmat_wnames</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Qmat_df</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">Qmat_df</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">as.numeric</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Check again</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">Qmat_df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    3 obs. of  4 variables:</span></span>
+<span><span class="co">#&gt;  $ Fake_inds: chr  "FS_1" "FS_2" "FS_3"</span></span>
+<span><span class="co">#&gt;  $ V2       : num  0.25 0.25 0.25</span></span>
+<span><span class="co">#&gt;  $ V3       : num  0.4 0.4 0.4</span></span>
+<span><span class="co">#&gt;  $ V4       : num  0.35 0.35 0.35</span></span></code></pre></div>
+<p>Notice that our cluster contribution columns are now numeric and that
+our <code>Qmat_df</code> object is a data.frame.</p>
+<p>Now we can use it in <code>PopGenHelpR</code> with a population
+assignment file/data.frame to generate figures.</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="admixture">ADMIXTURE<a class="anchor" aria-label="anchor" href="#admixture"></a>
@@ -126,8 +180,8 @@ automatically. See <a href="https://speciationgenomics.github.io/ADMIXTURE/" cla
 for more details.</p>
 <p>In the example below, we tell ADMIXTURE to use a bed file as input
 and run the analysis with a K value of 5.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Run ADMIXTURE</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>admixture <span class="sc">--</span>cv my_genetic_data.bed <span class="dv">5</span> <span class="sc">&gt;</span> K5.out</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="do">### Run ADMIXTURE</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>admixture <span class="sc">--</span>cv my_genetic_data.bed <span class="dv">5</span> <span class="sc">&gt;</span> K5.out</span></code></pre></div>
 <p>This will output a file with the .Q extension, which contains
 ancestry coefficients for each individual (our q-matrix).</p>
 </div>

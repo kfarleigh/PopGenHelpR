@@ -144,16 +144,37 @@ respectively) of each population in their data set.</p>
 <p><code>PopGenHelpR</code> estimates <em>H<sub>e</sub></em> per locus
 and population following the equations provided by the Hardy-Weinberg
 equation. Briefly, the equation estimates <em>H<sub>e</sub></em> as one
-minus the squared frequency of each allele (p^2 and q^2, respectively),
-thus giving us the expected frequency of heterozygous genotypes (2pq) at
-a locus. The overall measure of <em>H<sub>e</sub></em> is calculated as
-the average of the per locus estimates.</p>
+minus the squared frequency of each allele (<span class="math inline">\(p^2\)</span> and <span class="math inline">\(q^2\)</span>, respectively), thus giving us the
+expected frequency of heterozygous genotypes (2pq) at a locus. The
+overall measure of <em>H<sub>e</sub></em> is calculated as the average
+of the per locus estimates.</p>
+<p>The equation per locus is below, where <em>p</em> is the reference
+allele and <em>q</em> is the alternate allele:</p>
+<p><span class="math display">\[
+H_e = 1-p^2-q^2
+\]</span></p>
+<p>Thus, the equation to calculate the overall <em>H<sub>e</sub></em> is
+below, where <em>K</em> is the number of SNPs.</p>
+<p><span class="math display">\[
+H_e =  \frac{\sum_{k=1}^K(1-p^2-q^2)}{K}
+\]</span></p>
+<div class="section level4">
+<h4 id="how-do-we-use-he">How do we use <em>H<sub>e</sub></em><a class="anchor" aria-label="anchor" href="#how-do-we-use-he"></a>
+</h4>
 <p>We use <em>H<sub>e</sub></em> as a null model to test against and
-determine if Hardy-Weinberg equilibrium is being violated.</p>
+determine if Hardy-Weinberg equilibrium is being violated. Violations
+could indicate mutation, non-random mating, gene flow, non-infinite
+population size, natural selection, or any combination.</p>
+</div>
+<div class="section level4">
+<h4 id="how-do-we-calculate-he-in-popgenhelpr">How do we calculate <em>H<sub>e</sub></em> in
+<code>PopGenHelpR</code>?<a class="anchor" aria-label="anchor" href="#how-do-we-calculate-he-in-popgenhelpr"></a>
+</h4>
 <p>You can calculate <em>H<sub>e</sub></em> in <code>PopGenHelpR</code>
 using the command below.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">He</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Heterozygosity.html">Heterozygosity</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"He"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="observed-heterozygosity-ho">Observed heterozygosity (<em>H<sub>o</sub></em>)<a class="anchor" aria-label="anchor" href="#observed-heterozygosity-ho"></a>
@@ -165,15 +186,40 @@ homozygotes in the population at each locus, thus giving us the
 proportion of heterozygotes at a locus. The overall measure of
 <em>H<sub>o</sub></em> is calculated as the average of the per locus
 estimates.</p>
+<p>The equation per locus is below:</p>
+<p><span class="math display">\[
+H_o = 1- \frac{Number\; of\; homoyzgotes}{Number\; of\; samples}
+\]</span></p>
+<p>Thus the overall measure of <em>H<sub>o</sub></em> is below, where K
+is the number of SNPs:</p>
+<p><span class="math display">\[
+H_o = \frac{\sum_{k = 1}^K{1- \frac{Number\; of\; homoyzgotes}{Number\;
+of\; samples}}}{K}
+\]</span></p>
+<p>The formal equation of <em>H<sub>o</sub></em> from Nei (1987) is
+below: <em>Pkii</em> is the proportion of homozygote (<em>i</em>) in a
+sample (<em>k</em>), and <em>np</em> is the number of samples:</p>
+<p><span class="math display">\[
+H_o = 1-\sum_{k}\sum_{i}\frac{Pkii}{np}
+\]</span></p>
+<div class="section level4">
+<h4 id="how-do-we-use-ho">How do we use <em>H<sub>o</sub></em><a class="anchor" aria-label="anchor" href="#how-do-we-use-ho"></a>
+</h4>
 <p>We use <em>H<sub>o</sub></em> as a measure of genetic diversity and
 also to compare to <em>H<sub>e</sub></em> to determine if our data is
 exhibiting different patterns, such as inbreeding
 (<em>H<sub>o</sub></em> &lt; <em>H<sub>e</sub></em>) or heterozygote
 advantage (<em>H<sub>o</sub></em> &gt; <em>H<sub>e</sub></em>).</p>
+</div>
+<div class="section level4">
+<h4 id="how-do-we-calculate-ho-in-popgenhelpr">How do we calculate <em>H<sub>o</sub></em> in
+<code>PopGenHelpR</code>?<a class="anchor" aria-label="anchor" href="#how-do-we-calculate-ho-in-popgenhelpr"></a>
+</h4>
 <p>You can calculate <em>H<sub>o</sub></em> in <code>PopGenHelpR</code>
 using the command below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Ho</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Heterozygosity.html">Heterozygosity</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"Ho"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -191,14 +237,31 @@ set.</p>
 <h3 id="proportion-of-heterozygous-loci-pht">Proportion of heterozygous loci (<em>PHt</em>)<a class="anchor" aria-label="anchor" href="#proportion-of-heterozygous-loci-pht"></a>
 </h3>
 <p>The proportion of heterozygous loci (<em>PHt</em>) is calculated as
-the number of heterozygous loci divided by the number of genotyped loci
+the number of heterozygous SNPs divided by the number of genotyped SNPs
 in each individual.</p>
-<p><em>PHt</em> is useful to evaluate the diversity within each
-individual.</p>
+<p><span class="math display">\[
+PHt = \frac{Number\; of\; heterozygous\; SNPs}{Number\; of\; genotyped\;
+SNPs}
+\]</span></p>
+<div class="section level4">
+<h4 id="how-do-we-use-pht">How do we use <em>PHt</em><a class="anchor" aria-label="anchor" href="#how-do-we-use-pht"></a>
+</h4>
+<p><em>PHt</em> is helpful for evaluating the diversity within each
+individual and comparing it to other samples. Individual heterozygosity
+is also commonly used to investigate inbreeding (Miller et al., 2014).
+Individual heterozygosity is used in heterozygosity-fitness correlations
+(HFC), assuming that heterozygosity positively correlates with fitness.
+Thus, increased heterozygosity (decreased inbreeding) indicates higher
+fitness.</p>
+</div>
+<div class="section level4">
+<h4 id="how-do-we-calculate-pht-in-popgenhelpr">How do we calculate <em>PHt</em> in <code>PopGenHelpR</code>?<a class="anchor" aria-label="anchor" href="#how-do-we-calculate-pht-in-popgenhelpr"></a>
+</h4>
 <p>You can calculate <em>PHt</em> in <code>PopGenHelpR</code> using the
 command below.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PHt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Heterozygosity.html">Heterozygosity</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"PHt"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="proportion-of-heterozygous-loci-standardized-by-the-average-expected-heterozygosity-hsexp">Proportion of heterozygous loci standardized by the average expected
@@ -207,15 +270,30 @@ heterozygosity (<em>Hs<sub>exp</sub></em>)<a class="anchor" aria-label="anchor" 
 <p>The proportion of heterozygous loci standardized by the average
 expected heterozygosity (<em>Hs<sub>exp</sub></em>) is calculated as
 <em>PHt</em> divided by the mean expected heterozygosity
-(<em>H<sub>e</sub></em>) for each individual.</p>
+(<em>H<sub>e</sub></em>) for each individual. Please see the equation
+below.</p>
+<p><span class="math display">\[
+Hs_{exp} = \frac{PHt}{H_e}
+\]</span></p>
+<div class="section level4">
+<h4 id="how-do-we-use-hsexp">How do we use <em>Hs<sub>exp</sub></em><a class="anchor" aria-label="anchor" href="#how-do-we-use-hsexp"></a>
+</h4>
 <p><em>Hs<sub>exp</sub></em> was introduced by Coltman et al. (1999) to
 evaluate individual heterozygosity across individuals who were genotyped
 with different markers; this allows us to compare individual
-heterozygosity on the same scale.</p>
+heterozygosity on the same scale and to assess inbreeding. Like
+<em>PHt</em>, higher <em>Hs<sub>exp</sub></em> indicates less
+inbreeding.</p>
+</div>
+<div class="section level4">
+<h4 id="how-do-we-calculate-hsexp-in-popgenhelpr">How do we calculate <em>Hs<sub>exp</sub></em> in
+<code>PopGenHelpR</code>?<a class="anchor" aria-label="anchor" href="#how-do-we-calculate-hsexp-in-popgenhelpr"></a>
+</h4>
 <p>You can calculate <em>Hs<sub>exp</sub></em> in
 <code>PopGenHelpR</code> using the command below.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Hs_exp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Heterozygosity.html">Heterozygosity</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"Hs_exp"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="proportion-of-heterozygous-loci-standardized-by-the-average-observed-heterozygosity-hsobs">Proportion of heterozygous loci standardized by the average observed
@@ -224,40 +302,75 @@ heterozygosity (<em>Hs<sub>obs</sub></em>)<a class="anchor" aria-label="anchor" 
 <p>The proportion of heterozygous loci standardized by the average
 observed heterozygosity (<em>Hs<sub>obs</sub></em>) is calculated as
 <em>PHt</em> divided by the mean observed heterozygosity
-(<em>H<sub>o</sub></em>) for each individual.</p>
+(<em>H<sub>o</sub></em>) for each individual. Please see the equation
+below.</p>
+<p><span class="math display">\[
+Hs_{obs} = \frac{PHt}{H_o}
+\]</span></p>
+<div class="section level4">
+<h4 id="how-do-we-use-hsobs">How do we use <em>Hs<sub>obs</sub></em><a class="anchor" aria-label="anchor" href="#how-do-we-use-hsobs"></a>
+</h4>
 <p><em>Hs<sub>obs</sub></em> was introduced by Coltman et al. (1999) to
 evaluate individual heterozygosity across individuals who were genotyped
 with different markers; this allows us to compare individual
-heterozygosity on the same scale.</p>
+heterozygosity on the same scale and to assess inbreeding. Like
+<em>PHt</em>, higher <em>Hs<sub>obs</sub></em> indicates less
+inbreeding.</p>
+</div>
+<div class="section level4">
+<h4 id="how-do-we-calculate-hsobs-in-popgenhelpr">How do we calculate <em>Hs<sub>obs</sub></em> in
+<code>PopGenHelpR</code>?<a class="anchor" aria-label="anchor" href="#how-do-we-calculate-hsobs-in-popgenhelpr"></a>
+</h4>
 <p>You can calculate <em>Hs<sub>obs</sub></em> in
 <code>PopGenHelpR</code> using the command below.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Hs_obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Heterozygosity.html">Heterozygosity</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"Hs_obs"</span><span class="op">)</span></span></code></pre></div>
 </div>
+</div>
 <div class="section level3">
 <h3 id="internal-relatedness-ir">Internal relatedness (<em>IR</em>)<a class="anchor" aria-label="anchor" href="#internal-relatedness-ir"></a>
 </h3>
-<p>Internal relatedness (<em>IR</em>) is calculated as two times the
-number of homozygous loci minus the sum of the frequency of the ith
-allele, divided by two times the number of loci minus the sum of the
-frequency of the ith allele (see equation 2.1 in Amos et al., 2001)</p>
+<p>The equation for Internal relatedness (<em>IR</em>) is more complex
+and qutie the mouthful(or sentence full?). Please see the equation
+below. <em>IR</em> is calculated as two times the number of homozygous
+loci minus the sum of the frequency of the ith allele divided by two
+times the number of loci minus the sum of the frequency of the ith
+allele (see equation 2.1 in Amos et al., 2001).</p>
+<p><span class="math display">\[
+IR = \frac{(2H-\sum{f_i})}{(2N-\sum{f_i})}
+\]</span></p>
+<div class="section level4">
+<h4 id="how-do-we-use-ir">How do we use <em>IR</em>?<a class="anchor" aria-label="anchor" href="#how-do-we-use-ir"></a>
+</h4>
 <p><em>IR</em> was developed by Amos et al. (2001) to measure the
 diversity within individuals (Amos et al., 2001). Negative <em>IR</em>
 values suggest that individuals are outbred (tend to be more
 heterozygous), while positive values indicate that individuals are
 inbred (tend to be more homozygous).</p>
+</div>
+<div class="section level4">
+<h4 id="how-do-we-calculate-ir-in-popgenhelpr">How do we calculate <em>IR</em> in <code>PopGenHelpR</code>?<a class="anchor" aria-label="anchor" href="#how-do-we-calculate-ir-in-popgenhelpr"></a>
+</h4>
 <p>You can calculate <em>IR</em> in <code>PopGenHelpR</code> using the
 command below.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">IR</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Heterozygosity.html">Heterozygosity</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"IR"</span><span class="op">)</span></span></code></pre></div>
 </div>
+</div>
 <div class="section level3">
 <h3 id="homozygosity-by-locus-hl">Homozygosity by locus (<em>HL</em>)<a class="anchor" aria-label="anchor" href="#homozygosity-by-locus-hl"></a>
 </h3>
 <p>Homozygosity by locus (<em>HL</em>) is calculated as the expected
-heterozygosity of loci in homozygosis divided by the sum of the expected
-heterozygosity of loci in homozygosis and the expected heterozygosity of
-loci in heterozygosis (see Aparicio et al., 2006).</p>
+heterozygosity of loci in homozygosis (<span class="math inline">\(E_h\)</span>) divided by the sum of the expected
+heterozygosity of loci in homozygosis (<span class="math inline">\(E_h\)</span>) and the expected heterozygosity of
+loci in heterozygosis (<span class="math inline">\(E_j\)</span>; see
+Aparicio et al., 2006). Please see the equation below.</p>
+<p><span class="math display">\[
+HL = \frac{\sum{E_h}}{\sum{E_h} + \sum{E_j}}
+\]</span></p>
+<div class="section level4">
+<h4 id="how-do-we-use-hl">How do we use <em>HL</em>?<a class="anchor" aria-label="anchor" href="#how-do-we-use-hl"></a>
+</h4>
 <p><em>HL</em> was proposed by Aparicio et al. (2006) to improve on
 <em>IR</em> by weighing the contribution of each locus to the index
 depending on their allelic variability (Aparicio et al., 2006).
@@ -265,12 +378,17 @@ depending on their allelic variability (Aparicio et al., 2006).
 within an individual. <em>HL</em> ranges from 0 when all loci are
 heterozygous and 1 when all loci are homozygous (Aparicio et al.,
 2006).</p>
+</div>
+<div class="section level4">
+<h4 id="how-do-we-calculate-hl-in-popgenhelpr">How do we calculate <em>HL</em> in <code>PopGenHelpR</code>?<a class="anchor" aria-label="anchor" href="#how-do-we-calculate-hl-in-popgenhelpr"></a>
+</h4>
 <p>You can calculate <em>HL</em> in <code>PopGenHelpR</code> using the
 command below.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HL</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Heterozygosity.html">Heterozygosity</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"HL"</span><span class="op">)</span></span></code></pre></div>
 <p>Please reach out to Keaka Farleigh (<a href="mailto:farleik@miamioh.edu" class="email">farleik@miamioh.edu</a>)
 if you have questions or need any help.</p>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -286,6 +404,10 @@ to estimate heterozygosity, alleles or loci? Molecular Ecology. 15:
 <p>Coltman D. W., Pilkington J. G., Smith J. A., Pemberton J. M. 1999.
 Parasite-mediated selection against inbred Soay sheep in a free-living,
 island population. Evolution. 53: 1259-1267.</p>
+<p>Miller, J. M., Malenfant, R. M., David, P., Davis, C. S., Poissant,
+J., Hogg, J. T., … &amp; Coltman, D. (2014). Estimating genome-wide
+heterozygosity: effects of demographic history and marker type.
+Heredity, 112(3), 240-247.</p>
 <p>Nei, M. (1987). Molecular evolutionary genetics. Columbia university
 press.</p>
 </div>
