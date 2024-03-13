@@ -35,6 +35,49 @@ Qmat <- Q(sNMFobject, K = K, run = 1)
 
 All you need to do now is append the sample names to the q-matrix as the first column (you can do this with `cbind` or in any text editor). Then you can use it in `PopGenHelpR`. Note that you must be careful that your order in the q-matrix is the same as the order of the samples you are appending. 
 
+#### Example of formatting the q-matrix for `PopGenHelpR`
+
+Here we show you how to format a q-matrix generated with the `Q` function from LEA for use in `PopGenHelpR`.
+
+First, we will create a matrix that we may expect from LEA. We also need to create fake sample names **Please note that this is only a toy example and is not real data.**
+
+```{r Qmat gen, echo=TRUE, eval=TRUE}
+# Create fake matrix
+Qmat <- t(matrix(data = c(0.25, 0.4, 0.35), nrow = 3, ncol = 3))
+
+Fake_inds <- c("FS_1", "FS_2", "FS_3")
+```
+
+Cool! We have data, so can we use it in `PopGenHelpR`? No, because `Ancestry_barchart` and `Piechart_map` need a data.frame or CSV; these functions also need the first column to be the individual names. `PopGenHelpR` uses the individual names as a key to link the q-matrix data with populations and coordinates.
+
+Let's add the individual names!
+
+```{r Add inds, echo=TRUE, eval=TRUE}
+# Add the names
+Qmat_wnames <- cbind(Fake_inds, Qmat)
+```
+
+So can we use this `Qmat_wnames` now? No, because `Qmat_wnames` is still a matrix and let's see what `cbind` did to our numeric data. Notice that `cbind` make everything a character, we need the cluster contributions (columns 2 through 4 here) to be numeric. We will fix this using the `sapply` function.  
+
+```{r Format qmat, echo=TRUE, eval=TRUE}
+# Check the structure of the Qmat_wnames
+str(Qmat_wnames)
+
+Qmat_df <- as.data.frame(Qmat_wnames)
+
+Qmat_df[2:4] <- sapply(Qmat_df[2:4], as.numeric)
+
+# Check again
+str(Qmat_df)
+```
+
+
+Notice that our cluster contribution columns are now numeric and that our `Qmat_df` object is a data.frame. 
+
+
+Now we can use it in `PopGenHelpR` with a population assignment file/data.frame to generate figures. 
+
+
 ### ADMIXTURE
 
 ADMIXTURE is a little more complex because it is not associated with an R package, but it is nice because it gives us the q-matrix automatically. See [this tutorial](https://speciationgenomics.github.io/ADMIXTURE/) for more details. 
