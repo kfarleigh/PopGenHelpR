@@ -27,6 +27,8 @@ navbar:
           href: articles/PopGenHelpR_heterozygosity.html
         - text: Creating a Q-matrix
           href: articles/PopGenHelpR_createQmatrix.html
+        - text: Sorting a Q-matrix
+          href: articles/PopGenHelpR_sortQmatrix.html
     github:
       icon: fa-github
       href: https://github.com/kfarleigh/PopGenHelpR
