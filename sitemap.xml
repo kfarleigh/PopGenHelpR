@@ -7,6 +7,9 @@
     <loc>https://kfarleigh.github.io/PopGenHelpR/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_PCA.html</loc>
+  </url>
+  <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_benchmarking.html</loc>
   </url>
   <url>
@@ -68,6 +71,9 @@
   </url>
   <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Network_map.html</loc>
+  </url>
+  <url>
+    <loc>https://kfarleigh.github.io/PopGenHelpR/reference/PCA.html</loc>
   </url>
   <url>
     <loc>https://kfarleigh.github.io/PopGenHelpR/reference/Pairwise_heatmap.html</loc>
