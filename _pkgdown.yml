@@ -25,6 +25,8 @@ navbar:
           href: articles/PopGenHelpR_benchmarking.html
         - text: Choosing heterozygosity
           href: articles/PopGenHelpR_heterozygosity.html
+        - text: Principal Component Analysis
+          href: articles/PopGenHelpR_PCA.html
         - text: Creating a Q-matrix
           href: articles/PopGenHelpR_createQmatrix.html
         - text: Sorting a Q-matrix
