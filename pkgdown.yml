@@ -6,7 +6,8 @@ articles:
   PopGenHelpR_benchmarking: PopGenHelpR_benchmarking.html
   PopGenHelpR_createQmatrix: PopGenHelpR_createQmatrix.html
   PopGenHelpR_heterozygosity: PopGenHelpR_heterozygosity.html
-last_built: 2024-03-13T17:28Z
+  PopGenHelpR_sortQmatrix: PopGenHelpR_sortQmatrix.html
+last_built: 2024-04-02T13:39Z
 urls:
   reference: https://kfarleigh.github.io/PopGenHelpR/reference
   article: https://kfarleigh.github.io/PopGenHelpR/articles

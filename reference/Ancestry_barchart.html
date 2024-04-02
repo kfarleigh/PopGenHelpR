@@ -57,7 +57,15 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Ancestry_barchart</span><span class="op">(</span><span class="va">anc.mat</span>, <span class="va">pops</span>, <span class="va">K</span>, plot.type <span class="op">=</span> <span class="st">"all"</span>, <span class="va">col</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Ancestry_barchart</span><span class="op">(</span></span>
+<span>  <span class="va">anc.mat</span>,</span>
+<span>  <span class="va">pops</span>,</span>
+<span>  <span class="va">K</span>,</span>
+<span>  plot.type <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  <span class="va">col</span>,</span>
+<span>  ind.order <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pop.order <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -80,6 +88,14 @@
 
 <dt>col</dt>
 <dd><p>Character vector indicating the colors you wish to use for plotting.</p></dd>
+
+
+<dt>ind.order</dt>
+<dd><p>Character vector indicating the order to plot the individuals in the individual ancestry bar chart.</p></dd>
+
+
+<dt>pop.order</dt>
+<dd><p>Chracter vector indicating the order to plot the populations in the population ancesyry bar chart.</p></dd>
 
 </dl></div>
     <div class="section level2">
