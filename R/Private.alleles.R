@@ -44,6 +44,10 @@ Private.alleles <- function(data, pops, write = FALSE, prefix = NULL, population
     # Convert the vcf gt slot to a geno style table for calculations
     gt <- vcfR::extract.gt(Dat, return.alleles = TRUE)
     Dat <- as.data.frame(t(as.matrix(gt)))
+
+    # Make missing data (.) NAs
+    Dat[Dat == '.'] <- NA
+
     # Preserve individual names
     Inds <- rownames(Dat)
   } else if(tools::file_ext(data) == 'vcf') {
@@ -52,6 +56,10 @@ Private.alleles <- function(data, pops, write = FALSE, prefix = NULL, population
     # Convert the vcf gt slot to a geno style table for calculations
     gt <- vcfR::extract.gt(Dat, return.alleles = TRUE)
     Dat <- as.data.frame(t(as.matrix(gt)))
+
+    # Make missing data (.) NAs
+    Dat[Dat == '.'] <- NA
+
     # Preserve individual names
     Inds <- rownames(Dat)
   } else {
@@ -92,8 +100,12 @@ message('Formatting has finished, moving onto calculations')
 Uniq_alleles <- function(x) {
   tmp_res <- list()
   for(i in 3:ncol(x)){
-    tmp <- unique(unlist(strsplit(x[,i], split = '/')))
+    tmp <- unique(na.omit(unlist(strsplit(x[,i], split = '/'))))
+    if(length(tmp) > 0){
     tmp_res[[i]] <- tmp
+    } else{
+      tmp_res[[i]] <- NA
+    }
     remove(tmp)
   }
   tmp_res <- as.data.frame(do.call("rbind", tmp_res))
@@ -121,11 +133,19 @@ for(i in 1:length(P_uniq)){
 P_test <- PA_test_df[which(PA_test_df$Pop == P_uniq[i]),]
 # Isolate remaining populations
 Rem_pop <- PA_test_df[-c(which(PA_test_df$Pop == P_uniq[i])),]
+
 # For each allele, find any alleles that are in the population P_test but not the remaining populations (Rem_pop)
+if(sum(is.na(Rem_pop[which(Rem_pop$loc == locnames[j]),1])) != nrow(Rem_pop[which(Rem_pop$loc == locnames[j]),]) & is.na(P_test[which(P_test$loc == locnames[j]),1]) == FALSE){
 Al_11 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(1,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(1,4)]))
 Al_22 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(2,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(2,4)]))
 Al_21 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(2,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(1,4)], by = dplyr::join_by(V2 == V1, loc)))
 Al_12 <- suppressMessages(dplyr::anti_join(P_test[which(P_test$loc == locnames[j]),c(1,4)], Rem_pop[which(Rem_pop$loc == locnames[j]),c(2,4)], by = dplyr::join_by(V1 == V2, loc)))
+} else {
+  Al_11 <- data.frame(Allele = c(), Locus = c())
+  Al_22 <- data.frame(Allele = c(), Locus = c())
+  Al_21 <- data.frame(Allele = c(), Locus = c())
+  Al_12 <- data.frame(Allele = c(), Locus = c())
+}
 
 # Check for cross comparisons, set to be empty if either allele was erroneously identified as private
 # For example if we have A/G in P_test and G/A in Rem_pop; Al_11 and Al_22 would identify them as private because A != G and G !=A

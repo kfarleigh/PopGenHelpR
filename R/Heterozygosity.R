@@ -262,6 +262,11 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     tmp[tmp == "0"] <- "0/0"
     tmp[tmp == "1"] <- "0/2"
     tmp[tmp == "2"] <- "2/2"
+    tmp[is.na(tmp)] <- "NA/NA"
+
+    if(any(colSums(is.na(tmp)) == nrow(tmp))){
+      print(paste(names(which(colSums(is.na(tmp)) == nrow(tmp))), " has no data (everything is NA), please check your data.", sep = ''))
+    }
 
     rownames(tmp) <- Inds
 
@@ -284,7 +289,6 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
 
       Loc_IR_formatted[,idx:(idx+1)] <- Loc_split_df
       colnames(Loc_IR_formatted)[idx:(idx+1)] <- c(paste(Loc_nam, "a", sep = ""), paste(Loc_nam, "b", sep = ""))
-
     }
     # Convert to a matrix for calculations
     Loc_IR_mat <- as.matrix(Loc_IR_formatted)
@@ -364,6 +368,12 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     tmp[tmp == "0"] <- "0/0"
     tmp[tmp == "1"] <- "0/2"
     tmp[tmp == "2"] <- "2/2"
+    tmp[is.na(tmp)] <- "NA/NA"
+
+    if(any(colSums(is.na(tmp)) == nrow(tmp))){
+      print(paste(names(which(colSums(is.na(tmp)) == nrow(tmp))), " has no data (everything is NA), please check your data.", sep = ''))
+    }
+
 
     rownames(tmp) <- Inds
 

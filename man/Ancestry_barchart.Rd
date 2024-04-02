@@ -4,7 +4,15 @@
 \alias{Ancestry_barchart}
 \title{Plot an ancestry matrix for individuals and(or) populations.}
 \usage{
-Ancestry_barchart(anc.mat, pops, K, plot.type = "all", col)
+Ancestry_barchart(
+  anc.mat,
+  pops,
+  K,
+  plot.type = "all",
+  col,
+  ind.order = NULL,
+  pop.order = NULL
+)
 }
 \arguments{
 \item{anc.mat}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the names of each sample/population, followed by the estimated contribution of each cluster to that individual/pop.}
@@ -16,6 +24,10 @@ Ancestry_barchart(anc.mat, pops, K, plot.type = "all", col)
 \item{plot.type}{Character string. Options are all, individual, and population. All is default and recommended, this will plot a barchart for both the individuals and populations.}
 
 \item{col}{Character vector indicating the colors you wish to use for plotting.}
+
+\item{ind.order}{Character vector indicating the order to plot the individuals in the individual ancestry bar chart.}
+
+\item{pop.order}{Chracter vector indicating the order to plot the populations in the population ancesyry bar chart.}
 }
 \value{
 A list containing your plots and the data frames used to generate the plots.
