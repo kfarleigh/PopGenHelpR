@@ -53,7 +53,7 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
     col <- col
   }
   if(!is.null(ind.order)){
-    Ind_anc_ord <- Ind_anc[order(match(ind.order, Ind_anc$Ind)),]
+    Ind_anc_ord <- Ind_anc[order(match(Ind_anc$Ind, ind.order)),]
     Ind_anc_ord$Ind <- factor(Ind_anc_ord$Ind, levels = ind.order)
     Ind_anc <- Ind_anc_ord
   } else{
@@ -62,14 +62,14 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
     Ind_anc_ord$Ind <- factor(Ind_anc_ord$Ind, levels = ind.order)
     Ind_anc <- Ind_anc_ord
   }
-
+  
   ######################## Barcharts
-
+  
   if(plot.type == 'all' & is.numeric(anc.mat[,1]) & is.numeric(pops[,2])){
     # Individual plots
     colnames(Ind_anc) <- c("Sample", paste0(rep("cluster", K), 1:K))
     qmatrix_melt <- reshape2::melt(Ind_anc, id = 'Sample', value = coeff)
-
+    
     Indplot <- qmatrix_melt %>% ggplot2::ggplot(ggplot2::aes(x= Sample)) +
       ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
       ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
@@ -80,17 +80,17 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
                      panel.grid = ggplot2::element_blank()) +
       ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
       ggplot2::scale_x_discrete(breaks = 1:nrow(Ind_anc))
-
-
+    
+    
     # Reorder the population assignment file to match the order of individuals
     Pops_ord <- Pops[order(match(Ind_anc$Sample, Pops$Sample)),]
-
+    
     # Population plots
     Pop_anc <- Ind_anc[,-1]
     Pop_anc$Pop <- Pops_ord$Population
     Pop_anc <- Pop_anc %>% dplyr::group_by(Pop) %>% dplyr::summarise_all(mean, na.rm = TRUE)
     Pop_anc_coeff <- Pop_anc[,c(1:(K+1))]
-
+    
     # Order if necessary
     if(!is.null(pop.order)){
       Pop_anc_ord <-  Pop_anc_coeff[order(match(pop.order, Pop_anc_coeff$Pop)),]
@@ -102,9 +102,9 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
       Pop_anc_ord$Pop <- factor(Pop_anc_ord$Pop, levels = pop.order)
       Pop_anc_coeff <- Pop_anc_ord
     }
-
+    
     qmatrix_melt_pop <- reshape2::melt(Pop_anc_coeff, id = 'Pop', value = coeff)
-
+    
     Popplot <- qmatrix_melt_pop %>% ggplot2::ggplot(ggplot2::aes(x= Pop)) +
       ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
       ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
@@ -115,7 +115,7 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
                      panel.grid = ggplot2::element_blank()) +
       ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
       ggplot2::scale_x_discrete(breaks = 1:nrow(Pop_anc))
-
+    
     # Output list
     Output_all <- list(Ind_anc, Pop_anc, Indplot, Popplot)
     names(Output_all) <- c("Individual Plotting Data Frame", "Population Plotting Data Frame", "Individual Ancestry Plot", "Population Ancestry Plot")
@@ -129,7 +129,7 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
     Ind_anc2$ID <- Ind_anc2[,1]
     Ind_anc2$ID <- factor(Ind_anc2$ID, levels = ord)
     qmatrix_melt <- reshape2::melt(Ind_anc2[2:(K+2)], id = 'ID', value = coeff)
-
+    
     Indplot <- qmatrix_melt %>% ggplot2::ggplot(ggplot2::aes(x= ID)) +
       ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
       ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
@@ -141,17 +141,17 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
       ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
       ggplot2::scale_x_discrete() +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1))
-
-
+    
+    
     # Reorder the population assignment file to match the order of individuals
     Pops_ord <- Pops[order(match(Ind_anc$Sample, Pops$Sample)),]
-
+    
     # Population plots
     Pop_anc <- Ind_anc[,-1]
     Pop_anc$Pop <- Pops_ord$Population
     Pop_anc <- Pop_anc %>% dplyr::group_by(Pop) %>% dplyr::summarise_all(mean, na.rm = TRUE)
     Pop_anc_coeff <- Pop_anc[,c(1:(K+1))]
-
+    
     # Order if necessary
     if(!is.null(pop.order)){
       Pop_anc_ord <-  Pop_anc_coeff[order(match(pop.order, Pop_anc_coeff$Pop)),]
@@ -163,9 +163,9 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
       Pop_anc_ord$Pop <- factor(Pop_anc_ord$Pop, levels = pop.order)
       Pop_anc_coeff <- Pop_anc_ord
     }
-
+    
     qmatrix_melt_pop <- reshape2::melt(Pop_anc_coeff, id = 'Pop', value = coeff)
-
+    
     Popplot <- qmatrix_melt_pop %>% ggplot2::ggplot(ggplot2::aes(x= Pop)) +
       ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
       ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
@@ -177,7 +177,7 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
       ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
       ggplot2::scale_x_discrete() +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1))
-
+    
     # Output list
     Output_all <- list(Ind_anc2, Pop_anc, Indplot, Popplot)
     names(Output_all) <- c("Individual Plotting Data Frame", "Population Plotting Data Frame", "Individual Ancestry Plot", "Population Ancestry Plot")
@@ -186,7 +186,7 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
   else if(plot.type == 'individual' & is.numeric(anc.mat[,1])){
     colnames(Ind_anc) <- c("Sample", paste0(rep("cluster", K), 1:K))
     qmatrix_melt <- reshape2::melt(Ind_anc, id = 'Sample', value = coeff)
-
+    
     Indplot <- qmatrix_melt %>% ggplot2::ggplot(ggplot2::aes(x= Sample)) +
       ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
       ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
@@ -197,13 +197,13 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
                      panel.grid = ggplot2::element_blank()) +
       ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
       ggplot2::scale_x_discrete(breaks = 1:nrow(Ind_anc))
-
+    
     # Output list
     Output_indanc <- list(Indplot, Ind_anc)
     names(Output_indanc) <- c("Individual Ancestry Matrix", "Individual Plotting Data Frame")
     return(Output_indanc)
   }
-
+  
   else if(plot.type == 'individual' & is.character(anc.mat[,1])){
     # Individual plots
     colnames(Ind_anc) <- c("Sample", paste0(rep("cluster", K), 1:K))
@@ -212,7 +212,7 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
     Ind_anc2$ID <- Ind_anc2[,1]
     Ind_anc2$ID <- factor(Ind_anc2$ID, levels = ord)
     qmatrix_melt <- reshape2::melt(Ind_anc2[2:(K+2)], id = 'ID', value = coeff)
-
+    
     Indplot <- qmatrix_melt %>% ggplot2::ggplot(ggplot2::aes(x= ID)) +
       ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
       ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
@@ -224,24 +224,24 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
       ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
       ggplot2::scale_x_discrete() +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1))
-
+    
     # Output list
     Output_indanc <- list(Indplot, Ind_anc2)
     names(Output_indanc) <- c("Individual Ancestry Matrix", "Individual Plotting Data Frame")
     return(Output_indanc)
   }
-
+  
   else if(plot.type == 'population' & is.numeric(pops[,2])){
-
+    
     # Reorder the population assignment file to match the order of individuals
     Pops_ord <- Pops[order(match(Ind_anc$Sample, Pops$Sample)),]
-
+    
     # Population plots
     Pop_anc <- Ind_anc[,-1]
     Pop_anc$Pop <- Pops_ord$Population
     Pop_anc <- Pop_anc %>% dplyr::group_by(Pop) %>% dplyr::summarise_all(mean, na.rm = TRUE)
     Pop_anc_coeff <- Pop_anc[,c(1:(K+1))]
-
+    
     # Order if necessary
     if(!is.null(pop.order)){
       Pop_anc_ord <-  Pop_anc_coeff[order(match(pop.order, Pop_anc_coeff$Pop)),]
@@ -253,9 +253,9 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
       Pop_anc_ord$Pop <- factor(Pop_anc_ord$Pop, levels = pop.order)
       Pop_anc_coeff <- Pop_anc_ord
     }
-
+    
     qmatrix_melt_pop <- reshape2::melt(Pop_anc_coeff, id = 'Pop', value = coeff)
-
+    
     Popplot <- qmatrix_melt_pop %>% ggplot2::ggplot(ggplot2::aes(x= Pop)) +
       ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
       ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
@@ -266,23 +266,23 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
                      panel.grid = ggplot2::element_blank()) +
       ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
       ggplot2::scale_x_discrete(breaks = 1:nrow(Pop_anc))
-
-
+    
+    
     Output_popanc <- list(Popplot, Pop_anc)
     names(Output_popanc) <- c("Population Ancestry Matrix","Population Plotting Data Frame")
     return(Output_popanc)
   }
   else if(plot.type == 'population' & is.character(pops[,2])){
-
+    
     # Reorder the population assignment file to match the order of individuals
     Pops_ord <- Pops[order(match(Ind_anc$Sample, Pops$Sample)),]
-
+    
     # Population plots
     Pop_anc <- Ind_anc[,-1]
     Pop_anc$Pop <- Pops_ord$Population
     Pop_anc <- Pop_anc %>% dplyr::group_by(Pop) %>% dplyr::summarise_all(mean, na.rm = TRUE)
     Pop_anc_coeff <- Pop_anc[,c(1:(K+1))]
-
+    
     # Order if necessary
     if(!is.null(pop.order)){
       Pop_anc_ord <-  Pop_anc_coeff[order(match(pop.order, Pop_anc_coeff$Pop)),]
@@ -294,9 +294,9 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
       Pop_anc_ord$Pop <- factor(Pop_anc_ord$Pop, levels = pop.order)
       Pop_anc_coeff <- Pop_anc_ord
     }
-
+    
     qmatrix_melt_pop <- reshape2::melt(Pop_anc_coeff, id = 'Pop', value = coeff)
-
+    
     Popplot <- qmatrix_melt_pop %>% ggplot2::ggplot(ggplot2::aes(x= Pop)) +
       ggplot2::geom_bar(ggplot2::aes(y = value, fill = variable), stat = "identity", position = "fill",width = 1) +
       ggplot2::scale_fill_manual("Population", values = col[c(1:K)], labels = paste0(rep("Cluster ", K), 1:K)) +
@@ -308,15 +308,15 @@ Ancestry_barchart <- function(anc.mat, pops, K, plot.type = 'all', col, ind.orde
       ggplot2::scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
       ggplot2::scale_x_discrete() +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1))
-
+    
     Output_popanc <- list(Popplot, Pop_anc)
     names(Output_popanc) <- c("Population Ancestry Matrix","Population Plotting Data Frame")
     return(Output_popanc)
   }
-
+  
   else {
     stop("Please supply input for plot.type. The options are 'all', 'individual', or 'population'.")
-
+    
   }
-
+  
 }
