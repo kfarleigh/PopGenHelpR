@@ -74,7 +74,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>dat</dt>
-<dd><p>Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted. The coordinates of each row should be indicated by columns named Longitude and Latitude.</p></dd>
+<dd><p>Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted. The coordinates of each row should be indicated by columns named Longitude and Latitude. Alternatively, see the Longitude_col and Latitude_col arguments.</p></dd>
 
 
 <dt>statistic</dt>
@@ -104,6 +104,14 @@
 <dt>Long_buffer</dt>
 <dd><p>Numeric. A buffer to customize visualization.</p></dd>
 
+
+<dt>Latitude_col</dt>
+<dd><p>Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Latitude column.</p></dd>
+
+
+<dt>Longitude_col</dt>
+<dd><p>Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Longitude column.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -121,6 +129,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Het_dat</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Test</span> <span class="op">&lt;-</span> <span class="fu">Point_map</span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span><span class="op">)</span><span class="co"># }</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in Point_map(Het_dat, statistic = "Heterozygosity"):</span> object 'Latitude_col' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -67,7 +67,9 @@
 <span>  statistic <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  Lat_buffer <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  Long_buffer <span class="op">=</span> <span class="fl">1</span></span>
+<span>  Long_buffer <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  Latitude_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Longitude_col <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -78,7 +80,7 @@
 
 
 <dt>pops</dt>
-<dd><p>Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.</p></dd>
+<dd><p>Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample. Alternatively, see the Longitude_col and Latitude_col arguments.</p></dd>
 
 
 <dt>neighbors</dt>
@@ -103,6 +105,14 @@
 
 <dt>Long_buffer</dt>
 <dd><p>Numeric. A buffer to customize visualization.</p></dd>
+
+
+<dt>Latitude_col</dt>
+<dd><p>Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Lat column.</p></dd>
+
+
+<dt>Longitude_col</dt>
+<dd><p>Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Long column.</p></dd>
 
 </dl></div>
     <div class="section level2">

@@ -64,14 +64,16 @@
 <span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#A9A9A9"</span>, <span class="st">"#000000"</span><span class="op">)</span>,</span>
 <span>  size <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  Lat_buffer <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  Long_buffer <span class="op">=</span> <span class="fl">1</span></span>
+<span>  Long_buffer <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  Latitude_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Longitude_col <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>dat</dt>
-<dd><p>Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The coordinates of each row should be indicated by columns named Longitude and Latitude.</p></dd>
+<dd><p>Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The coordinates of each row should be indicated by columns named Longitude and Latitude. Alternatively, see the Latitude_col and Longitude_col arugments.</p></dd>
 
 
 <dt>col</dt>
@@ -88,6 +90,14 @@
 
 <dt>Long_buffer</dt>
 <dd><p>Numeric. A buffer to customize visualization.</p></dd>
+
+
+<dt>Latitude_col</dt>
+<dd><p>Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Latitude column.</p></dd>
+
+
+<dt>Longitude_col</dt>
+<dd><p>Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Longitude column.</p></dd>
 
 </dl></div>
     <div class="section level2">

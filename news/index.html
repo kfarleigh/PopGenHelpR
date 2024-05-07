@@ -54,16 +54,24 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.3.0" id="popgenhelpr-130">PopGenHelpR 1.3.0<a class="anchor" aria-label="anchor" href="#popgenhelpr-130"></a></h2>
-<ul><li><p>February 15th, 2024</p></li>
-<li><p>The <code>Plot_coordinates</code> function has been added to make sample maps from coordinates.</p></li>
-<li><p>The <code>Point_map</code> function has replaced <code>Div_stats_map</code> and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.</p></li>
-<li><p><code>Dif_stats_map</code> has been changed to <code>Network_map</code> and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.</p></li>
-<li><p><code>Plot_ancestry</code> has been split into <code>Piechart_Map</code> and <code>Ancestry_barchart</code> so that it is easier for users to determine which function is most appropriate for their analysis.</p></li>
-<li><p><code>Differentiation</code> has been added to estimate Fst, Nei’s D, and Jost’s D. Please see the documentation for more details.</p></li>
-<li><p><code>Heterozygosity</code> has been added to estimate 7 different measures of heterozygosity. Please see the documentation for more details.</p></li>
-<li><p><code>Private.alleles</code> has been added to calculate the number of private alleles in each population.</p></li>
-<li><p>The <code>Dif_Stats</code> function has been deprecated, please used the <code>Differentiation</code> function to calculate pairwise differentiation between populations (Fst, Nei’s D, Jost’s D) or individuals (Nei’s D).</p></li>
-<li><p>The <code>Div_Stats</code> function has been deprecated, please use the <code>Heterozygosity</code> function if you wish to estimate heterozygosity or the <code>Private.alleles</code> function if you wish to calculate the number of private alleles per population. Please use the <code>Point_Map</code> function if you wish to visualize the results on a map or plot.</p></li>
+<ul><li>May 7th, 2024</li>
+<li>The <code>Longitude_col</code> and <code>Latitude_col</code> arguments have been added to mapping functions; <code>Plot_coordinates</code>, <code>Ancestry_Piemap</code>, <code>Piechart_map</code>, <code>Network_map</code>, and <code>Point_map</code>.</li>
+<li>
+<code>Ind_order</code> and <code>Pop_order</code> arguments have been added to <code>Ancestry_Barchart</code> to allow users to specify the order of individuals and populations in the barchart.</li>
+<li>The <code>Plot_coordinates</code> function has been added to make sample maps from coordinates.</li>
+<li>The <code>Point_map</code> function has replaced <code>Div_stats_map</code> and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.</li>
+<li>
+<code>Dif_stats_map</code> has been changed to <code>Network_map</code> and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.</li>
+<li>
+<code>Plot_ancestry</code> has been split into <code>Piechart_Map</code> and <code>Ancestry_barchart</code> so that it is easier for users to determine which function is most appropriate for their analysis.</li>
+<li>
+<code>Differentiation</code> has been added to estimate Fst, Nei’s D, and Jost’s D. Please see the documentation for more details.</li>
+<li>
+<code>Heterozygosity</code> has been added to estimate 7 different measures of heterozygosity. Please see the documentation for more details.</li>
+<li>
+<code>Private.alleles</code> has been added to calculate the number of private alleles in each population.</li>
+<li>The <code>Dif_Stats</code> function has been deprecated, please used the <code>Differentiation</code> function to calculate pairwise differentiation between populations (Fst, Nei’s D, Jost’s D) or individuals (Nei’s D).</li>
+<li>The <code>Div_Stats</code> function has been deprecated, please use the <code>Heterozygosity</code> function if you wish to estimate heterozygosity or the <code>Private.alleles</code> function if you wish to calculate the number of private alleles per population. Please use the <code>Point_Map</code> function if you wish to visualize the results on a map or plot.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.2" id="popgenhelpr-122">PopGenHelpR 1.2.2<a class="anchor" aria-label="anchor" href="#popgenhelpr-122"></a></h2>
