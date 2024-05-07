@@ -9,11 +9,13 @@ Plot_coordinates(
   col = c("#A9A9A9", "#000000"),
   size = 3,
   Lat_buffer = 1,
-  Long_buffer = 1
+  Long_buffer = 1,
+  Latitude_col = NULL,
+  Longitude_col = NULL
 )
 }
 \arguments{
-\item{dat}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The coordinates of each row should be indicated by columns named Longitude and Latitude.}
+\item{dat}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The coordinates of each row should be indicated by columns named Longitude and Latitude. Alternatively, see the Latitude_col and Longitude_col arugments.}
 
 \item{col}{Character vector indicating the colors you wish to use for plotting, two colors are allowed. The first color will be the fill color, the second is the outline color. For example, if I want red points with a black outline I would set col to col = c("#FF0000", "#000000").}
 
@@ -22,6 +24,10 @@ Plot_coordinates(
 \item{Lat_buffer}{Numeric. A buffer to customize visualization.}
 
 \item{Long_buffer}{Numeric. A buffer to customize visualization.}
+
+\item{Latitude_col}{Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Latitude column.}
+
+\item{Longitude_col}{Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Longitude column.}
 }
 \value{
 A ggplot object.

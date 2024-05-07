@@ -1,6 +1,7 @@
 # PopGenHelpR 1.3.0
-- February 15th, 2024
-
+- May 7th, 2024
+* The `Longitude_col` and `Latitude_col` arguments have been added to mapping functions; `Plot_coordinates`, `Ancestry_Piemap`, `Piechart_map`, `Network_map`, and `Point_map`.
+* `Ind_order` and `Pop_order` arguments have been added to `Ancestry_Barchart` to allow users to specify the order of individuals and populations in the barchart.
 * The `Plot_coordinates` function has been added to make sample maps from coordinates. 
 * The `Point_map` function has replaced `Div_stats_map` and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.
 * `Dif_stats_map` has been changed to `Network_map` and a statistic argument has been added to highlight the functions utility and allow users to name the map legend.

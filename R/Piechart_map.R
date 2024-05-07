@@ -1,13 +1,15 @@
 #' Plot a map of ancestry pie charts.
 #'
 #' @param anc.mat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the names of each sample/population, followed by the estimated contribution of each cluster to that individual/pop.
-#' @param pops Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual, population and sample names must be the same type (i.e., both numeric or both characters); Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.
+#' @param pops Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual, population and sample names must be the same type (i.e., both numeric or both characters); Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample. Alternatively, see the Longitude_col and Latitude_col arguments.
 #' @param K Numeric.The number of genetic clusters in your data set, please contact the package authors if you need help doing this.
 #' @param plot.type Character string. Options are all, individual, and population. All is default and recommended, this will plot a piechart map for both the individuals and populations.
 #' @param col Character vector indicating the colors you wish to use for plotting.
 #' @param piesize Numeric. The radius of the pie chart for ancestry mapping.
 #' @param Lat_buffer Numeric. A buffer to customize visualization.
 #' @param Long_buffer Numeric. A buffer to customize visualization.
+#' @param Latitude_col Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Lat column.
+#' @param Longitude_col Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Long column.
 #'
 #' @return A list containing your plots and the data frames used to generate the plots.
 #' @importFrom magrittr %>%
@@ -25,7 +27,7 @@
 #' Test_all <- Piechart_map(anc.mat = Qmat, pops = Loc, K = 5,
 #' plot.type = 'all', col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), piesize = 0.35,
 #' Lat_buffer = 1, Long_buffer = 1)}
-Piechart_map <- function(anc.mat, pops, K, plot.type = 'all', col, piesize = 0.35, Lat_buffer, Long_buffer){
+Piechart_map <- function(anc.mat, pops, K, plot.type = 'all', col, piesize = 0.35, Lat_buffer, Long_buffer, Latitude_col = NULL, Longitude_col = NULL){
   Pop <- coeff <- Sample <- value <- variable <- aes <- Long <- Lat <- alpha <- ID<- NULL
   # Read in ancestry matrix and pop file
   if(missing(anc.mat)){
@@ -54,8 +56,21 @@ Piechart_map <- function(anc.mat, pops, K, plot.type = 'all', col, piesize = 0.3
     col <- col
   }
 
+  if(!is.null(Latitude_col)){
+    colnames(Div_mat)[Latitude_col] <- "Lat"
+  }
+
+  if(!is.null(Longitude_col)){
+    colnames(Div_mat)[Longitude_col] <- "Long"
+  }
+
   # Pull coordinates
+
+  if(!is.null(Latitude_col) | !is.null(Longitude_col)){
+    Coords <- Pops[,c(Longitude_col, Latitude_col)]
+  } else{
   Coords <- Pops[,3:4]
+  }
 
   ################### Get the data for mapping
   # Get map data

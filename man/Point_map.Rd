@@ -16,7 +16,7 @@ Point_map(
 )
 }
 \arguments{
-\item{dat}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted. The coordinates of each row should be indicated by columns named Longitude and Latitude.}
+\item{dat}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted. The coordinates of each row should be indicated by columns named Longitude and Latitude. Alternatively, see the Longitude_col and Latitude_col arguments.}
 
 \item{statistic}{Character string. The statistic to be plotted.}
 
@@ -31,6 +31,10 @@ Point_map(
 \item{Lat_buffer}{Numeric. A buffer to customize visualization.}
 
 \item{Long_buffer}{Numeric. A buffer to customize visualization.}
+
+\item{Latitude_col}{Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Latitude column.}
+
+\item{Longitude_col}{Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Longitude column.}
 }
 \value{
 A list containing maps and the data frames used to generate them.

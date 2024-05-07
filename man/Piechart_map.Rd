@@ -12,13 +12,15 @@ Piechart_map(
   col,
   piesize = 0.35,
   Lat_buffer,
-  Long_buffer
+  Long_buffer,
+  Latitude_col = NULL,
+  Longitude_col = NULL
 )
 }
 \arguments{
 \item{anc.mat}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the names of each sample/population, followed by the estimated contribution of each cluster to that individual/pop.}
 
-\item{pops}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual, population and sample names must be the same type (i.e., both numeric or both characters); Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.}
+\item{pops}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual, population and sample names must be the same type (i.e., both numeric or both characters); Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample. Alternatively, see the Longitude_col and Latitude_col arguments.}
 
 \item{K}{Numeric.The number of genetic clusters in your data set, please contact the package authors if you need help doing this.}
 
@@ -31,6 +33,10 @@ Piechart_map(
 \item{Lat_buffer}{Numeric. A buffer to customize visualization.}
 
 \item{Long_buffer}{Numeric. A buffer to customize visualization.}
+
+\item{Latitude_col}{Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Lat column.}
+
+\item{Longitude_col}{Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Long column.}
 }
 \value{
 A list containing your plots and the data frames used to generate the plots.

@@ -1,6 +1,6 @@
 #' A function to map statistics as colored points on a map.
 #'
-#' @param dat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted. The coordinates of each row should be indicated by columns named Longitude and Latitude.
+#' @param dat Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the statistic to be plotted. The coordinates of each row should be indicated by columns named Longitude and Latitude. Alternatively, see the Longitude_col and Latitude_col arguments.
 #' @param statistic Character string. The statistic to be plotted.
 #' @param size Numeric. The size of the points to plot.
 #' @param breaks Numeric. The breaks used to generate the color ramp when plotting. Users should supply 3 values if custom breaks are desired.
@@ -8,6 +8,8 @@
 #' @param out.col Character. A color for outlining points on the map. There will be no visible outline if left as NULL.
 #' @param Lat_buffer Numeric. A buffer to customize visualization.
 #' @param Long_buffer Numeric. A buffer to customize visualization.
+#' @param Latitude_col Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Latitude column.
+#' @param Longitude_col Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Longitude column.
 #'
 #' @return A list containing maps and the data frames used to generate them.
 #'
@@ -42,7 +44,17 @@ Point_map <- function(dat, statistic, size = 3, breaks = NULL, col, out.col = NU
     stop("Please supply a dataframe or .csv file name for analysis")
   }
 
+
   ### Get coordinate ranges for our data
+
+  if(!is.null(Latitude_col)){
+    colnames(Div_mat)[Latitude_col] <- "Latitude"
+  }
+
+  if(!is.null(Longitude_col)){
+    colnames(Div_mat)[Longitude_col] <- "Longitude"
+  }
+
   Lat_Min <- min(Div_mat$Latitude) - Lat_buffer
   Lat_Max <- max(Div_mat$Latitude) + Lat_buffer
   Long_Min <- min(Div_mat$Longitude) - Long_buffer

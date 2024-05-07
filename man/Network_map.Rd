@@ -12,13 +12,15 @@ Network_map(
   statistic = NULL,
   breaks = NULL,
   Lat_buffer = 1,
-  Long_buffer = 1
+  Long_buffer = 1,
+  Latitude_col = NULL,
+  Longitude_col = NULL
 )
 }
 \arguments{
 \item{dat}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. If it is a csv, the 1st row should contain the individual/population names. The columns should also be named in this fashion.}
 
-\item{pops}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.}
+\item{pops}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual; Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample. Alternatively, see the Longitude_col and Latitude_col arguments.}
 
 \item{neighbors}{Numeric or character. The number of neighbors to plot connections with, or the specific relationship that you want to visualize. Names should match those in the population assignment file and be seperated by an underscore. If I want to visualize the relationship between East and West, for example, I would set neighbors = "East_West".}
 
@@ -31,6 +33,10 @@ Network_map(
 \item{Lat_buffer}{Numeric. A buffer to customize visualization.}
 
 \item{Long_buffer}{Numeric. A buffer to customize visualization.}
+
+\item{Latitude_col}{Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Lat column.}
+
+\item{Longitude_col}{Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Long column.}
 }
 \value{
 A list containing the map and the matrix used to plot the map.
