@@ -67,7 +67,9 @@
 <span>  <span class="va">col</span>,</span>
 <span>  out.col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  Lat_buffer <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  Long_buffer <span class="op">=</span> <span class="fl">1</span></span>
+<span>  Long_buffer <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  Latitude_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Longitude_col <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -129,7 +131,6 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Het_dat</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Test</span> <span class="op">&lt;-</span> <span class="fu">Point_map</span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span><span class="op">)</span><span class="co"># }</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in Point_map(Het_dat, statistic = "Heterozygosity"):</span> object 'Latitude_col' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
