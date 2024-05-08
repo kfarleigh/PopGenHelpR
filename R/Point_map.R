@@ -24,7 +24,7 @@
 #' \donttest{
 #' data(Het_dat)
 #' Test <- Point_map(Het_dat, statistic = "Heterozygosity")}
-Point_map <- function(dat, statistic, size = 3, breaks = NULL, col, out.col = NULL, Lat_buffer = 1, Long_buffer = 1){
+Point_map <- function(dat, statistic, size = 3, breaks = NULL, col, out.col = NULL, Lat_buffer = 1, Long_buffer = 1, Latitude_col = NULL, Longitude_col = NULL){
   Long <- Lat <- x <- y <- z <- alpha <- world <- NULL
   ################### Get the data for mapping
   # Get map data

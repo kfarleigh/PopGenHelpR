@@ -12,7 +12,9 @@ Point_map(
   col,
   out.col = NULL,
   Lat_buffer = 1,
-  Long_buffer = 1
+  Long_buffer = 1,
+  Latitude_col = NULL,
+  Longitude_col = NULL
 )
 }
 \arguments{
