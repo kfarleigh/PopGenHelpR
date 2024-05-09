@@ -1,31 +1,13 @@
 ## May 7th, 2024: This is a new release of PopGenHelpR
 
 ### check_win_devel results
-There were 1 NOTE
+There were no errors, notes, or warnings. 
 
-```
-* checking CRAN incoming feasibility ... [11s] NOTE
-Maintainer: 'Keaka Farleigh <keakafarleigh@gmail.com>'
-
-Possibly misspelled words in DESCRIPTION:
-  PopGenHelpR (9:109)
-  geno (9:131)
-```
-
-Both words are spelled correctly. 
 
 
 ### check_win_release results
-There were 1 NOTE
+There were no errors, notes, or warnings. 
 
-```
-* checking CRAN incoming feasibility ... [11s] NOTE
-Maintainer: 'Keaka Farleigh <keakafarleigh@gmail.com>'
-
-Possibly misspelled words in DESCRIPTION:
-  PopGenHelpR (9:109)
-  geno (9:131)
-```
 
 Both words are spelled correctly. 
 
