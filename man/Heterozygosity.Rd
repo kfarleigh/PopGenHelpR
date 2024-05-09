@@ -53,7 +53,7 @@ Nei, M. (1987) Molecular Evolutionary Genetics. Columbia University Press
 
 \href{https://onlinelibrary.wiley.com/doi/full/10.1111/j.1755-0998.2010.02830.x?casa_token=QiNcMSJyunkAAAAA\%3Agv-CK7GrUn1bHSgz4qZSOcB2nyHDeR8B1Wtm9bM7q7vZCAcJhNkhTWnpM0EfkSCb2EvkRrr2ArMzC7v7}{Alho, J. S., Välimäki, K., & Merilä, J. (2010)}. Rhh: an R extension for estimating multilocus heterozygosity and heterozygosity–heterozygosity correlation. Molecular ecology resources, 10(4), 720-722.
 
-\href{https://royalsocietypublishing.org/doi/abs/10.1098/rspb.2001.1751?casa_token=aXK15yYNjpEAAAAA\%3ATR6IXyuIl03yygS_CWET4ymKFthc0dxwkpgCRGGZL250Am_Ssbxi9bnTDIQmpNnshM7H6vTZ1v83PD0}{Amos, W., Worthington Wilmer, J., Fullard, K., Burg, T. M., Croxall, J. P., Bloch, D., & Coulson, T. (2001)}. The influence of parental relatedness on reproductive success. Proceedings of the Royal Society of London. Series B: Biological Sciences, 268(1480), 2021-2027.
+Amos, W., Worthington Wilmer, J., Fullard, K., Burg, T. M., Croxall, J. P., Bloch, D., & Coulson, T. (2001). The influence of parental relatedness on reproductive success. Proceedings of the Royal Society of London. Series B: Biological Sciences, 268(1480), 2021-2027.\doi{10.1098/rspb.2001.1751}
 
 \href{https://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2006.03111.x}{Aparicio, J. M., Ortego, J., & Cordero, P. J. (2006)}. What should we weigh to estimate heterozygosity, alleles or loci?. Molecular Ecology, 15(14), 4659-4665.
 

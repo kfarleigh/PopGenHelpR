@@ -47,19 +47,19 @@ Test <- Differentiation(data = HornedLizard_VCF, pops = HornedLizard_Pop, write 
 \references{
 \bold{Fst:}
 
-\href{https://doi.org/10.1111/1755-0998.12129}{Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013)}. StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
+Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013). StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.\doi{10.1111/1755-0998.12129}
 
 \href{https://www.jstor.org/stable/2408641}{Weir, B. S., & Cockerham, C. C. (1984)}. Estimating F-statistics for the analysis of population structure. evolution, 1358-1370.
 
 \bold{Nei's D:}
 
-\href{https://www.journals.uchicago.edu/doi/abs/10.1086/282771}{Nei, M. (1972)}. Genetic distance between populations. The American Naturalist, 106(949), 283-292.
+Nei, M. (1972). Genetic distance between populations. The American Naturalist, 106(949), 283-292.\doi{10.1086/282771}
 
-\href{https://doi.org/10.1111/1755-0998.12129}{Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013)}. StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
+\doi{10.1111/1755-0998.12129} Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013). StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
 
 \bold{Jost's D:}
 
-\href{https://doi.org/10.1111/j.1365-294X.2008.03887.x}{Jost L (2008)}. GST and its relatives do not measure differentiation. Molecular Ecology, 17, 4015–4026.
+Jost L (2008). GST and its relatives do not measure differentiation. Molecular Ecology, 17, 4015–4026.\doi{10.1111/j.1365-294X.2008.03887.x}
 }
 \author{
 Keaka Farleigh

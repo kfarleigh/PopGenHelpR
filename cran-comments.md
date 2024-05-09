@@ -1,48 +1,34 @@
 ## May 7th, 2024: This is a new release of PopGenHelpR
 
 ### check_win_devel results
-There were 2 NOTES
+There were 1 NOTE
 
 ```
-Found the following (possibly) invalid URLs:
-  URL: https://royalsocietypublishing.org/doi/abs/10.1098/rspb.2001.1751?casa_token=aXK15yYNjpEAAAAA%3ATR6IXyuIl03yygS_CWET4ymKFthc0dxwkpgCRGGZL250Am_Ssbxi9bnTDIQmpNnshM7H6vTZ1v83PD0
-    From: man/Heterozygosity.Rd
-    Status: 403
-    Message: Forbidden
-  URL: https://www.journals.uchicago.edu/doi/abs/10.1086/282771
-    From: man/Differentiation.Rd
-    Status: 403
-    Message: Forbidden
+* checking CRAN incoming feasibility ... [11s] NOTE
+Maintainer: 'Keaka Farleigh <keakafarleigh@gmail.com>'
 
-Found the following URLs which should use \doi (with the DOI name only):
-  File 'Differentiation.Rd':
-    https://doi.org/10.1111/1755-0998.12129
-    https://doi.org/10.1111/j.1365-294X.2008.03887.x
+Possibly misspelled words in DESCRIPTION:
+  PopGenHelpR (9:109)
+  geno (9:131)
 ```
 
-The urls are valid and work. 
+Both words are spelled correctly. 
+
 
 ### check_win_release results
-There were 2 NOTES
+There were 1 NOTE
 
 ```
-Found the following (possibly) invalid URLs:
-  URL: https://royalsocietypublishing.org/doi/abs/10.1098/rspb.2001.1751?casa_token=aXK15yYNjpEAAAAA%3ATR6IXyuIl03yygS_CWET4ymKFthc0dxwkpgCRGGZL250Am_Ssbxi9bnTDIQmpNnshM7H6vTZ1v83PD0
-    From: man/Heterozygosity.Rd
-    Status: 403
-    Message: Forbidden
-  URL: https://www.journals.uchicago.edu/doi/abs/10.1086/282771
-    From: man/Differentiation.Rd
-    Status: 403
-    Message: Forbidden
+* checking CRAN incoming feasibility ... [11s] NOTE
+Maintainer: 'Keaka Farleigh <keakafarleigh@gmail.com>'
 
-Found the following URLs which should use \doi (with the DOI name only):
-  File 'Differentiation.Rd':
-    https://doi.org/10.1111/1755-0998.12129
-    https://doi.org/10.1111/j.1365-294X.2008.03887.x
+Possibly misspelled words in DESCRIPTION:
+  PopGenHelpR (9:109)
+  geno (9:131)
 ```
 
-The urls are valid and work. 
+Both words are spelled correctly. 
+
 ### check_mac_release results
 There were no errors, notes, or warnings. 
 

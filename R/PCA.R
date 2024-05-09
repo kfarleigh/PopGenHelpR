@@ -75,6 +75,7 @@ PCA <- function(data, center = TRUE, scale = FALSE, missing_value = NA, write = 
 
     Dat <- Dat[,-Loc2rem]
   }
+  
 
   # Scale the data
   Dat_scaled <- scale(Dat, center = center, scale = scale)
@@ -106,6 +107,8 @@ PCA <- function(data, center = TRUE, scale = FALSE, missing_value = NA, write = 
     }
 
   return(Output)
+  
+  print(paste(ncol(Dat)," SNPs were included in PCA because they had no missing data.", sep = ""))
 
 }
 
