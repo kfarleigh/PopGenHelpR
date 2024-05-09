@@ -6,7 +6,7 @@ Authors@R:
     person("Mason", "Murphy", , "momurph@bgsu.edu", role = c("aut","cph", "ctb"), comment = c(ORCID = "0000-0002-5317-1386")),
     person("Christopher", "Blair", , "cblair@citytech.cuny.edu", role = c("aut","cph", "ctb"), comment = c(ORCID = "0000-0002-4782-6788")),
     person("Tereza", "Jezkova", , "jezkovt@miamioh.edu", role = c("aut","cph", "ctb"), comment = c(ORCID = "0000-0003-4114-4564")))
-Description: Estimate commonly used population genomic statistics and generate publication quality figures. PopGenHelpR uses vcf, geno (012), and csv files to generate output.
+Description: Estimate commonly used population genomic statistics and generate publication quality figures. 'PopGenHelpR' uses vcf, 'geno' (012), and csv files to generate output.
 URL: https://kfarleigh.github.io/PopGenHelpR/
 BugReports: https://github.com/kfarleigh/PopGenHelpR/issues
 License: GPL (>= 3)
