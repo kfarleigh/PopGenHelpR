@@ -1,5 +1,5 @@
 
-# PopGenHelpR version 1.3.0 <img src="man/figures/PGH_Logo_Outlined.png" align="right" width="145" height = "145"/>
+# PopGenHelpR version 1.3.1 <img src="man/figures/PGH_Logo_Outlined.png" align="right" width="145" height = "145"/>
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/PopGenHelpR)](https://cran.r-project.org/package=PopGenHelpR)

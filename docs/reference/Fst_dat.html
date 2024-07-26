@@ -12,7 +12,7 @@ by subsetting data of Farleigh et al., 2021. — Fst_dat"><meta property="og:des
     
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,9 +88,12 @@ by subsetting data of Farleigh et al., 2021.</h1>
 <span class="r-in"><span><span class="va">Fst</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="va">Test</span> <span class="op">&lt;-</span> <span class="fu"><a href="Dif_Stats_Map.html">Dif_Stats_Map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>,</span></span>
-<span class="r-in"><span>neighbors <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#fd8d3c'</span>,<span class="st">'#fc4e2a'</span>,<span class="st">'#e31a1c'</span>,<span class="st">'#bd0026'</span>,<span class="st">'#800026'</span><span class="op">)</span>,Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="co"># }</span></span></span>
+<span class="r-in"><span> <span class="va">Test</span> <span class="op">&lt;-</span> <span class="fu"><a href="Network_map.html">Network_map</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, pops <span class="op">=</span> <span class="va">Loc</span>,</span></span>
+<span class="r-in"><span>neighbors <span class="op">=</span> <span class="fl">2</span>,col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#4575b4'</span>, <span class="st">'#91bfdb'</span>, <span class="st">'#e0f3f8'</span>,<span class="st">'#fd8d3c'</span>,<span class="st">'#fc4e2a'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>statistic <span class="op">=</span> <span class="st">"Fst"</span>, Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="co"># }</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'spdep':</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   method   from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   plot.mst ape </span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>k greater than one-third of the number of data points</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Fstat_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pairwise_heatmap.html">Pairwise_heatmap</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">Fst</span>, statistic <span class="op">=</span> <span class="st">'FST'</span><span class="op">)</span></span></span>
