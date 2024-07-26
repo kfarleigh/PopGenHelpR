@@ -40,6 +40,19 @@ We will compare the performance of `PopGenHelpR` with other R packages available
 First we will load the packages and the data in `PopGenHelpR`. The data comes from [Farleigh et al. (2021)]( https://doi.org/10.1111/mec.16070). We also load `vcfR` to convert between data formats ([Knaus & Grunwald, 2017](https://doi.org/10.1111/1755-0998.12549)). 
 
 ```{r setup}
+# Install packages if needed
+if (!require("adegenet", quietly = TRUE))
+    install.packages("adegenet")
+
+if (!require("hierfstat", quietly = TRUE))
+    install.packages("hierfstat")
+
+if (!require("StAMPP", quietly = TRUE))
+    install.packages("StAMPP")
+
+if (!require("mmod", quietly = TRUE))
+    install.packages("mmod")
+
 # Load the packages
 library(PopGenHelpR)
 library(adegenet)
