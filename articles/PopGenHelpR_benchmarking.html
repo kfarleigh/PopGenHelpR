@@ -103,26 +103,25 @@ comparison.</p>
 also load <code>vcfR</code> to convert between data formats (<a href="https://doi.org/10.1111/1755-0998.12549" class="external-link">Knaus &amp; Grunwald,
 2017</a>).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install packages if needed</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/thibautjombart/adegenet" class="external-link">"adegenet"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"adegenet"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Load the packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kfarleigh.github.io/PopGenHelpR/">PopGenHelpR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thibautjombart/adegenet" class="external-link">adegenet</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: ade4</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;    /// adegenet 2.1.10 is loaded ////////////</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;    &gt; overview: '?adegenet'</span></span>
 <span><span class="co">#&gt;    &gt; tutorials/doc/questions: 'adegenetWeb()' </span></span>
 <span><span class="co">#&gt;    &gt; bug reports/feature requests: adegenetIssues()</span></span>
-<span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://www.r-project.org" class="external-link">"hierfstat"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"hierfstat"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.r-project.org" class="external-link">hierfstat</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'hierfstat'</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:adegenet':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     Hs, read.fstat</span></span>
-<span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/lpembleton/StAMPP" class="external-link">"StAMPP"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"StAMPP"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lpembleton/StAMPP" class="external-link">StAMPP</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: pegas</span></span>
+<span><span class="co">#&gt; Loading required package: ape</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'ape'</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:hierfstat':</span></span>
@@ -139,15 +138,6 @@ also load <code>vcfR</code> to convert between data formats (<a href="https://do
 <span><span class="co">#&gt; The following object is masked from 'package:ade4':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     amova</span></span>
-<span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/dwinter/mmod" class="external-link">"mmod"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mmod"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Load the packages</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kfarleigh.github.io/PopGenHelpR/">PopGenHelpR</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thibautjombart/adegenet" class="external-link">adegenet</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.r-project.org" class="external-link">hierfstat</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lpembleton/StAMPP" class="external-link">StAMPP</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dwinter/mmod" class="external-link">mmod</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/knausb/vcfR" class="external-link">vcfR</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
