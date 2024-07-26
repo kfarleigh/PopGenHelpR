@@ -1,3 +1,18 @@
+## July 26th, 2024: This is a new release of PopGenHelpR
+
+### check_win_devel results
+There were no errors, notes, or warnings. 
+
+
+
+### check_win_release results
+There were no errors, notes, or warnings. 
+
+
+
+### check_mac_release results
+There were no errors, notes, or warnings. 
+
 ## May 7th, 2024: This is a new release of PopGenHelpR
 
 ### check_win_devel results
