@@ -5,66 +5,49 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="PopGenHelpR">
 <title>Which heterozygosity should I use? • PopGenHelpR</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Which heterozygosity should I use?">
-<meta property="og:description" content="PopGenHelpR">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Which heterozygosity should I use?">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-primary" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">PopGenHelpR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Manual</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Manual</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/PopGenHelpR_vignette.html">Vignette</a>
-    <a class="dropdown-item" href="../articles/PopGenHelpR_benchmarking.html">Benchmarking</a>
-    <a class="dropdown-item" href="../articles/PopGenHelpR_heterozygosity.html">Choosing heterozygosity</a>
-    <a class="dropdown-item" href="../articles/PopGenHelpR_PCA.html">Principal Component Analysis</a>
-    <a class="dropdown-item" href="../articles/PopGenHelpR_createQmatrix.html">Creating a Q-matrix</a>
-    <a class="dropdown-item" href="../articles/PopGenHelpR_sortQmatrix.html">Sorting a Q-matrix</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/PopGenHelpR_vignette.html">Vignette</a></li>
+    <li><a class="dropdown-item" href="../articles/PopGenHelpR_benchmarking.html">Benchmarking</a></li>
+    <li><a class="dropdown-item" href="../articles/PopGenHelpR_heterozygosity.html">Choosing heterozygosity</a></li>
+    <li><a class="dropdown-item" href="../articles/PopGenHelpR_PCA.html">Principal Component Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/PopGenHelpR_createQmatrix.html">Creating a Q-matrix</a></li>
+    <li><a class="dropdown-item" href="../articles/PopGenHelpR_sortQmatrix.html">Sorting a Q-matrix</a></li>
+  </ul>
 </li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/kfarleigh/PopGenHelpR">
-    <span class="fa fa-github"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/kfarleigh/PopGenHelpR"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -73,10 +56,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Which heterozygosity should I use?</h1>
+
+      <h1>Which heterozygosity should I use?</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/kfarleigh/PopGenHelpR/blob/HEAD/vignettes/articles/PopGenHelpR_heterozygosity.Rmd" class="external-link"><code>vignettes/articles/PopGenHelpR_heterozygosity.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/kfarleigh/PopGenHelpR/blob/main/vignettes/articles/PopGenHelpR_heterozygosity.Rmd" class="external-link"><code>vignettes/articles/PopGenHelpR_heterozygosity.Rmd</code></a></small>
       <div class="d-none name"><code>PopGenHelpR_heterozygosity.Rmd</code></div>
     </div>
 
@@ -146,20 +130,24 @@ respectively) of each population in their data set.</p>
 <p><code>PopGenHelpR</code> estimates <em>H<sub>e</sub></em> per locus
 and population following the equations provided by the Hardy-Weinberg
 equation. Briefly, the equation estimates <em>H<sub>e</sub></em> as one
-minus the squared frequency of each allele (<span class="math inline">\(p^2\)</span> and <span class="math inline">\(q^2\)</span>, respectively), thus giving us the
-expected frequency of heterozygous genotypes (2pq) at a locus. The
-overall measure of <em>H<sub>e</sub></em> is calculated as the average
-of the per locus estimates.</p>
+minus the squared frequency of each allele
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>p</mi><mn>2</mn></msup><annotation encoding="application/x-tex">p^2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>q</mi><mn>2</mn></msup><annotation encoding="application/x-tex">q^2</annotation></semantics></math>,
+respectively), thus giving us the expected frequency of heterozygous
+genotypes (2pq) at a locus. The overall measure of
+<em>H<sub>e</sub></em> is calculated as the average of the per locus
+estimates.</p>
 <p>The equation per locus is below, where <em>p</em> is the reference
 allele and <em>q</em> is the alternate allele:</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>e</mi></msub><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><mo>−</mo><msup><mi>q</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">
 H_e = 1-p^2-q^2
-\]</span></p>
+</annotation></semantics></math></p>
 <p>Thus, the equation to calculate the overall <em>H<sub>e</sub></em> is
 below, where <em>K</em> is the number of SNPs.</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>e</mi></msub><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><mo>−</mo><msup><mi>q</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mi>K</mi></mfrac></mrow><annotation encoding="application/x-tex">
 H_e =  \frac{\sum_{k=1}^K(1-p^2-q^2)}{K}
-\]</span></p>
+</annotation></semantics></math></p>
 <div class="section level4">
 <h4 id="how-do-we-use-he">How do we use <em>H<sub>e</sub></em><a class="anchor" aria-label="anchor" href="#how-do-we-use-he"></a>
 </h4>
@@ -189,21 +177,20 @@ proportion of heterozygotes at a locus. The overall measure of
 <em>H<sub>o</sub></em> is calculated as the average of the per locus
 estimates.</p>
 <p>The equation per locus is below:</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>o</mi></msub><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><mrow><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mspace width="0.278em"></mspace><mi>o</mi><mi>f</mi><mspace width="0.278em"></mspace><mi>h</mi><mi>o</mi><mi>m</mi><mi>o</mi><mi>y</mi><mi>z</mi><mi>g</mi><mi>o</mi><mi>t</mi><mi>e</mi><mi>s</mi></mrow><mrow><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mspace width="0.278em"></mspace><mi>o</mi><mi>f</mi><mspace width="0.278em"></mspace><mi>s</mi><mi>a</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>s</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 H_o = 1- \frac{Number\; of\; homoyzgotes}{Number\; of\; samples}
-\]</span></p>
+</annotation></semantics></math></p>
 <p>Thus the overall measure of <em>H<sub>o</sub></em> is below, where K
 is the number of SNPs:</p>
-<p><span class="math display">\[
-H_o = \frac{\sum_{k = 1}^K{1- \frac{Number\; of\; homoyzgotes}{Number\;
-of\; samples}}}{K}
-\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>o</mi></msub><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><mrow><mn>1</mn><mo>−</mo><mfrac><mrow><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mspace width="0.278em"></mspace><mi>o</mi><mi>f</mi><mspace width="0.278em"></mspace><mi>h</mi><mi>o</mi><mi>m</mi><mi>o</mi><mi>y</mi><mi>z</mi><mi>g</mi><mi>o</mi><mi>t</mi><mi>e</mi><mi>s</mi></mrow><mrow><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mspace width="0.278em"></mspace><mi>o</mi><mi>f</mi><mspace width="0.278em"></mspace><mi>s</mi><mi>a</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>s</mi></mrow></mfrac></mrow></mrow><mi>K</mi></mfrac></mrow><annotation encoding="application/x-tex">
+H_o = \frac{\sum_{k = 1}^K{1- \frac{Number\; of\; homoyzgotes}{Number\; of\; samples}}}{K}
+</annotation></semantics></math></p>
 <p>The formal equation of <em>H<sub>o</sub></em> from Nei (1987) is
 below: <em>Pkii</em> is the proportion of homozygote (<em>i</em>) in a
 sample (<em>k</em>), and <em>np</em> is the number of samples:</p>
-<p><span class="math display">\[
-H_o = 1-\sum_{k}\sum_{i}\frac{Pkii}{np}
-\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>o</mi></msub><mo>=</mo><mn>1</mn><mo>−</mo><munder><mo>∑</mo><mi>k</mi></munder><munder><mo>∑</mo><mi>i</mi></munder><mfrac><mrow><mi>P</mi><mi>k</mi><mi>i</mi><mi>i</mi></mrow><mrow><mi>n</mi><mi>p</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+H_o = 1-\sum_{k}\sum_{i}\frac{Pkii}{np} 
+</annotation></semantics></math></p>
 <div class="section level4">
 <h4 id="how-do-we-use-ho">How do we use <em>H<sub>o</sub></em><a class="anchor" aria-label="anchor" href="#how-do-we-use-ho"></a>
 </h4>
@@ -241,10 +228,9 @@ set.</p>
 <p>The proportion of heterozygous loci (<em>PHt</em>) is calculated as
 the number of heterozygous SNPs divided by the number of genotyped SNPs
 in each individual.</p>
-<p><span class="math display">\[
-PHt = \frac{Number\; of\; heterozygous\; SNPs}{Number\; of\; genotyped\;
-SNPs}
-\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>H</mi><mi>t</mi><mo>=</mo><mfrac><mrow><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mspace width="0.278em"></mspace><mi>o</mi><mi>f</mi><mspace width="0.278em"></mspace><mi>h</mi><mi>e</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>o</mi><mi>z</mi><mi>y</mi><mi>g</mi><mi>o</mi><mi>u</mi><mi>s</mi><mspace width="0.278em"></mspace><mi>S</mi><mi>N</mi><mi>P</mi><mi>s</mi></mrow><mrow><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mspace width="0.278em"></mspace><mi>o</mi><mi>f</mi><mspace width="0.278em"></mspace><mi>g</mi><mi>e</mi><mi>n</mi><mi>o</mi><mi>t</mi><mi>y</mi><mi>p</mi><mi>e</mi><mi>d</mi><mspace width="0.278em"></mspace><mi>S</mi><mi>N</mi><mi>P</mi><mi>s</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+PHt = \frac{Number\; of\; heterozygous\; SNPs}{Number\; of\; genotyped\; SNPs}
+</annotation></semantics></math></p>
 <div class="section level4">
 <h4 id="how-do-we-use-pht">How do we use <em>PHt</em><a class="anchor" aria-label="anchor" href="#how-do-we-use-pht"></a>
 </h4>
@@ -274,9 +260,9 @@ expected heterozygosity (<em>Hs<sub>exp</sub></em>) is calculated as
 <em>PHt</em> divided by the mean expected heterozygosity
 (<em>H<sub>e</sub></em>) for each individual. Please see the equation
 below.</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><msub><mi>s</mi><mrow><mi>e</mi><mi>x</mi><mi>p</mi></mrow></msub><mo>=</mo><mfrac><mrow><mi>P</mi><mi>H</mi><mi>t</mi></mrow><msub><mi>H</mi><mi>e</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">
 Hs_{exp} = \frac{PHt}{H_e}
-\]</span></p>
+</annotation></semantics></math></p>
 <div class="section level4">
 <h4 id="how-do-we-use-hsexp">How do we use <em>Hs<sub>exp</sub></em><a class="anchor" aria-label="anchor" href="#how-do-we-use-hsexp"></a>
 </h4>
@@ -306,9 +292,9 @@ observed heterozygosity (<em>Hs<sub>obs</sub></em>) is calculated as
 <em>PHt</em> divided by the mean observed heterozygosity
 (<em>H<sub>o</sub></em>) for each individual. Please see the equation
 below.</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><msub><mi>s</mi><mrow><mi>o</mi><mi>b</mi><mi>s</mi></mrow></msub><mo>=</mo><mfrac><mrow><mi>P</mi><mi>H</mi><mi>t</mi></mrow><msub><mi>H</mi><mi>o</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">
 Hs_{obs} = \frac{PHt}{H_o}
-\]</span></p>
+</annotation></semantics></math></p>
 <div class="section level4">
 <h4 id="how-do-we-use-hsobs">How do we use <em>Hs<sub>obs</sub></em><a class="anchor" aria-label="anchor" href="#how-do-we-use-hsobs"></a>
 </h4>
@@ -338,9 +324,9 @@ below. <em>IR</em> is calculated as two times the number of homozygous
 loci minus the sum of the frequency of the ith allele divided by two
 times the number of loci minus the sum of the frequency of the ith
 allele (see equation 2.1 in Amos et al., 2001).</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mi>H</mi><mo>−</mo><mo>∑</mo><msub><mi>f</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mi>N</mi><mo>−</mo><mo>∑</mo><msub><mi>f</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 IR = \frac{(2H-\sum{f_i})}{(2N-\sum{f_i})}
-\]</span></p>
+</annotation></semantics></math></p>
 <div class="section level4">
 <h4 id="how-do-we-use-ir">How do we use <em>IR</em>?<a class="anchor" aria-label="anchor" href="#how-do-we-use-ir"></a>
 </h4>
@@ -363,13 +349,16 @@ command below.</p>
 <h3 id="homozygosity-by-locus-hl">Homozygosity by locus (<em>HL</em>)<a class="anchor" aria-label="anchor" href="#homozygosity-by-locus-hl"></a>
 </h3>
 <p>Homozygosity by locus (<em>HL</em>) is calculated as the expected
-heterozygosity of loci in homozygosis (<span class="math inline">\(E_h\)</span>) divided by the sum of the expected
-heterozygosity of loci in homozygosis (<span class="math inline">\(E_h\)</span>) and the expected heterozygosity of
-loci in heterozygosis (<span class="math inline">\(E_j\)</span>; see
-Aparicio et al., 2006). Please see the equation below.</p>
-<p><span class="math display">\[
+heterozygosity of loci in homozygosis
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>h</mi></msub><annotation encoding="application/x-tex">E_h</annotation></semantics></math>)
+divided by the sum of the expected heterozygosity of loci in homozygosis
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>h</mi></msub><annotation encoding="application/x-tex">E_h</annotation></semantics></math>)
+and the expected heterozygosity of loci in heterozygosis
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>j</mi></msub><annotation encoding="application/x-tex">E_j</annotation></semantics></math>;
+see Aparicio et al., 2006). Please see the equation below.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mi>L</mi><mo>=</mo><mfrac><mrow><mo>∑</mo><msub><mi>E</mi><mi>h</mi></msub></mrow><mrow><mo>∑</mo><msub><mi>E</mi><mi>h</mi></msub><mo>+</mo><mo>∑</mo><msub><mi>E</mi><mi>j</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 HL = \frac{\sum{E_h}}{\sum{E_h} + \sum{E_j}}
-\]</span></p>
+</annotation></semantics></math></p>
 <div class="section level4">
 <h4 id="how-do-we-use-hl">How do we use <em>HL</em>?<a class="anchor" aria-label="anchor" href="#how-do-we-use-hl"></a>
 </h4>
@@ -413,7 +402,7 @@ Heredity, 112(3), 240-247.</p>
 <p>Nei, M. (1987). Molecular evolutionary genetics. Columbia university
 press.</p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
@@ -430,9 +419,9 @@ press.</p>
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
