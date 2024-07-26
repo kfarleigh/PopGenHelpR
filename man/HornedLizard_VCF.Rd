@@ -3,7 +3,7 @@
 \docType{data}
 \name{HornedLizard_VCF}
 \alias{HornedLizard_VCF}
-\title{A vcfR object to be used in \code{Div_stats} and \code{Dif_stats}.}
+\title{A vcfR object to be used in \code{Heterozygosity} and \code{Differentiation}.}
 \format{
 A vcfR object
 \describe{
@@ -25,8 +25,7 @@ Data frame containing 4 columns and 72 rows
  \donttest{
 data("HornedLizard_Pop")
 data("HornedLizard_VCF")
-Test <- Div_stats(VCF = HornedLizard_VCF, pops = HornedLizard_Pop,
-ploidy = 2, write = FALSE)}
+Test <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
 
 
 }

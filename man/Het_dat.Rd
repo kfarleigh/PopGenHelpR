@@ -3,7 +3,7 @@
 \docType{data}
 \name{Het_dat}
 \alias{Het_dat}
-\title{A data frame of hypothetical heterozygosity data produced by Div_Stats.}
+\title{A data frame of hypothetical heterozygosity data produced by Heterozygosity.}
 \format{
 A data frame with 5 columns and 3 rows:
 \describe{
@@ -28,9 +28,7 @@ Data frame containing 5 columns and 3 rows
 \examples{
 \donttest{
 data(Het_dat)
-Test_het <- Div_Stats_Map(dat = Het_dat, plot.type = 'all',
-statistic = "Heterozygosity",
-Lat_buffer = 1, Long_buffer = 1, write = FALSE, prefix = 'Test_het')}
+Test <- Point_map(Het_dat, statistic = "Heterozygosity")}
 
 }
 \keyword{datasets}

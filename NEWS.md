@@ -1,3 +1,7 @@
+# PopGenHelpR 1.3.1
+- July 26th, 2024
+* The previously deprecated `Dif_stats`, `Dif_stats_map`, `Div_stats`, `Div_stats_map`, and `Plot_Ancestry` functions have been removed.
+
 # PopGenHelpR 1.3.0
 - May 7th, 2024
 * The `Longitude_col` and `Latitude_col` arguments have been added to mapping functions; `Plot_coordinates`, `Ancestry_Piemap`, `Piechart_map`, `Network_map`, and `Point_map`.
