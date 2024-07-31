@@ -20,7 +20,7 @@
 #'
 #' \bold{Nei's D:}
 #'
-#' Nei, M. (1972). Genetic distance between populations. The American Naturalist, 106(949), 283-292.\doi{10.1086/282771} 
+#' Nei, M. (1972). Genetic distance between populations. The American Naturalist, 106(949), 283-292.\doi{10.1086/282771}
 #'
 #' \doi{10.1111/1755-0998.12129} Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013). StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.
 #'
@@ -153,11 +153,11 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     for(i in 1:length(Dat)){
       tmp <- Dat[[i]]
       # Get frequency of alternate alleles
-      q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(tmp[3:ncol(tmp)] != "NA"))
+      q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(!is.na(tmp[3:ncol(tmp)])))
       # Get number of heterozygotes in each population
-      het.freq[i,] <- colSums(tmp[3:ncol(tmp)] == 1)/colSums(tmp[3:ncol(tmp)] != "NA")
+      het.freq[i,] <- colSums(tmp[3:ncol(tmp)] == 1)/colSums(!is.na(tmp[3:ncol(tmp)]))
       # Get the number of individuals with data
-      ind.nomissing[i,] <- colSums(tmp[3:ncol(tmp)] != "NA")
+      ind.nomissing[i,] <- colSums(!is.na(tmp[3:ncol(tmp)]))
     }
     # Set the names of the matrices
     row.names(q.freq) <- row.names(het.freq) <- row.names(ind.nomissing) <- names(Dat)

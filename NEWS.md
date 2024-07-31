@@ -1,3 +1,7 @@
+# PopGenHelpR 1.3.2
+- July 31st, 2024
+* Code to calculate Fst in the `Differentiation` function has been updated to be consistent with the rest of the function (using !is.na).
+
 # PopGenHelpR 1.3.1
 - July 26th, 2024
 * The previously deprecated `Dif_stats`, `Dif_stats_map`, `Div_stats`, `Div_stats_map`, and `Plot_Ancestry` functions have been removed.
