@@ -11,13 +11,14 @@ Ancestry_barchart(
   plot.type = "all",
   col,
   ind.order = NULL,
-  pop.order = NULL
+  pop.order = NULL,
+  legend_pos = "right"
 )
 }
 \arguments{
 \item{anc.mat}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first column should be the names of each sample/population, followed by the estimated contribution of each cluster to that individual/pop.}
 
-\item{pops}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The columns should be named Sample, containing the sample IDs; Population indicating the population assignment of the individual, population and sample names must be the same type (i.e., both numeric or both characters); Long, indicating the longitude of the sample; Lat, indicating the latitude of the sample.}
+\item{pops}{Data frame or character string that supplies the input data. If it is a character string, the file should be a csv. The first two columns should indicate the sample name (first column) and the population that sample belongs to (second column). Other columns (i.e., latitude, longitude) can be present, but will not be used.}
 
 \item{K}{Numeric.The number of genetic clusters in your data set, please contact the package authors if you need help doing this.}
 
@@ -27,7 +28,9 @@ Ancestry_barchart(
 
 \item{ind.order}{Character vector indicating the order to plot the individuals in the individual ancestry bar chart.}
 
-\item{pop.order}{Chracter vector indicating the order to plot the populations in the population ancesyry bar chart.}
+\item{pop.order}{Character vector indicating the order to plot the populations in the population ancestry bar chart.}
+
+\item{legend_pos}{Character. The desired position of the legend. The default is "none", which removes the legend. Other options include "left", "right", "top" or "bottom". Please see the ggplot2 documentation for all of the legend placement options.}
 }
 \value{
 A list containing your plots and the data frames used to generate the plots.

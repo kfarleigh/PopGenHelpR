@@ -14,7 +14,24 @@ Network_map(
   Lat_buffer = 1,
   Long_buffer = 1,
   Latitude_col = NULL,
-  Longitude_col = NULL
+  Longitude_col = NULL,
+  country_code = NULL,
+  shapefile = NULL,
+  raster = NULL,
+  legend_pos = "none",
+  scale_bar = FALSE,
+  north_arrow = FALSE,
+  north_arrow_style = ggspatial::north_arrow_nautical(),
+  north_arrow_position = NULL,
+  shapefile_plot_position = NULL,
+  raster_plot_position = NULL,
+  shapefile_col = NULL,
+  shapefile_outline_col = NULL,
+  shp_outwidth = 1,
+  raster_col = c("#2c7bb6", "#abd9e9", "#ffffbf", "#fdae61", "#d7191c"),
+  interpolate_raster = NULL,
+  raster_breaks = NULL,
+  discrete_raster = NULL
 )
 }
 \arguments{
@@ -28,7 +45,7 @@ Network_map(
 
 \item{statistic}{Character indicating the statistic being plotted. This will be used to title the legend. The legend title will be blank if left as NULL.}
 
-\item{breaks}{Numeric. The breaks used to generate the color ramp when plotting. Users should supply 3 values if custom breaks are desired.}
+\item{breaks}{Numeric. The breaks used to generate the color ramp when plotting. The number of breaks should match the number of colors.}
 
 \item{Lat_buffer}{Numeric. A buffer to customize visualization.}
 
@@ -37,6 +54,40 @@ Network_map(
 \item{Latitude_col}{Numeric. The number of the column indicating the latitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Lat column.}
 
 \item{Longitude_col}{Numeric. The number of the column indicating the longitude for each sample. If this is not null, PopGenHelpR will use this column instead of looking for the Long column.}
+
+\item{country_code}{Character. A country code or vector of country codes from the R package \href{https://cran.r-project.org/web/packages/geodata/index.html}{geodata} specifying the country that you want to plot administrative borders for (e.g, US states). You can determine the correct codes using geodata's \code{country_codes} function.}
+
+\item{shapefile}{Character. A file name, vector of file names of a shapefile(s) to plot on the map, or a spatvector object that is compatible with the R package terra. This should be used in conjunction with the shapefile_plot_position argument.}
+
+\item{raster}{Character.A file name or a spatraster object that is compatible with the terra R package. This should be used in conjunction with the raster_plot_position argument.}
+
+\item{legend_pos}{Character. The desired position of the legend. The default is "none", which removes the legend. Other options include "left", "right", "top" or "bottom". Please see the ggplot2 documentation for all of the legend placement options.}
+
+\item{scale_bar}{Boolean. Whether or not to add a scale bar. Note that maps with large areas or those that use unprojected spatial data (i.e., WGS 84) will generate a warning that the scale bar varies.}
+
+\item{north_arrow}{Boolean. Whether or not to add a north arrow.}
+
+\item{north_arrow_style}{Character. Which style of north arrow to add. See \href{https://cran.r-project.org/web/packages/ggspatial/index.html}{ggspatial} documentation for more details.}
+
+\item{north_arrow_position}{Character. The position of the north arrow. See \href{https://cran.r-project.org/web/packages/ggspatial/index.html}{ggspatial} documentation for more details.}
+
+\item{shapefile_plot_position}{Numeric. A number indicating which position to plot the shapefile in. The options are 1, which plots the shapefile on top of the base world map (under points and administrative boundaries), 2 which plots the shapefile on top of administrative boundaries (but under points), and 3, which plots the shapefile on top of everything.}
+
+\item{raster_plot_position}{Numeric. A number indicating which position to plot the shapefile in. The options are 1, which plots the raster on top of the base world map (under points and administrative boundaries), 2 which plots the raster on top of administrative boundaries (but under points), and 3, which plots the raster on top of everything.}
+
+\item{shapefile_col}{Character. A color or color vector indicating the color to fill the shapefile(s) with. Shapefiles will be colored alphabetically.}
+
+\item{shapefile_outline_col}{Character. A color indicating the outline color of the shapefile.}
+
+\item{shp_outwidth}{Numeric. The width of the shapefile outline.}
+
+\item{raster_col}{Character. A character vector indicating the colors used to visualize the raster. The function will seperate your raster data into the same number of bins as there are colors. If you provide 5 colors, for example, there will be 5 bins.}
+
+\item{interpolate_raster}{Boolean. Whether or not to interpolate the raster. The default is to interpolate the raster.}
+
+\item{raster_breaks}{Numeric or Character vector. Values to be used as breaks for the raster surface.}
+
+\item{discrete_raster}{Boolean. Indicating whether or not the raster being supplied is discrete.}
 }
 \value{
 A list containing the map and the matrix used to plot the map.

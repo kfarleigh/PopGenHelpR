@@ -1,15 +1,14 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: '3.2'
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
-  PopGenHelpR_benchmarking: PopGenHelpR_benchmarking.html
-  PopGenHelpR_createQmatrix: PopGenHelpR_createQmatrix.html
-  PopGenHelpR_heterozygosity: PopGenHelpR_heterozygosity.html
-  PopGenHelpR_PCA: PopGenHelpR_PCA.html
-  PopGenHelpR_sortQmatrix: PopGenHelpR_sortQmatrix.html
+  articles/PopGenHelpR_benchmarking: PopGenHelpR_benchmarking.html
+  articles/PopGenHelpR_createQmatrix: PopGenHelpR_createQmatrix.html
+  articles/PopGenHelpR_heterozygosity: PopGenHelpR_heterozygosity.html
+  articles/PopGenHelpR_PCA: PopGenHelpR_PCA.html
+  articles/PopGenHelpR_sortQmatrix: PopGenHelpR_sortQmatrix.html
   PopGenHelpR_vignette: PopGenHelpR_vignette.html
-last_built: 2024-07-31T16:50Z
+last_built: 2025-05-02T19:06Z
 urls:
   reference: https://kfarleigh.github.io/PopGenHelpR/reference
   article: https://kfarleigh.github.io/PopGenHelpR/articles
-

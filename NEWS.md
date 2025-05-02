@@ -1,3 +1,27 @@
+# PopGenHelpR 1.4.0
+- May 2nd, 2025
+## `Ancestry_barchart`
+- Code has been simplified, individual and population information is now coerced to character before visualization.
+- It is now an error if the individual names in the population data do not match the names in the individual data.
+- Plots are automatically sorted by cluster so that individuals and populations are plotted with others in the cluster, if there is no specified order.
+- Users can specify the individual and population order using the `ind.order` and `pop.order` arguments, respectively. 
+- Users can specify the legend position using the `legend_pos` argument. 
+
+## Mapping functions 
+The following updates laregly apply for the `Plot_coordinates`, `Piechart_map`, `Point_map`, and `Network_map` functions. We note where any updates are function specific. 
+
+- The maps are now built using the R package [geodata](https://cran.r-project.org/web/packages/geodata/geodata.pdf) to avoid the mapping NULL layer error.
+- Users can now include administrative borders like states using the `country_code` argument. Country codes must match those used in geodata.
+- Users can color points by group using the `group` argument and `group_col` argument to specify colors for each group (only for `Plot_coordinates`).
+- Users can specify the legend position using the `legend_pos` argument. 
+- Users can add a scale bar or north arrow to plots using the `scale_bar` and `north_arrow` arguments. Users can also modify the position and style of the north arrow using `north_arrow_position` and `north_arrow_style` arguments, respectively. 
+- Users can add a shapefile to the map with the `shapefile` argument. Users can also control where the shapefile is placed using `shape_file_position`, the fill color (`shapefile_col`), and the outline color (`shapefile_outline_col`). Shapefiles can be character strings or spatVector objects. 
+- Users can add a raster (discrete or continuous) and control it's placement in a similar fashion to shapefiles, with the `raster`, `raster_col`, and `raster_plot_position` arguments. Custom breaks can be set with `raster_breaks` and  users can indicate if rasters are discrete using `discrete_raster`. **Note that sometimes `terra` interprets continuous rasters as discrete, and users should use the `discrete_raster` argument to accommodate this.** Rasters can be characters or spatRaster objects. 
+- *Rasters cannot be added to the `Piechart_map output because it would require additional dependencies to accomodate two fills on the same ggplot2 object. Please email Keaka Farleigh (see package maintainer) if this poses a problem.*
+
+## `Pairwise_heatmap`
+- Users can now specify color gradients of their preferred length (as long as they have that many colors).
+
 # PopGenHelpR 1.3.2
 - July 31st, 2024
 * Code to calculate Fst in the `Differentiation` function has been updated to be consistent with the rest of the function (using !is.na).
