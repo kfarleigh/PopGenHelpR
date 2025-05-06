@@ -38,7 +38,6 @@ jobs:
       - name: Install benchmarking
         run: |
           Rscript -e "install.packages(c('adegenet', 'hierfstat', 'StAMPP', 'mmod', 'cowplot', 'magrittr', 'devtools), repos='https://ftp.belnet.be/mirror/CRAN')"
-          Rscript -e "devtools::install_github("kfarleigh/PopGenHelpR")"
 
 
       - name: Build site
