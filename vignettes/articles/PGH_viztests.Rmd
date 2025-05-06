@@ -25,6 +25,7 @@ This document contains code and results from stress testing the visualization fu
 ```{r load data and source functions}
 library(cowplot)
 library(magrittr)
+library(PopGenHelpR)
 
 
 # Data
@@ -47,13 +48,6 @@ raster <- geodata::elevation_global(path = tempdir(), res = 5)
 
 # Get temperature data
 temp_ras <- geodata::worldclim_global("tavg", path = tempdir(), res = 5)
-```
-
-```{r Load functions, echo=FALSE, eval=TRUE}
-devtools::install_github("kfarleigh/PopGenHelpR")
-
-library(PopGenHelpR)
-
 ```
 
 ### Ancestry barchart
