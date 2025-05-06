@@ -23,15 +23,15 @@ This document contains code and results from stress testing the visualization fu
 
 ## Load data and source functions
 ```{r load data and source functions}
-library(cowplot)
-library(magrittr)
 
 # Install developmental PopGenHelpR if needed 
 devtools::install_github("kfarleigh/PopGenHelpR")
 
-.rs.restartR()
+base::system("R --no-save") 
 
 library(PopGenHelpR)
+library(cowplot)
+library(magrittr)
 
 
 # Data
