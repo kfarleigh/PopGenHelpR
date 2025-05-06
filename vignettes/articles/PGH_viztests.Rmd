@@ -43,8 +43,7 @@ Het_dat <- PopGenHelpR::Het_dat
 
 
 # Spatial data
-shapefiles <- list.files(path = "/Users/keaka/OneDrive/Desktop/Projects/Crotalus_spatial/Final_shapefiles/",
-                         pattern = "*.shp$", full.names = T)
+shapefiles <-  system.file("extdata", package = "PopGenHelpR") |> list.files(pattern = "*.shp$", full.names = T)
 
 # Remove the viridis shapefile
 shapefiles <- shapefiles[1:8]
