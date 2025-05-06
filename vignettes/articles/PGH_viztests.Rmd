@@ -50,18 +50,9 @@ temp_ras <- geodata::worldclim_global("tavg", path = tempdir(), res = 5)
 ```
 
 ```{r Load functions, echo=FALSE, eval=TRUE}
-# Load in functions
-source("/Users/keaka/OneDrive/Desktop/Projects/PopGenHelpR_offline/Ancestry_barchart_v2.R")
+devtools::install_github("kfarleigh/PopGenHelpR")
 
-source("/Users/keaka/OneDrive/Desktop/Projects/PopGenHelpR_offline/Piechart_map_v2.R")
-
-source("/Users/keaka/OneDrive/Desktop/Projects/PopGenHelpR_offline/Plot_coordinates_v2.R")
-
-source("/Users/keaka/OneDrive/Desktop/Projects/PopGenHelpR_offline/Point_map_v2.R")
-
-source("/Users/keaka/OneDrive/Desktop/Projects/PopGenHelpR_offline/Network_map_v2.R")
-
-source("/Users/keaka/OneDrive/Desktop/Projects/PopGenHelpR_offline/Pariwise_heatmap_v2.R")
+library(PopGenHelpR)
 
 ```
 
