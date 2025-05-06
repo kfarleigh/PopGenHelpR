@@ -417,4 +417,4 @@ plot_grid(Base_PH, PH_wbreaks)
 
 
 
-**Thank you for your interest in our package and for ready through all of this. Please reach out if you have any questions or suggestions that could help make the package better.**
+**Thank you for your interest in our package and for reading through all of this. Please reach out if you have any questions or suggestions that could help make the package better.**
