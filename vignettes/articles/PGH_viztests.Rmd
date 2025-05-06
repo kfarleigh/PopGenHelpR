@@ -2,7 +2,7 @@
 title: "PopGenHelpR function testing"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{PopGenHelpR_sortQmatrix}
+  %\VignetteIndexEntry{PopGenHelpR_viztests}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   options(rmarkdown.html_vignette.check_title = FALSE)
