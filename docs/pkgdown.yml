@@ -7,6 +7,7 @@ articles:
   articles/PopGenHelpR_heterozygosity: PopGenHelpR_heterozygosity.html
   articles/PopGenHelpR_PCA: PopGenHelpR_PCA.html
   articles/PopGenHelpR_sortQmatrix: PopGenHelpR_sortQmatrix.html
+  articles/PopGenHelpR_viztests: PGH_viztests.html
   PopGenHelpR_vignette: PopGenHelpR_vignette.html
 last_built: 2025-05-06T15:42Z
 urls:
