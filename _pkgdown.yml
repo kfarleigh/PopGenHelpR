@@ -31,6 +31,8 @@ navbar:
           href: articles/PopGenHelpR_createQmatrix.html
         - text: Sorting a Q-matrix
           href: articles/PopGenHelpR_sortQmatrix.html
+        - text: Testing plotting arguments
+          href: articles/PGH_viztests.html
     github:
       icon: fa-github
       href: https://github.com/kfarleigh/PopGenHelpR
@@ -39,4 +41,4 @@ footer:
       left: developed_by
       right: Funding
     components:
-        Funding: PopGenHelpR is funded by an National Science Foundation (NSF) Graduate Research Fellowship to KF (Award 2037786), an NSF grant to CB (DEB-1929679), and an NSF career grant to TJ (DEB-2144047).
+        Funding: PopGenHelpR is funded by an National Science Foundation (NSF) Graduate Research Fellowship and NSF Postdoctoral Research Fellowhip in Biology to KF (GRF, Award 2037786; PRFB, DBI-2409958), an NSF grant to CB (DEB-1929679), and an NSF career grant to TJ (DEB-2144047).
