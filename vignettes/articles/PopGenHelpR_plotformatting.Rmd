@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 # Purpose
-This document containse examples of how to format `PopGenHelpR` plots after they are generated, but still within R.
+This document contains examples of how to format `PopGenHelpR` plots after they are generated, but still within R.
 
 ## How to format plots after they are made?
 
@@ -35,8 +35,6 @@ data("Q_dat")
 # First, we separate the list elements into two separate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).
 Qmat <- Q_dat[[1]]
 Pops <- Q_dat[[2]]
-
-Fst_dat <- PopGenHelpR::Fst_dat
 ```
 
 
