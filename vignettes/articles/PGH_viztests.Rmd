@@ -21,7 +21,7 @@ This document contains code and results from stress testing the visualization fu
 **_This document is not pretty, it exists to demonstrate that we have tested many different combinations of arguments in our functions and that they work as expected. Prettier documents can be found in other articles on the [PopGenHelpR website](https://kfarleigh.github.io/PopGenHelpR/)._**
 
 
-## Load data and source functions
+## Load data and packages
 ```{r load data and source functions}
 
 # Install developmental PopGenHelpR if needed 
