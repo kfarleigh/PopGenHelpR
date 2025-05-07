@@ -46,7 +46,7 @@ Base <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027',
 
 No_legend <- Base$`Individual Ancestry Plot` + theme(legend.position = "none")
 
-No_legend_lab <- Base$`Individual Ancestry Plot` + theme(legend.position = "none", axis.text.x = element_text(angle = 0))
+No_legend_lab <- Base$`Individual Ancestry Plot` + theme(legend.position = "none", axis.text.x = element_text(angle = 0, hjust = 0.5))
 
 plot_grid(Base$`Individual Ancestry Plot`, No_legend, No_legend_lab, ncol = 1)
 
