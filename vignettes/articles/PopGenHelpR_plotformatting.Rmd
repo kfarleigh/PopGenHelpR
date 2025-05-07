@@ -1,0 +1,55 @@
+---
+title: "Formatting PopGenHelpR plots"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PopGenHelpR_plotformatting}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  options(rmarkdown.html_vignette.check_title = FALSE)
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Purpose
+This document containse examples of how to format `PopGenHelpR` plots after they are generated, but still within R.
+
+## How to format plots after they are made?
+
+`PopGenHelpR` plots are created using ggplot2, which means that we can modify them after the fact. Normally, this means modifying the `theme`, where we can change font size, axis titles, legends, and much more (see https://ggplot2.tidyverse.org/reference/theme.html for ideas). We will go through a couple of examples to get you started. Please reach out if you have any questions or need help.
+
+## Load the data and packages
+```{r Load data}
+# Load PopGenHelpR
+library(PopGenHelpR)
+library(cowplot)
+library(ggplot2)
+
+# Load data
+data("Q_dat")
+
+# First, we separate the list elements into two separate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).
+Qmat <- Q_dat[[1]]
+Pops <- Q_dat[[2]]
+
+Fst_dat <- PopGenHelpR::Fst_dat
+```
+
+
+We will do this using the `Ancestry_barchart` output as an example, but this can be done with any of the plots that `PopGenHelpR` produces. 
+
+```{r Ancestry, out.width= 1500, out.height = 1250}
+
+Base <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'))
+
+No_legend <- Base$`Individual Ancestry Plot` + theme(legend.position = "none")
+
+No_legend_lab <- Base$`Individual Ancestry Plot` + theme(legend.position = "none", axis.text.x = element_text(angle = 0))
+
+plot_grid(Base$`Individual Ancestry Plot`, No_legend, No_legend_lab, ncol = 1)
+
+```

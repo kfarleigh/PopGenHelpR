@@ -33,6 +33,8 @@ navbar:
           href: articles/PopGenHelpR_sortQmatrix.html
         - text: Making Maps
           href: articles/PopGenHelpR_MakingMaps.html
+        - text: Formatting plots
+          href: articles/PopGenHelpR_plotformatting.html
         - text: Testing plotting arguments
           href: articles/PGH_viztests.html
     github:
