@@ -31,6 +31,8 @@ navbar:
           href: articles/PopGenHelpR_createQmatrix.html
         - text: Sorting a Q-matrix
           href: articles/PopGenHelpR_sortQmatrix.html
+        - text: Making Maps
+          href: articles/PopGenHelpR_MakingMaps.html
         - text: Testing plotting arguments
           href: articles/PGH_viztests.html
     github:
