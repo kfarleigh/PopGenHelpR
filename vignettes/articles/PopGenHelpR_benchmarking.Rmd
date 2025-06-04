@@ -1,5 +1,5 @@
 ---
-title: "Benchmarking PopGenHelpR with adegenet, hierfstat, mmod, and StAMPP"
+title: "Evaluating PopGenHelpR with adegenet, hierfstat, mmod, and StAMPP"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{PopGenHelpR_benchmarking}
@@ -145,8 +145,9 @@ PGH_JD$JostsD
 mmod_JD
 
 # Compare differences mathematically
-PGH_JD$JostsD[2:3,1] - mmod_JD[1:2]
-PGH_JD$JostsD[2,2] - mmod_JD[3]
+PGH_JD$JostsD[2,1] - mmod_JD[1]
+PGH_JD$JostsD[3,1] - mmod_JD[2]
+PGH_JD$JostsD[3,2] - mmod_JD[3]
 ```
 
 Estimate's are very similar between `PopGenHelpR` and `mmod`, we will move onto heterozygosity.

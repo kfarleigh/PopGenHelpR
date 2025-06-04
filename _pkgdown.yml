@@ -21,8 +21,6 @@ navbar:
       menu:
         - text: Vignette
           href: articles/PopGenHelpR_vignette.html
-        - text: Benchmarking
-          href: articles/PopGenHelpR_benchmarking.html
         - text: Choosing heterozygosity
           href: articles/PopGenHelpR_heterozygosity.html
         - text: Principal Component Analysis
@@ -35,6 +33,8 @@ navbar:
           href: articles/PopGenHelpR_MakingMaps.html
         - text: Formatting plots
           href: articles/PopGenHelpR_plotformatting.html
+        - text: Testing PopGen statistics
+          href: articles/PopGenHelpR_benchmarking.html
         - text: Testing plotting arguments
           href: articles/PGH_viztests.html
     github:

@@ -1,5 +1,9 @@
 # PopGenHelpR 1.4.0
 - May 2nd, 2025
+## `Differentiation` and `Heterozygosity`
+- Functions can now detect whether "|" or "\" separate genotypes. This was causing functions to throw NAs.
+- Minor bug was fixed for Jost's D calculation. A parentheses was removed in the calculation of the `D.bar` object. 
+
 ## `Ancestry_barchart`
 - Code has been simplified, individual and population information is now coerced to character before visualization.
 - It is now an error if the individual names in the population data do not match the names in the individual data.

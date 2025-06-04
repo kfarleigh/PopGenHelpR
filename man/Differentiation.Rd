@@ -16,7 +16,7 @@ Differentiation(
 )
 }
 \arguments{
-\item{data}{Character. String indicating the name of the vcf file, geno file or vcfR object to be used in the analysis.}
+\item{data}{Character. String indicating the name of the vcf file, geno file or vcfR object to be used in the analysis.The genotypes within the vcf should be seperated by a "/" or "|". This normally indicates unphased and phased genotypes, respectively. Please reach out to PopGenHelpR authors if you have questions.}
 
 \item{pops}{Character. String indicating the name of the population assignment file or dataframe containing the population assignment information for each individual in the data. This file must be in the same order as the vcf file and include columns specifying the individual and the population that individual belongs to. The first column should contain individual names and the second column should indicate the population assignment of each individual. Alternatively, you can indicate the column containing the individual and population information using the individual_col and population_col arguments.}
 
