@@ -108,11 +108,13 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     
     # Preserve individual names
     Inds <- rownames(Dat)
-    Dat <- sapply(Dat, as.numeric)
+    Dat[] <- sapply(Dat, as.numeric)
   } else if(tools::file_ext(data) == 'geno'){
     Dat <- utils::read.table(data)
-    print("Geno file detected, proceeding to formatting. Note, PopGenHelpR assumes that your individuals in the geno file and
-          popmap are in the same order, please check to avoid erroneous inferences.")
+    Dat <- sapply(Dat, as.numeric)
+    Inds <- Inds_popmap
+    print("Geno file detected, proceeding to formatting. Note, PopGenHelpR assumes that your individuals in the geno file and popmap are in the same order, please check to avoid erroneous inferences.")
+    
   } else {
     stop("Please supply a geno file, vcf file, or vcfR object for analysis")
   }
