@@ -11,7 +11,7 @@ articles:
   articles/PopGenHelpR_plotformatting: PopGenHelpR_plotformatting.html
   articles/PopGenHelpR_sortQmatrix: PopGenHelpR_sortQmatrix.html
   PopGenHelpR_vignette: PopGenHelpR_vignette.html
-last_built: 2025-06-11T12:18Z
+last_built: 2025-06-17T23:50Z
 urls:
   reference: https://kfarleigh.github.io/PopGenHelpR/reference
   article: https://kfarleigh.github.io/PopGenHelpR/articles
