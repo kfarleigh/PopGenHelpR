@@ -83,7 +83,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     
     # Preserve individual names
     Inds <- rownames(Dat)
-    Dat <- sapply(Dat, as.numeric)
+    Dat[] <- sapply(Dat, as.numeric)
   } else if(tools::file_ext(data) == 'vcf') {
     Dat <- vcfR::read.vcfR(data, verbose = FALSE)
     print("VCF file detected, proceeding to formatting.")
@@ -182,12 +182,20 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
       # Get frequency of alternate alleles
       q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(2*colSums(!is.na(tmp[3:ncol(tmp)])))
       # Get number of heterozygotes in each population
-      het.freq[i,] <- colSums(tmp[3:ncol(tmp)] == 1)/colSums(!is.na(tmp[3:ncol(tmp)]))
+      het.freq[i,] <- colSums(tmp[3:ncol(tmp)] == 1, na.rm = TRUE)/colSums(!is.na(tmp[3:ncol(tmp)]))
+  
       # Get the number of individuals with data
       ind.nomissing[i,] <- colSums(!is.na(tmp[3:ncol(tmp)]))
+      
+      # There are some NAs in the het.freq object that aren't real, correct for it 
+      
+      
     }
     # Set the names of the matrices
     row.names(q.freq) <- row.names(het.freq) <- row.names(ind.nomissing) <- names(Dat)
+    
+    q <- q.freq
+    
     
     
     # Use StamPP's indexing
@@ -208,8 +216,8 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     nPop1 <- ind.nomissing[index1_a,]
     nPop2 <- ind.nomissing[index2_a,]
     
-    q1 <- q.freq[index1_a,]
-    q2 <- q.freq[index2_a,]
+    q1 <- q[index1_a,]
+    q2 <- q[index2_a,]
     
     h1 <- het.freq[index1_a,]
     h2 <- het.freq[index2_a,]
@@ -222,6 +230,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     # Squared coefficient of variation of sample sizes
     nc <- (r*n.bar)-(((nPop1^2)+(nPop2^2)) / (r*n.bar))
     
+    
     # Average sample frequency of allele A (q in this case)
     p.bar <- ((nPop1*q1)/(r*n.bar)) + ((nPop2*q2)/(r*n.bar))
     
@@ -232,16 +241,20 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     h.bar <- ((nPop1*h1)/(r*n.bar)) + ((nPop2*h2)/(r*n.bar))
     
     
-    a <- (n.bar/nc) * (s.square - (1/(n.bar-1)) * ( (p.bar*(1-p.bar)) - (((r-1)/r)*s.square) - ((1/4)*h.bar) ))
+    
+    a <- (n.bar/nc) * (s.square - (1/(n.bar-1)) * ((p.bar*(1-p.bar)) - (((r-1)/r)*s.square) - ((1/4)*h.bar)))
     b <- (n.bar/(n.bar-1)) * ( (p.bar*(1-p.bar)) - (((r-1)/r)*s.square) - (((2*n.bar-1)/(4*n.bar))*h.bar))
     c <- (1/2)*h.bar
     
     # a, b, and c can be infinite, we will set these values to NA
-    if(any(is.finite(a) == FALSE) | any(is.finite(b) == FALSE) | any(is.finite(c) == FALSE)){
-      a[which(is.infinite(a))] <- NA
-      b[which(is.infinite(b))] <- NA
-      c[which(is.infinite(c))] <- NA
-    }
+    index.infinite <- which(!is.finite(a) | !is.finite(b) | !is.finite(c))
+    a[index.infinite] <- NA 
+    b[index.infinite] <- NA 
+    c[index.infinite] <- NA 
+    
+    a[a == "NaN"] <- NA
+    b[b == "NaN"] <- NA
+    c[c == "NaN"] <- NA
     
     ### StAMPP's code to consolidate Fst estimates
     
@@ -373,25 +386,35 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
     # Create a matrix to store the alternate allele frequency for each population
     q.freq <- matrix(nrow = length(Dat), ncol = length(Dat[3:ncol(Dat[[1]])]))
     
+    missing.count <- matrix(nrow = length(Dat), ncol = length(Dat[3:ncol(Dat[[1]])]))
+    
     # First we calculate allele frequencies of the alternate allele in each population
     for(i in 1:length(Dat)){
       tmp <- Dat[[i]]
       # Get frequency of alternate alleles
       q.freq[i,] <- (((colSums(tmp[3:ncol(tmp)] == 2, na.rm = T))*2) + colSums(tmp[3:ncol(tmp)] == 1, na.rm = T))/(colSums(!is.na(tmp[3:ncol(tmp)]))*2)
+      missing.count[i,] <- colSums(is.na(tmp[3:ncol(tmp)]))
+      
     }
     # Set the names of the matrices
     row.names(q.freq)  <- names(Dat)
+    row.names(missing.count) <- names(Dat)
+    missing.count <- as.data.frame(missing.count)
+    colnames(missing.count) <- colnames(Dat[[1]][3:ncol(Dat[[1]])])
     
     # Make the allele frequencies a numeric matrix
     q.freq <- as.matrix(q.freq)
     
     p.freq <- as.matrix(1-q.freq)
     
+    
     # Combine allele frequency matrices
     freq_comb <- cbind(q.freq, p.freq)
     
     # Squared allele frequencies
     freq_comb2 <- freq_comb^2
+    
+    
     
     
     ### Calculate Hs and Ht per locus for D calculations
@@ -405,20 +428,52 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
       Nharm <- pop.sizes[,which(rownames(freqs) %in% colnames(pop.sizes))]
       Nharm <- 1/mean(as.numeric(1/Nharm))
       
+      # Remove any loci with all missing sites in each population 
+      
+      
+      freqs_noNA <- freqs[,apply(freqs, 2, function(x) !any(is.na(x)))]
+      freqs2_noNA <- freqs2[,apply(freqs2, 2, function(x) !any(is.na(x)))]
+      
+      loc2rem <- which(colSums(is.na(freqs)[,1:nloc]) > 0)
+      
+      missing.pops <- missing.count[which(rownames(missing.count) %in% rownames(freqs)),]
+      
+      if(length(loc2rem)>0){
+        missing.pops <- missing.pops[,-c(loc2rem)]
+      } else{
+        missing.pops <- missing.pops
+      }
+      
+      freqs <- freqs_noNA
+      freqs2 <- freqs2_noNA
+      
+      remove(freqs_noNA, freqs2_noNA)
+      
+      nloc <-  ncol(freqs)/2
+      
       
       for(i in 1:nloc){
         
         ## Within population measures
-        # Remove any NAs from freqs2, recalculate the harmonic mean, recount the number of populations
+        # Remove any NAs from freqs2, recalculate the harmonic mean, recount the number of individuals supplying alleles
         tmp_f2 <- as.data.frame(freqs2[,c(i,(nloc+i))])
         
+        missing.pop <- missing.pops[,i]
+        
+        #missing.pop <- missing.pops[which(rownames(missing.pops) %in% rownames(freqs)),i]
+        
         freqs2_noNA <- tmp_f2[,apply(tmp_f2, 2, function(x) !any(is.na(x)))]
+        #freqs2_noNA <- freqs2[,c(i,(nloc+1))]
         
         Nharm <- pop.sizes[,which(rownames(freqs2_noNA) %in% colnames(pop.sizes))]
+        
+        Nharm <- Nharm - missing.pop
+        
         Nharm <- 1/mean(as.numeric(1/Nharm))
         
         n <- nrow(freqs2_noNA)
         
+  
         Hs_exp <- mean(1 - rowSums(freqs2_noNA))
         
         Hs <- (2*Nharm/(2*Nharm-1))*Hs_exp
@@ -430,6 +485,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
         tmp_f <- as.data.frame(freqs[,c(i,(nloc+i))])
         
         freqs_noNA <- tmp_f[,apply(tmp_f, 2, function(x) !any(is.na(x)))]
+        #freqs_noNA <- freqs[,c(i,(nloc+1))]
         
         ## Overall measures
         Jt <- 1 - sum(colMeans(freqs_noNA)^2)
@@ -443,7 +499,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
         
         Loc_Hets[["D"]] <- c(Loc_Hets[["D"]], D)
         
-        remove(tmp_f, tmp_f2)
+        remove(missing.pop)
       }
       
       ## Calculate global D, do not consider any NA's
@@ -477,7 +533,7 @@ Differentiation <- function(data, pops, statistic = 'all', missing_value = NA, w
       comp_freq2 <- freq_comb2[Pops2comp,]
       
       # Calculate Jost's D
-      D <- D_calc(freqs = comp_freq, freqs2 = comp_freq2, pop.sizes = n.perpop)
+      D <- D_calc(freqs = comp_freq, freqs2 = comp_freq2, pop.sizes = n.perpop[c(Pops2comp)])
       D <- D[[1]]
       
       # Get indices to store the results
