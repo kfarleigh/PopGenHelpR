@@ -281,10 +281,10 @@ genind objects so we have to do some format conversion first.</p>
 <span><span class="va">mmod_JD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mmod/man/pairwise_D.html" class="external-link">pairwise_D</a></span><span class="op">(</span><span class="va">Genind</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">PGH_JD</span><span class="op">$</span><span class="va">JostsD</span></span>
-<span><span class="co">#&gt;             East    South West</span></span>
-<span><span class="co">#&gt; East  0.00000000       NA   NA</span></span>
-<span><span class="co">#&gt; South 0.08135043 0.000000   NA</span></span>
-<span><span class="co">#&gt; West  0.17491621 0.103915    0</span></span>
+<span><span class="co">#&gt;             East     South West</span></span>
+<span><span class="co">#&gt; East  0.00000000        NA   NA</span></span>
+<span><span class="co">#&gt; South 0.08135043 0.0000000   NA</span></span>
+<span><span class="co">#&gt; West  0.17370519 0.1044025    0</span></span>
 <span><span class="va">mmod_JD</span></span>
 <span><span class="co">#&gt;             East      South</span></span>
 <span><span class="co">#&gt; South 0.08135043           </span></span>
@@ -294,9 +294,9 @@ genind objects so we have to do some format conversion first.</p>
 <span><span class="va">PGH_JD</span><span class="op">$</span><span class="va">JostsD</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">mmod_JD</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] -6.938894e-17</span></span>
 <span><span class="va">PGH_JD</span><span class="op">$</span><span class="va">JostsD</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">mmod_JD</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 0.001211019</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
 <span><span class="va">PGH_JD</span><span class="op">$</span><span class="va">JostsD</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="va">mmod_JD</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] -0.0004875355</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 6.938894e-17</span></span></code></pre></div>
 <p>Estimate’s are very similar between <code>PopGenHelpR</code> and
 <code>mmod</code>, we will move onto heterozygosity.</p>
 </div>
