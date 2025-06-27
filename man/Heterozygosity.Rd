@@ -33,7 +33,7 @@ Heterozygosity(
 \item{individual_col}{Numeric. Optional argument (a number) indicating the column that contains the individuals (i.e., sample name) in the data.}
 }
 \value{
-A list containing the estimated heterozygosity statistics. The per pop values are calculated by taking the average of the per locus estimates or by following the referenced equations.
+A list containing the estimated heterozygosity statistics. The per pop values are calculated by taking the average of the per locus estimates.
 }
 \description{
 A function to estimate seven measures of heterozygosity using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.
