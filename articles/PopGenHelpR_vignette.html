@@ -110,12 +110,29 @@ vcftools and bcftools, respectively.</li>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># bcftools</span></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>bcftools view <span class="sc">-</span>m2 <span class="sc">-</span>M2 <span class="sc">-</span>v snps myfile.vcf <span class="sc">&gt;</span> my_biallelic_file.vcf</span></code></pre></div>
+<p>You can also subset the individuals you wish to include in analysis
+by filtering the vcf file using commands similar to those we provide
+below. These commands assume that you have a text file with no headers
+and one individual per line that you wish to keep.</p>
+<p>For example:</p>
+<p><code>example_samples_tokeep.txt</code></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Ind1</span></span>
+<span><span class="va">Ind2</span></span>
+<span><span class="va">Ind3</span></span>
+<span><span class="va">Ind4</span></span>
+<span><span class="va">Ind5</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># vcftools</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>vcftools <span class="sc">--</span>vcf myfile.vcf <span class="sc">--</span>max<span class="sc">-</span>alleles <span class="dv">2</span> <span class="sc">--</span>keep example_samples_tokeep.txt <span class="sc">--</span>recode <span class="sc">--</span>recode<span class="sc">-</span>INFO<span class="sc">-</span>all <span class="sc">--</span>out my_biallelic_file.vcf</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># bcftools</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>bcftools view <span class="sc">-</span>m2 <span class="sc">-</span>M2 <span class="sc">-</span>v snps <span class="sc">-</span>S example_samples_tokeep.txt myfile.vcf <span class="sc">&gt;</span> my_biallelic_file.vcf</span></code></pre></div>
 <div class="section level5">
 <h5 id="load-the-data">Load the data<a class="anchor" aria-label="anchor" href="#load-the-data"></a>
 </h5>
 <p>First, we will load the data. These data objects are examples of data
 types that can be used in the functions in <code>PopGenHelpR</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"Fst_dat"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"Het_dat"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"Q_dat"</span><span class="op">)</span></span>
@@ -151,7 +168,7 @@ arguments <code>individual_col</code> and <code>population_col</code> to
 specify which column indicates the sample and population names,
 respectively. You can also write the results to a csv if you set
 <code>write = TRUE</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Obs_Het</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Heterozygosity.html">Heterozygosity</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"Ho"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -167,7 +184,7 @@ Again, individual and population columns are assumed to be the first and
 second columns but can be indicated by users with
 <code>individual_col</code> and <code>population_col</code>,
 respectively.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Fst</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Differentiation.html">Differentiation</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -181,7 +198,7 @@ geno files) and does not require you to specify a statistic (all you
 absolutely need is a vcf and population file). Otherwise, it operates
 just like <code>Heterozygosity</code> or
 <code>Differentiation</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PA</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Private.alleles.html">Private.alleles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">HornedLizard_VCF</span>, pops <span class="op">=</span> <span class="va">HornedLizard_Pop</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s move onto visualizations (the fun part), so you can get your
 work submitted!</p>
@@ -208,7 +225,7 @@ population and can be obtained from programs like STRUCTURE, ADMIXTURE,
 or sNMF. Please see our <a href="https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_createQmatrix.html">article</a>
 on how to extract the q-matrix from these programs or email Keaka
 Farleigh.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First, we separate the list elements into two separate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).</span></span>
 <span><span class="va">Qmat</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -222,7 +239,7 @@ Farleigh.</p>
 <p>We can also generate an ancestry matrix by population. The ancestry
 of each population is calculated by averaging the ancestry of the
 individuals in a particular population.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Test_all</span><span class="op">$</span><span class="va">`Population Ancestry Plot`</span></span></code></pre></div>
 <p><img src="img/Anc_barchart2.png" width="600px" height="350px" style="display: block; margin: auto;"></p>
 <p>Now, we will generate piechart maps of ancestry using the
@@ -235,7 +252,7 @@ location, so the population map is probably a better choice. Instead of
 layering individuals on top of each other, the population map averages
 the ancestry of individuals in a population before mapping. See our
 GitHub for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR/" class="uri">https://kfarleigh.github.io/PopGenHelpR/</a>).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First, we seperate the list elements into two seperate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).</span></span>
 <span><span class="va">Qmat</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">Loc</span> <span class="op">&lt;-</span> <span class="va">Q_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -248,7 +265,7 @@ GitHub for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR
 <p><img src="img/Ind_PieMap.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p>Notice the weird partitions? We can take care of those using the
 population piechart map.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Test_all_piemap</span><span class="op">$</span><span class="va">`Population Map`</span></span></code></pre></div>
 <p><img src="img/Pop_PieMap.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 </div>
@@ -264,7 +281,7 @@ allows us to see relationships between populations or individuals and
 only requires a symmetric matrix and legend label (statistic argument).
 You can also supply a color vector like we do below, but it is not
 required.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PW_hmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pairwise_heatmap.html">Pairwise_heatmap</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#0000FF"</span>, <span class="st">"#FF0000"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="img/PWhmap.png" width="600px" height="600px" style="display: block; margin: auto;"></p>
 <p>We can also visualize these relationships on a map using the
@@ -276,14 +293,14 @@ allow for greater customization. The neighbors argument, for example,
 tells the function how many relationships to visualize, and you can also
 use it to specify relationships you want to see. Please see the
 documentation for details.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">NW_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Network_map.html">Network_map</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, pops <span class="op">=</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, neighbors <span class="op">=</span> <span class="fl">2</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span><span class="op">)</span></span>
 <span><span class="va">NW_map</span><span class="op">$</span><span class="va">Map</span></span></code></pre></div>
 <p><img src="img/NW_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p><code>Network_map</code> can also be used to plot specific
 relationships. Let’s isolate the populations with the highest and lowest
 Fst by supplying a character vector to the neighbors argument.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">NW_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Network_map.html">Network_map</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, pops <span class="op">=</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, neighbors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"East_West"</span>, <span class="st">"East_South"</span><span class="op">)</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span><span class="op">)</span></span>
 <span><span class="va">NW_map2</span><span class="op">$</span><span class="va">Map</span></span></code></pre></div>
 <p><img src="img/NW_map2.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
@@ -300,13 +317,13 @@ geographic space.</p>
 name of whatever statistic you are plotting (statistic argument).
 <code>Point_map</code> also assumes that the coordinate column names are
 Latitude and Longitude.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Het_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Point_map.html">Point_map</a></span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span><span class="op">)</span></span>
 <span><span class="va">Het_map</span><span class="op">$</span><span class="va">`Heterozygosity Map`</span></span></code></pre></div>
 <p><img src="img/Het_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p>We can also outline the points by setting the <code>out.col</code>
 argument.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Het_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Point_map.html">Point_map</a></span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, out.col <span class="op">=</span> <span class="st">"#000000"</span><span class="op">)</span></span>
 <span><span class="va">Het_map2</span><span class="op">$</span><span class="va">`Heterozygosity Map`</span></span></code></pre></div>
 <p><img src="img/Het_map2.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
@@ -315,7 +332,7 @@ argument.</p>
 with the coordinates for each row indicated by columns names Latitude
 and Longitude. You can change the size of the points with the
 <code>size</code> argument.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Sample_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Plot_coordinates.html">Plot_coordinates</a></span><span class="op">(</span><span class="va">HornedLizard_Pop</span><span class="op">)</span></span>
 <span><span class="va">Sample_map</span></span></code></pre></div>
 <p><img src="img/Samp_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
