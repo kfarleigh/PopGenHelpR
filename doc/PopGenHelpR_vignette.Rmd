@@ -46,6 +46,29 @@ vcftools --vcf myfile.vcf --max-alleles 2 --recode --recode-INFO-all --out my_bi
 bcftools view -m2 -M2 -v snps myfile.vcf > my_biallelic_file.vcf
 ```
 
+
+You can also subset the individuals you wish to include in analysis by filtering the vcf file using commands similar to those we provide below. These commands assume that you have a text file with no headers and one individual per line that you wish to keep.
+
+For example:
+
+`example_samples_tokeep.txt`
+
+```{r VCF ind filtering, echo=TRUE, eval=FALSE}
+Ind1
+Ind2
+Ind3
+Ind4
+Ind5
+```
+
+```{r VCF ind filtering 2, echo=TRUE, eval=FALSE}
+# vcftools
+vcftools --vcf myfile.vcf --max-alleles 2 --keep example_samples_tokeep.txt --recode --recode-INFO-all --out my_biallelic_file.vcf
+
+# bcftools
+bcftools view -m2 -M2 -v snps -S example_samples_tokeep.txt myfile.vcf > my_biallelic_file.vcf
+
+```
 #### Load the data 
 
 First, we will load the data. These data objects are examples of data types that can be used in the functions in `PopGenHelpR`.

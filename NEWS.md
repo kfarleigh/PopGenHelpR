@@ -14,7 +14,7 @@
 ## Mapping functions 
 The following updates laregly apply for the `Plot_coordinates`, `Piechart_map`, `Point_map`, and `Network_map` functions. We note where any updates are function specific. 
 
-- The maps are now built using the R package [geodata](https://cran.r-project.org/web/packages/geodata/geodata.pdf) to avoid the mapping NULL layer error.
+- The maps are now built using the R package geodata to avoid the mapping NULL layer error.
 - Users can now include administrative borders like states using the `country_code` argument. Country codes must match those used in geodata.
 - Users can color points by group using the `group` argument and `group_col` argument to specify colors for each group (only for `Plot_coordinates`).
 - Users can specify the legend position using the `legend_pos` argument. 

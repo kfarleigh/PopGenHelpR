@@ -59,7 +59,7 @@ Amos, W., Worthington Wilmer, J., Fullard, K., Burg, T. M., Croxall, J. P., Bloc
 
 \bold{Heterozygosity standardized by expected (Hs_exp) and observed heterozygosity (Hs_obs):}
 
-\doi{10.1111/j.1558-5646.1999.tb04538.x}{Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M. (1999)}. Parasite‐mediated selection against Inbred Soay sheep in a free‐living island populaton. Evolution, 53(4), 1259-1267.
+Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M. (1999). Parasite‐mediated selection against Inbred Soay sheep in a free‐living island population. Evolution, 53(4), 1259-1267.\doi{10.1111/j.1558-5646.1999.tb04538.x}
 }
 \author{
 Keaka Farleigh

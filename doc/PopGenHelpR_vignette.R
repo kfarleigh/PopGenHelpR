@@ -18,6 +18,21 @@ knitr::include_graphics("./img/PGH_workflow.png")
 # # bcftools
 # bcftools view -m2 -M2 -v snps myfile.vcf > my_biallelic_file.vcf
 
+## ----VCF ind filtering, echo=TRUE, eval=FALSE---------------------------------
+# Ind1
+# Ind2
+# Ind3
+# Ind4
+# Ind5
+
+## ----VCF ind filtering 2, echo=TRUE, eval=FALSE-------------------------------
+# # vcftools
+# vcftools --vcf myfile.vcf --max-alleles 2 --keep example_samples_tokeep.txt --recode --recode-INFO-all --out my_biallelic_file.vcf
+# 
+# # bcftools
+# bcftools view -m2 -M2 -v snps -S example_samples_tokeep.txt myfile.vcf > my_biallelic_file.vcf
+# 
+
 ## ----load data----------------------------------------------------------------
 data("Fst_dat")
 data("Het_dat")
