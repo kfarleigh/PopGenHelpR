@@ -1,5 +1,5 @@
 # PopGenHelpR 1.4.0
-- May 2nd, 2025
+- July 2nd, 2025
 ## `Differentiation` and `Heterozygosity`
 - Functions can now detect whether "|" or "\" separate genotypes. This was causing functions to throw NAs.
 - Minor bug was fixed for Jost's D calculation. A parentheses was removed in the calculation of the `D.bar` object. 
