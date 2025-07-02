@@ -52,7 +52,7 @@ Plot_coordinates(
 
 \item{group_col}{Character. A color or color vector indicating the color to fill each point with on the map. The groups will be colored in alphabetical order. If your group_col = c("red","blue","purple") and groups = c("B","C","A"), for example the points from group A will be red, group B will be blue and group C will be purple.}
 
-\item{country_code}{Character. A country code or vector of country codes from the R package \href{https://cran.r-project.org/web/packages/geodata/index.html}{geodata} specifying the country that you want to plot administrative borders for (e.g, US states). You can determine the correct codes using geodata's \code{country_codes} function.}
+\item{country_code}{Character. A country code or vector of country codes from the R package \href{https://cran.r-project.org/package=geodata}{geodata} specifying the country that you want to plot administrative borders for (e.g, US states). You can determine the correct codes using geodata's \code{country_codes} function.}
 
 \item{shapefile}{Character. A file name, vector of file names of a shapefile(s) to plot on the map, or a spatvector object that is compatible with the R package terra. This should be used in conjunction with the shapefile_plot_position argument.}
 
@@ -64,9 +64,9 @@ Plot_coordinates(
 
 \item{north_arrow}{Boolean. Whether or not to add a north arrow.}
 
-\item{north_arrow_style}{Character. Which style of north arrow to add. See \href{https://cran.r-project.org/web/packages/ggspatial/index.html}{ggspatial} documentation for more details.}
+\item{north_arrow_style}{Character. Which style of north arrow to add. See \href{https://cran.r-project.org/package=ggspatial}{ggspatial} documentation for more details.}
 
-\item{north_arrow_position}{Character. The position of the north arrow. See \href{https://cran.r-project.org/web/packages/ggspatial/index.html}{ggspatial} documentation for more details.}
+\item{north_arrow_position}{Character. The position of the north arrow. See \href{https://cran.r-project.org/package=ggspatial}{ggspatial} documentation for more details.}
 
 \item{shapefile_plot_position}{Numeric. A number indicating which position to plot the shapefile in. The options are 1, which plots the shapefile on top of the base world map (under points and administrative boundaries), 2 which plots the shapefile on top of administrative boundaries (but under points), and 3, which plots the shapefile on top of everything.}
 

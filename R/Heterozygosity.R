@@ -25,7 +25,7 @@
 #'
 #' \bold{Heterozygosity standardized by expected (Hs_exp) and observed heterozygosity (Hs_obs):}
 #'
-#' \href{https://academic.oup.com/evolut/article/53/4/1259/6757148}{Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M. (1999)}. Parasite‐mediated selection against Inbred Soay sheep in a free‐living island populaton. Evolution, 53(4), 1259-1267.
+#' \doi{10.1111/j.1558-5646.1999.tb04538.x}{Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M. (1999)}. Parasite‐mediated selection against Inbred Soay sheep in a free‐living island populaton. Evolution, 53(4), 1259-1267.
 #'
 #' @author Keaka Farleigh
 #' @export
@@ -37,7 +37,7 @@
 #' Test <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
 Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, write = FALSE, prefix = NULL, population_col = NULL, individual_col = NULL) {
   Statistic <- NULL
-  
+
   # Read in population assignment data
   if(is.data.frame(pops)){
     Pops <- pops
@@ -52,7 +52,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   } else if(!is.null(individual_col)){
     Inds_popmap <- Pops[,individual_col]
   }
-  
+
   # Read in files and convert to necessary formats
   if(missing(data)){
     stop("Please supply a file or vcfR object for analysis")
@@ -63,7 +63,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     # Convert the vcf gt slot to a geno style table for calculations
     # Detect the seperator, "/" is generally used for unphased genotypes, "|" for phased, and SLiM.
     if(grepl("/", Dat@gt[1,2])){
-      
+
       # Convert the vcf gt slot to a geno style table for calculations
       gt <- vcfR::extract.gt(Dat)
       gt[gt == "0/0"] <- 0
@@ -75,10 +75,10 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
       gt[gt == "0|1" | gt == "1|0"] <- 1
       gt[gt == "1|1"] <- 2
     }
-    
+
     # Transpose the numeric gt matrix
     Dat <- as.data.frame(t(as.matrix(gt)))
-    
+
     # Preserve individual names
     Inds <- rownames(Dat)
     Dat <- sapply(Dat, as.numeric)
@@ -89,7 +89,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     # Convert the vcf gt slot to a geno style table for calculations
     # Detect the seperator, "/" is generally used for unphased genotypes, "|" for phased, and SLiM.
     if(grepl("/", Dat@gt[1,2])){
-      
+
       # Convert the vcf gt slot to a geno style table for calculations
       gt <- vcfR::extract.gt(Dat)
       gt[gt == "0/0"] <- 0
@@ -103,7 +103,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     }
     # Transpose the numeric gt matrix
     Dat <- as.data.frame(t(as.matrix(gt)))
-    
+
     # Preserve individual names
     Inds <- rownames(Dat)
     Dat <- sapply(Dat, as.numeric)
@@ -118,9 +118,9 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   else {
     stop("Please supply a geno file, vcf file, or vcfR object for analysis")
   }
-  
+
   P <- Pops
-  
+
   ### Check to see if the individuals are in the same order in the vcf data and the population assignment file
   # Make sure that the individuals in the vcf/genlight are in the same order as your popmap
   if(methods::is(data,"vcfR") || tools::file_ext(data) == 'vcf') {
@@ -141,21 +141,21 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
       Pops <- as.factor(Pops[,population_col])
     }
   }
-  
+
   # Replace missing data value with NA
   if(is.na(missing_value) == FALSE){
     Dat[Dat == missing_value] <- NA
   }
-  
+
   P <- Pops
   Dat <- cbind.data.frame(Inds, P, Dat)
-  
+
   # Break into list with populations for each element
   Dat_perpop <- list()
   for(i in unique(P)){
     Dat_perpop[[i]] <- Dat[which(Dat[,2] == i),]
   }
-  
+
   message('Formatting has finished, moving onto calculations')
   #######################################
   ##### Heterozygosity calculations #####
@@ -165,108 +165,108 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     ObsHet_perloc <- 1-(colSums(Dat[3:ncol(Dat)] != 1, na.rm = T)/(nrow(Dat)- colSums(is.na(Dat[3:ncol(Dat)]))))
     return(ObsHet_perloc)
   }
-  
+
   if("Ho" %in% statistic | statistic == "all"){
     # Calculate observed heterozygosity
     ObsHet_res  <- lapply(Dat_perpop, ObsHet)
-    
+
     # Calculate the average per population
     Obs_Het_res_avg <- lapply(ObsHet_res, stats::na.omit)
     Obs_Het_res_avg <- lapply(Obs_Het_res_avg, mean)
-    
+
     Obs_Het_res_avg <- as.data.frame(do.call("rbind", Obs_Het_res_avg))
     Obs_Het_res_avg$Pop <- rownames(Obs_Het_res_avg)
     colnames(Obs_Het_res_avg)[1] <- "Observed.Heterozygosity"
     Obs_Het_res_avg[,1] <- as.numeric(Obs_Het_res_avg[,1])
-    
-    # Make the results per locus easier to view 
+
+    # Make the results per locus easier to view
     ObsHet_res_perloc <- as.data.frame(do.call("rbind", ObsHet_res))
     ObsHet_res_perloc[ObsHet_res_perloc == "NaN"] <- NA
     rownames(ObsHet_res_perloc) <- names(ObsHet_res)
-    
+
   } else{
     ObsHet_res_perloc <- Obs_Het_res_avg <- NULL
   }
-  
+
   # Estimate expected heterozygosity
   ExpHe <- function(Dat){
     p <- as.data.frame(((colSums(Dat[3:ncol(Dat)]== 0, na.rm = T)*2) + colSums(Dat[3:ncol(Dat)]== 1, na.rm = T))/((nrow(Dat)- colSums(is.na(Dat[3:ncol(Dat)])))*2))
     p <- t(p)
     rownames(p) <- NULL
-    
+
     colnames(p) <- paste(colnames(p), ".a", sep = "")
-    
+
     q <- as.data.frame(((colSums(Dat[3:ncol(Dat)]== 2, na.rm = T)*2) + colSums(Dat[3:ncol(Dat)]== 1, na.rm = T))/((nrow(Dat)- colSums(is.na(Dat[3:ncol(Dat)])))*2))
     q <- t(q)
     rownames(q) <- NULL
-    
+
     colnames(q) <- paste(colnames(q), ".b", sep = "")
-    
+
     # Remove loci with only missing data
     loc2rem <- which(colSums(is.na(Dat[3:ncol(Dat)])) == nrow(Dat))
-    
+
     # Set those values to NA
     p[loc2rem] <- NA
     q[loc2rem] <- NA
-    
+
     # Combine the two
     pq <- cbind(p, q)
-    
+
     # Square and add the allele frequencies, removing NA
     pq_comb <- apply(pq^2, 1, sum, na.rm = TRUE)
-    
-    # Calculate He per loc 
+
+    # Calculate He per loc
     He_perloc <- 1-(p^2)-(q^2)
-    
+
     colnames(He_perloc) <- gsub(".a", "", colnames(He_perloc))
-    
+
     # How many loci were genotyped in the population?
     loc_gtyped <- length(p) - length(loc2rem)
-    
+
     # Get the average He, divided by the number of loci genotyped in that population
     He_avg <- 1-(pq_comb/loc_gtyped)
-    
+
     res_list <- list()
-    
+
     res_list[[1]] <- He_perloc
     res_list[[2]] <- He_avg
-    
+
     return(res_list)
   }
-  
+
   if("He" %in% statistic | statistic == "all"){
     ExpHet_res  <- lapply(Dat_perpop, ExpHe)
-    
+
     ExpHet_res_avg <- as.data.frame(do.call(rbind, lapply(ExpHet_res, function(x) x[[2]])))
     colnames(ExpHet_res_avg) <- "Expected.Heterozygosity"
-    
+
     ExpHet_res_avg$Pop <- rownames(ExpHet_res_avg)
     ExpHet_res_avg[,1] <- as.numeric(ExpHet_res_avg[,1])
-    
+
     # Make it into a dataframe so that it is easier for users to view
     ExpHet_res_perloc <- lapply(ExpHet_res, function(x) x[[1]])
-    
+
     ExpHet_res_perloc <- as.data.frame(do.call("rbind", ExpHet_res_perloc))
-    
+
     rownames(ExpHet_res_perloc) <- names(ExpHet_res)
 
   } else{
     ExpHet_res_perloc <- ExpHet_res_avg <- NULL
   }
-  
+
   # Estimate the proportion of heterozygous loci per individual
   PropHt <- function(Dat){
     PHt <- t(as.data.frame(rowSums(Dat[3:ncol(Dat)] == 1, na.rm = T)/((ncol(Dat)-2) - rowSums(is.na(Dat[3:ncol(Dat)])))))
     rownames(PHt) <- 'PHt'
     colnames(PHt) <- Dat[,1]
-    
+
     return(PHt)
   }
-  
+
   if("PHt" %in% statistic | statistic == "all"){
     PropHt_res_perind <- lapply(Dat_perpop, PropHt)
     PropHt_res_perind <- mapply(rbind, PropHt_res_perind, "Pop"=names(PropHt_res_perind), SIMPLIFY=F)
-    
+
     # Make it into a dataframe so that it is easier for users to view
     PropHt_res_perind <- t(as.data.frame(do.call("cbind", PropHt_res_perind)))
     PropHt_res_perind <- as.data.frame(PropHt_res_perind)
@@ -274,15 +274,15 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   } else{
     PropHt_res_perind <- NULL
   }
-  
+
   # Estimate standardized heterozygosity based on the expected heterozygosity
   StHe <- function(Dat){
-    
+
     ExpHet_res <- ExpHe(Dat)
     ExpHet_res <- t(as.data.frame(ExpHet_res[[1]]))
-    
+
     ExpHet_res_avg <- mean(ExpHet_res[,1], na.rm = TRUE)
-    
+
     St_He <- PropHt(Dat)/ExpHet_res_avg
     rownames(St_He) <- 'Hs_exp'
     return(St_He)
@@ -290,7 +290,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   if("Hs_exp" %in% statistic | statistic == "all"){
     StHe_res_perind <- lapply(Dat_perpop, StHe)
     StHe_res_perind <- mapply(rbind, StHe_res_perind, "Pop"=names(StHe_res_perind), SIMPLIFY=F)
-    
+
     # Make it into a dataframe so that it is easier for users to view
     StHe_res_perind <- t(as.data.frame(do.call("cbind", StHe_res_perind)))
     StHe_res_perind <- as.data.frame(StHe_res_perind)
@@ -300,7 +300,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   }
   # Estimate standardized heterozygosity based on the observed heterozyosity
   StHo <- function(Dat){
-    
+
     ObsHet_res_perloc  <- ObsHet(Dat)
     ObsHet_res_avg  <- stats::na.omit(ObsHet_res_perloc)
     ObsHet_res_avg  <- mean(ObsHet_res_avg, na.rm = TRUE)
@@ -311,7 +311,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   if("Hs_obs" %in% statistic | statistic == "all"){
     StHo_res_perind <- lapply(Dat_perpop, StHo)
     StHo_res_perind <- mapply(rbind, StHo_res_perind, "Pop"=names(StHo_res_perind), SIMPLIFY=F)
-    
+
     # Make it into a dataframe so that it is easier for users to view
     StHo_res_perind <- t(as.data.frame(do.call("cbind", StHo_res_perind)))
     StHo_res_perind <- as.data.frame(StHo_res_perind)
@@ -319,7 +319,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   } else{
     StHo_res_perind <- NULL
   }
-  
+
   IR <- function(Dat){
     # Extract genetic data and convert to count the frequency of allele s
     tmp <- Dat
@@ -327,58 +327,58 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     tmp[tmp == 1] <- "0/2"
     tmp[tmp == 2] <- "2/2"
     tmp[is.na(tmp)] <- NA/NA
-    
+
     if(any(colSums(is.na(tmp)) == nrow(tmp))){
       print(paste(names(which(colSums(is.na(tmp)) == nrow(tmp))), " has no data (everything is NA), please check your data.", sep = ''))
     }
-    
+
     rownames(tmp) <- Inds
-    
+
     gtypes <- tmp[,3:ncol(tmp)]
-    
+
     Loc_IR_formatted <- data.frame(matrix(NA, nrow = nrow(tmp), ncol = (ncol(gtypes)*2)))
     rownames(Loc_IR_formatted) <- tmp[,1]
-    
+
     for(i in (1:ncol(gtypes))){
       # Get the locus name
       Loc_nam <- colnames(gtypes)[i]
-      
+
       # Split the genotype
       Loc_split <- strsplit(gtypes[,i], "/", fixed = T)
       # Set the name of individuals
       names(Loc_split) <- Dat[,1]
-      
+
       # Bind into a data frame
       Loc_split_df <- do.call(rbind, Loc_split)
-      
+
       # Set an index to position the genotypes correctly
       idx <- i*2-1
-      
+
       Loc_IR_formatted[,idx:(idx+1)] <- Loc_split_df
       colnames(Loc_IR_formatted)[idx:(idx+1)] <- c(paste(Loc_nam, "a", sep = ""), paste(Loc_nam, "b", sep = ""))
     }
     # Convert to a matrix for calculations
     Loc_IR_mat <- as.matrix(Loc_IR_formatted)
-    
+
     # Bind together with individual and population information
     Loc_IR_mat_comb <- cbind(tmp[,1:2], Loc_IR_mat)
     Loc_IR_mat_comb <- as.matrix(Loc_IR_mat_comb)
-    
+
     # Get the number of individuals
     Individuals <- nrow(Loc_IR_mat)
-    
+
     # Get the number of loci
     Nloc <- ncol(Loc_IR_mat)/2
-    
+
     Nloc <- Nloc + 1
-    
+
     # Set up a results table
     res_tab <- data.frame(IR = rep(NA, Individuals))
     rownames(res_tab) <- Inds
-    
+
     # Get the counts of alleles for each locus
     Counts <- list()
-    
+
     # Count the occurrences of each allele (0 and 2) at each locus
     for(i in 1:Nloc) {
       # Set the same index as above
@@ -386,29 +386,29 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
       idx2 <- 2*i
       Counts[[i]] <- table(Loc_IR_mat_comb[,idx:idx2])
     }
-    
+
     ### Calculate IR for each individual
     # Formula from the archived Rhh package https://cran.r-project.org/web/packages/Rhh/index.html
     for(i in 1:Individuals){
-      
+
       H <- 0
       N <- 0
       f <- 0
-      
+
       for(j in 1:Nloc){
         # Set our index again
         idx1 <- 2*j-1
         idx2 <- 2*j
-        
+
         if((!is.na(Loc_IR_mat_comb[i,idx1])) && (!is.na(Loc_IR_mat_comb[i,idx2]))){
           N <- N + 1
-          
+
           if(Loc_IR_mat_comb[i,idx1] == Loc_IR_mat_comb[i,idx2]){
             H <- H + 1
             # Which allele is the individual homozygous for
             Hom_Allele <- as.character(Loc_IR_mat_comb[i,idx1])
             f <- f + (2 * Counts[[j]][[Hom_Allele]] - 2)/(sum(Counts[[j]]) - 2)
-            
+
           } else{
             # If they are heterozygous that means that they are contributing two alleles, using just a sum of 1 leads to NaN
             Het_Allele1 <- as.character(Loc_IR_mat_comb[i,idx1])
@@ -416,21 +416,21 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
             Het_Allele2 <- as.character(Loc_IR_mat_comb[i,idx2])
             f <- f + (Counts[[j]][[Het_Allele2]] - 1)/(sum(Counts[[j]]) - 2)
           }
-        } 
+        }
       }
       # Calculate internal relatedness
       res_tab[i,1] <- (2 * H - f) / (2 * N - f)
     }
     return(res_tab)
   }
-  
+
   if("IR" %in% statistic | statistic == "all"){
     IR_perind <- IR(Dat)
   } else{
     IR_perind <- NULL
   }
-  
-  
+
+
   # Estimate homozygosity by locus
   HL <- function(Dat){
     # Extract genetic data and convert to count the frequency of allele s
@@ -439,57 +439,57 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     tmp[tmp == 1] <- "0/2"
     tmp[tmp == 2] <- "2/2"
     tmp[is.na(tmp)] <- NA/NA
-    
+
     gtypes <- tmp[,3:ncol(tmp)]
-    
-    
+
+
     if(any(colSums(is.na(tmp)) == nrow(tmp))){
       print(paste(names(which(colSums(is.na(tmp)) == nrow(tmp))), " has no data (everything is NA), please check your data.", sep = ''))
     }
-    
+
     Loc_HL_formatted <- data.frame(matrix(NA, nrow = nrow(tmp), ncol = (ncol(gtypes)*2)))
     rownames(Loc_HL_formatted) <- tmp[,1]
-    
-  
+
+
     for(i in (1:ncol(gtypes))){
       # Get the locus name
       Loc_nam <- colnames(gtypes)[i]
-      
+
       # Split the genotype
       Loc_split <- strsplit(gtypes[,i], "/", fixed = T)
       # Set the name of individuals
       names(Loc_split) <- Dat[,1]
-      
+
       # Bind into a data frame
       Loc_split_df <- do.call(rbind, Loc_split)
-      
+
       # Set an index to position the genotypes correctly
       idx <- i*2-1
-      
+
       Loc_HL_formatted[,idx:(idx+1)] <- Loc_split_df
       colnames(Loc_HL_formatted)[idx:(idx+1)] <- c(paste(Loc_nam, "a", sep = ""), paste(Loc_nam, "b", sep = ""))
     }
-    
-    
+
+
     Loc_HL_mat <- as.matrix(Loc_HL_formatted)
-    
+
     # Bind together with individual and population information
     Loc_HL_mat_comb <- cbind(tmp[,1:2], Loc_HL_mat)
     Loc_HL_mat_comb <- as.matrix(Loc_HL_mat_comb)
-    
+
     # Get the number of individuals
     Individuals <- nrow(Loc_HL_mat_comb)
-    
+
     # Get the number of loci
     Nloc <- ncol(Loc_HL_mat)/2
-    Nloc <- Nloc + 1 
-    
+    Nloc <- Nloc + 1
+
     # Set up a results table
     res_tab <- data.frame(HL = matrix(NA, nrow = Individuals, ncol = 1), row.names = Inds)
-    
+
     E <- array(Nloc)
     Counts <- array(Nloc)
-    
+
     # Count the occurrences of each allele (0 and 2) at each locus
     for(i in 1:Nloc) {
       E[i] <- 1
@@ -500,15 +500,15 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     }
     # Formula from the archived Rhh package https://cran.r-project.org/web/packages/Rhh/index.html
     for (i in 1:Individuals) {
-      
+
       sum.Eh <- 0
       sum.Ej <- 0
-      
+
       for (j in 1:Nloc) {
-        
+
         idx1 <- 2*j-1
         idx2 <- 2*j
-        
+
         if ((!is.na(Loc_HL_mat_comb[i, idx1])) && (!is.na(Loc_HL_mat_comb[i, idx2]))) {
           if (Loc_HL_mat_comb[i, idx1] == Loc_HL_mat_comb[i, idx2]) {
             sum.Eh <- sum.Eh + E[j]
@@ -518,31 +518,31 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
           }
         }
       }
-      
+
       res_tab[i,1] <- sum.Eh / (sum.Eh + sum.Ej)
-      
+
     }
-    
+
     return(res_tab)
-    
+
   }
-  
+
   if("HL" %in% statistic | statistic == "all"){
     HL_perind <- HL(Dat)
   } else{
     HL_perind <- NULL
   }
-  
-  
+
+
   Output <- list(Obs_Het_res_avg, ObsHet_res_perloc, ExpHet_res_avg, ExpHet_res_perloc,
                  PropHt_res_perind, StHe_res_perind, StHo_res_perind, IR_perind, HL_perind)
-  
+
   names(Output) <- c("Ho_perpop", "Ho_perloc", "He_perpop", "He_perloc", "PHt", "Hs_exp", "Hs_obs", "IR", "HL")
-  
+
   # Set list of possible statistics
   Stat <- c("Ho", "He", "PHt", "Hs_exp", "Hs_obs", "IR", "HL")
   Stat_idx <- c(1,1,2,2,3,4,5,6,7)
-  
+
   if(length(statistic) == 1 && statistic ==  "all"){
     return(Output)
   } else {
@@ -550,7 +550,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     Output_final<- Output[which(Stat_idx %in% res)]
     return(Output_final)
   }
-  
+
   if(write == TRUE && !is.null(prefix)){
     res_write <- which(Stat %in% statistic)
     Output2write <- Output[which(Stat_idx %in% res_write)]

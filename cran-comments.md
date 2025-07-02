@@ -1,35 +1,25 @@
-## July 2nd, 2025: This is a new release of PopGenHelpR
+## July 2nd, 2025: This is a new release of PopGenHelp
+
+```
+Pls reudce top less than 5 MB for a CRAN package.
+```
+
+I have reduced the package size by adding the /vignettes/articles subdirectory to .Rbuildignore. The package size is now ~2 MB.
+
 ### check_win_devel results
 There were no errors, notes, or warnings. 
-There was 1 note, which was a possibly invalid URL in the documentation. The URL is, indeed valid. 
 
-```
-Found the following (possibly) invalid URLs:
-  URL: https://academic.oup.com/evolut/article/53/4/1259/6757148
-    From: man/Heterozygosity.Rd
-    Status: 403
-    Message: Forbidden
-```
-
-This URL is valid.
 
 
 ### check_win_release results
-There was 1 note, which was a possibly invalid URL in the documentation. The URL is, indeed valid. 
+There were no errors, notes, or warnings. 
 
-```
-Found the following (possibly) invalid URLs:
-  URL: https://academic.oup.com/evolut/article/53/4/1259/6757148
-    From: man/Heterozygosity.Rd
-    Status: 403
-    Message: Forbidden
-```
-
-This URL is valid.
 
 
 ### check_mac_release results
 There were no errors, notes, or warnings.
+
+
 
 ## July 31st, 2024: This is a new release of PopGenHelpR
 
