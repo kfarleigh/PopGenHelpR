@@ -1,5 +1,5 @@
 
-# PopGenHelpR version 1.4.0 <img src="man/figures/PGH_Logo_Outlined.png" align="right" width="145" height = "145"/>
+# PopGenHelpR version 1.4.1 <img src="man/figures/PGH_Logo_Outlined.png" align="right" width="145" height = "145"/>
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/PopGenHelpR)](https://cran.r-project.org/package=PopGenHelpR)
@@ -15,7 +15,7 @@ mirror](https://cranlogs.r-pkg.org/badges/PopGenHelpR)](https://cran.r-project.o
 We plan to continue developing the package to include more functions, feel free to reach out to Keaka Farleigh if you have any suggestions or would like to collaborate. 
 
 ### Do you use *PopGenHelpR* in your research or class and want to be kept up to date?
-Please email Keaka Farleigh (farleik@miamioh.edu) to be informed about any updates or pending changes to *PopGenHelpR*. 
+Please email Keaka Farleigh (keakafarleigh@gmail.com) to be informed about any updates or pending changes to *PopGenHelpR*. 
 
 
 ## Installation

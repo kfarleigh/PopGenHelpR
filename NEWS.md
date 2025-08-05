@@ -1,3 +1,13 @@
+# PopGenHelpR 1.4.1
+- August 5th, 2025
+
+## `Private.alleles`
+- The function can now handle phased data.
+
+## `Differentiation` and `Heterozygosity`
+- The functions `write` and `prefix` arguments have been updated to function properly. 
+
+
 # PopGenHelpR 1.4.0
 - July 2nd, 2025
 ## `Differentiation` and `Heterozygosity`
