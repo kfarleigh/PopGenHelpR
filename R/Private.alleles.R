@@ -100,7 +100,12 @@ message('Formatting has finished, moving onto calculations')
 Uniq_alleles <- function(x) {
   tmp_res <- list()
   for(i in 3:ncol(x)){
+    if(grepl("/", gt[1,2])){
     tmp <- unique(stats::na.omit(unlist(strsplit(x[,i], split = '/'))))
+    } else{
+    tmp <- unique(stats::na.omit(unlist(strsplit(x[,i], split = '|', fixed = TRUE))))
+    }
+
     if(length(tmp) > 0){
     tmp_res[[i]] <- tmp
     } else{

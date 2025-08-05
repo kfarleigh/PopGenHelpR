@@ -543,7 +543,29 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
   Stat <- c("Ho", "He", "PHt", "Hs_exp", "Hs_obs", "IR", "HL")
   Stat_idx <- c(1,1,2,2,3,4,5,6,7)
 
-  if(length(statistic) == 1 && statistic ==  "all"){
+  if(write == TRUE){
+
+    if(statistic == "all"){
+      stat_write <- Stat
+    } else{
+      stat_write <- statistic
+    }
+
+    res_write <- which(Stat %in% stat_write)
+    Output2write <- Output[which(Stat_idx %in% res_write)]
+
+    if(!is.null(prefix)){
+    for (i in 1:length(Output2write)){
+      utils::write.csv(Output2write[[i]], file = paste(prefix, "_", names(Output2write[i]), ".csv"))
+      }
+    } else{
+      for (i in 1:length(Output2write)){
+        utils::write.csv(Output2write[[i]], file = paste(names(Output2write[i]), ".csv"))
+      }
+    }
+  }
+
+  if(length(statistic) == 1 | statistic ==  "all"){
     return(Output)
   } else {
     res <- which(Stat %in% statistic)
@@ -551,13 +573,5 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     return(Output_final)
   }
 
-  if(write == TRUE && !is.null(prefix)){
-    res_write <- which(Stat %in% statistic)
-    Output2write <- Output[which(Stat_idx %in% res_write)]
-    for (i in 1:length(Output2write)){
-      utils::write.csv(Output2write, file = paste(names(Output2write[i]), ".csv", sep = "_"))
-    }
-  } else if(write == TRUE && is.null(prefix)){
-    utils::write.csv(Output2write, file = paste(prefix, '_', names(Output2write[i]), ".csv", sep = "_"))
-  }
 }
+
