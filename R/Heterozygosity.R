@@ -565,7 +565,7 @@ Heterozygosity <- function(data, pops, statistic = 'all', missing_value = NA, wr
     }
   }
 
-  if(length(statistic) == 1 | statistic ==  "all"){
+  if(length(statistic) == 1 && statistic ==  "all"){
     return(Output)
   } else {
     res <- which(Stat %in% statistic)
