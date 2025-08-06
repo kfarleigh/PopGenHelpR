@@ -162,9 +162,9 @@ Loc <- Q_dat[[2]]
 
 # Now we will generate both population and individual plots by setting plot.type to 'all'. If you wanted, you could only generate individual or population plots by setting plot.type to "individual" and "population", respectively.
 Test_all_piemap <- Piechart_map(anc.mat = Qmat, pops = Loc, K = 5,plot.type = 'all', col = c('#d73027', '#f46d43', '#e0f3f8', '#74add1', '#313695'), 
-                                Lat_buffer = 1, Long_buffer = 1)
+                                Lat_buffer = 1, Long_buffer = 1, country_code = c("usa", "mex", "can"))
 
-Test_all_piemap$`Individual Map`
+Test_all_piemap$Individual_piemap
 ```
 
 ```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
@@ -175,7 +175,7 @@ knitr::include_graphics("./img/Ind_PieMap.png")
 Notice the weird partitions? We can take care of those using the population piechart map. 
 
 ```{r Piechart map2, echo=TRUE, eval=FALSE, fig.align='center'}
-Test_all_piemap$`Population Map`
+Test_all_piemap$Population_piemap
 ```
 
 ```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
@@ -201,7 +201,7 @@ knitr::include_graphics("./img/PWhmap.png")
 We can also visualize these relationships on a map using the `Network_map` function. This function allows us to visualize pairwise relationships as the color of links between the points. You must supply a symmetric matrix (dat argument) and population assignment file (pops argument). The remaining arguments are optional, but they allow for greater customization. The neighbors argument, for example, tells the function how many relationships to visualize, and you can also use it to specify relationships you want to see. Please see the documentation for details. 
 
 ```{r Network Map, echo=TRUE, eval=FALSE}
-NW_map <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic = "Fst")
+NW_map <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic = "Fst", country_code = c("usa", "mex", "can"))
 NW_map$Map
 ```
 ```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
@@ -211,7 +211,7 @@ knitr::include_graphics("./img/NW_map1.png")
 `Network_map` can also be used to plot specific relationships. Let's isolate the populations with the highest and lowest Fst by supplying a character vector to the neighbors argument.
 
 ```{r Network Map2, echo=TRUE, eval=FALSE}
-NW_map2 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = c("East_West", "East_South"), statistic = "Fst")
+NW_map2 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = c("East_West", "East_South"), statistic = "Fst", country_code = c("usa", "mex", "can"))
 NW_map2$Map
 ```
 ```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
@@ -227,7 +227,7 @@ knitr::include_graphics("./img/NW_map2.png")
 We will plot some observed heterozygosity data with the function `Point_map`. All you need is a data frame (or csv) and the name of whatever statistic you are plotting (statistic argument). `Point_map` also assumes that the coordinate column names are Latitude and Longitude. 
 
 ```{r Heterozygosity2, echo=TRUE, eval=FALSE}
-Het_map <- Point_map(Het_dat, statistic = "Heterozygosity")
+Het_map <- Point_map(Het_dat, statistic = "Heterozygosity", country_code = c("usa", "mex", "can"))
 Het_map$`Heterozygosity Map`
 ```
 ```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
@@ -237,7 +237,7 @@ knitr::include_graphics("./img/Het_map1.png")
 We can also outline the points by setting the `out.col` argument. 
 
 ```{r Heterozygosity3, echo=TRUE, eval=FALSE}
-Het_map2 <- Point_map(Het_dat, statistic = "Heterozygosity", out.col = "#000000")
+Het_map2 <- Point_map(Het_dat, statistic = "Heterozygosity", out.col = "#000000", country_code = c("usa", "mex", "can"))
 Het_map2$`Heterozygosity Map`
 ```
 ```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
@@ -247,7 +247,7 @@ knitr::include_graphics("./img/Het_map2.png")
 Finally, we can just plot coordinates using `Plot_coordinates`. All we need is a data frame or csv file with the coordinates for each row indicated by columns names Latitude and Longitude. You can change the size of the points with the `size` argument. 
 
 ```{r Coordinates, echo=TRUE, eval=FALSE}
-Sample_map <- Plot_coordinates(HornedLizard_Pop)
+Sample_map <- Plot_coordinates(HornedLizard_Pop, country_code = c("usa", "mex", "can"))
 Sample_map
 ```
 ```{r, out.width= "500px", out.height= "750px", echo=FALSE, eval=TRUE, fig.align='center'}
@@ -256,4 +256,4 @@ knitr::include_graphics("./img/Samp_map1.png")
 
 
 
-Thank you for your interest in our package; please reach out to Keaka Farleigh (farleik@miamioh.edu) with any questions, things that should be included in future versions of the package, or if you would like to be kept up to date with `PopGenHelpR.`
+Thank you for your interest in our package; please reach out to Keaka Farleigh (keakafarleigh@gmail.com) with any questions, things that should be included in future versions of the package, or if you would like to be kept up to date with `PopGenHelpR.`
