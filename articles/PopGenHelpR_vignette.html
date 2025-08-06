@@ -259,14 +259,14 @@ GitHub for additional examples (<a href="https://kfarleigh.github.io/PopGenHelpR
 <span></span>
 <span><span class="co"># Now we will generate both population and individual plots by setting plot.type to 'all'. If you wanted, you could only generate individual or population plots by setting plot.type to "individual" and "population", respectively.</span></span>
 <span><span class="va">Test_all_piemap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Piechart_map.html">Piechart_map</a></span><span class="op">(</span>anc.mat <span class="op">=</span> <span class="va">Qmat</span>, pops <span class="op">=</span> <span class="va">Loc</span>, K <span class="op">=</span> <span class="fl">5</span>,plot.type <span class="op">=</span> <span class="st">'all'</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#d73027'</span>, <span class="st">'#f46d43'</span>, <span class="st">'#e0f3f8'</span>, <span class="st">'#74add1'</span>, <span class="st">'#313695'</span><span class="op">)</span>, </span>
-<span>                                Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>                                Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span>, country_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"usa"</span>, <span class="st">"mex"</span>, <span class="st">"can"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">Test_all_piemap</span><span class="op">$</span><span class="va">`Individual Map`</span></span></code></pre></div>
+<span><span class="va">Test_all_piemap</span><span class="op">$</span><span class="va">Individual_piemap</span></span></code></pre></div>
 <p><img src="img/Ind_PieMap.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p>Notice the weird partitions? We can take care of those using the
 population piechart map.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Test_all_piemap</span><span class="op">$</span><span class="va">`Population Map`</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">Test_all_piemap</span><span class="op">$</span><span class="va">Population_piemap</span></span></code></pre></div>
 <p><img src="img/Pop_PieMap.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
@@ -294,14 +294,14 @@ tells the function how many relationships to visualize, and you can also
 use it to specify relationships you want to see. Please see the
 documentation for details.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NW_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Network_map.html">Network_map</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, pops <span class="op">=</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, neighbors <span class="op">=</span> <span class="fl">2</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">NW_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Network_map.html">Network_map</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, pops <span class="op">=</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, neighbors <span class="op">=</span> <span class="fl">2</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span>, country_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"usa"</span>, <span class="st">"mex"</span>, <span class="st">"can"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">NW_map</span><span class="op">$</span><span class="va">Map</span></span></code></pre></div>
 <p><img src="img/NW_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p><code>Network_map</code> can also be used to plot specific
 relationships. Let’s isolate the populations with the highest and lowest
 Fst by supplying a character vector to the neighbors argument.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">NW_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Network_map.html">Network_map</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, pops <span class="op">=</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, neighbors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"East_West"</span>, <span class="st">"East_South"</span><span class="op">)</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">NW_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Network_map.html">Network_map</a></span><span class="op">(</span><span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, pops <span class="op">=</span> <span class="va">Fst_dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, neighbors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"East_West"</span>, <span class="st">"East_South"</span><span class="op">)</span>, statistic <span class="op">=</span> <span class="st">"Fst"</span>, country_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"usa"</span>, <span class="st">"mex"</span>, <span class="st">"can"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">NW_map2</span><span class="op">$</span><span class="va">Map</span></span></code></pre></div>
 <p><img src="img/NW_map2.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 </div>
@@ -318,13 +318,13 @@ name of whatever statistic you are plotting (statistic argument).
 <code>Point_map</code> also assumes that the coordinate column names are
 Latitude and Longitude.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Het_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Point_map.html">Point_map</a></span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">Het_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Point_map.html">Point_map</a></span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, country_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"usa"</span>, <span class="st">"mex"</span>, <span class="st">"can"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">Het_map</span><span class="op">$</span><span class="va">`Heterozygosity Map`</span></span></code></pre></div>
 <p><img src="img/Het_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p>We can also outline the points by setting the <code>out.col</code>
 argument.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Het_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Point_map.html">Point_map</a></span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, out.col <span class="op">=</span> <span class="st">"#000000"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">Het_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Point_map.html">Point_map</a></span><span class="op">(</span><span class="va">Het_dat</span>, statistic <span class="op">=</span> <span class="st">"Heterozygosity"</span>, out.col <span class="op">=</span> <span class="st">"#000000"</span>, country_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"usa"</span>, <span class="st">"mex"</span>, <span class="st">"can"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">Het_map2</span><span class="op">$</span><span class="va">`Heterozygosity Map`</span></span></code></pre></div>
 <p><img src="img/Het_map2.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p>Finally, we can just plot coordinates using
@@ -333,13 +333,13 @@ with the coordinates for each row indicated by columns names Latitude
 and Longitude. You can change the size of the points with the
 <code>size</code> argument.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Sample_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Plot_coordinates.html">Plot_coordinates</a></span><span class="op">(</span><span class="va">HornedLizard_Pop</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">Sample_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Plot_coordinates.html">Plot_coordinates</a></span><span class="op">(</span><span class="va">HornedLizard_Pop</span>, country_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"usa"</span>, <span class="st">"mex"</span>, <span class="st">"can"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">Sample_map</span></span></code></pre></div>
 <p><img src="img/Samp_map1.png" width="500px" height="750px" style="display: block; margin: auto;"></p>
 <p>Thank you for your interest in our package; please reach out to Keaka
-Farleigh (<a href="mailto:farleik@miamioh.edu" class="email">farleik@miamioh.edu</a>) with any questions, things that
-should be included in future versions of the package, or if you would
-like to be kept up to date with <code>PopGenHelpR.</code></p>
+Farleigh (<a href="mailto:keakafarleigh@gmail.com" class="email">keakafarleigh@gmail.com</a>) with any questions, things
+that should be included in future versions of the package, or if you
+would like to be kept up to date with <code>PopGenHelpR.</code></p>
 </div>
 </div>
 </div>
