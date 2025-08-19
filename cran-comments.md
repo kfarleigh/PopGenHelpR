@@ -1,6 +1,6 @@
-## August 5th, 2025: This is a new release of PopGenHelpR
+## August 19th, 2025: This is a new release of PopGenHelpR
 
-The package is being updated to correct a bug associated with the `Private.alleles` function. Apologies for resubmitting relatively quickly, thank you for your time.
+The package is being updated to correct a bug associated with the `Private.alleles` function. Apologies for resubmitting relatively quickly (~6 weeks), thank you for your time.
 
 ### check_win_devel results
 There were no errors, notes, or warnings. 
