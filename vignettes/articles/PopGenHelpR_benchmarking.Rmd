@@ -33,7 +33,9 @@ We will compare the performance of `PopGenHelpR` with other R packages available
 
 - [adegenet](https://cran.r-project.org/web/packages/adegenet/index.html) ([Jombart, 2008](https://doi.org/10.1093/bioinformatics/btn129))
 
+## Notes
 
+We also performed additional testing using external data to ensure that PopGenHelpR works with real world data. You can find those tests at https://github.com/kfarleigh/PopGenHelpR_testing.
 
 ### Let's Begin
 
