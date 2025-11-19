@@ -1,0 +1,90 @@
+# Plot an ancestry matrix for individuals and(or) populations.
+
+Plot an ancestry matrix for individuals and(or) populations.
+
+## Usage
+
+``` r
+Ancestry_barchart(
+  anc.mat,
+  pops,
+  K,
+  plot.type = "all",
+  col,
+  ind.order = NULL,
+  pop.order = NULL,
+  legend_pos = "right"
+)
+```
+
+## Arguments
+
+- anc.mat:
+
+  Data frame or character string that supplies the input data. If it is
+  a character string, the file should be a csv. The first column should
+  be the names of each sample/population, followed by the estimated
+  contribution of each cluster to that individual/pop.
+
+- pops:
+
+  Data frame or character string that supplies the input data. If it is
+  a character string, the file should be a csv. The first two columns
+  should indicate the sample name (first column) and the population that
+  sample belongs to (second column). Other columns (i.e., latitude,
+  longitude) can be present, but will not be used.
+
+- K:
+
+  Numeric.The number of genetic clusters in your data set, please
+  contact the package authors if you need help doing this.
+
+- plot.type:
+
+  Character string. Options are all, individual, and population. All is
+  default and recommended, this will plot a barchart for both the
+  individuals and populations.
+
+- col:
+
+  Character vector indicating the colors you wish to use for plotting.
+
+- ind.order:
+
+  Character vector indicating the order to plot the individuals in the
+  individual ancestry bar chart.
+
+- pop.order:
+
+  Character vector indicating the order to plot the populations in the
+  population ancestry bar chart.
+
+- legend_pos:
+
+  Character. The desired position of the legend. The default is "none",
+  which removes the legend. Other options include "left", "right", "top"
+  or "bottom". Please see the ggplot2 documentation for all of the
+  legend placement options.
+
+## Value
+
+A list containing your plots and the data frames used to generate the
+plots.
+
+## Author
+
+Keaka Farleigh
+
+## Examples
+
+``` r
+# \donttest{
+data(Q_dat)
+Qmat <- Q_dat[[1]]
+rownames(Qmat) <- Qmat[,1]
+Loc <- Q_dat[[2]]
+Test_all <- Ancestry_barchart(anc.mat = Qmat, pops = Loc, K = 5,
+plot.type = 'all',col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'))# }
+#> [1] "All information needed is present, moving onto plotting."
+#> [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
+```

@@ -1,0 +1,140 @@
+# Creating a Q-matrix to use in PopGenHelpR
+
+## Purpose
+
+To generate a q-matrix of ancestry coefficients for use in the
+`PopGenHelpR` functions `Ancestry_barchart` and `Piechart_map`.
+
+## What is a Q-matrix?
+
+A q-matrix is a matrix containing as many rows as individuals and
+columns as genetic clusters. Each cell represents an ancestry
+coefficient (also known as cluster assignments), which is the
+contribution of a genetic cluster to a particular individual. Q-matrices
+are commonly used in population genomics to evaluate gene flow between
+populations (e.g., admixture) or species (e.g., introgression).
+ADMIXTURE (Alexander et al., 2009) and sNMF (Frichot et al., 2014) are
+commonly used software to estimate the number of genetic clusters in
+data and generate ancestry bar charts with q-matrices.
+
+Let’s generate some q-matrices now that you know what they are! We will
+create q-matrices using each of the programs mentioned above.
+
+### sNMF
+
+We will start with sNMF because it is implemented in the R package
+[LEA](https://bioconductor.org/packages/release/bioc/html/LEA.html)
+(Frichot & Francois, 2015). After running sNMF (see [this
+tutorial](https://bioconductor.org/packages/release/bioc/vignettes/LEA/inst/doc/LEA.pdf)
+if you need help) you just need to use the `Q` function.
+
+``` r
+# If I have a sNMF project named sNMFobject with K number of ancestral populations (genetic clusters), and my best run is run 1 (determined as the run with the lowets cross-entropy)
+Qmat <- Q(sNMFobject, K = K, run = 1)
+```
+
+All you need to do now is append the sample names to the q-matrix as the
+first column (you can do this with `cbind` or in any text editor). Then
+you can use it in `PopGenHelpR`. Note that you must be careful that your
+order in the q-matrix is the same as the order of the samples you are
+appending.
+
+#### Example of formatting the q-matrix for `PopGenHelpR`
+
+Here we show you how to format a q-matrix generated with the `Q`
+function from LEA for use in `PopGenHelpR`.
+
+First, we will create a matrix that we may expect from LEA. We also need
+to create fake sample names **Please note that this is only a toy
+example and is not real data.**
+
+``` r
+# Create fake matrix
+Qmat <- t(matrix(data = c(0.25, 0.4, 0.35), nrow = 3, ncol = 3))
+
+Fake_inds <- c("FS_1", "FS_2", "FS_3")
+```
+
+Cool! We have data, so can we use it in `PopGenHelpR`? No, because
+`Ancestry_barchart` and `Piechart_map` need a data.frame or CSV; these
+functions also need the first column to be the individual names.
+`PopGenHelpR` uses the individual names as a key to link the q-matrix
+data with populations and coordinates.
+
+Let’s add the individual names!
+
+``` r
+# Add the names
+Qmat_wnames <- cbind(Fake_inds, Qmat)
+```
+
+So can we use this `Qmat_wnames` now? No, because `Qmat_wnames` is still
+a matrix and let’s see what `cbind` did to our numeric data. Notice that
+`cbind` make everything a character, we need the cluster contributions
+(columns 2 through 4 here) to be numeric. We will fix this using the
+`sapply` function.
+
+``` r
+# Check the structure of the Qmat_wnames
+str(Qmat_wnames)
+#>  chr [1:3, 1:4] "FS_1" "FS_2" "FS_3" "0.25" "0.25" "0.25" "0.4" "0.4" "0.4" ...
+#>  - attr(*, "dimnames")=List of 2
+#>   ..$ : NULL
+#>   ..$ : chr [1:4] "Fake_inds" "" "" ""
+
+Qmat_df <- as.data.frame(Qmat_wnames)
+
+Qmat_df[2:4] <- sapply(Qmat_df[2:4], as.numeric)
+
+# Check again
+str(Qmat_df)
+#> 'data.frame':    3 obs. of  4 variables:
+#>  $ Fake_inds: chr  "FS_1" "FS_2" "FS_3"
+#>  $ V2       : num  0.25 0.25 0.25
+#>  $ V3       : num  0.4 0.4 0.4
+#>  $ V4       : num  0.35 0.35 0.35
+```
+
+Notice that our cluster contribution columns are now numeric and that
+our `Qmat_df` object is a data.frame.
+
+Now we can use it in `PopGenHelpR` with a population assignment
+file/data.frame to generate figures.
+
+### ADMIXTURE
+
+ADMIXTURE is a little more complex because it is not associated with an
+R package, but it is nice because it gives us the q-matrix
+automatically. See [this
+tutorial](https://speciationgenomics.github.io/ADMIXTURE/) for more
+details.
+
+In the example below, we tell ADMIXTURE to use a bed file as input and
+run the analysis with a K value of 5.
+
+``` r
+### Run ADMIXTURE
+admixture --cv my_genetic_data.bed 5 > K5.out
+```
+
+This will output a file with the .Q extension, which contains ancestry
+coefficients for each individual (our q-matrix).
+
+## Questions???
+
+Please email Keaka Farleigh (<farleik@miamioh.edu>) if you need help
+generating a q-matrix or with anything else.
+
+## References
+
+Alexander, D. H., Novembre, J., & Lange, K. (2009). Fast model-based
+estimation of ancestry in unrelated individuals. Genome research, 19(9),
+1655-1664.
+
+Frichot, E., & François, O. (2015). LEA: An R package for landscape and
+ecological association studies. Methods in Ecology and Evolution, 6(8),
+925-929.
+
+Frichot, E., Mathieu, F., Trouillon, T., Bouchard, G., & François, O.
+(2014). Fast and efficient estimation of individual ancestry
+coefficients. Genetics, 196(4), 973-983.

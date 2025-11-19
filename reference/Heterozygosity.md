@@ -1,0 +1,130 @@
+# A function to estimate seven measures of heterozygosity using geno files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.
+
+A function to estimate seven measures of heterozygosity using geno
+files, vcf files, or vcfR objects. Data is assumed to be bi-allelic.
+
+## Usage
+
+``` r
+Heterozygosity(
+  data,
+  pops,
+  statistic = "all",
+  missing_value = NA,
+  write = FALSE,
+  prefix = NULL,
+  population_col = NULL,
+  individual_col = NULL
+)
+```
+
+## Arguments
+
+- data:
+
+  Character. String indicating the name of the vcf file, geno file or
+  vcfR object to be used in the analysis.
+
+- pops:
+
+  Character. String indicating the name of the population assignment
+  file or dataframe containing the population assignment information for
+  each individual in the data. This file must be in the same order as
+  the vcf file and include columns specifying the individual and the
+  population that individual belongs to. The first column should contain
+  individual names and the second column should indicate the population
+  assignment of each individual. Alternatively, you can indicate the
+  column containing the individual and population information using the
+  individual_col and population_col arguments.
+
+- statistic:
+
+  Character. String or vector indicating the statistic to calculate.
+  Options are any of: all; all of the statistics; Ho, observed
+  heterozygosity; He, expected heterozygosity; PHt, proportion of
+  heterozygous loci; Hs_exp, heterozygosity standardized by the average
+  expected heterozygosity; Hs_obs, heterozygosity standardized by the
+  average observed heterozygosity; IR, internal relatedness; HL,
+  homozygosity by locus.
+
+- missing_value:
+
+  Character. String indicating missing data in the input data. It is
+  assumed to be NA, but that may not be true (is likely not) in the case
+  of geno files.
+
+- write:
+
+  Boolean. Whether or not to write the output to files in the current
+  working directory. There will be one or two files for each statistic.
+  Files will be named based on their statistic such as Ho_perpop.csv or
+  Ho_perloc.csv.
+
+- prefix:
+
+  Character. Optional argument. String that will be appended to file
+  output. Please provide a prefix if write is set to TRUE.
+
+- population_col:
+
+  Numeric. Optional argument (a number) indicating the column that
+  contains the population assignment information.
+
+- individual_col:
+
+  Numeric. Optional argument (a number) indicating the column that
+  contains the individuals (i.e., sample name) in the data.
+
+## Value
+
+A list containing the estimated heterozygosity statistics. The per pop
+values are calculated by taking the average of the per locus estimates.
+
+## References
+
+**Expected (He) and observed heterozygosity (Ho):**
+
+Nei, M. (1987) Molecular Evolutionary Genetics. Columbia University
+Press
+
+**Homozygosity by locus (HL) and internal relatedness (IR):**
+
+[Alho, J. S., Välimäki, K., & Merilä, J.
+(2010)](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1755-0998.2010.02830.x?casa_token=QiNcMSJyunkAAAAA%3Agv-CK7GrUn1bHSgz4qZSOcB2nyHDeR8B1Wtm9bM7q7vZCAcJhNkhTWnpM0EfkSCb2EvkRrr2ArMzC7v7).
+Rhh: an R extension for estimating multilocus heterozygosity and
+heterozygosity–heterozygosity correlation. Molecular ecology resources,
+10(4), 720-722.
+
+Amos, W., Worthington Wilmer, J., Fullard, K., Burg, T. M., Croxall, J.
+P., Bloch, D., & Coulson, T. (2001). The influence of parental
+relatedness on reproductive success. Proceedings of the Royal Society of
+London. Series B: Biological Sciences, 268(1480),
+2021-2027.[doi:10.1098/rspb.2001.1751](https://doi.org/10.1098/rspb.2001.1751)
+
+[Aparicio, J. M., Ortego, J., & Cordero, P. J.
+(2006)](https://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2006.03111.x).
+What should we weigh to estimate heterozygosity, alleles or loci?.
+Molecular Ecology, 15(14), 4659-4665.
+
+**Heterozygosity standardized by expected (Hs_exp) and observed
+heterozygosity (Hs_obs):**
+
+Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M.
+(1999). Parasite‐mediated selection against Inbred Soay sheep in a
+free‐living island population. Evolution, 53(4),
+1259-1267.[doi:10.1111/j.1558-5646.1999.tb04538.x](https://doi.org/10.1111/j.1558-5646.1999.tb04538.x)
+
+## Author
+
+Keaka Farleigh
+
+## Examples
+
+``` r
+# \donttest{
+data("HornedLizard_Pop")
+data("HornedLizard_VCF")
+Test <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)# }
+#> [1] "vcfR object detected, proceeding to formatting."
+#> Formatting has finished, moving onto calculations
+```
