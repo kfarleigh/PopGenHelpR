@@ -82,6 +82,10 @@ values are calculated by taking the average of the per locus estimates.
 
 ## References
 
+**Please consider citing the references below if you use this function.
+PopGenHelpR uses these resources to provide these estimates as
+accurately and quickly as possible.**
+
 **Expected (He) and observed heterozygosity (Ho):**
 
 Nei, M. (1987) Molecular Evolutionary Genetics. Columbia University
@@ -106,6 +110,12 @@ London. Series B: Biological Sciences, 268(1480),
 What should we weigh to estimate heterozygosity, alleles or loci?.
 Molecular Ecology, 15(14), 4659-4665.
 
+Card, D. C., Vonk, F. J., Smalbrugge, S., Casewell, N. R., Wüster, W.,
+Castoe, T. A., ... & Booth, W. (2021). Genome-wide data implicate
+terminal fusion automixis in king cobra facultative parthenogenesis.
+Scientific Reports, 11(1),
+7271.[doi:10.1038/s41598-021-86373-1](https://doi.org/10.1038/s41598-021-86373-1)
+
 **Heterozygosity standardized by expected (Hs_exp) and observed
 heterozygosity (Hs_obs):**
 
@@ -113,6 +123,12 @@ Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M.
 (1999). Parasite‐mediated selection against Inbred Soay sheep in a
 free‐living island population. Evolution, 53(4),
 1259-1267.[doi:10.1111/j.1558-5646.1999.tb04538.x](https://doi.org/10.1111/j.1558-5646.1999.tb04538.x)
+
+Card, D. C., Vonk, F. J., Smalbrugge, S., Casewell, N. R., Wüster, W.,
+Castoe, T. A., ... & Booth, W. (2021). Genome-wide data implicate
+terminal fusion automixis in king cobra facultative parthenogenesis.
+Scientific Reports, 11(1),
+7271.[doi:10.1038/s41598-021-86373-1](https://doi.org/10.1038/s41598-021-86373-1)
 
 ## Author
 

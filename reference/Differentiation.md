@@ -81,6 +81,10 @@ values are calculated by taking the average of the per locus estimates.
 
 ## References
 
+**Please consider citing the references below if you use this function.
+PopGenHelpR uses these resources to provide these estimates as
+accurately and quickly as possible.**
+
 **Fst:**
 
 Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013). StAMPP: An R
@@ -106,9 +110,14 @@ mixed‐ploidy level populations. Molecular ecology resources, 13(5),
 
 **Jost's D:**
 
-Jost L (2008). GST and its relatives do not measure differentiation.
+Jost, L. (2008). GST and its relatives do not measure differentiation.
 Molecular Ecology, 17,
 4015–4026.[doi:10.1111/j.1365-294X.2008.03887.x](https://doi.org/10.1111/j.1365-294X.2008.03887.x)
+
+Winter, D. J. (2012). MMOD: an R library for the calculation of
+population differentiation statistics. Molecular ecology resources,
+12(6),
+1158-1160.[doi:10.1111/j.1755-0998.2012.03174.x](https://doi.org/10.1111/j.1755-0998.2012.03174.x)
 
 ## Author
 

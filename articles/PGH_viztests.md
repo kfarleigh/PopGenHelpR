@@ -26,15 +26,9 @@ devtools::install_github("kfarleigh/PopGenHelpR")
 
     ## Downloading GitHub repo kfarleigh/PopGenHelpR@HEAD
 
-    ## digest (0.6.38 -> 0.6.39) [CRAN]
-
-    ## Installing 1 packages: digest
-
-    ## Installing package into '/home/runner/work/_temp/Library'
-    ## (as 'lib' is unspecified)
-
+    ## 
     ## ── R CMD build ─────────────────────────────────────────────────────────────────
-    ## * checking for file ‘/tmp/RtmptdNRRR/remotes5fb167ba7dd/kfarleigh-PopGenHelpR-19d6c80/DESCRIPTION’ ... OK
+    ## * checking for file ‘/tmp/Rtmp6OmoMI/remotes62ac3099b68f/kfarleigh-PopGenHelpR-fc1ae6e/DESCRIPTION’ ... OK
     ## * preparing ‘PopGenHelpR’:
     ## * checking DESCRIPTION meta-information ... OK
     ## * checking for LF line-endings in source and make files and shell scripts
@@ -682,8 +676,6 @@ raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2
 
     ## Warning in spdep::knearneigh(Coords, k = neighbors, longlat = TRUE, use_kd_tree
     ## = FALSE): k greater than one-third of the number of data points
-
-    ## |---------|---------|---------|---------|=========================================                                          
 
 ``` r
 plot_grid(NM_temp$Map, NM_temp_wbreaks$Map)
