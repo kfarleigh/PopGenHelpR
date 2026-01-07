@@ -11,6 +11,9 @@
 #' @return A list containing the estimated heterozygosity statistics. The per pop values are calculated by taking the average of the per locus estimates.
 #'
 #' @references
+#'
+#' \bold{Please consider citing the references below if you use this function. PopGenHelpR uses these resources to provide these estimates as accurately and quickly as possible.}
+#'
 #' \bold{Expected (He) and observed heterozygosity (Ho):}
 #'
 #' Nei, M. (1987) Molecular Evolutionary Genetics. Columbia University Press
@@ -23,9 +26,13 @@
 #'
 #' \href{https://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2006.03111.x}{Aparicio, J. M., Ortego, J., & Cordero, P. J. (2006)}. What should we weigh to estimate heterozygosity, alleles or loci?. Molecular Ecology, 15(14), 4659-4665.
 #'
+#' Card, D. C., Vonk, F. J., Smalbrugge, S., Casewell, N. R., Wüster, W., Castoe, T. A., ... & Booth, W. (2021). Genome-wide data implicate terminal fusion automixis in king cobra facultative parthenogenesis. Scientific Reports, 11(1), 7271.\doi{https://doi.org/10.1038/s41598-021-86373-1}
+#'
 #' \bold{Heterozygosity standardized by expected (Hs_exp) and observed heterozygosity (Hs_obs):}
 #'
 #' Coltman, D. W., Pilkington, J. G., Smith, J. A., & Pemberton, J. M. (1999). Parasite‐mediated selection against Inbred Soay sheep in a free‐living island population. Evolution, 53(4), 1259-1267.\doi{10.1111/j.1558-5646.1999.tb04538.x}
+#'
+#' Card, D. C., Vonk, F. J., Smalbrugge, S., Casewell, N. R., Wüster, W., Castoe, T. A., ... & Booth, W. (2021). Genome-wide data implicate terminal fusion automixis in king cobra facultative parthenogenesis. Scientific Reports, 11(1), 7271.\doi{https://doi.org/10.1038/s41598-021-86373-1}
 #'
 #' @author Keaka Farleigh
 #' @export

@@ -45,6 +45,8 @@ data("HornedLizard_VCF")
 Test <- Differentiation(data = HornedLizard_VCF, pops = HornedLizard_Pop, write = FALSE)}
 }
 \references{
+\bold{Please consider citing the references below if you use this function. PopGenHelpR uses these resources to provide these estimates as accurately and quickly as possible.}
+
 \bold{Fst:}
 
 Pembleton, L. W., Cogan, N. O., & Forster, J. W. (2013). StAMPP: An R package for calculation of genetic differentiation and structure of mixed‐ploidy level populations. Molecular ecology resources, 13(5), 946-952.\doi{10.1111/1755-0998.12129}
@@ -59,7 +61,9 @@ Nei, M. (1972). Genetic distance between populations. The American Naturalist, 1
 
 \bold{Jost's D:}
 
-Jost L (2008). GST and its relatives do not measure differentiation. Molecular Ecology, 17, 4015–4026.\doi{10.1111/j.1365-294X.2008.03887.x}
+Jost, L. (2008). GST and its relatives do not measure differentiation. Molecular Ecology, 17, 4015–4026.\doi{10.1111/j.1365-294X.2008.03887.x}
+
+Winter, D. J. (2012). MMOD: an R library for the calculation of population differentiation statistics. Molecular ecology resources, 12(6), 1158-1160.\doi{https://doi.org/10.1111/j.1755-0998.2012.03174.x}
 }
 \author{
 Keaka Farleigh
