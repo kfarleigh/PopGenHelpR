@@ -84,7 +84,9 @@ values are calculated by taking the average of the per locus estimates.
 
 **Please consider citing the references below if you use this function.
 PopGenHelpR uses these resources to provide these estimates as
-accurately and quickly as possible.**
+accurately and quickly as possible. Specifically, PopGenHelpR uses
+modified code from the Card et al. (2021) reference below to calculate
+internal relatedness and homozygosity by locus.**
 
 **Expected (He) and observed heterozygosity (Ho):**
 

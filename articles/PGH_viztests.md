@@ -26,14 +26,20 @@ devtools::install_github("kfarleigh/PopGenHelpR")
 
     ## Downloading GitHub repo kfarleigh/PopGenHelpR@HEAD
 
-    ## 
+    ## lifecycle (1.0.4 -> 1.0.5) [CRAN]
+
+    ## Installing 1 packages: lifecycle
+
+    ## Installing package into '/home/runner/work/_temp/Library'
+    ## (as 'lib' is unspecified)
+
     ## ── R CMD build ─────────────────────────────────────────────────────────────────
-    ## * checking for file ‘/tmp/Rtmp6OmoMI/remotes62ac3099b68f/kfarleigh-PopGenHelpR-fc1ae6e/DESCRIPTION’ ... OK
+    ## * checking for file ‘/tmp/RtmpCoGXRM/remotes230b394f4f25/kfarleigh-PopGenHelpR-0fcdf47/DESCRIPTION’ ... OK
     ## * preparing ‘PopGenHelpR’:
     ## * checking DESCRIPTION meta-information ... OK
     ## * checking for LF line-endings in source and make files and shell scripts
     ## * checking for empty or unneeded directories
-    ## * building ‘PopGenHelpR_1.4.1.tar.gz’
+    ## * building ‘PopGenHelpR_1.4.2.tar.gz’
 
     ## Installing package into '/home/runner/work/_temp/Library'
     ## (as 'lib' is unspecified)
