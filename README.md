@@ -1,5 +1,5 @@
 
-# PopGenHelpR version 1.4.1 <img src="man/figures/PGH_Logo_Outlined.png" align="right" width="145" height = "145"/>
+# PopGenHelpR version 1.4.2 <img src="man/figures/PGH_Logo_Outlined.png" align="right" width="145" height = "145"/>
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/PopGenHelpR)](https://cran.r-project.org/package=PopGenHelpR)
@@ -31,4 +31,7 @@ You can install the development version of *PopGenHelpR* using devtools:
 ``` r
 devtools::install_github("kfarleigh/PopGenHelpR")
 ```
+
+## Citing resources used by PopGenHelpR
+*PopGenHelpR* leverages previously developed code resources to perform some calculations in the `Heterozygosity` and `Differentiation` functions. Please see the details regarding references for the functions to ensure that you are citing everyone appropriately. 
 

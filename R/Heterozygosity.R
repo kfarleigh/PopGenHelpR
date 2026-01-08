@@ -12,7 +12,7 @@
 #'
 #' @references
 #'
-#' \bold{Please consider citing the references below if you use this function. PopGenHelpR uses these resources to provide these estimates as accurately and quickly as possible.}
+#' \bold{Please consider citing the references below if you use this function. PopGenHelpR uses these resources to provide these estimates as accurately and quickly as possible. Specifically, PopGenHelpR uses modified code from the Card et al. (2021) reference below to calculate internal relatedness and homozygosity by locus.}
 #'
 #' \bold{Expected (He) and observed heterozygosity (Ho):}
 #'

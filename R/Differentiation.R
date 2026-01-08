@@ -13,7 +13,7 @@
 #'
 #' @references
 #'
-#' \bold{Please consider citing the references below if you use this function. PopGenHelpR uses these resources to provide these estimates as accurately and quickly as possible.}
+#' \bold{Please consider citing the references below if you use this function. PopGenHelpR uses these resources to provide these estimates as accurately and quickly as possible. Specifically, PopGenHelpR uses StAMPP's (Pembleton et al. 2013) indexing and modified code in Fst and Nei's D estimation.}
 #'
 #' \bold{Fst:}
 #'

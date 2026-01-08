@@ -1,3 +1,8 @@
+# PopGenHelpR 1.4.2
+- January 8th, 2025
+
+-Updated documentation to ensure other packages are cited correctly. 
+
 # PopGenHelpR 1.4.1
 - August 5th, 2025
 
