@@ -2,6 +2,8 @@
 
 ## PopGenHelpR 1.4.2
 
+CRAN release: 2026-01-08
+
 - January 8th, 2025
 
 -Updated documentation to ensure other packages are cited correctly.

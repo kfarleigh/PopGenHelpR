@@ -139,7 +139,8 @@ Piechart_map(
   The options are 1, which plots the shapefile on top of the base world
   map (under points and administrative boundaries), 2 which plots the
   shapefile on top of administrative boundaries (but under points), and
-  3, which plots the shapefile on top of everything.
+  3, which plots the shapefile on top of everything. Note that an error
+  will occur if you do not provide a `country_code` argument.
 
 - shapefile_col:
 

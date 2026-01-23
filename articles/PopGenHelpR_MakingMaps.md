@@ -52,6 +52,11 @@ functions.
     because ggplot2 can only take one `scale_fill` per plot. With a
     raster, we would need two `scale_fills`. This is also why there is
     no outline on the `Point_map` plots that include a raster.
+4.  An error will occur if you do not provide a `country_code` argument
+    when you are supplying a `shapefile_plot_position` or
+    `raster_plot_position` argument. This is because `PopGenHelpR`
+    doesn’t know where to put the shapefile or raster relative to the
+    administrative boundaries.
 
 Let’s make a few maps!
 
@@ -62,7 +67,7 @@ Let’s make a few maps!
 # Install developmental PopGenHelpR if needed 
 devtools::install_github("kfarleigh/PopGenHelpR")
 #> Using github PAT from envvar GITHUB_PAT. Use `gitcreds::gitcreds_set()` and unset GITHUB_PAT in .Renviron (or elsewhere) if you want to use the more secure git credential store instead.
-#> Skipping install of 'PopGenHelpR' from a github remote, the SHA1 (0fcdf476) has not changed since last install.
+#> Skipping install of 'PopGenHelpR' from a github remote, the SHA1 (c1c530b9) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 
 base::system("R --no-save") 
