@@ -71,9 +71,9 @@ Point_map(
 
 \item{north_arrow_position}{Character. The position of the north arrow. See \href{https://cran.r-project.org/package=ggspatial}{ggspatial} documentation for more details.}
 
-\item{shapefile_plot_position}{Numeric. A number indicating which position to plot the shapefile in. The options are 1, which plots the shapefile on top of the base world map (under points and administrative boundaries), 2 which plots the shapefile on top of administrative boundaries (but under points), and 3, which plots the shapefile on top of everything.}
+\item{shapefile_plot_position}{Numeric. A number indicating which position to plot the shapefile in. The options are 1, which plots the shapefile on top of the base world map (under points and administrative boundaries), 2 which plots the shapefile on top of administrative boundaries (but under points), and 3, which plots the shapefile on top of everything. Note that an error will occur if you do not provide a \code{country_code} argument.}
 
-\item{raster_plot_position}{Numeric. A number indicating which position to plot the shapefile in. The options are 1, which plots the raster on top of the base world map (under points and administrative boundaries), 2 which plots the raster on top of administrative boundaries (but under points), and 3, which plots the raster on top of everything.}
+\item{raster_plot_position}{Numeric. A number indicating which position to plot the shapefile in. The options are 1, which plots the raster on top of the base world map (under points and administrative boundaries), 2 which plots the raster on top of administrative boundaries (but under points), and 3, which plots the raster on top of everything. Note that an error will occur if you do not provide a \code{country_code} argument.}
 
 \item{shapefile_col}{Character. A color or color vector indicating the color to fill the shapefile(s) with. Similar to \code{group_col}, shapefiles will be colored alphabetically.}
 

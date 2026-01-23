@@ -39,6 +39,7 @@ There are a few things to be aware of with PopGenHelpR's mapping functions.
 1. You will get an inaccurate scale warning. This is expected because we are using unprojected data. If this causes serious concern please email us for help. We do not provide support for projecting data because projection can cause R to crash and can be done in `terra`. 
 2. Your raster may be recognized as discrete or continous when it is not. This error comes from `terra`, we provide the `discrete_raster` argument to accommodate this. Just set it to TRUE or FALSE.
 3. The `Piechart_map` function does not support rasters. This is because ggplot2 can only take one `scale_fill` per plot. With a raster, we would need two `scale_fills`. This is also why there is no outline on the `Point_map` plots that include a raster. 
+4. An error will occur if you do not provide a `country_code` argument when you are supplying a `shapefile_plot_position` or `raster_plot_position` argument. This is because `PopGenHelpR` doesn't know where to put the shapefile or raster relative to the administrative boundaries. 
 
 
 

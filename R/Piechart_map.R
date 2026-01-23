@@ -17,7 +17,7 @@
 #' @param north_arrow Boolean. Whether or not to add a north arrow.
 #' @param north_arrow_style Character. Which style of north arrow to add. See [ggspatial](https://cran.r-project.org/package=ggspatial) documentation for more details.
 #' @param north_arrow_position Character. The position of the north arrow. See [ggspatial](https://cran.r-project.org/package=ggspatial) documentation for more details.
-#' @param shapefile_plot_position Numeric. A number indicating which position to plot the shapefile in. The options are 1, which plots the shapefile on top of the base world map (under points and administrative boundaries), 2 which plots the shapefile on top of administrative boundaries (but under points), and 3, which plots the shapefile on top of everything.
+#' @param shapefile_plot_position Numeric. A number indicating which position to plot the shapefile in. The options are 1, which plots the shapefile on top of the base world map (under points and administrative boundaries), 2 which plots the shapefile on top of administrative boundaries (but under points), and 3, which plots the shapefile on top of everything. Note that an error will occur if you do not provide a `country_code` argument.
 #' @param shapefile_col Character. A color or color vector indicating the color to fill the shapefile(s) with. Similar to `group_col`, shapefiles will be colored alphabetically.
 #' @param shapefile_outline_col Character. A color indicating the outline color of the shapefile.
 #' @param shp_outwidth Numeric. The width of the shapefile outline.
