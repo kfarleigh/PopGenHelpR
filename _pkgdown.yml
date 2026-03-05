@@ -23,6 +23,8 @@ navbar:
           href: articles/PopGenHelpR_vignette.html
         - text: Choosing heterozygosity
           href: articles/PopGenHelpR_heterozygosity.html
+        - text: Estimating uncertainty
+          href: articles/PopGenHelpR_EstimatingUncertainty.html
         - text: Principal Component Analysis
           href: articles/PopGenHelpR_PCA.html
         - text: Creating a Q-matrix
