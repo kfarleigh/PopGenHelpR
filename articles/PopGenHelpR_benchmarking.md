@@ -77,7 +77,7 @@ library(mmod)
 library(vcfR)
 #> 
 #>    *****       ***   vcfR   ***       *****
-#>    This is vcfR 1.15.0 
+#>    This is vcfR 1.16.0 
 #>      browseVignettes('vcfR') # Documentation
 #>      citation('vcfR') # Citation
 #>    *****       *****      *****       *****

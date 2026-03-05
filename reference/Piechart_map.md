@@ -176,4 +176,18 @@ Loc <- Q_dat[[2]]
 Test_all <- Piechart_map(anc.mat = Qmat, pops = Loc, K = 5,
 plot.type = 'all', col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), piesize = 0.35,
 Lat_buffer = 1, Long_buffer = 1)# }
+#> Warning: There was 1 warning in `dplyr::summarise()`.
+#> ℹ In argument: `dplyr::across(1:(K + 2), mean, na.rm = TRUE)`.
+#> ℹ In group 1: `Pop = "1"`.
+#> Caused by warning:
+#> ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+#> Supply arguments directly to `.fns` through an anonymous function instead.
+#> 
+#>   # Previously
+#>   across(a:b, mean, na.rm = TRUE)
+#> 
+#>   # Now
+#>   across(a:b, \(x) mean(x, na.rm = TRUE))
+#> ℹ The deprecated feature was likely used in the PopGenHelpR package.
+#>   Please report the issue at <https://github.com/kfarleigh/PopGenHelpR/issues>.
 ```

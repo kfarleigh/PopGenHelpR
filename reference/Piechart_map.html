@@ -20,6 +20,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/PopGenHelpR_vignette.html">Vignette</a></li>
     <li><a class="dropdown-item" href="../articles/PopGenHelpR_heterozygosity.html">Choosing heterozygosity</a></li>
+    <li><a class="dropdown-item" href="../articles/PopGenHelpR_EstimatingUncertainty.html">Estimating uncertainty</a></li>
     <li><a class="dropdown-item" href="../articles/PopGenHelpR_PCA.html">Principal Component Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/PopGenHelpR_createQmatrix.html">Creating a Q-matrix</a></li>
     <li><a class="dropdown-item" href="../articles/PopGenHelpR_sortQmatrix.html">Sorting a Q-matrix</a></li>
@@ -180,6 +181,20 @@
 <span class="r-in"><span><span class="va">Test_all</span> <span class="op">&lt;-</span> <span class="fu">Piechart_map</span><span class="op">(</span>anc.mat <span class="op">=</span> <span class="va">Qmat</span>, pops <span class="op">=</span> <span class="va">Loc</span>, K <span class="op">=</span> <span class="fl">5</span>,</span></span>
 <span class="r-in"><span>plot.type <span class="op">=</span> <span class="st">'all'</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#d73027'</span>, <span class="st">'#fc8d59'</span>, <span class="st">'#e0f3f8'</span>, <span class="st">'#91bfdb'</span>, <span class="st">'#4575b4'</span><span class="op">)</span>, piesize <span class="op">=</span> <span class="fl">0.35</span>,</span></span>
 <span class="r-in"><span>Lat_buffer <span class="op">=</span> <span class="fl">1</span>, Long_buffer <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="co"># }</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `dplyr::summarise()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `dplyr::across(1:(K + 2), mean, na.rm = TRUE)`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In group 1: `Pop = "1"`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> The `...` argument of `across()` is deprecated as of dplyr 1.1.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Supply arguments directly to `.fns` through an anonymous function instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   # Previously</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   across(a:b, mean, na.rm = TRUE)</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   # Now</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   across(a:b, \(x) mean(x, na.rm = TRUE))</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">PopGenHelpR</span> package.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/kfarleigh/PopGenHelpR/issues&gt;</span>.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

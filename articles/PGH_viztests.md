@@ -26,15 +26,15 @@ devtools::install_github("kfarleigh/PopGenHelpR")
 
     ## Downloading GitHub repo kfarleigh/PopGenHelpR@HEAD
 
-    ## cpp11 (0.5.2 -> 0.5.3) [CRAN]
+    ## systemfonts (1.3.1 -> 1.3.2) [CRAN]
 
-    ## Installing 1 packages: cpp11
+    ## Installing 1 packages: systemfonts
 
     ## Installing package into '/home/runner/work/_temp/Library'
     ## (as 'lib' is unspecified)
 
     ## ── R CMD build ─────────────────────────────────────────────────────────────────
-    ## * checking for file ‘/tmp/RtmpFoQ5gE/remotes237318328a19/kfarleigh-PopGenHelpR-c1c530b/DESCRIPTION’ ... OK
+    ## * checking for file ‘/tmp/RtmpoPMOE0/remotes60c911df7c9e/kfarleigh-PopGenHelpR-cbd4fda/DESCRIPTION’ ... OK
     ## * preparing ‘PopGenHelpR’:
     ## * checking DESCRIPTION meta-information ... OK
     ## * checking for LF line-endings in source and make files and shell scripts
@@ -263,7 +263,24 @@ arrow, or scale bar. We show that PGH works with differnt plot types.
 ``` r
 # Make map without shapefiles, this is what the original version of PGH did.
 Base_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", Lat_buffer = 3, Long_buffer = 3, country_code = c("usa", "can", "mex"))
+```
 
+    ## Warning: There was 1 warning in `dplyr::summarise()`.
+    ## ℹ In argument: `dplyr::across(1:(K + 2), mean, na.rm = TRUE)`.
+    ## ℹ In group 1: `Pop = "1"`.
+    ## Caused by warning:
+    ## ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+    ## Supply arguments directly to `.fns` through an anonymous function instead.
+    ## 
+    ##   # Previously
+    ##   across(a:b, mean, na.rm = TRUE)
+    ## 
+    ##   # Now
+    ##   across(a:b, \(x) mean(x, na.rm = TRUE))
+    ## ℹ The deprecated feature was likely used in the PopGenHelpR package.
+    ##   Please report the issue at <https://github.com/kfarleigh/PopGenHelpR/issues>.
+
+``` r
 plot_grid(Base_piemap$Individual_piemap, Base_piemap$Population_piemap, nrow = 1)
 ```
 
