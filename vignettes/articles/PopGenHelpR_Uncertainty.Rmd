@@ -1,0 +1,167 @@
+---
+title: "Generating confidence intervals with bootstrapping"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PopGenHelpR_Uncertainty}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  options(rmarkdown.html_vignette.check_title = FALSE)
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Purpose
+
+To estimate uncertainty (confidence intervals) by performing bootstrapping.
+
+This vignette will show users how to estimate confidence intervals using PopGenHelpR since the functions do not currently support bootstrapping.
+
+### Why should you estimate confidence intervals?
+
+Estimating confidence intervals provides an idea of uncertainty about a particular measurement. This is useful, because it indicates how precise our estimate is. Larger intervals (wider) indicates less precision and smaller (narrower) intervals indicates greater precision.
+
+### What does a confidence interval indicate and what does it not indicate?
+
+A confidence interval does *NOT* mean that there is an X% chance that your true population value lies within your interval. For example, you CANNOT say that there is a 95% chance that your true mean of a population lies within your confidence interval.
+
+What you *CAN* say if you use a 95% confidence interval, for example, is that if you calculated this interval many times, the true mean of the population would be in 95% of those intervals.
+
+### Notes
+
+We will use the data that come with PopGenHelpR. There are only 3 populations, so we are able to manually extract data in our for loops below (e.g., east_south <- c(east_south, dif_boot$Fst[2,1])). This may not be feasible if you have many populations; please reach out to Keaka Farleigh (PopGenHelpR maintainer) if you are concerned about doing this manually.
+
+### Bootstrapping for differentiation
+
+First, we will estimate differentiation using all of the SNPs in the dataset. Then, we will perform bootstrapping by building a for loop to generate a 95% confidence interval.
+
+```{r fst, echo=TRUE, eval=FALSE}
+
+# Load package and data 
+library(PopGenHelpR)
+
+
+data("HornedLizard_Pop")
+data("HornedLizard_VCF")
+
+# set a seed to make it reproducible (I usually choose the date
+set.seed(02172026)
+
+
+# Estimate differentiation using all SNPs
+emp_fst <- Differentiation(HornedLizard_VCF, HornedLizard_Pop, statistic = "Fst")
+
+# Set the number of bootstrap iterations
+boots <- 1000
+
+# Get the number of SNPs
+total_snps <- nrow(HornedLizard_VCF@fix)
+
+# Create vectors to store the bootstrapped estimates for each population pair
+east_west <- c()
+east_south <- c()
+south_west <- c()
+
+for(i in 1:boots){
+  
+  loci_sample <- sample(1:total_snps,
+                        size = total_snps,
+                        replace = TRUE)
+  
+  vcf_boot <- HornedLizard_VCF[loci_sample, ]
+  
+  # Replace SNP names to avoid an error
+  vcf_boot@fix[,"ID"] <- paste0("SNP_", 1:nrow(vcf_boot@fix))
+  
+  dif_boot <- suppressMessages(Differentiation(vcf_boot, HornedLizard_Pop, statistic = "Fst"))
+  
+  east_south <- c(east_south, dif_boot$Fst[2,1])
+  east_west <- c(east_west, dif_boot$Fst[3,1])
+  south_west <- c(south_west, dif_boot$Fst[3,2])
+  
+  remove(loci_sample, vcf_boot, dif_boot)
+  
+}
+
+# Get the 95% confidence interval for each comparison
+es_ci <- quantile(east_south, c(0.025, 0.975), na.rm = TRUE)
+ew_ci <- quantile(east_west, c(0.025, 0.975), na.rm = TRUE)
+sw_ci <- quantile(south_west, c(0.025, 0.975), na.rm = TRUE)
+
+# Print out the confidence intervals
+es_ci
+ew_ci
+sw_ci
+
+# Look at the empirical values
+emp_fst$Fst
+```
+
+Now we have our genome-wide estimate, and a 95% confidence interval. Generally, we expect our genome-wide estimate to fall in the middle of this confidence interval. There are exceptions, however, such as when you use very few bootstrap iterations. I recommend using at least 1,000 if you can.
+
+Next, we will do the same thing for heterozygosity.
+
+### Bootstrapping for heterozygosity
+
+```{r het, echo=TRUE, eval=FALSE}
+
+emp_obshet <- Heterozygosity(HornedLizard_VCF, HornedLizard_Pop, statistic = "Ho")
+
+
+# Set the number of bootstrap replicates
+boots <- 1000
+
+# Get the number of SNPs
+total_snps <- nrow(HornedLizard_VCF@fix)
+
+# Create vectors to store the bootstrapped estimates for each population pair
+east_west_obshet <- c()
+east_south_obshet <- c()
+south_west_obshet <- c()
+
+for(i in 1:boots){
+  
+  loci_sample <- sample(1:total_snps,
+                        size = total_snps,
+                        replace = TRUE)
+  
+  vcf_boot <- HornedLizard_VCF[loci_sample, ]
+  
+  # Replace SNP names to avoid an error (we can't have SNPs with the same name)
+  vcf_boot@fix[,"ID"] <- paste0("SNP_", 1:nrow(vcf_boot@fix))
+  
+  het_boot <- suppressMessages(Heterozygosity(vcf_boot, HornedLizard_Pop, statistic = "Ho"))
+  
+  east_south_obshet <- c(east_south_obshet, het_boot$Ho_perpop[1,1])
+  east_west_obshet <- c(east_west_obshet, het_boot$Ho_perpop[2,1])
+  south_west_obshet <- c(south_west_obshet, het_boot$Ho_perpop[3,1])
+  
+  remove(loci_sample, vcf_boot, het_boot)
+  
+}
+
+
+# Get the 95% confidence interval for each comparison
+es_obshet_ci <- quantile(east_south_obshet, c(0.025, 0.975), na.rm = TRUE)
+ew_obshet_ci <- quantile(east_west_obshet, c(0.025, 0.975), na.rm = TRUE)
+sw_obshet_ci <- quantile(south_west_obshet, c(0.025, 0.975), na.rm = TRUE)
+
+# Print out the confidence intervals
+es_obshet_ci
+ew_obshet_ci
+sw_obshet_ci
+
+# Look at our empirical values
+emp_obshet$Ho_perpop
+
+```
+
+Again, we should see that our genome-wide (empirical) estimates sit roughly in the middle of our confidence interval.
+
+### Questions???
+
+Please email Keaka Farleigh (keakafarleigh@virginia.edu) if you need help performing bootstrapping or with anything else.
