@@ -67,7 +67,7 @@ Let’s make a few maps!
 # Install developmental PopGenHelpR if needed 
 devtools::install_github("kfarleigh/PopGenHelpR")
 #> Using github PAT from envvar GITHUB_PAT. Use `gitcreds::gitcreds_set()` and unset GITHUB_PAT in .Renviron (or elsewhere) if you want to use the more secure git credential store instead.
-#> Skipping install of 'PopGenHelpR' from a github remote, the SHA1 (cbd4fdae) has not changed since last install.
+#> Skipping install of 'PopGenHelpR' from a github remote, the SHA1 (3fe92258) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 
 base::system("R --no-save") 

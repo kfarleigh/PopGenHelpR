@@ -26,15 +26,15 @@ devtools::install_github("kfarleigh/PopGenHelpR")
 
     ## Downloading GitHub repo kfarleigh/PopGenHelpR@HEAD
 
-    ## systemfonts (1.3.1 -> 1.3.2) [CRAN]
+    ## fs (1.6.6 -> 1.6.7) [CRAN]
 
-    ## Installing 1 packages: systemfonts
+    ## Installing 1 packages: fs
 
     ## Installing package into '/home/runner/work/_temp/Library'
     ## (as 'lib' is unspecified)
 
     ## ── R CMD build ─────────────────────────────────────────────────────────────────
-    ## * checking for file ‘/tmp/RtmpoPMOE0/remotes60c911df7c9e/kfarleigh-PopGenHelpR-cbd4fda/DESCRIPTION’ ... OK
+    ## * checking for file ‘/tmp/RtmpE21lma/remotes21591a4833b7/kfarleigh-PopGenHelpR-3fe9225/DESCRIPTION’ ... OK
     ## * preparing ‘PopGenHelpR’:
     ## * checking DESCRIPTION meta-information ... OK
     ## * checking for LF line-endings in source and make files and shell scripts
