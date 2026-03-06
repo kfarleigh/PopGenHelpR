@@ -5,14 +5,14 @@ articles:
   articles/PGH_viztests: PGH_viztests.html
   articles/PopGenHelpR_benchmarking: PopGenHelpR_benchmarking.html
   articles/PopGenHelpR_createQmatrix: PopGenHelpR_createQmatrix.html
-  articles/PopGenHelpR_EstimatingUncertainty: PopGenHelpR_EstimatingUncertainty.html
   articles/PopGenHelpR_heterozygosity: PopGenHelpR_heterozygosity.html
   articles/PopGenHelpR_MakingMaps: PopGenHelpR_MakingMaps.html
   articles/PopGenHelpR_PCA: PopGenHelpR_PCA.html
   articles/PopGenHelpR_plotformatting: PopGenHelpR_plotformatting.html
   articles/PopGenHelpR_sortQmatrix: PopGenHelpR_sortQmatrix.html
+  articles/PopGenHelpR_Uncertainty: PopGenHelpR_Uncertainty.html
   PopGenHelpR_vignette: PopGenHelpR_vignette.html
-last_built: 2026-03-06T16:36Z
+last_built: 2026-03-06T20:43Z
 urls:
   reference: https://kfarleigh.github.io/PopGenHelpR/reference
   article: https://kfarleigh.github.io/PopGenHelpR/articles
