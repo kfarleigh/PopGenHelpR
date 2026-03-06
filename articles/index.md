@@ -18,5 +18,7 @@
   plots](https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.md):
 - [Sorting a Q-matrix for plotting in
   PopGenHelpR](https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_sortQmatrix.md):
+- [Generating confidence intervals with
+  bootstrapping](https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_Uncertainty.md):
 - [PopGenHelpR
   Vignette](https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_vignette.md):
