@@ -34,7 +34,7 @@ devtools::install_github("kfarleigh/PopGenHelpR")
     ## (as 'lib' is unspecified)
 
     ## ── R CMD build ─────────────────────────────────────────────────────────────────
-    ## * checking for file ‘/tmp/RtmpE21lma/remotes21591a4833b7/kfarleigh-PopGenHelpR-3fe9225/DESCRIPTION’ ... OK
+    ## * checking for file ‘/tmp/Rtmp4rsQO0/remotes22046b5ab51d/kfarleigh-PopGenHelpR-f883520/DESCRIPTION’ ... OK
     ## * preparing ‘PopGenHelpR’:
     ## * checking DESCRIPTION meta-information ... OK
     ## * checking for LF line-endings in source and make files and shell scripts
