@@ -23,7 +23,7 @@ navbar:
           href: articles/PopGenHelpR_vignette.html
         - text: Choosing heterozygosity
           href: articles/PopGenHelpR_heterozygosity.html
-        - text: Esimating confidence invtervals
+        - text: Esimating confidence intervals
           href: articles/PopGenHelpR_Uncertainty.html
         - text: Principal component analysis
           href: articles/PopGenHelpR_PCA.html
