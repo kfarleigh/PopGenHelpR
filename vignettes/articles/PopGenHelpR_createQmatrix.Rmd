@@ -93,7 +93,7 @@ This will output a file with the .Q extension, which contains ancestry coefficie
 
 ## Questions???
 
-Please email Keaka Farleigh (farleik@miamioh.edu) if you need help generating a q-matrix or with anything else. 
+Please email Keaka Farleigh (keakafarleigh@gmail.com) if you need help generating a q-matrix or with anything else. 
 
 ## References 
 

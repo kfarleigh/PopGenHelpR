@@ -108,7 +108,7 @@ We see that there are 3 main clusters in our PCA and that the individuals largel
 
 ## Questions???
 
-Please email Keaka Farleigh (farleik@miamioh.edu) if you need help generating a q-matrix or with anything else. 
+Please email Keaka Farleigh (keakafarleigh@gmail.com) if you need help generating a q-matrix or with anything else. 
 
 ## References
 
