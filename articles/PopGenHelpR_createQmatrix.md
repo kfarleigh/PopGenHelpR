@@ -122,7 +122,7 @@ coefficients for each individual (our q-matrix).
 
 ## Questions???
 
-Please email Keaka Farleigh (<farleik@miamioh.edu>) if you need help
+Please email Keaka Farleigh (<keakafarleigh@gmail.com>) if you need help
 generating a q-matrix or with anything else.
 
 ## References

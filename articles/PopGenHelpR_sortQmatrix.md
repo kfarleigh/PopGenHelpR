@@ -87,5 +87,5 @@ Anc_ord_char$`Population Ancestry Plot`
 
 ## Questions???
 
-Please email Keaka Farleigh (<farleik@miamioh.edu>) if you need help
+Please email Keaka Farleigh (<keakafarleigh@gmail.com>) if you need help
 generating a q-matrix or with anything else.

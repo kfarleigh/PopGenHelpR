@@ -22,13 +22,25 @@ website](https://kfarleigh.github.io/PopGenHelpR/).***
 devtools::install_github("kfarleigh/PopGenHelpR")
 ```
 
+    ## Warning: `install_github()` was deprecated in devtools 2.5.0.
+    ## ℹ Please use pak::pak("user/repo") instead.
+    ## This warning is displayed once per session.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
+
     ## Using github PAT from envvar GITHUB_PAT. Use `gitcreds::gitcreds_set()` and unset GITHUB_PAT in .Renviron (or elsewhere) if you want to use the more secure git credential store instead.
 
     ## Downloading GitHub repo kfarleigh/PopGenHelpR@HEAD
 
-    ## 
+    ## rlang (1.1.7 -> 1.2.0) [CRAN]
+
+    ## Installing 1 packages: rlang
+
+    ## Installing package into '/home/runner/work/_temp/Library'
+    ## (as 'lib' is unspecified)
+
     ## ── R CMD build ─────────────────────────────────────────────────────────────────
-    ## * checking for file ‘/tmp/RtmpmQt4QU/remotes21bf131adb93/kfarleigh-PopGenHelpR-1fe782a/DESCRIPTION’ ... OK
+    ## * checking for file ‘/tmp/RtmpCry1sb/remotes4eae2e420255/kfarleigh-PopGenHelpR-5889fc8/DESCRIPTION’ ... OK
     ## * preparing ‘PopGenHelpR’:
     ## * checking DESCRIPTION meta-information ... OK
     ## * checking for LF line-endings in source and make files and shell scripts
@@ -693,8 +705,6 @@ raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2
 
     ## Warning in spdep::knearneigh(Coords, k = neighbors, longlat = TRUE, use_kd_tree
     ## = FALSE): k greater than one-third of the number of data points
-
-    ## |---------|---------|---------|---------|=========================================                                          
 
 ``` r
 plot_grid(NM_temp$Map, NM_temp_wbreaks$Map)

@@ -170,5 +170,5 @@ roughly in the middle of our confidence interval.
 
 ### Questions???
 
-Please email Keaka Farleigh (<keakafarleigh@virginia.edu>) if you need
-help performing bootstrapping or with anything else.
+Please email Keaka Farleigh (<keakafarleigh@gmail.com>) if you need help
+performing bootstrapping or with anything else.

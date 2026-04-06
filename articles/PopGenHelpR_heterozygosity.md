@@ -261,8 +261,8 @@ You can calculate *HL* in `PopGenHelpR` using the command below.
 HL <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "HL")
 ```
 
-Please reach out to Keaka Farleigh (<farleik@miamioh.edu>) if you have
-questions or need any help.
+Please reach out to Keaka Farleigh (<keakafarleigh@gmail.com>) if you
+have questions or need any help.
 
 ## References
 
