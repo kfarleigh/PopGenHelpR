@@ -1,4 +1,4 @@
-# PopGenHelpR version 1.4.2 ![](reference/figures/PGH_Logo_Outlined.png)
+# PopGenHelpR version 1.4.2 ![](reference/figures/PGH_logo_stickersize_png.png)
 
 ## What is *PopGenHelpR*?
 
