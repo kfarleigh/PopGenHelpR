@@ -18,6 +18,7 @@ website](https://kfarleigh.github.io/PopGenHelpR/).***
 ### Load data and packages
 
 ``` r
+
 # Install developmental PopGenHelpR if needed 
 devtools::install_github("kfarleigh/PopGenHelpR")
 ```
@@ -32,15 +33,9 @@ devtools::install_github("kfarleigh/PopGenHelpR")
 
     ## Downloading GitHub repo kfarleigh/PopGenHelpR@HEAD
 
-    ## rlang (1.1.7 -> 1.2.0) [CRAN]
-
-    ## Installing 1 packages: rlang
-
-    ## Installing package into '/home/runner/work/_temp/Library'
-    ## (as 'lib' is unspecified)
-
+    ## 
     ## ── R CMD build ─────────────────────────────────────────────────────────────────
-    ## * checking for file ‘/tmp/RtmpVNAS7K/remotes261e3eb3c44f/kfarleigh-PopGenHelpR-321735d/DESCRIPTION’ ... OK
+    ## * checking for file ‘/tmp/RtmpqKp93s/remotes4cb071fd1423/kfarleigh-PopGenHelpR-31d741d/DESCRIPTION’ ... OK
     ## * preparing ‘PopGenHelpR’:
     ## * checking DESCRIPTION meta-information ... OK
     ## * checking for LF line-endings in source and make files and shell scripts
@@ -51,6 +46,7 @@ devtools::install_github("kfarleigh/PopGenHelpR")
     ## (as 'lib' is unspecified)
 
 ``` r
+
 base::system("R --no-save") 
 
 library(PopGenHelpR)
@@ -74,10 +70,17 @@ shapefiles <- shapefiles[1:8]
 
 # Get elevation data 
 raster <- geodata::elevation_global(path = tempdir(), res = 5)
+```
+
+    ## Cached as: /tmp/RtmpqKp93s/elevation/wc2.1_5m//wc2.1_5m_elev.zip
+
+``` r
 
 # Get temperature data
 temp_ras <- geodata::worldclim_global("tavg", path = tempdir(), res = 5)
 ```
+
+    ## Cached as: /tmp/RtmpqKp93s/climate/wc2.1_5m//wc2.1_5m_tavg.zip
 
 #### Ancestry barchart
 
@@ -89,6 +92,7 @@ two (individual and population). The function also sorts
 individuals/populations by cluster if no order is specified.
 
 ``` r
+
 # Isolate the q-matrix and population information, create Pop_mix to show it works with a mixture of character and numerics.
 Qmat <- Q_dat[[1]]
 Pops <- Q_dat[[2]]
@@ -105,6 +109,7 @@ to cluster indviduals with similar ancestry together. We expect these
 plots to look exactly the same.
 
 ``` r
+
 # Run with no order specifiied
 Base <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'))
 ```
@@ -113,6 +118,7 @@ Base <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027',
     ## [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
 
 ``` r
+
 Mix_char_num <- Ancestry_barchart(anc.mat = Qmat, pops = Pops_mix, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'))
 ```
 
@@ -120,12 +126,14 @@ Mix_char_num <- Ancestry_barchart(anc.mat = Qmat, pops = Pops_mix, K = 5, col = 
     ## [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
 
 ``` r
+
 plot_grid(Base$`Individual Ancestry Plot`, Mix_char_num$`Individual Ancestry Plot`, ncol = 1)
 ```
 
 ![](PGH_viztests_files/figure-html/Ancestry%20barchart-1-1.png)
 
 ``` r
+
 plot_grid(Base$`Population Ancestry Plot`, Mix_char_num$`Population Ancestry Plot`, ncol = 1)
 ```
 
@@ -137,6 +145,7 @@ Next, we will test the `plot.type` argument to ensure that results are
 consistent regardless of plot.type.
 
 ``` r
+
 # Make sure it works for only individual and population plot types 
 
 Base_ind <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "individual")
@@ -145,12 +154,14 @@ Base_ind <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d730
     ## [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
 
 ``` r
+
 Base_ind$`Individual Ancestry Matrix`
 ```
 
 ![](PGH_viztests_files/figure-html/Ancestry%20barchart-2-1.png)
 
 ``` r
+
 Base_pop <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "population")
 ```
 
@@ -158,6 +169,7 @@ Base_pop <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d730
     ## [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
 
 ``` r
+
 Base_pop$`Population Ancestry Matrix`
 ```
 
@@ -171,6 +183,7 @@ arguments. We expect the individual plots to go `1-30` and for the
 population plots to go `1-5`.
 
 ``` r
+
 # Order by individual, test when plot type is individual and all 
 
 Base_ind_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "individual", ind.order = Pops$Sample)
@@ -179,12 +192,14 @@ Base_ind_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#
     ## [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
 
 ``` r
+
 Base_ind_ord$`Individual Ancestry Matrix`
 ```
 
 ![](PGH_viztests_files/figure-html/Ancestry%20barchart-3-1.png)
 
 ``` r
+
 Base_ind_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", ind.order = Pops$Sample)
 ```
 
@@ -192,12 +207,14 @@ Base_ind_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#
     ## [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
 
 ``` r
+
 Base_ind_ord$`Individual Ancestry Matrix`
 ```
 
     ## NULL
 
 ``` r
+
 # Order by population, test when plot type is population and all 
 
 Base_pop_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "population", pop.order = unique(Pops$Population))
@@ -207,12 +224,14 @@ Base_pop_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#
     ## [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
 
 ``` r
+
 Base_pop_ord$`Population Ancestry Matrix`
 ```
 
 ![](PGH_viztests_files/figure-html/Ancestry%20barchart-3-2.png)
 
 ``` r
+
 Base_pop_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", pop.order = unique(Pops$Population))
 ```
 
@@ -220,12 +239,14 @@ Base_pop_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#
     ## [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
 
 ``` r
+
 Base_pop_ord$`Population Ancestry Matrix`
 ```
 
     ## NULL
 
 ``` r
+
 # Specify both an individual and population order, this scenario is only relevant for plot type all
 
 Base_ind_pop_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", pop.order = unique(Pops$Population), ind.order = Pops$Sample)
@@ -235,6 +256,7 @@ Base_ind_pop_ord <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = 
     ## [1] "Want to change the the text size, font, or any other formatting? See https://kfarleigh.github.io/PopGenHelpR/articles/PopGenHelpR_plotformatting.html for examples and help."
 
 ``` r
+
 # Individual plot 
 Base_ind_pop_ord$`Individual Ancestry Plot`
 ```
@@ -242,6 +264,7 @@ Base_ind_pop_ord$`Individual Ancestry Plot`
 ![](PGH_viztests_files/figure-html/Ancestry%20barchart-3-3.png)
 
 ``` r
+
 # Population plot
 Base_ind_pop_ord$`Population Ancestry Plot`
 ```
@@ -267,9 +290,18 @@ First, we will generate piechart maps without extra layers, a north
 arrow, or scale bar. We show that PGH works with differnt plot types.
 
 ``` r
+
 # Make map without shapefiles, this is what the original version of PGH did.
 Base_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", Lat_buffer = 3, Long_buffer = 3, country_code = c("usa", "can", "mex"))
 ```
+
+    ## Cached as: /tmp/RtmpqKp93s/gadm/gadm36_adm0_r5_pk.rds
+
+    ## Cached as: /tmp/RtmpqKp93s/gadm/gadm41_USA_1_pk.rds
+
+    ## Cached as: /tmp/RtmpqKp93s/gadm/gadm41_CAN_1_pk.rds
+
+    ## Cached as: /tmp/RtmpqKp93s/gadm/gadm41_MEX_1_pk.rds
 
     ## Warning: There was 1 warning in `dplyr::summarise()`.
     ## ℹ In argument: `dplyr::across(1:(K + 2), mean, na.rm = TRUE)`.
@@ -287,12 +319,14 @@ Base_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027
     ##   Please report the issue at <https://github.com/kfarleigh/PopGenHelpR/issues>.
 
 ``` r
+
 plot_grid(Base_piemap$Individual_piemap, Base_piemap$Population_piemap, nrow = 1)
 ```
 
 ![](PGH_viztests_files/figure-html/Piechart%20map-1.png)
 
 ``` r
+
 # Show it works for individual and population plot.types
 Base_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "individual", Lat_buffer = 3, Long_buffer = 3, country_code = c("usa", "can", "mex"))
 
@@ -302,6 +336,7 @@ Base_piemap$Individual_piemap
 ![](PGH_viztests_files/figure-html/Piechart%20map-2.png)
 
 ``` r
+
 Base_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "population", Lat_buffer = 3, Long_buffer = 3, country_code = c("usa", "can", "mex"))
 
 Base_piemap$Population_piemap
@@ -321,6 +356,7 @@ because we do not want to decide which projection is best for your
 project and because projecting large shapefiles and rasters can crash R.
 
 ``` r
+
 # Try different shapefile positions
 Shap_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", Lat_buffer = 3, Long_buffer = 3, country_code = c("usa", "can", "mex"), shapefile = shapefiles, shapefile_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_plot_position = 1)
  
@@ -337,6 +373,7 @@ Shap3_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d7302
     ## ℹ Adding new coordinate system, which will replace the existing one.
 
 ``` r
+
 plot_grid(Shap1_piemap$Population_piemap, Shap2_piemap$Population_piemap, Shap3_piemap$Population_piemap, nrow = 1)
 ```
 
@@ -347,6 +384,7 @@ plot_grid(Shap1_piemap$Population_piemap, Shap2_piemap$Population_piemap, Shap3_
 ![](PGH_viztests_files/figure-html/Piechart%20map-1-1.png)
 
 ``` r
+
 plot_grid(Shap1_piemap$Individual_piemap, Shap2_piemap$Individual_piemap, Shap3_piemap$Individual_piemap, nrow = 1)
 ```
 
@@ -357,6 +395,7 @@ plot_grid(Shap1_piemap$Individual_piemap, Shap2_piemap$Individual_piemap, Shap3_
 ![](PGH_viztests_files/figure-html/Piechart%20map-1-2.png)
 
 ``` r
+
 # Make a plot with a transparent shapefile 
 
 Shapoutlined_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", Lat_buffer = 3, Long_buffer = 3, country_code = c("usa", "can", "mex"), shapefile = shapefiles, shapefile_outline_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_col = rep(NA,8), shapefile_plot_position = 2,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shp_outwidth = 2) 
@@ -384,6 +423,7 @@ a base layer. We can generate a map where poitns are all the same color
 by specifying the `group` or `group_col` arguments.
 
 ``` r
+
 Base_PC_nogrp <- Plot_coordinates(dat = Pop_dat, Lat_buffer = 3, Long_buffer = 3, Longitude_col = 3, Latitude_col = 3, country_code = c("usa", "mex", "can"))
 
 Base_PC_wgrp <- Plot_coordinates(dat = Pop_dat, group = Pop_dat$Population,  group_col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), Lat_buffer = 3, Long_buffer = 3, Longitude_col = 3, Latitude_col = 3, country_code = c("usa", "mex", "can"))
@@ -396,6 +436,7 @@ plot_grid(Base_PC_nogrp, Base_PC_wgrp, nrow = 1)
 Now, let’s add a shapefile, scale bar, and north arrow.
 
 ``` r
+
 PC_shp1 <- Plot_coordinates(dat = Pop_dat, Lat_buffer = 3, Long_buffer = 3, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population,  group_col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_plot_position = 1,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shapefile_outline_col = NA)
 
 PC_shp2 <- Plot_coordinates(dat = Pop_dat, Lat_buffer = 3, Long_buffer = 3, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population,  group_col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_plot_position = 2,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shapefile_outline_col = NA)
@@ -407,6 +448,7 @@ PC_shp3 <- Plot_coordinates(dat = Pop_dat, Lat_buffer = 3, Long_buffer = 3, Long
     ## ℹ Adding new coordinate system, which will replace the existing one.
 
 ``` r
+
 PC_shpout <- Plot_coordinates(dat = Pop_dat, Lat_buffer = 3, Long_buffer = 3, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population,  group_col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_outline_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_col = rep(NA,8), shapefile_plot_position = 3,north_arrow = T, scale_bar = T, north_arrow_position = "tr")
 ```
 
@@ -414,6 +456,7 @@ PC_shpout <- Plot_coordinates(dat = Pop_dat, Lat_buffer = 3, Long_buffer = 3, Lo
     ## ℹ Adding new coordinate system, which will replace the existing one.
 
 ``` r
+
 plot_grid(PC_shp1, PC_shp2, PC_shp3, PC_shpout, nrow = 2, ncol = 2)
 ```
 
@@ -431,6 +474,7 @@ the first time you try your raster**. The solution is just to change the
 `discrete_raster` argument to TRUE or FALSE (depending on what failed).
 
 ``` r
+
 PC_ras1 <- Plot_coordinates(Pop_dat, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population, group_col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), country_code = c("usa", "mex", "can"), raster = raster, raster_plot_position = 1, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = TRUE,    
 raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
 
@@ -450,6 +494,7 @@ plot_grid(PC_ras1, PC_ras2, PC_ras3)
 ![](PGH_viztests_files/figure-html/Plot%20Coordinates-2-1.png)
 
 ``` r
+
 PC_temp <-  Plot_coordinates(Pop_dat, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population, group_col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), country_code = c("usa", "mex", "can"), raster = raster, raster_plot_position = 3, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = FALSE,    
 raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
 
@@ -467,6 +512,7 @@ plot_grid(PC_temp, PC_temp_wbreaks)
 Finally, we will create the map with a raster and shapefiles.
 
 ``` r
+
 PC_ras_shp <- Plot_coordinates(Pop_dat, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population, group_col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_plot_position = 1, raster = raster, raster_plot_position = 2, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = TRUE, shapefile_outline_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'),    raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
 
 PC_ras_shp
@@ -485,6 +531,7 @@ First, we will just make a `Point_map` map with no background, just the
 regular basemap and administrative boundaries.
 
 ``` r
+
 Base_PM <- Point_map(dat = Het_dat, statistic = "Heterozygosity", country_code = c("usa", "can", "mex"))
 
 # Set an outline color
@@ -498,6 +545,7 @@ plot_grid(Base_PM$`Heterozygosity Map`, Base_PM_out$`Heterozygosity Map`, nrow =
 Now let’s add shapefiles, a scale bar, and north arrow.
 
 ``` r
+
 PM_shp1 <- Point_map(dat = Het_dat, statistic = "Heterozygosity", Lat_buffer = 3, Long_buffer = 3, Longitude_col = 4, Latitude_col = 5, country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_plot_position = 1,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shapefile_outline_col = NA, out.col = "black")
 
 PM_shp2 <- Point_map(dat = Het_dat, statistic = "Heterozygosity", Lat_buffer = 3, Long_buffer = 3, Longitude_col = 4, Latitude_col = 5, country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_plot_position = 2,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shapefile_outline_col = NA, out.col = "black")
@@ -509,6 +557,7 @@ PM_shp3 <- Point_map(dat = Het_dat, statistic = "Heterozygosity", Lat_buffer = 3
     ## ℹ Adding new coordinate system, which will replace the existing one.
 
 ``` r
+
 PM_shpout <- Point_map(dat = Het_dat, statistic = "Heterozygosity", Lat_buffer = 3, Long_buffer = 3, Longitude_col = 4, Latitude_col = 5, country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_outline_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_col = rep(NA,8), shapefile_plot_position = 3,north_arrow = T, scale_bar = T, north_arrow_position = "tr", out.col = "black")
 ```
 
@@ -516,6 +565,7 @@ PM_shpout <- Point_map(dat = Het_dat, statistic = "Heterozygosity", Lat_buffer =
     ## ℹ Adding new coordinate system, which will replace the existing one.
 
 ``` r
+
 plot_grid(PM_shp1$`Heterozygosity Map`, PM_shp2$`Heterozygosity Map`, PM_shp3$`Heterozygosity Map`, PM_shpout$`Heterozygosity Map`)
 ```
 
@@ -531,6 +581,7 @@ Next, let’s add a raster. Remember that funky things can happen with
 `discrete_raster` arugment to get around this.
 
 ``` r
+
 PM_ras1 <- Point_map(Het_dat, statistic = "Heterozygosity", Longitude_col = 4, Latitude_col = 5, country_code = c("usa", "mex", "can"), raster = raster, raster_plot_position = 1, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = TRUE,    
 raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
 
@@ -550,6 +601,7 @@ plot_grid(PM_ras1$`Heterozygosity Map`, PM_ras2$`Heterozygosity Map`, PM_ras3$`H
 ![](PGH_viztests_files/figure-html/Point%20map-3-1.png)
 
 ``` r
+
 PM_temp <-  Point_map(Het_dat, statistic = "Heterozygosity",  Longitude_col = 4, Latitude_col = 5, country_code = c("usa", "mex", "can"), raster = raster, raster_plot_position = 3, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = FALSE,    
 raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
 
@@ -567,6 +619,7 @@ plot_grid(PM_temp$`Heterozygosity Map`, PM_temp_wbreaks$`Heterozygosity Map`)
 Finally, add shapefiles and a raster.
 
 ``` r
+
 PM_ras_shp <- Point_map(Het_dat, statistic = "Heterozygosity", Longitude_col = 4, Latitude_col = 5, country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_plot_position = 1, raster = raster, raster_plot_position = 2, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = TRUE, shapefile_outline_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'),    raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE, shp_outwidth = 2)
 
 PM_ras_shp$`Heterozygosity Map`
@@ -588,6 +641,7 @@ names.
 First, let’s create a basic map with just the edges and point.
 
 ``` r
+
 Base_NM <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic = "Fst", Lat_buffer = 3, Long_buffer = 3,country_code = c("usa", "mex", "can"))
 ```
 
@@ -595,12 +649,14 @@ Base_NM <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statist
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 Base_NM$Map
 ```
 
 ![](PGH_viztests_files/figure-html/Network%20map-1-1.png)
 
 ``` r
+
 # Specify a comparison using population names
 
 Base_NM_comp <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = "South_West", statistic = "Fst", Lat_buffer = 3, Long_buffer = 3,country_code = c("usa", "mex", "can"))
@@ -613,6 +669,7 @@ plot_grid(Base_NM$Map, Base_NM_comp$Map)
 Now, let’s add a shapefile, scale bar, and north arrow.
 
 ``` r
+
 NM_1 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic = "Fst", Lat_buffer = 3, Long_buffer = 3,country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_plot_position = 1,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shapefile_outline_col = NA)
 ```
 
@@ -620,6 +677,7 @@ NM_1 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic 
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 NM_2 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic = "Fst", Lat_buffer = 3, Long_buffer = 3,country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_plot_position = 2,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shapefile_outline_col = NA)
 ```
 
@@ -627,6 +685,7 @@ NM_2 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic 
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 NM_3 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic = "Fst", Lat_buffer = 3, Long_buffer = 3,country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_plot_position = 3,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shapefile_outline_col = NA)
 ```
 
@@ -637,6 +696,7 @@ NM_3 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic 
     ## ℹ Adding new coordinate system, which will replace the existing one.
 
 ``` r
+
 NM_4 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic = "Fst", Lat_buffer = 3, Long_buffer = 3,country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_outline_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'), shapefile_plot_position = 1,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shp_outwidth = 2)
 ```
 
@@ -644,6 +704,7 @@ NM_4 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic 
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 plot_grid(NM_1$Map, NM_2$Map, NM_3$Map, NM_4$Map)
 ```
 
@@ -657,6 +718,7 @@ plot_grid(NM_1$Map, NM_2$Map, NM_3$Map, NM_4$Map)
 Next, let’s add a raster.
 
 ``` r
+
 NM_ras1 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], statistic = "Fst", neighbors = 2, country_code = c("usa", "mex", "can"), raster = raster, raster_plot_position = 1, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = TRUE,    
 raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
 ```
@@ -665,6 +727,7 @@ raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 NM_ras2 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], statistic = "Fst",neighbors = 2, country_code = c("usa", "mex", "can"), raster = raster, raster_plot_position = 2, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = TRUE,    
 raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
 ```
@@ -673,6 +736,7 @@ raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 NM_ras3 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], statistic = "Fst",  neighbors = 2, country_code = c("usa", "mex", "can"), raster = raster, raster_plot_position = 3, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = TRUE,    
 raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
 ```
@@ -681,6 +745,7 @@ raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 plot_grid(NM_ras1$Map, NM_ras2$Map, NM_ras3$Map)
 ```
 
@@ -691,6 +756,7 @@ plot_grid(NM_ras1$Map, NM_ras2$Map, NM_ras3$Map)
 ![](PGH_viztests_files/figure-html/Network%20map-3-1.png)
 
 ``` r
+
 NM_temp <-  Network_map(Fst_dat[[1]], pops = Fst_dat[[2]],  statistic = "Fst",  neighbors = 2, country_code = c("usa", "mex", "can"), raster = raster, raster_plot_position = 1, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = FALSE,    
 raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
 ```
@@ -699,6 +765,7 @@ raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 NM_temp_wbreaks <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], statistic = "Fst", neighbors = 2, country_code = c("usa", "mex", "can"), raster = temp_ras, raster_plot_position = 1, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = FALSE,    
 raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE, raster_breaks = c(-15, -10, -5,-2.5, 0,2.5, 5, 10, 15, 20))
 ```
@@ -707,6 +774,7 @@ raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 plot_grid(NM_temp$Map, NM_temp_wbreaks$Map)
 ```
 
@@ -718,6 +786,7 @@ plot_grid(NM_temp$Map, NM_temp_wbreaks$Map)
 Finally, let’s make a map with both a shapefile and raster.
 
 ``` r
+
 NM_ras_shp <- Network_map(dat = Fst_dat[[1]], pops = Fst_dat[[2]],  statistic = "Fst",  neighbors = 2, country_code = c("usa", "mex", "can"), shapefile = shapefiles, shapefile_plot_position = 1, raster = raster, raster_plot_position = 2, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, discrete_raster = TRUE, shapefile_outline_col = c('#8c510a','#d8b365','#f6e8c3','#f5f5f5','#c7eae5','#5ab4ac','#01665e'),    raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "right", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE, shp_outwidth = 2)
 ```
 
@@ -725,6 +794,7 @@ NM_ras_shp <- Network_map(dat = Fst_dat[[1]], pops = Fst_dat[[2]],  statistic = 
     ## = FALSE): k greater than one-third of the number of data points
 
 ``` r
+
 NM_ras_shp$Map
 ```
 
@@ -737,6 +807,7 @@ NM_ras_shp$Map
 Users now have more freedom to control the color gradient.
 
 ``` r
+
 Base_PH <- Pairwise_heatmap(Fst_dat[[1]], statistic = "Fst")
 
 PH_wbreaks <- Pairwise_heatmap(Fst_dat[[1]], statistic = "Fst", breaks = c(0.2,0.225,0.25,0.3,0.38))

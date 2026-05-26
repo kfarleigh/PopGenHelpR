@@ -29,6 +29,7 @@ tutorial](https://bioconductor.org/packages/release/bioc/vignettes/LEA/inst/doc/
 if you need help) you just need to use the `Q` function.
 
 ``` r
+
 # If I have a sNMF project named sNMFobject with K number of ancestral populations (genetic clusters), and my best run is run 1 (determined as the run with the lowets cross-entropy)
 Qmat <- Q(sNMFobject, K = K, run = 1)
 ```
@@ -49,6 +50,7 @@ to create fake sample names **Please note that this is only a toy
 example and is not real data.**
 
 ``` r
+
 # Create fake matrix
 Qmat <- t(matrix(data = c(0.25, 0.4, 0.35), nrow = 3, ncol = 3))
 
@@ -64,6 +66,7 @@ data with populations and coordinates.
 Let’s add the individual names!
 
 ``` r
+
 # Add the names
 Qmat_wnames <- cbind(Fake_inds, Qmat)
 ```
@@ -75,6 +78,7 @@ a matrix and let’s see what `cbind` did to our numeric data. Notice that
 `sapply` function.
 
 ``` r
+
 # Check the structure of the Qmat_wnames
 str(Qmat_wnames)
 #>  chr [1:3, 1:4] "FS_1" "FS_2" "FS_3" "0.25" "0.25" "0.25" "0.4" "0.4" "0.4" ...

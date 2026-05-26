@@ -17,6 +17,7 @@ function.
 ### Load the data
 
 ``` r
+
 # Load PopGenHelpR
 library(PopGenHelpR)
 
@@ -38,6 +39,7 @@ match the individual and population names in your population assignment
 file (the `pops` argument).
 
 ``` r
+
 # Set orders
 Ind_ord <- rev(seq(1,30))
 Pop_ord <- rev(seq(1,5))
@@ -50,6 +52,7 @@ Anc_ord$`Individual Ancestry Plot`
 ![](Anc_barchart_sortedinds.png)
 
 ``` r
+
 Anc_ord$`Population Ancestry Plot`
 ```
 
@@ -61,6 +64,7 @@ individual and population names are the same type; they must be
 characters or numeric.
 
 ``` r
+
 # Make the sample and population names characters
 Qmat_char <- Qmat
 Qmat_char$Ind <- paste("Sample", Qmat_char$Ind, sep = '_')
@@ -80,6 +84,7 @@ Anc_ord_char$`Individual Ancestry Plot`
 ![](Anc_barchart_sortedinds_char.png)
 
 ``` r
+
 Anc_ord_char$`Population Ancestry Plot`
 ```
 

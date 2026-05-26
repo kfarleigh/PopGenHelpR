@@ -20,6 +20,7 @@ We will perform PCA and visualize the results. ***Note that we use
 ### Load the data
 
 ``` r
+
 # Load PopGenHelpR
 library(PopGenHelpR)
 library(ggplot2)
@@ -38,6 +39,7 @@ genomic data sets, or perform stringent filtering; I usually use `LEA`
 to impute my data (Frichot et al., 2015).
 
 ``` r
+
 HL_pca <- PCA(HornedLizard_VCF)
 ```
 
@@ -53,6 +55,7 @@ plots using the first few PCs.
 Let’s see how much variance is explained by the first 10 PCs.
 
 ``` r
+
 Var_exp <- as.data.frame(t(HL_pca$`Variance Explained`))
 Var_exp$PC <- seq(1:nrow(Var_exp))
 
@@ -73,6 +76,7 @@ This will also require additional information (a population assignment
 file) to color the points.
 
 ``` r
+
 # Get the population information
 Pop <- HornedLizard_Pop
 

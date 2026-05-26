@@ -43,6 +43,7 @@ generate a 95% confidence interval.
 
 ``` r
 
+
 # Load package and data 
 library(PopGenHelpR)
 
@@ -114,6 +115,7 @@ Next, we will do the same thing for heterozygosity.
 ### Bootstrapping for heterozygosity
 
 ``` r
+
 
 emp_obshet <- Heterozygosity(HornedLizard_VCF, HornedLizard_Pop, statistic = "Ho")
 

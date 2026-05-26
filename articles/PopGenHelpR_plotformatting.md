@@ -17,6 +17,7 @@ you have any questions or need help.
 ### Load the data and packages
 
 ``` r
+
 # Load PopGenHelpR
 library(PopGenHelpR)
 library(cowplot)
@@ -34,6 +35,7 @@ We will do this using the `Ancestry_barchart` output as an example, but
 this can be done with any of the plots that `PopGenHelpR` produces.
 
 ``` r
+
 
 Base <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'))
 #> [1] "All information needed is present, moving onto plotting."
@@ -57,6 +59,7 @@ that you would need to replace `Individual Ancestry Plot` with
 below instead of what is above.
 
 ``` r
+
 
 Base2 <- Ancestry_barchart(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "individual")
 

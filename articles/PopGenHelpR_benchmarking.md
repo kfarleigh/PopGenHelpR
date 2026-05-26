@@ -38,6 +38,7 @@ We also load `vcfR` to convert between data formats ([Knaus & Grunwald,
 2017](https://doi.org/10.1111/1755-0998.12549)).
 
 ``` r
+
 # Load the packages
 library(PopGenHelpR)
 library(adegenet)
@@ -104,6 +105,7 @@ First, we need to format the data for `StAMPP`
 Now we can calculate our statistics. Let’s start with *F_(ST)*.
 
 ``` r
+
 PGH_fst <- Differentiation(dat = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Fst")
 #> [1] "vcfR object detected, proceeding to formatting."
 #> Formatting has finished, moving onto calculations
@@ -114,6 +116,7 @@ Stmp_fst <- stamppFst(Glight, nboots = 0)
 Let’s inspect the results.
 
 ``` r
+
 PGH_fst$Fst
 #>            East     South West
 #> East         NA        NA   NA
@@ -136,7 +139,7 @@ summary(Fst_comparison)
 #>  Mean   :0   Mean   :0   Mean   :NaN  
 #>  3rd Qu.:0   3rd Qu.:0   3rd Qu.: NA  
 #>  Max.   :0   Max.   :0   Max.   : NA  
-#>  NA's   :1   NA's   :2   NA's   :3
+#>  NAs    :1   NAs    :2   NAs    :3
 ```
 
 Now we move onto *Nei’s D*. We can use the same genlight that we created
@@ -144,6 +147,7 @@ for the *F_(ST)* calculations. We will calculate *Nei’s D* for both
 population’s and individual’s.
 
 ``` r
+
 PGH_ND <- Differentiation(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "NeisD")
 #> [1] "vcfR object detected, proceeding to formatting."
 #> Formatting has finished, moving onto calculations
@@ -161,6 +165,7 @@ upper triangular element of the `Stmp_popND` and `Stmp_indND` objects to
 NA.
 
 ``` r
+
 # Population comparison
 PGH_ND$NeisD_pop
 #>             East     South West
@@ -179,14 +184,14 @@ Stmp_indND[upper.tri(Stmp_indND)] <- NA
 
 popND_comparison <- PGH_ND$NeisD_pop-Stmp_popND
 summary(popND_comparison)
-#>       East               South               West  
-#>  Min.   :0.000e+00   Min.   :-1.9e-07   Min.   :0  
-#>  1st Qu.:4.518e-08   1st Qu.:-1.4e-07   1st Qu.:0  
-#>  Median :9.036e-08   Median :-9.0e-08   Median :0  
-#>  Mean   :1.840e-07   Mean   :-9.0e-08   Mean   :0  
-#>  3rd Qu.:2.760e-07   3rd Qu.:-5.0e-08   3rd Qu.:0  
-#>  Max.   :4.615e-07   Max.   : 0.0e+00   Max.   :0  
-#>                      NA's   :1          NA's   :2
+#>       East               South                 West  
+#>  Min.   :0.000e+00   Min.   :-1.896e-07   Min.   :0  
+#>  1st Qu.:4.518e-08   1st Qu.:-1.422e-07   1st Qu.:0  
+#>  Median :9.036e-08   Median :-9.480e-08   Median :0  
+#>  Mean   :1.840e-07   Mean   :-9.480e-08   Mean   :0  
+#>  3rd Qu.:2.760e-07   3rd Qu.:-4.740e-08   3rd Qu.:0  
+#>  Max.   :4.615e-07   Max.   : 0.000e+00   Max.   :0  
+#>                      NAs    :1            NAs    :2
 
 # Get the mean difference
 mean(popND_comparison, na.rm = T)
@@ -211,6 +216,7 @@ from Jost (2008). `mmod` uses genind objects so we have to do some
 format conversion first.
 
 ``` r
+
 Genind <- vcfR2genind(HornedLizard_VCF)
 Genind@pop <- as.factor(HornedLizard_Pop$Population)
 ploidy(Genind) <- 2
@@ -252,6 +258,7 @@ before calculations. Luckily we can convert the genind object from
 *Jost’s D* comparisons.
 
 ``` r
+
 Hstat <- genind2hierfstat(Genind)
 
 ### Calculate heterozygosities

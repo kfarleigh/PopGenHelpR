@@ -7,6 +7,7 @@ have any questions about the package. You can also visit our Github for
 additional examples (<https://kfarleigh.github.io/PopGenHelpR/>).
 
 ``` r
+
 # Load the package
 library(PopGenHelpR)
 ```
@@ -53,6 +54,7 @@ For example:
 `example_samples_tokeep.txt`
 
 ``` r
+
 Ind1
 Ind2
 Ind3
@@ -74,6 +76,7 @@ First, we will load the data. These data objects are examples of data
 types that can be used in the functions in `PopGenHelpR`.
 
 ``` r
+
 data("Fst_dat")
 data("Het_dat")
 data("Q_dat")
@@ -110,6 +113,7 @@ population names, respectively. You can also write the results to a csv
 if you set `write = TRUE`.
 
 ``` r
+
 Obs_Het <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Ho")
 ```
 
@@ -125,6 +129,7 @@ but can be indicated by users with `individual_col` and
 `population_col`, respectively.
 
 ``` r
+
 Fst <- Differentiation(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Fst")
 ```
 
@@ -139,6 +144,7 @@ is a vcf and population file). Otherwise, it operates just like
 `Heterozygosity` or `Differentiation`.
 
 ``` r
+
 PA <- Private.alleles(data = HornedLizard_VCF, pops = HornedLizard_Pop)
 ```
 
@@ -167,6 +173,7 @@ on how to extract the q-matrix from these programs or email Keaka
 Farleigh.
 
 ``` r
+
 # First, we separate the list elements into two separate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).
 Qmat <- Q_dat[[1]]
 Loc <- Q_dat[[2]]
@@ -185,6 +192,7 @@ each population is calculated by averaging the ancestry of the
 individuals in a particular population.
 
 ``` r
+
 Test_all$`Population Ancestry Plot`
 ```
 
@@ -202,6 +210,7 @@ population before mapping. See our GitHub for additional examples
 (<https://kfarleigh.github.io/PopGenHelpR/>).
 
 ``` r
+
 # First, we seperate the list elements into two seperate objects. The q-matrix (Qmat) and the locality information for each individual (Loc).
 Qmat <- Q_dat[[1]]
 Loc <- Q_dat[[2]]
@@ -219,6 +228,7 @@ Notice the weird partitions? We can take care of those using the
 population piechart map.
 
 ``` r
+
 Test_all_piemap$Population_piemap
 ```
 
@@ -237,6 +247,7 @@ symmetric matrix and legend label (statistic argument). You can also
 supply a color vector like we do below, but it is not required.
 
 ``` r
+
 PW_hmap <- Pairwise_heatmap(Fst_dat[[1]], statistic = "Fst", col = c("#0000FF", "#FF0000"))
 ```
 
@@ -253,6 +264,7 @@ specify relationships you want to see. Please see the documentation for
 details.
 
 ``` r
+
 NW_map <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = 2, statistic = "Fst", country_code = c("usa", "mex", "can"))
 NW_map$Map
 ```
@@ -264,6 +276,7 @@ isolate the populations with the highest and lowest Fst by supplying a
 character vector to the neighbors argument.
 
 ``` r
+
 NW_map2 <- Network_map(Fst_dat[[1]], pops = Fst_dat[[2]], neighbors = c("East_West", "East_South"), statistic = "Fst", country_code = c("usa", "mex", "can"))
 NW_map2$Map
 ```
@@ -283,6 +296,7 @@ also assumes that the coordinate column names are Latitude and
 Longitude.
 
 ``` r
+
 Het_map <- Point_map(Het_dat, statistic = "Heterozygosity", country_code = c("usa", "mex", "can"))
 Het_map$`Heterozygosity Map`
 ```
@@ -292,6 +306,7 @@ Het_map$`Heterozygosity Map`
 We can also outline the points by setting the `out.col` argument.
 
 ``` r
+
 Het_map2 <- Point_map(Het_dat, statistic = "Heterozygosity", out.col = "#000000", country_code = c("usa", "mex", "can"))
 Het_map2$`Heterozygosity Map`
 ```
@@ -304,6 +319,7 @@ indicated by columns names Latitude and Longitude. You can change the
 size of the points with the `size` argument.
 
 ``` r
+
 Sample_map <- Plot_coordinates(HornedLizard_Pop, country_code = c("usa", "mex", "can"))
 Sample_map
 ```

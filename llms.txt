@@ -24,14 +24,24 @@ about any updates or pending changes to *PopGenHelpR*.
 You can install *PopGenHelpR* using:
 
 ``` r
+
 install.packages("PopGenHelpR")
 ```
 
 You can install the development version of *PopGenHelpR* using devtools:
 
 ``` r
+
 devtools::install_github("kfarleigh/PopGenHelpR")
 ```
+
+## Citing PopGenHelpR
+
+Farleigh, K., Murphy, M.O., Blair, C., & Jezkova, T. (2026).
+PopGenHelpR: An R package to streamline and facilitate informed
+population genomic analyses and visualization of genetic ancestry,
+diversity, and differentiation. Molecular Ecology Resources, e70142.
+<https://doi.org/10.1111/1755-0998.70142>
 
 ## Citing resources used by PopGenHelpR
 

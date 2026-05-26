@@ -34,6 +34,7 @@ brief descriptions of each one.
 `Heterozygosity` function. See the code below.
 
 ``` r
+
 # Load package and toy data for all of the statistics
 library(PopGenHelpR)
 data("HornedLizard_Pop")
@@ -53,7 +54,7 @@ their data set.
 `PopGenHelpR` estimates *H_(e)* per locus and population following the
 equations provided by the Hardy-Weinberg equation. Briefly, the equation
 estimates *H_(e)* as one minus the squared frequency of each allele
-($p^{2}$ and $q^{2}$, respectively), thus giving us the expected
+($`p^2`$ and $`q^2`$, respectively), thus giving us the expected
 frequency of heterozygous genotypes (2pq) at a locus. The overall
 measure of *H_(e)* is calculated as the average of the per locus
 estimates.
@@ -61,12 +62,16 @@ estimates.
 The equation per locus is below, where *p* is the reference allele and
 *q* is the alternate allele:
 
-$$H_{e} = 1 - p^{2} - q^{2}$$
+``` math
+H_e = 1-p^2-q^2
+```
 
 Thus, the equation to calculate the overall *H_(e)* is below, where *K*
 is the number of SNPs.
 
-$$H_{e} = \frac{\sum\limits_{k = 1}^{K}\left( 1 - p^{2} - q^{2} \right)}{K}$$
+``` math
+H_e =  \frac{\sum_{k=1}^K(1-p^2-q^2)}{K}
+```
 
 #### How do we use *H_(e)*
 
@@ -80,6 +85,7 @@ natural selection, or any combination.
 You can calculate *H_(e)* in `PopGenHelpR` using the command below.
 
 ``` r
+
 He <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "He")
 ```
 
@@ -94,18 +100,24 @@ estimates.
 
 The equation per locus is below:
 
-$$H_{o} = 1 - \frac{Number\; of\; homoyzgotes}{Number\; of\; samples}$$
+``` math
+H_o = 1- \frac{Number\; of\; homoyzgotes}{Number\; of\; samples}
+```
 
 Thus the overall measure of *H_(o)* is below, where K is the number of
 SNPs:
 
-$$H_{o} = \frac{\sum\limits_{k = 1}^{K}{1 - \frac{Number\; of\; homoyzgotes}{Number\; of\; samples}}}{K}$$
+``` math
+H_o = \frac{\sum_{k = 1}^K{1- \frac{Number\; of\; homoyzgotes}{Number\; of\; samples}}}{K}
+```
 
 The formal equation of *H_(o)* from Nei (1987) is below: *Pkii* is the
 proportion of homozygote (*i*) in a sample (*k*), and *np* is the number
 of samples:
 
-$$H_{o} = 1 - \sum\limits_{k}\sum\limits_{i}\frac{Pkii}{np}$$
+``` math
+H_o = 1-\sum_{k}\sum_{i}\frac{Pkii}{np} 
+```
 
 #### How do we use *H_(o)*
 
@@ -119,6 +131,7 @@ as inbreeding (*H_(o)* \< *H_(e)*) or heterozygote advantage (*H_(o)* \>
 You can calculate *H_(o)* in `PopGenHelpR` using the command below.
 
 ``` r
+
 Ho <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Ho")
 ```
 
@@ -137,7 +150,9 @@ The proportion of heterozygous loci (*PHt*) is calculated as the number
 of heterozygous SNPs divided by the number of genotyped SNPs in each
 individual.
 
-$$PHt = \frac{Number\; of\; heterozygous\; SNPs}{Number\; of\; genotyped\; SNPs}$$
+``` math
+PHt = \frac{Number\; of\; heterozygous\; SNPs}{Number\; of\; genotyped\; SNPs}
+```
 
 #### How do we use *PHt*
 
@@ -154,6 +169,7 @@ fitness.
 You can calculate *PHt* in `PopGenHelpR` using the command below.
 
 ``` r
+
 PHt <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "PHt")
 ```
 
@@ -164,7 +180,9 @@ heterozygosity (*Hs_(exp)*) is calculated as *PHt* divided by the mean
 expected heterozygosity (*H_(e)*) for each individual. Please see the
 equation below.
 
-$$Hs_{exp} = \frac{PHt}{H_{e}}$$
+``` math
+Hs_{exp} = \frac{PHt}{H_e}
+```
 
 #### How do we use *Hs_(exp)*
 
@@ -179,6 +197,7 @@ on the same scale and to assess inbreeding. Like *PHt*, higher
 You can calculate *Hs_(exp)* in `PopGenHelpR` using the command below.
 
 ``` r
+
 Hs_exp <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Hs_exp")
 ```
 
@@ -189,7 +208,9 @@ heterozygosity (*Hs_(obs)*) is calculated as *PHt* divided by the mean
 observed heterozygosity (*H_(o)*) for each individual. Please see the
 equation below.
 
-$$Hs_{obs} = \frac{PHt}{H_{o}}$$
+``` math
+Hs_{obs} = \frac{PHt}{H_o}
+```
 
 #### How do we use *Hs_(obs)*
 
@@ -204,6 +225,7 @@ on the same scale and to assess inbreeding. Like *PHt*, higher
 You can calculate *Hs_(obs)* in `PopGenHelpR` using the command below.
 
 ``` r
+
 Hs_obs <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "Hs_obs")
 ```
 
@@ -216,7 +238,9 @@ the frequency of the ith allele divided by two times the number of loci
 minus the sum of the frequency of the ith allele (see equation 2.1 in
 Amos et al., 2001).
 
-$$IR = \frac{\left( 2H - \sum f_{i} \right)}{\left( 2N - \sum f_{i} \right)}$$
+``` math
+IR = \frac{(2H-\sum{f_i})}{(2N-\sum{f_i})}
+```
 
 #### How do we use *IR*?
 
@@ -231,18 +255,21 @@ homozygous).
 You can calculate *IR* in `PopGenHelpR` using the command below.
 
 ``` r
+
 IR <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "IR")
 ```
 
 ### Homozygosity by locus (*HL*)
 
 Homozygosity by locus (*HL*) is calculated as the expected
-heterozygosity of loci in homozygosis ($E_{h}$) divided by the sum of
-the expected heterozygosity of loci in homozygosis ($E_{h}$) and the
-expected heterozygosity of loci in heterozygosis ($E_{j}$; see Aparicio
+heterozygosity of loci in homozygosis ($`E_h`$) divided by the sum of
+the expected heterozygosity of loci in homozygosis ($`E_h`$) and the
+expected heterozygosity of loci in heterozygosis ($`E_j`$; see Aparicio
 et al., 2006). Please see the equation below.
 
-$$HL = \frac{\sum E_{h}}{\sum E_{h} + \sum E_{j}}$$
+``` math
+HL = \frac{\sum{E_h}}{\sum{E_h} + \sum{E_j}}
+```
 
 #### How do we use *HL*?
 
@@ -258,6 +285,7 @@ when all loci are heterozygous and 1 when all loci are homozygous
 You can calculate *HL* in `PopGenHelpR` using the command below.
 
 ``` r
+
 HL <- Heterozygosity(data = HornedLizard_VCF, pops = HornedLizard_Pop, statistic = "HL")
 ```
 
