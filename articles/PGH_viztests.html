@@ -98,7 +98,7 @@ website</a>.</em></strong></p>
 <pre><code><span><span class="co">## Downloading GitHub repo kfarleigh/PopGenHelpR@HEAD</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpqKp93s/remotes4cb071fd1423/kfarleigh-PopGenHelpR-31d741d/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/RtmpASq2j3/remotes20773eeec628/kfarleigh-PopGenHelpR-31d741d/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘PopGenHelpR’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
@@ -130,11 +130,11 @@ website</a>.</em></strong></p>
 <span></span>
 <span><span class="co"># Get elevation data </span></span>
 <span><span class="va">raster</span> <span class="op">&lt;-</span> <span class="fu">geodata</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/geodata/reference/elevation.html" class="external-link">elevation_global</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Cached as: /tmp/RtmpqKp93s/elevation/wc2.1_5m//wc2.1_5m_elev.zip</span></span></code></pre>
+<pre><code><span><span class="co">## Cached as: /tmp/RtmpASq2j3/elevation/wc2.1_5m//wc2.1_5m_elev.zip</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get temperature data</span></span>
 <span><span class="va">temp_ras</span> <span class="op">&lt;-</span> <span class="fu">geodata</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/geodata/reference/worldclim.html" class="external-link">worldclim_global</a></span><span class="op">(</span><span class="st">"tavg"</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Cached as: /tmp/RtmpqKp93s/climate/wc2.1_5m//wc2.1_5m_tavg.zip</span></span></code></pre>
+<pre><code><span><span class="co">## Cached as: /tmp/RtmpASq2j3/climate/wc2.1_5m//wc2.1_5m_tavg.zip</span></span></code></pre>
 <div class="section level4">
 <h4 id="ancestry-barchart">Ancestry barchart<a class="anchor" aria-label="anchor" href="#ancestry-barchart"></a>
 </h4>
@@ -278,10 +278,10 @@ types.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Make map without shapefiles, this is what the original version of PGH did.</span></span>
 <span><span class="va">Base_piemap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Piechart_map.html">Piechart_map</a></span><span class="op">(</span>anc.mat <span class="op">=</span> <span class="va">Qmat</span>, pops <span class="op">=</span> <span class="va">Pops</span>, K <span class="op">=</span> <span class="fl">5</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'#d73027'</span>, <span class="st">'#fc8d59'</span>, <span class="st">'#e0f3f8'</span>, <span class="st">'#91bfdb'</span>, <span class="st">'#4575b4'</span><span class="op">)</span>, plot.type <span class="op">=</span> <span class="st">"all"</span>, Lat_buffer <span class="op">=</span> <span class="fl">3</span>, Long_buffer <span class="op">=</span> <span class="fl">3</span>, country_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"usa"</span>, <span class="st">"can"</span>, <span class="st">"mex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Cached as: /tmp/RtmpqKp93s/gadm/gadm36_adm0_r5_pk.rds</span></span></code></pre>
-<pre><code><span><span class="co">## Cached as: /tmp/RtmpqKp93s/gadm/gadm41_USA_1_pk.rds</span></span></code></pre>
-<pre><code><span><span class="co">## Cached as: /tmp/RtmpqKp93s/gadm/gadm41_CAN_1_pk.rds</span></span></code></pre>
-<pre><code><span><span class="co">## Cached as: /tmp/RtmpqKp93s/gadm/gadm41_MEX_1_pk.rds</span></span></code></pre>
+<pre><code><span><span class="co">## Cached as: /tmp/RtmpASq2j3/gadm/gadm36_adm0_r5_pk.rds</span></span></code></pre>
+<pre><code><span><span class="co">## Cached as: /tmp/RtmpASq2j3/gadm/gadm41_USA_1_pk.rds</span></span></code></pre>
+<pre><code><span><span class="co">## Cached as: /tmp/RtmpASq2j3/gadm/gadm41_CAN_1_pk.rds</span></span></code></pre>
+<pre><code><span><span class="co">## Cached as: /tmp/RtmpASq2j3/gadm/gadm41_MEX_1_pk.rds</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: There was 1 warning in `dplyr::summarise()`.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> In argument: `dplyr::across(1:(K + 2), mean, na.rm = TRUE)`.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> In group 1: `Pop = "1"`.</span></span>
