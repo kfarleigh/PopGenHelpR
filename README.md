@@ -5,7 +5,7 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/PopGenHelpR)](https://cran.r-project.org/package=PopGenHelpR)
 [![Downloads from the RStudio CRAN
 mirror](https://cranlogs.r-pkg.org/badges/PopGenHelpR)](https://cran.r-project.org/package=PopGenHelpR)
-[![DOI:10.1111/1755-0998.70142](https://img.shields.io/)](https://doi.org/10.1111/1755-0998.70142)
+[![DOI:10.1111/1755-0998.70142](https://img.shields.io/badge/DOI-10.1111/1755--0998.70142-blue.svg)](https://doi.org/10.1111/1755-0998.70142)
 [![CRAN/METACRAN](https://img.shields.io/cran/l/PopGenHelpR)](https://opensource.org/licenses/GPL-3.0)
 [![R-CMD-check](https://github.com/kfarleigh/PopGenHelpR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kfarleigh/PopGenHelpR/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
