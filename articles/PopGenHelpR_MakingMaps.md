@@ -66,14 +66,14 @@ Let’s make a few maps!
 
 
 # Install developmental PopGenHelpR if needed 
-devtools::install_github("kfarleigh/PopGenHelpR")
+devtools::install_github("kfarleigh/PopGenHelpR", force = FALSE)
 #> Warning: `install_github()` was deprecated in devtools 2.5.0.
 #> ℹ Please use pak::pak("user/repo") instead.
 #> This warning is displayed once per session.
 #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 #> generated.
 #> Using github PAT from envvar GITHUB_PAT. Use `gitcreds::gitcreds_set()` and unset GITHUB_PAT in .Renviron (or elsewhere) if you want to use the more secure git credential store instead.
-#> Skipping install of 'PopGenHelpR' from a github remote, the SHA1 (2f92f9dd) has not changed since last install.
+#> Skipping install of 'PopGenHelpR' from a github remote, the SHA1 (eef65346) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 
 base::system("R --no-save") 
@@ -101,11 +101,11 @@ shapefiles <- shapefiles[1:8]
 
 # Get elevation data 
 raster <- geodata::elevation_global(path = tempdir(), res = 5)
-#> Cached as: /tmp/RtmpNPfWwm/elevation/wc2.1_5m//wc2.1_5m_elev.zip
+#> The geodata server is temporary out of service for maintenance. It should be back on 22 June.
 
 # Get temperature data
 temp_ras <- geodata::worldclim_global("tavg", path = tempdir(), res = 5)
-#> Cached as: /tmp/RtmpNPfWwm/climate/wc2.1_5m//wc2.1_5m_tavg.zip
+#> Cached as: /tmp/RtmpwhwiMJ/climate/wc2.1_5m//wc2.1_5m_tavg.zip
 ```
 
 #### `Piechart_map` with shapefiles
@@ -115,10 +115,10 @@ First, let’s make a piechart map with shapefiles.
 ``` r
 
 Shap2_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", Lat_buffer = 3, Long_buffer = 3, country_code = c("usa", "can", "mex"), shapefile = shapefiles, shapefile_col = c('#9e0142','#d53e4f','#f46d43','#fdae61','#abdda4','#66c2a5','#3288bd','#5e4fa2'), shapefile_plot_position = 2,north_arrow = T, scale_bar = T, north_arrow_position = "tr") 
-#> Cached as: /tmp/RtmpNPfWwm/gadm/gadm36_adm0_r5_pk.rds
-#> Cached as: /tmp/RtmpNPfWwm/gadm/gadm41_USA_1_pk.rds
-#> Cached as: /tmp/RtmpNPfWwm/gadm/gadm41_CAN_1_pk.rds
-#> Cached as: /tmp/RtmpNPfWwm/gadm/gadm41_MEX_1_pk.rds
+#> Cached as: /tmp/RtmpwhwiMJ/gadm/gadm36_adm0_r5_pk.rds
+#> Cached as: /tmp/RtmpwhwiMJ/gadm/gadm41_USA_1_pk.rds
+#> Cached as: /tmp/RtmpwhwiMJ/gadm/gadm41_CAN_1_pk.rds
+#> Cached as: /tmp/RtmpwhwiMJ/gadm/gadm41_MEX_1_pk.rds
 #> Warning: There was 1 warning in `dplyr::summarise()`.
 #> ℹ In argument: `dplyr::across(1:(K + 2), mean, na.rm = TRUE)`.
 #> ℹ In group 1: `Pop = "1"`.
@@ -233,3 +233,36 @@ plot_grid(Shap2_piemap_arrow$Population_piemap, Shap2_piemap_arrow2$Population_p
 ```
 
 ![](PopGenHelpR_MakingMaps_files/figure-html/Arrow-1.png)
+
+#### Evolution 2026 Poster
+
+You can make the maps that were on the Evolution 2026 poster using the
+code below. Please email Keaka Farleigh if you would like access to the
+shapefile.
+
+``` r
+
+shapefiles <- "/Users/keaka/Desktop/Projects/PopGenHelpR_offline/platy_range/phry_plat_pl.shp"
+
+vect_shp <- vect(shapefiles)
+
+PC_ras1 <- Plot_coordinates(Pop_dat, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population, group_col = c('#66c2a5','#3288bd','#5e4fa2'), country_code = c("usa", "mex", "can"),
+                            raster = raster, raster_plot_position = 1, interpolate_raster = TRUE, Lat_buffer = 3, Long_buffer = 3, 
+                            discrete_raster = TRUE,    
+                            raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'), raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "none", scale_bar = TRUE, north_arrow_position = "tr", north_arrow = TRUE)
+
+PC <- Plot_coordinates(Pop_dat, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population, group_col = c('#66c2a5','#3288bd','#5e4fa2'), 
+                       country_code = c("usa", "mex", "can"), Lat_buffer = 3, Long_buffer = 3,
+                       north_arrow = T, scale_bar = T, north_arrow_position = "tr")    
+
+PC_shap <-  Plot_coordinates(Pop_dat, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population, group_col = c('#66c2a5','#3288bd','#5e4fa2'), country_code = c("usa", "mex", "can"), 
+                             shapefile = shapefiles, shapefile_col = NA, shapefile_outline_col = "black",
+                             Lat_buffer = 3, Long_buffer = 3, shapefile_plot_position = 2,north_arrow = T, scale_bar = T, north_arrow_position = "tr", shp_outwidth = 0.5)    
+                           
+PC_shap_ras <- Plot_coordinates(Pop_dat, Longitude_col = 3, Latitude_col = 4, group = Pop_dat$Population, group_col = c('#66c2a5','#3288bd','#5e4fa2'), country_code = c("usa", "mex", "can"), 
+                                shapefile = shapefiles, shapefile_col = NA, shapefile_outline_col = "black",
+                                Lat_buffer = 3, Long_buffer = 3,  raster = raster, raster_plot_position = 1, interpolate_raster = TRUE,
+                                discrete_raster = TRUE, raster_col = c('white','#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'),
+                                raster_breaks = c(0,500,1000,1500,2000,2500,3000,3500,4000,5000), legend_pos = "none",
+                                north_arrow = T, scale_bar = T, north_arrow_position = "tr", shp_outwidth = 0.5, shapefile_plot_position = 1)    
+```
