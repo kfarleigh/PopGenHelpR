@@ -35,7 +35,7 @@ devtools::install_github("kfarleigh/PopGenHelpR")
 
     ## 
     ## ── R CMD build ─────────────────────────────────────────────────────────────────
-    ## * checking for file ‘/tmp/RtmpMMeoZ6/remotes4cdd4879b7/kfarleigh-PopGenHelpR-eef6534/DESCRIPTION’ ... OK
+    ## * checking for file ‘/tmp/RtmpYqwqJ0/remotes21ee1e92c598/kfarleigh-PopGenHelpR-eef6534/DESCRIPTION’ ... OK
     ## * preparing ‘PopGenHelpR’:
     ## * checking DESCRIPTION meta-information ... OK
     ## * checking for LF line-endings in source and make files and shell scripts
@@ -72,7 +72,7 @@ shapefiles <- shapefiles[1:8]
 raster <- geodata::elevation_global(path = tempdir(), res = 5)
 ```
 
-    ## Cached as: /tmp/RtmpMMeoZ6/elevation/wc2.1_5m//wc2.1_5m_elev.zip
+    ## Cached as: /tmp/RtmpYqwqJ0/elevation/wc2.1_5m//wc2.1_5m_elev.zip
 
 ``` r
 
@@ -80,7 +80,7 @@ raster <- geodata::elevation_global(path = tempdir(), res = 5)
 temp_ras <- geodata::worldclim_global("tavg", path = tempdir(), res = 5)
 ```
 
-    ## Cached as: /tmp/RtmpMMeoZ6/climate/wc2.1_5m//wc2.1_5m_tavg.zip
+    ## Cached as: /tmp/RtmpYqwqJ0/climate/wc2.1_5m//wc2.1_5m_tavg.zip
 
 #### Ancestry barchart
 
@@ -295,13 +295,13 @@ arrow, or scale bar. We show that PGH works with differnt plot types.
 Base_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", Lat_buffer = 3, Long_buffer = 3, country_code = c("usa", "can", "mex"))
 ```
 
-    ## Cached as: /tmp/RtmpMMeoZ6/gadm/gadm36_adm0_r5_pk.rds
+    ## Cached as: /tmp/RtmpYqwqJ0/gadm/gadm36_adm0_r5_pk.rds
 
-    ## Cached as: /tmp/RtmpMMeoZ6/gadm/gadm41_USA_1_pk.rds
+    ## Cached as: /tmp/RtmpYqwqJ0/gadm/gadm41_USA_1_pk.rds
 
-    ## Cached as: /tmp/RtmpMMeoZ6/gadm/gadm41_CAN_1_pk.rds
+    ## Cached as: /tmp/RtmpYqwqJ0/gadm/gadm41_CAN_1_pk.rds
 
-    ## Cached as: /tmp/RtmpMMeoZ6/gadm/gadm41_MEX_1_pk.rds
+    ## Cached as: /tmp/RtmpYqwqJ0/gadm/gadm41_MEX_1_pk.rds
 
     ## Warning: There was 1 warning in `dplyr::summarise()`.
     ## ℹ In argument: `dplyr::across(1:(K + 2), mean, na.rm = TRUE)`.

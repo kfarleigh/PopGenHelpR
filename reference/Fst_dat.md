@@ -39,8 +39,11 @@ Loc <- Fst_dat[[2]]
  Test <- Network_map(dat = Fst, pops = Loc,
 neighbors = 2,col = c('#4575b4', '#91bfdb', '#e0f3f8','#fd8d3c','#fc4e2a'),
 statistic = "Fst", Lat_buffer = 1, Long_buffer = 1)# }
-#> The geodata server is temporary out of service for maintenance. It should be back on 22 June. 
-#> Error: unable to find an inherited method for function ‘crop’ for signature ‘x = "NULL"’
+#> Cached as: /tmp/RtmpZO1VC2/gadm/gadm36_adm0_r5_pk.rds
+#> Registered S3 method overwritten by 'spdep':
+#>   method   from
+#>   plot.mst ape 
+#> Warning: k greater than one-third of the number of data points
 
 Fstat_plot <- Pairwise_heatmap(dat = Fst, statistic = 'FST')
 ```

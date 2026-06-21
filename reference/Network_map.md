@@ -218,8 +218,5 @@ Loc <- Fst_dat[[2]]
 Test <- Network_map(dat = Fst, pops = Loc,
 neighbors = 2,col = c('#4575b4', '#91bfdb', '#e0f3f8','#fd8d3c','#fc4e2a'),
 statistic = "Fst", Lat_buffer = 1, Long_buffer = 1)# }
-#> Registered S3 method overwritten by 'spdep':
-#>   method   from
-#>   plot.mst ape 
 #> Warning: k greater than one-third of the number of data points
 ```

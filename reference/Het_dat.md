@@ -46,5 +46,4 @@ shaping genomic variation across populations of the Desert Horned Lizard
 # \donttest{
 data(Het_dat)
 Test <- Point_map(Het_dat, statistic = "Heterozygosity")# }
-#> Cached as: /tmp/Rtmpb9RhkE/gadm/gadm36_adm0_r5_pk.rds
 ```
