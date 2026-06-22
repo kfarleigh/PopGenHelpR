@@ -50,7 +50,7 @@ Let's make a few maps!
 ```{r load data and source functions}
 
 # Install developmental PopGenHelpR if needed 
-devtools::install_github("kfarleigh/PopGenHelpR", force = FALSE)
+devtools::install_github("kfarleigh/PopGenHelpR")
 
 base::system("R --no-save") 
 
