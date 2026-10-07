@@ -66,14 +66,14 @@ Let’s make a few maps!
 
 
 # Install developmental PopGenHelpR if needed 
-devtools::install_github("kfarleigh/PopGenHelpR", force = FALSE)
+devtools::install_github("kfarleigh/PopGenHelpR")
 #> Warning: `install_github()` was deprecated in devtools 2.5.0.
 #> ℹ Please use pak::pak("user/repo") instead.
 #> This warning is displayed once per session.
 #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 #> generated.
 #> Using github PAT from envvar GITHUB_PAT. Use `gitcreds::gitcreds_set()` and unset GITHUB_PAT in .Renviron (or elsewhere) if you want to use the more secure git credential store instead.
-#> Skipping install of 'PopGenHelpR' from a github remote, the SHA1 (eef65346) has not changed since last install.
+#> Skipping install of 'PopGenHelpR' from a github remote, the SHA1 (f73250cc) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 
 base::system("R --no-save") 
@@ -101,11 +101,11 @@ shapefiles <- shapefiles[1:8]
 
 # Get elevation data 
 raster <- geodata::elevation_global(path = tempdir(), res = 5)
-#> Cached as: /tmp/RtmpRNihkU/elevation/wc2.1_5m//wc2.1_5m_elev.zip
+#> Cached as: /tmp/RtmppiQfbV/elevation/wc2.1_5m//wc2.1_5m_elev.zip
 
 # Get temperature data
 temp_ras <- geodata::worldclim_global("tavg", path = tempdir(), res = 5)
-#> Cached as: /tmp/RtmpRNihkU/climate/wc2.1_5m//wc2.1_5m_tavg.zip
+#> Cached as: /tmp/RtmppiQfbV/climate/wc2.1_5m//wc2.1_5m_tavg.zip
 ```
 
 #### `Piechart_map` with shapefiles
@@ -115,10 +115,10 @@ First, let’s make a piechart map with shapefiles.
 ``` r
 
 Shap2_piemap <- Piechart_map(anc.mat = Qmat, pops = Pops, K = 5, col = c('#d73027', '#fc8d59', '#e0f3f8', '#91bfdb', '#4575b4'), plot.type = "all", Lat_buffer = 3, Long_buffer = 3, country_code = c("usa", "can", "mex"), shapefile = shapefiles, shapefile_col = c('#9e0142','#d53e4f','#f46d43','#fdae61','#abdda4','#66c2a5','#3288bd','#5e4fa2'), shapefile_plot_position = 2,north_arrow = T, scale_bar = T, north_arrow_position = "tr") 
-#> Cached as: /tmp/RtmpRNihkU/gadm/gadm36_adm0_r5_pk.rds
-#> Cached as: /tmp/RtmpRNihkU/gadm/gadm41_USA_1_pk.rds
-#> Cached as: /tmp/RtmpRNihkU/gadm/gadm41_CAN_1_pk.rds
-#> Cached as: /tmp/RtmpRNihkU/gadm/gadm41_MEX_1_pk.rds
+#> Cached as: /tmp/RtmppiQfbV/gadm/gadm36_adm0_r5_pk.rds
+#> Cached as: /tmp/RtmppiQfbV/gadm/gadm41_USA_1_pk.rds
+#> Cached as: /tmp/RtmppiQfbV/gadm/gadm41_CAN_1_pk.rds
+#> Cached as: /tmp/RtmppiQfbV/gadm/gadm41_MEX_1_pk.rds
 #> Warning: There was 1 warning in `dplyr::summarise()`.
 #> ℹ In argument: `dplyr::across(1:(K + 2), mean, na.rm = TRUE)`.
 #> ℹ In group 1: `Pop = "1"`.

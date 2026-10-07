@@ -28,11 +28,12 @@ You can install *PopGenHelpR* using:
 install.packages("PopGenHelpR")
 ```
 
-You can install the development version of *PopGenHelpR* using devtools:
+You can install the development version of *PopGenHelpR* using pak:
 
 ``` r
 
-devtools::install_github("kfarleigh/PopGenHelpR")
+# install.packages("pak")
+pak::pak("kfarleigh/PopGenHelpR")
 ```
 
 ## Citing PopGenHelpR

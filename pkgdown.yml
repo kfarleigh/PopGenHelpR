@@ -1,5 +1,5 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   articles/PGH_viztests: PGH_viztests.html
@@ -12,7 +12,7 @@ articles:
   articles/PopGenHelpR_sortQmatrix: PopGenHelpR_sortQmatrix.html
   articles/PopGenHelpR_Uncertainty: PopGenHelpR_Uncertainty.html
   PopGenHelpR_vignette: PopGenHelpR_vignette.html
-last_built: 2026-06-21T21:26Z
+last_built: 2026-10-07T12:57Z
 urls:
   reference: https://kfarleigh.github.io/PopGenHelpR/reference
   article: https://kfarleigh.github.io/PopGenHelpR/articles
